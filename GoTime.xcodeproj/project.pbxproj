@@ -8,13 +8,18 @@
 
 /* Begin PBXBuildFile section */
 		63A3F1EF1E34FE3800AA8A92 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A3F1EE1E34FE3800AA8A92 /* AppDelegate.swift */; };
-		63A3F1F11E34FE3800AA8A92 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A3F1F01E34FE3800AA8A92 /* ViewController.swift */; };
 		63A3F1F41E34FE3800AA8A92 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 63A3F1F21E34FE3800AA8A92 /* Main.storyboard */; };
 		63A3F1F71E34FE3800AA8A92 /* GoTime.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 63A3F1F51E34FE3800AA8A92 /* GoTime.xcdatamodeld */; };
 		63A3F1F91E34FE3800AA8A92 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 63A3F1F81E34FE3800AA8A92 /* Assets.xcassets */; };
 		63A3F1FC1E34FE3800AA8A92 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 63A3F1FA1E34FE3800AA8A92 /* LaunchScreen.storyboard */; };
 		63A3F2071E34FE3900AA8A92 /* GoTimeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A3F2061E34FE3900AA8A92 /* GoTimeTests.swift */; };
 		63A3F2121E34FE3900AA8A92 /* GoTimeUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A3F2111E34FE3900AA8A92 /* GoTimeUITests.swift */; };
+		63A3F2211E35151600AA8A92 /* SnapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63A3F2201E35151600AA8A92 /* SnapKit.framework */; };
+		63A3F2291E35355500AA8A92 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A3F2241E35355500AA8A92 /* Constants.swift */; };
+		63A3F22A1E35355500AA8A92 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A3F2251E35355500AA8A92 /* MainViewController.swift */; };
+		63A3F22B1E35355500AA8A92 /* MainViewControllerConstraints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A3F2261E35355500AA8A92 /* MainViewControllerConstraints.swift */; };
+		63A3F22C1E35355500AA8A92 /* StartButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A3F2271E35355500AA8A92 /* StartButton.swift */; };
+		63A3F22D1E35355500AA8A92 /* StartButtonDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A3F2281E35355500AA8A92 /* StartButtonDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -37,7 +42,6 @@
 /* Begin PBXFileReference section */
 		63A3F1EB1E34FE3800AA8A92 /* GoTime.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GoTime.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		63A3F1EE1E34FE3800AA8A92 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		63A3F1F01E34FE3800AA8A92 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		63A3F1F31E34FE3800AA8A92 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		63A3F1F61E34FE3800AA8A92 /* GoTime.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = GoTime.xcdatamodel; sourceTree = "<group>"; };
 		63A3F1F81E34FE3800AA8A92 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -49,6 +53,12 @@
 		63A3F20D1E34FE3900AA8A92 /* GoTimeUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GoTimeUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		63A3F2111E34FE3900AA8A92 /* GoTimeUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoTimeUITests.swift; sourceTree = "<group>"; };
 		63A3F2131E34FE3900AA8A92 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		63A3F2201E35151600AA8A92 /* SnapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SnapKit.framework; path = Carthage/Build/iOS/SnapKit.framework; sourceTree = "<group>"; };
+		63A3F2241E35355500AA8A92 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		63A3F2251E35355500AA8A92 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		63A3F2261E35355500AA8A92 /* MainViewControllerConstraints.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewControllerConstraints.swift; sourceTree = "<group>"; };
+		63A3F2271E35355500AA8A92 /* StartButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartButton.swift; sourceTree = "<group>"; };
+		63A3F2281E35355500AA8A92 /* StartButtonDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartButtonDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +66,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				63A3F2211E35151600AA8A92 /* SnapKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -83,6 +94,7 @@
 				63A3F2051E34FE3900AA8A92 /* GoTimeTests */,
 				63A3F2101E34FE3900AA8A92 /* GoTimeUITests */,
 				63A3F1EC1E34FE3800AA8A92 /* Products */,
+				63A3F21F1E35151600AA8A92 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -99,11 +111,12 @@
 		63A3F1ED1E34FE3800AA8A92 /* GoTime */ = {
 			isa = PBXGroup;
 			children = (
+				63A3F22E1E35356200AA8A92 /* Components */,
+				63A3F22F1E35356B00AA8A92 /* Controllers */,
+				63A3F2321E35363C00AA8A92 /* Storyboards */,
+				63A3F2241E35355500AA8A92 /* Constants.swift */,
 				63A3F1EE1E34FE3800AA8A92 /* AppDelegate.swift */,
-				63A3F1F01E34FE3800AA8A92 /* ViewController.swift */,
-				63A3F1F21E34FE3800AA8A92 /* Main.storyboard */,
 				63A3F1F81E34FE3800AA8A92 /* Assets.xcassets */,
-				63A3F1FA1E34FE3800AA8A92 /* LaunchScreen.storyboard */,
 				63A3F1FD1E34FE3800AA8A92 /* Info.plist */,
 				63A3F1F51E34FE3800AA8A92 /* GoTime.xcdatamodeld */,
 			);
@@ -128,6 +141,57 @@
 			path = GoTimeUITests;
 			sourceTree = "<group>";
 		};
+		63A3F21F1E35151600AA8A92 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				63A3F2201E35151600AA8A92 /* SnapKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		63A3F22E1E35356200AA8A92 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				63A3F2311E35359A00AA8A92 /* StartButton */,
+			);
+			name = Components;
+			sourceTree = "<group>";
+		};
+		63A3F22F1E35356B00AA8A92 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				63A3F2301E35358400AA8A92 /* Constraints */,
+				63A3F2251E35355500AA8A92 /* MainViewController.swift */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		63A3F2301E35358400AA8A92 /* Constraints */ = {
+			isa = PBXGroup;
+			children = (
+				63A3F2261E35355500AA8A92 /* MainViewControllerConstraints.swift */,
+			);
+			name = Constraints;
+			sourceTree = "<group>";
+		};
+		63A3F2311E35359A00AA8A92 /* StartButton */ = {
+			isa = PBXGroup;
+			children = (
+				63A3F2271E35355500AA8A92 /* StartButton.swift */,
+				63A3F2281E35355500AA8A92 /* StartButtonDelegate.swift */,
+			);
+			name = StartButton;
+			sourceTree = "<group>";
+		};
+		63A3F2321E35363C00AA8A92 /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				63A3F1F21E34FE3800AA8A92 /* Main.storyboard */,
+				63A3F1FA1E34FE3800AA8A92 /* LaunchScreen.storyboard */,
+			);
+			name = Storyboards;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -138,6 +202,7 @@
 				63A3F1E71E34FE3800AA8A92 /* Sources */,
 				63A3F1E81E34FE3800AA8A92 /* Frameworks */,
 				63A3F1E91E34FE3800AA8A92 /* Resources */,
+				63A3F2231E3516CB00AA8A92 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -260,14 +325,35 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		63A3F2231E3516CB00AA8A92 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/Carthage/Build/iOS/SnapKit.framework",
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/usr/local/bin/carthage copy-frameworks";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		63A3F1E71E34FE3800AA8A92 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				63A3F22B1E35355500AA8A92 /* MainViewControllerConstraints.swift in Sources */,
+				63A3F22D1E35355500AA8A92 /* StartButtonDelegate.swift in Sources */,
 				63A3F1F71E34FE3800AA8A92 /* GoTime.xcdatamodeld in Sources */,
-				63A3F1F11E34FE3800AA8A92 /* ViewController.swift in Sources */,
 				63A3F1EF1E34FE3800AA8A92 /* AppDelegate.swift in Sources */,
+				63A3F2291E35355500AA8A92 /* Constants.swift in Sources */,
+				63A3F22A1E35355500AA8A92 /* MainViewController.swift in Sources */,
+				63A3F22C1E35355500AA8A92 /* StartButton.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -418,6 +504,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = H8RKQ3P369;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = GoTime/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = us.johnkeith.GoTime;
@@ -431,6 +521,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = H8RKQ3P369;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = GoTime/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = us.johnkeith.GoTime;
@@ -516,6 +610,7 @@
 				63A3F2181E34FE3900AA8A92 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		63A3F2191E34FE3900AA8A92 /* Build configuration list for PBXNativeTarget "GoTimeTests" */ = {
 			isa = XCConfigurationList;
@@ -524,6 +619,7 @@
 				63A3F21B1E34FE3900AA8A92 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		63A3F21C1E34FE3900AA8A92 /* Build configuration list for PBXNativeTarget "GoTimeUITests" */ = {
 			isa = XCConfigurationList;
@@ -532,6 +628,7 @@
 				63A3F21E1E34FE3900AA8A92 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
