@@ -9,5 +9,5 @@
 import UIKit
 
 protocol StartButtonDelegate: class {
-    func onStartTap(sender: UIButton)
+    func onStartTap(sender: StartButton)
 }

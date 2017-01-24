@@ -15,20 +15,21 @@ class MainViewController: UIViewController {
         super.viewDidLoad()
         
         startButton.delegate = self
-        
         self.view.addSubview(startButton)
         
         applyConstraints()
     }
     
     func applyConstraints() {
-        MainViewControllerConstraints.applyStartButtonConstraints(startButton: startButton)
+        MainViewControllerConstraints.positionStartButton(startButton: startButton)
     }
 }
 
 extension MainViewController: StartButtonDelegate {
-    func onStartTap(sender: UIButton) {
+    func onStartTap(sender: StartButton) {
         print("Start tap has been delegated")
+        
+        sender.hide()
     }
 }
 

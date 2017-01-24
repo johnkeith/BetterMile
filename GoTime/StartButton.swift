@@ -40,7 +40,15 @@ class StartButton: UIButton {
         addTarget(self, action:#selector(onStartTap), for: .touchUpInside)
     }
     
-    func onStartTap(sender: UIButton) {
+    func onStartTap(sender: StartButton) {
         delegate?.onStartTap(sender: sender)
+    }
+    
+    func hide() {
+        isHidden = true
+    }
+    
+    func show() {
+        isHidden = false
     }
 }

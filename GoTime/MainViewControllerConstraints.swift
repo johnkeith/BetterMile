@@ -13,7 +13,7 @@ class MainViewControllerConstraints {
     static let sharedInstance = MainViewControllerConstraints()
     private init() {}
     
-    class func applyStartButtonConstraints(startButton: UIButton) {
+    class func positionStartButton(startButton: UIButton) {
         startButton.snp.makeConstraints { (make) -> Void in
             make.center.equalTo(startButton.superview!)
             make.height.equalTo(startButton.superview!.frame.height / 5)
