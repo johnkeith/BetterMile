@@ -9,7 +9,17 @@
 import UIKit
 
 class MainViewController: UIViewController {
-    let startButton = StartButton()
+    var startButton: StartButton
+    
+    init(startButton: StartButton = StartButton()) {
+        self.startButton = startButton
+        
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) is not supported")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
