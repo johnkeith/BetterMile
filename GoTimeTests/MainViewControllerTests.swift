@@ -10,14 +10,32 @@ import XCTest
 @testable import GoTime
 
 class MainViewControllerTests: XCTestCase {
-//    override func setUp() {
-//        super.setUp()
-//        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-//        let viewController = storyboard.instantiateViewController(withIdentifier :"MainViewController") as! UIViewController
-//    }
-//    
-//    override func tearDown() {
-//        super.tearDown()
-//    }    
+    class FakeStartButton: StartButton {
+        var hideWasCalled = false
+        
+        override func hide() {
+            hideWasCalled = true
+        }
+    }
+
+    let startButton = FakeStartButton()
+    
+    var ctrl: MainViewController!
+    
+    override func setUp() {
+        super.setUp()
+        
+        ctrl = MainViewController(startButton: startButton)
+    }
+    
+    override func tearDown() {
+        super.tearDown()
+    }
+    
+    func testOnStartTap() {
+        ctrl.onStartTap(sender: startButton)
+        
+        XCTAssertTrue(startButton.hideWasCalled)
+    }
 
 }

@@ -23,6 +23,7 @@ class MainViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.view.backgroundColor = UIColor.white
         
         startButton.delegate = self
         self.view.addSubview(startButton)
