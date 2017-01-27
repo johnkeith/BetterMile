@@ -21,23 +21,27 @@ class MainViewController: UIViewController {
         fatalError("init(coder:) is not supported")
     }
     
+    // TODO: UNTESTED
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = UIColor.white
         
-        startButton.delegate = self
-        self.view.addSubview(startButton)
+        self.view.backgroundColor = UIColor.white // TESTED
+    
+        startButton.delegate = self // TESTED
+        
+        self.view.addSubview(startButton) // TESTED
         
         applyConstraints()
     }
     
-    func applyConstraints() {
+    func applyConstraints() { // TODO: UNTESTED
         MainViewControllerConstraints.positionStartButton(startButton: startButton)
     }
 }
 
 extension MainViewController: StartButtonDelegate {
-    func onStartTap(sender: StartButton) {
+    
+    func onStartTap(sender: StartButton) { // TESTED
         print("Start tap has been delegated")
         
         sender.hide()

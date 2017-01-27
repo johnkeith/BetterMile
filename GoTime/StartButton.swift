@@ -14,17 +14,23 @@ class StartButton: UIButton {
     // this is the init for when no frame is passed - StartButton()
     init() {
         let defaultFrame = CGRect(x: 0, y: 0, width: 100, height: 100)
-        super.init(frame: defaultFrame); sharedInit()
+        super.init(frame: defaultFrame)
+        
+        sharedInit()
     }
     
     // this allows us to call StartButton(frame: ...) with a frame argument
     override init(frame: CGRect) {
-        super.init(frame: frame); sharedInit()
+        super.init(frame: frame)
+        
+        sharedInit()
     }
     
     // this allows us to create a StartButton through the Storyboard
     required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder); sharedInit()
+        super.init(coder: aDecoder)
+        
+        sharedInit()
     }
     
     func sharedInit() {
