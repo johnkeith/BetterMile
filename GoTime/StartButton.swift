@@ -50,7 +50,7 @@ class StartButton: UIButton {
         delegate?.onStartTap(sender: sender)
     }
     
-    func hide() {
+    func hide() { // TESTED
         isHidden = true
     }
     
