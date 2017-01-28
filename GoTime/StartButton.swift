@@ -8,8 +8,12 @@
 
 import UIKit
 
+protocol StartButtonDelegate: class {
+    func onStartTap(sender: StartButton)
+}
+
 class StartButton: UIButton {
-    var delegate: StartButtonDelegate?
+    var delegate: StartButtonDelegate!
     
     // this is the init for when no frame is passed - StartButton()
     init() {
@@ -33,7 +37,7 @@ class StartButton: UIButton {
         sharedInit()
     }
     
-    func sharedInit() {
+    func sharedInit() { // UNTESTED
         backgroundColor = Constants.colorPalette["white"]
         
         layer.borderWidth = 2
@@ -47,14 +51,14 @@ class StartButton: UIButton {
     }
     
     func onStartTap(sender: StartButton) {
-        delegate?.onStartTap(sender: sender)
+        delegate.onStartTap(sender: sender)
     }
     
     func hide() { // TESTED
         isHidden = true
     }
     
-    func show() {
+    func show() { // TESTED
         isHidden = false
     }
 }

@@ -17,9 +17,9 @@
 		63A3F22A1E35355500AA8A92 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A3F2251E35355500AA8A92 /* MainViewController.swift */; };
 		63A3F22B1E35355500AA8A92 /* MainViewControllerConstraints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A3F2261E35355500AA8A92 /* MainViewControllerConstraints.swift */; };
 		63A3F22C1E35355500AA8A92 /* StartButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A3F2271E35355500AA8A92 /* StartButton.swift */; };
-		63A3F22D1E35355500AA8A92 /* StartButtonDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A3F2281E35355500AA8A92 /* StartButtonDelegate.swift */; };
 		63A3F2351E37082100AA8A92 /* MainViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A3F2341E37082100AA8A92 /* MainViewControllerTests.swift */; };
 		63A3F2381E3AED5D00AA8A92 /* StartButtonTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A3F2371E3AED5D00AA8A92 /* StartButtonTests.swift */; };
+		63A3F23B1E3C195400AA8A92 /* StopWatchService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A3F23A1E3C195400AA8A92 /* StopWatchService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,9 +56,9 @@
 		63A3F2251E35355500AA8A92 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		63A3F2261E35355500AA8A92 /* MainViewControllerConstraints.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewControllerConstraints.swift; sourceTree = "<group>"; };
 		63A3F2271E35355500AA8A92 /* StartButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartButton.swift; sourceTree = "<group>"; };
-		63A3F2281E35355500AA8A92 /* StartButtonDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartButtonDelegate.swift; sourceTree = "<group>"; };
 		63A3F2341E37082100AA8A92 /* MainViewControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewControllerTests.swift; sourceTree = "<group>"; };
 		63A3F2371E3AED5D00AA8A92 /* StartButtonTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartButtonTests.swift; sourceTree = "<group>"; };
+		63A3F23A1E3C195400AA8A92 /* StopWatchService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StopWatchService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -113,6 +113,7 @@
 			children = (
 				63A3F22E1E35356200AA8A92 /* Components */,
 				63A3F22F1E35356B00AA8A92 /* Controllers */,
+				63A3F2391E3C194100AA8A92 /* Services */,
 				63A3F2321E35363C00AA8A92 /* Storyboards */,
 				63A3F2241E35355500AA8A92 /* Constants.swift */,
 				63A3F1EE1E34FE3800AA8A92 /* AppDelegate.swift */,
@@ -179,7 +180,6 @@
 			isa = PBXGroup;
 			children = (
 				63A3F2271E35355500AA8A92 /* StartButton.swift */,
-				63A3F2281E35355500AA8A92 /* StartButtonDelegate.swift */,
 			);
 			name = StartButton;
 			sourceTree = "<group>";
@@ -206,6 +206,14 @@
 				63A3F2371E3AED5D00AA8A92 /* StartButtonTests.swift */,
 			);
 			name = Components;
+			sourceTree = "<group>";
+		};
+		63A3F2391E3C194100AA8A92 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				63A3F23A1E3C195400AA8A92 /* StopWatchService.swift */,
+			);
+			name = Services;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -363,12 +371,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				63A3F22B1E35355500AA8A92 /* MainViewControllerConstraints.swift in Sources */,
-				63A3F22D1E35355500AA8A92 /* StartButtonDelegate.swift in Sources */,
 				63A3F1F71E34FE3800AA8A92 /* GoTime.xcdatamodeld in Sources */,
 				63A3F1EF1E34FE3800AA8A92 /* AppDelegate.swift in Sources */,
 				63A3F2291E35355500AA8A92 /* Constants.swift in Sources */,
 				63A3F22A1E35355500AA8A92 /* MainViewController.swift in Sources */,
 				63A3F22C1E35355500AA8A92 /* StartButton.swift in Sources */,
+				63A3F23B1E3C195400AA8A92 /* StopWatchService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
