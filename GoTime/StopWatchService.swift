@@ -6,9 +6,9 @@
 //  Copyright © 2017 John Keith. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
-protocol StopWatchServiceDelegate {
+protocol StopWatchServiceDelegate: class {
     func stopWatchIntervalElapsed(totalTimeElapsed: TimeInterval)
     
     func stopWatchStopped()
@@ -18,7 +18,7 @@ protocol StopWatchServiceDelegate {
     func stopWatchRestarted()
 }
 
-class StopWatchService: NSObject, StopWatchServiceDelegate {
+class StopWatchService: NSObject {
     var delegate: StopWatchServiceDelegate!
     
     var startTime: TimeInterval!
@@ -30,8 +30,8 @@ class StopWatchService: NSObject, StopWatchServiceDelegate {
         super.init()
     }
     
-    func start(startTime: TimeInterval = NSDate.timeIntervalSinceReferenceDate) { // UNTESTED
-        startTime = startTime
+    func start(initialTime: TimeInterval = NSDate.timeIntervalSinceReferenceDate) { // UNTESTED
+        startTime = initialTime
         timer = Timer.scheduledTimer(
             timeInterval: 0.01,
             target: self,
@@ -42,12 +42,31 @@ class StopWatchService: NSObject, StopWatchServiceDelegate {
         timerRunning = true
     }
     
+    func timeIntervalElapsed() { // UNTESTED
+        let totalTimeElapsed = calculateTimeBetweenPointAndNow(initialTime: startTime)
+        
+        delegate.stopWatchIntervalElapsed(totalTimeElapsed: totalTimeElapsed)
+    }
+    
+    func calculateTimeBetweenPointAndNow(initialTime: TimeInterval) -> TimeInterval { // UNTESTED
+        let currentTime = NSDate.timeIntervalSinceReferenceDate
+        
+        return initialTime - currentTime
+    }
+    
     func stop() { // UNTESTED
         timer.invalidate()
         
         resetInitialState()
         
         delegate.stopWatchStopped()
+    }
+    
+    func resetInitialState() { // UNTESTED
+        startTime = nil
+        timer = nil
+        timerRunning = false
+        elapsedTimeBeforePause = nil
     }
     
     func pause() { // UNTESTED
@@ -61,27 +80,8 @@ class StopWatchService: NSObject, StopWatchServiceDelegate {
     func restart() { // UNTESTED
         let newStartTime = NSDate.timeIntervalSinceReferenceDate - elapsedTimeBeforePause
         
-        start(startTime: newStartTime)
+        start(initialTime: newStartTime)
         
         delegate.stopWatchRestarted()
-    }
-    
-    func calculateTimeBetweenPointAndNow(intialTime: TimeInterval) -> TimeInterval { // UNTESTED
-        let currentTime = NSDate.timeIntervalSinceReferenceDate
-        
-        return initialTime - currentTime
-    }
-    
-    func timeIntervalElapsed() { // UNTESTED
-        let totalTimeElapsed = calculateTimeBetweenPointAndNow(initialTime: startTime)
-        
-        delegate.stopWatchIntervalElapsed(totalTimeElapsed: totalTimeElapsed)
-    }
-    
-    func resetInitialState() { // UNTESTED
-        startTime = nil
-        timer = nil
-        timerRunning = false
-        elapsedTimeBeforePause = nil
     }
 }

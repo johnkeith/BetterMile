@@ -20,6 +20,7 @@
 		63A3F2351E37082100AA8A92 /* MainViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A3F2341E37082100AA8A92 /* MainViewControllerTests.swift */; };
 		63A3F2381E3AED5D00AA8A92 /* StartButtonTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A3F2371E3AED5D00AA8A92 /* StartButtonTests.swift */; };
 		63A3F23B1E3C195400AA8A92 /* StopWatchService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A3F23A1E3C195400AA8A92 /* StopWatchService.swift */; };
+		63A3F23E1E3D1FFA00AA8A92 /* StopWatchServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A3F23D1E3D1FFA00AA8A92 /* StopWatchServiceTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,6 +60,7 @@
 		63A3F2341E37082100AA8A92 /* MainViewControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewControllerTests.swift; sourceTree = "<group>"; };
 		63A3F2371E3AED5D00AA8A92 /* StartButtonTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartButtonTests.swift; sourceTree = "<group>"; };
 		63A3F23A1E3C195400AA8A92 /* StopWatchService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StopWatchService.swift; sourceTree = "<group>"; };
+		63A3F23D1E3D1FFA00AA8A92 /* StopWatchServiceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StopWatchServiceTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -127,6 +129,7 @@
 		63A3F2051E34FE3900AA8A92 /* GoTimeTests */ = {
 			isa = PBXGroup;
 			children = (
+				63A3F23C1E3CE75700AA8A92 /* Services */,
 				63A3F2361E3AEC6800AA8A92 /* Components */,
 				63A3F2331E37080E00AA8A92 /* Controllers */,
 				63A3F2081E34FE3900AA8A92 /* Info.plist */,
@@ -212,6 +215,14 @@
 			isa = PBXGroup;
 			children = (
 				63A3F23A1E3C195400AA8A92 /* StopWatchService.swift */,
+			);
+			name = Services;
+			sourceTree = "<group>";
+		};
+		63A3F23C1E3CE75700AA8A92 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				63A3F23D1E3D1FFA00AA8A92 /* StopWatchServiceTests.swift */,
 			);
 			name = Services;
 			sourceTree = "<group>";
@@ -386,6 +397,7 @@
 			files = (
 				63A3F2381E3AED5D00AA8A92 /* StartButtonTests.swift in Sources */,
 				63A3F2351E37082100AA8A92 /* MainViewControllerTests.swift in Sources */,
+				63A3F23E1E3D1FFA00AA8A92 /* StopWatchServiceTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
