@@ -30,7 +30,7 @@ class StopWatchService: NSObject {
         super.init()
     }
     
-    func start(initialTime: TimeInterval = NSDate.timeIntervalSinceReferenceDate) { // UNTESTED
+    func start(initialTime: TimeInterval = NSDate.timeIntervalSinceReferenceDate) {
         startTime = initialTime
         timer = Timer.scheduledTimer(
             timeInterval: 0.01,
@@ -42,19 +42,19 @@ class StopWatchService: NSObject {
         timerRunning = true
     }
     
-    func timeIntervalElapsed() { // UNTESTED
+    func timeIntervalElapsed() {
         let totalTimeElapsed = calculateTimeBetweenPointAndNow(initialTime: startTime)
         
         delegate.stopWatchIntervalElapsed(totalTimeElapsed: totalTimeElapsed)
     }
     
-    func calculateTimeBetweenPointAndNow(initialTime: TimeInterval) -> TimeInterval { // UNTESTED
+    func calculateTimeBetweenPointAndNow(initialTime: TimeInterval) -> TimeInterval {
         let currentTime = NSDate.timeIntervalSinceReferenceDate
         
-        return initialTime - currentTime
+        return currentTime - initialTime
     }
     
-    func stop() { // UNTESTED
+    func stop() {
         timer.invalidate()
         
         resetInitialState()
@@ -62,14 +62,14 @@ class StopWatchService: NSObject {
         delegate.stopWatchStopped()
     }
     
-    func resetInitialState() { // UNTESTED
+    func resetInitialState() {
         startTime = nil
         timer = nil
         timerRunning = false
         elapsedTimeBeforePause = nil
     }
     
-    func pause() { // UNTESTED
+    func pause() {
         elapsedTimeBeforePause = calculateTimeBetweenPointAndNow(initialTime: startTime)
         
         timer.invalidate()
