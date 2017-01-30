@@ -147,8 +147,6 @@ class StopWatchServiceTests: XCTestCase {
         
         service.pause()
         
-        let elapsedTimeBeforePause = service.elapsedTimeBeforePause
-        
         waitForTimer(until: getTimeToRunUntil(timeToWait: 5.0))
         
         service.restart()
