@@ -15,21 +15,21 @@ class TimeToTextService {
     class func timeAsSingleString(inputTime: Double) -> String {
         let (strMinutes, strSeconds, strFraction) = timeAsMultipleStrings(inputTime: inputTime)
         
-        return [strMinutes, strSeconds, strFraction].joined(separator: ":")
+        return "\(strMinutes):\(strSeconds).\(strFraction)"
     }
     
     class func timeAsMultipleStrings(inputTime: Double) -> (minutes: String, seconds: String, fraction: String) {
         var elapsedTime = inputTime
         
-        let minutes = UInt8(elapsedTime / 60.0)
+        let minutes = UInt64(elapsedTime / 60.0)
         
         elapsedTime -= (TimeInterval(minutes) * 60)
         
-        let seconds = UInt8(elapsedTime)
+        let seconds = UInt64(elapsedTime)
         
         elapsedTime -= TimeInterval(seconds)
         
-        let fraction = UInt8(elapsedTime * 100)
+        let fraction = UInt64(elapsedTime * 100)
         
         let strMinutes = String(format: "%02d", minutes)
         let strSeconds = String(format: "%02d", seconds)
