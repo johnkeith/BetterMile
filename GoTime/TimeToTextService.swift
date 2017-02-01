@@ -9,16 +9,13 @@
 import Foundation
 
 class TimeToTextService {
-    static let sharedInstance = TimeToTextService()
-    private init() {}
-    
-    class func timeAsSingleString(inputTime: Double) -> String {
+    func timeAsSingleString(inputTime: Double) -> String {
         let (strMinutes, strSeconds, strFraction) = timeAsMultipleStrings(inputTime: inputTime)
         
         return "\(strMinutes):\(strSeconds).\(strFraction)"
     }
     
-    class func timeAsMultipleStrings(inputTime: Double) -> (minutes: String, seconds: String, fraction: String) {
+    func timeAsMultipleStrings(inputTime: Double) -> (minutes: String, seconds: String, fraction: String) {
         var elapsedTime = inputTime
         
         let minutes = UInt64(elapsedTime / 60.0)

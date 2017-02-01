@@ -10,7 +10,13 @@ import XCTest
 @testable import GoTime
 
 class TimeToTextServiceTests: XCTestCase {
-    typealias service = TimeToTextService
+    var service: TimeToTextService!
+    
+    override func setUp() {
+        super.setUp()
+        
+        service = TimeToTextService()
+    }
     
     func testTimeAsSingleStringWithOneMinute() {
         let results = service.timeAsSingleString(inputTime: 60)
