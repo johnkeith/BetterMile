@@ -19,8 +19,20 @@ class DataModelTests: XCTestCase {
         managedObjectContext = DataModelHelpers.setUpInMemoryManagedObjectContext()
     }
     
-    func testRunInit() {
-        let run = NSEntityDescription.entity(forEntityName: "Run", in: self.managedObjectContext)
-        print(run)
+    func testRunInitSucceedsWithValidAttributes() {
+//        let runEntity = NSEntityDescription.entity(forEntityName: "Run", in: self.managedObjectContext)
+//        let newRun = NSEntityDescription.insertNewObject(forEntityName: "Run", into: self.managedObjectContext)
+//        let run = Run(entity: runEntity!, insertInto: self.managedObjectContext)
+        
+        let run = Run(context: self.managedObjectContext)
+        run.date = NSDate()
+
+        XCTAssertTrue(try DataModelHelpers.saveManagedObjectContext(context: self.managedObjectContext))
+    }
+    
+    func testRunInitFailsWithInvalidAttributes() {
+        Run(context: self.managedObjectContext)
+        
+        XCTAssertThrowsError(try DataModelHelpers.saveManagedObjectContext(context: self.managedObjectContext))
     }
 }
