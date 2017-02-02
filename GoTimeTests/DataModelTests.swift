@@ -31,7 +31,7 @@ class DataModelTests: XCTestCase {
     }
     
     func testRunInitFailsWithInvalidAttributes() {
-        Run(context: self.managedObjectContext)
+        _ = Run(context: self.managedObjectContext)
         
         XCTAssertThrowsError(try DataModelHelpers.saveManagedObjectContext(context: self.managedObjectContext))
     }
