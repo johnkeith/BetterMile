@@ -40,6 +40,11 @@ class StopWatchService: NSObject {
             repeats: true
         )
         timerRunning = true
+        initRun()
+    }
+    
+    func initRun() {
+
     }
     
     func timeIntervalElapsed() {
