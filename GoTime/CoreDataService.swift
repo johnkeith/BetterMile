@@ -11,10 +11,9 @@ import CoreData
 // much of implementation lifted from https://swifting.io/blog/2016/09/25/25-core-data-in-ios10-nspersistentcontainer/
 
 final class CoreDataService {
-    static let sharedInstance = CoreDataService()
-    private init() {}
+    static let shared = CoreDataService()
     
-    static var persistentContainer: NSPersistentContainer = {
+    lazy var persistentContainer: NSPersistentContainer = {
         let container = NSPersistentContainer(name: "GoTime")
         
         container.loadPersistentStores(completionHandler: { (storeDescription, error) in
@@ -22,19 +21,19 @@ final class CoreDataService {
                 NSLog("CoreData error \(error), \(error._userInfo)")
             }
         })
-        
+
         return container
     }()
     
-    static var viewContext: NSManagedObjectContext = {
-        return persistentContainer.viewContext
+    lazy var viewContext: NSManagedObjectContext = {
+        return self.persistentContainer.viewContext
     }()
     
-    static var backgroundContext: NSManagedObjectContext = {
-        return persistentContainer.newBackgroundContext()
+    lazy var backgroundContext: NSManagedObjectContext = {
+        return self.persistentContainer.newBackgroundContext()
     }()
     
-    class func save() {
+    func save() {
         let context = persistentContainer.viewContext
         
         if context.hasChanges {
@@ -47,15 +46,13 @@ final class CoreDataService {
         }
     }
     
-    class func performForegroundTask(_ block: @escaping (NSManagedObjectContext) -> Void) {
+    func performForegroundTask(_ block: @escaping (NSManagedObjectContext) -> Void) {
         viewContext.perform {
             block(self.viewContext)
         }
     }
     
-    class func performBackgroundTask(_ block: @escaping (NSManagedObjectContext) -> Void) {
+    func performBackgroundTask(_ block: @escaping (NSManagedObjectContext) -> Void) {
         persistentContainer.performBackgroundTask(block)
     }
-    
-    
 }
