@@ -35,4 +35,26 @@ class DataModelTests: XCTestCase {
         
         XCTAssertThrowsError(try DataModelHelpers.saveManagedObjectContext(context: self.managedObjectContext))
     }
+    
+    func testLapInitSucceedsWithValidRelationshipToRun() {
+        let run = Run(context: self.managedObjectContext)
+        run.date = NSDate()
+        
+        let lap = Lap(context: self.managedObjectContext)
+        lap.time = 100.0
+        
+        run.addToLaps(lap)
+        
+        XCTAssertTrue(try DataModelHelpers.saveManagedObjectContext(context: self.managedObjectContext))
+    }
+    
+    func testLapInitFailsWithNoRelationshipToRun() {
+        let run = Run(context: self.managedObjectContext)
+        run.date = NSDate()
+        
+        let lap = Lap(context: self.managedObjectContext)
+        lap.time = 100.0
+        
+        XCTAssertThrowsError(try DataModelHelpers.saveManagedObjectContext(context: self.managedObjectContext))
+    }
 }

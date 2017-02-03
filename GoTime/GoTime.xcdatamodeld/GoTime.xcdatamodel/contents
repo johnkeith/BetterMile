@@ -2,14 +2,14 @@
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="11542" systemVersion="16A323" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Lap" representedClassName="Lap" syncable="YES" codeGenerationType="class">
         <attribute name="time" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
-        <relationship name="relationship" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Run" inverseName="laps" inverseEntity="Run" syncable="YES"/>
+        <relationship name="relationship" maxCount="1" deletionRule="Nullify" destinationEntity="Run" inverseName="laps" inverseEntity="Run" syncable="YES"/>
     </entity>
     <entity name="Run" representedClassName="Run" syncable="YES" codeGenerationType="class">
         <attribute name="date" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <relationship name="laps" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="Lap" inverseName="relationship" inverseEntity="Lap" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Lap" positionX="-54" positionY="-9" width="126" height="75"/>
+        <element name="Lap" positionX="-54" positionY="-9" width="126" height="73"/>
         <element name="Run" positionX="-288" positionY="-240" width="128" height="75"/>
     </elements>
 </model>
