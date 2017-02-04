@@ -13,6 +13,8 @@
 		6386BF2B1E421E5300BD2875 /* DataModelHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6386BF2A1E421E5300BD2875 /* DataModelHelpers.swift */; };
 		6386BF2F1E440EE500BD2875 /* CoreDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6386BF2E1E440EE500BD2875 /* CoreDataService.swift */; };
 		6386BF311E44143100BD2875 /* CoreDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6386BF301E44143100BD2875 /* CoreDataService.swift */; };
+		6386BF331E45FE9700BD2875 /* RunPersistanceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6386BF321E45FE9700BD2875 /* RunPersistanceService.swift */; };
+		6386BF351E4602C600BD2875 /* RunPersistanceServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6386BF341E4602C600BD2875 /* RunPersistanceServiceTests.swift */; };
 		63A3F1EF1E34FE3800AA8A92 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A3F1EE1E34FE3800AA8A92 /* AppDelegate.swift */; };
 		63A3F1F71E34FE3800AA8A92 /* GoTime.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 63A3F1F51E34FE3800AA8A92 /* GoTime.xcdatamodeld */; };
 		63A3F1F91E34FE3800AA8A92 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 63A3F1F81E34FE3800AA8A92 /* Assets.xcassets */; };
@@ -53,6 +55,8 @@
 		6386BF2A1E421E5300BD2875 /* DataModelHelpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataModelHelpers.swift; sourceTree = "<group>"; };
 		6386BF2E1E440EE500BD2875 /* CoreDataService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataService.swift; sourceTree = "<group>"; };
 		6386BF301E44143100BD2875 /* CoreDataService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataService.swift; sourceTree = "<group>"; };
+		6386BF321E45FE9700BD2875 /* RunPersistanceService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RunPersistanceService.swift; sourceTree = "<group>"; };
+		6386BF341E4602C600BD2875 /* RunPersistanceServiceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RunPersistanceServiceTests.swift; sourceTree = "<group>"; };
 		63A3F1EB1E34FE3800AA8A92 /* GoTime.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GoTime.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		63A3F1EE1E34FE3800AA8A92 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		63A3F1F61E34FE3800AA8A92 /* GoTime.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = GoTime.xcdatamodel; sourceTree = "<group>"; };
@@ -239,6 +243,7 @@
 				63A3F23A1E3C195400AA8A92 /* StopWatchService.swift */,
 				6386BF201E3EC1FC00BD2875 /* TimeToTextService.swift */,
 				6386BF2E1E440EE500BD2875 /* CoreDataService.swift */,
+				6386BF321E45FE9700BD2875 /* RunPersistanceService.swift */,
 			);
 			name = Services;
 			sourceTree = "<group>";
@@ -249,6 +254,7 @@
 				63A3F23D1E3D1FFA00AA8A92 /* StopWatchServiceTests.swift */,
 				6386BF221E3ED67E00BD2875 /* TImeToTextServiceTests.swift */,
 				6386BF301E44143100BD2875 /* CoreDataService.swift */,
+				6386BF341E4602C600BD2875 /* RunPersistanceServiceTests.swift */,
 			);
 			name = Services;
 			sourceTree = "<group>";
@@ -408,6 +414,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				63A3F22B1E35355500AA8A92 /* MainViewControllerConstraints.swift in Sources */,
+				6386BF331E45FE9700BD2875 /* RunPersistanceService.swift in Sources */,
 				63A3F1F71E34FE3800AA8A92 /* GoTime.xcdatamodeld in Sources */,
 				6386BF211E3EC1FC00BD2875 /* TimeToTextService.swift in Sources */,
 				63A3F1EF1E34FE3800AA8A92 /* AppDelegate.swift in Sources */,
@@ -425,6 +432,7 @@
 			files = (
 				6386BF311E44143100BD2875 /* CoreDataService.swift in Sources */,
 				63A3F2381E3AED5D00AA8A92 /* StartButtonTests.swift in Sources */,
+				6386BF351E4602C600BD2875 /* RunPersistanceServiceTests.swift in Sources */,
 				6386BF2B1E421E5300BD2875 /* DataModelHelpers.swift in Sources */,
 				63A3F2351E37082100AA8A92 /* MainViewControllerTests.swift in Sources */,
 				6386BF281E421A1300BD2875 /* DataModelTests.swift in Sources */,

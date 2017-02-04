@@ -45,3 +45,23 @@ class DataModelHelpers {
     }
 }
 
+class FakeCoreDataService {
+    static let shared = FakeCoreDataService()
+    
+    lazy var inMemoryManagedObjectContext: NSManagedObjectContext = {
+        DataModelHelpers.setUpInMemoryManagedObjectContext()
+    }()
+    
+    lazy var viewContext: NSManagedObjectContext = {
+        return self.inMemoryManagedObjectContext
+    }()
+    
+    func save() throws {
+        do {
+            _ = try DataModelHelpers.saveManagedObjectContext(context: self.viewContext)
+        } catch {
+            throw(SaveManagedContextError.Fail)
+        }
+    }
+}
+

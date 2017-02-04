@@ -16,18 +16,24 @@ protocol StopWatchServiceDelegate: class {
     func stopWatchPaused()
     
     func stopWatchRestarted()
+    
+    func lapStored()
 }
 
 class StopWatchService: NSObject {
     var delegate: StopWatchServiceDelegate!
     
-    var startTime: TimeInterval!
+    var coreData: CoreDataService
+    
     var timer: Timer!
     var timerRunning: Bool = false
+    var startTime: TimeInterval!
     var elapsedTimeBeforePause: TimeInterval!
+
+    lazy var lapTimes: Array = [Double]()
     
-    override init() {
-        super.init()
+    init(coreDataService: CoreDataService = CoreDataService.shared) {
+        coreData = coreDataService
     }
     
     func start(initialTime: TimeInterval = NSDate.timeIntervalSinceReferenceDate) {
@@ -40,17 +46,23 @@ class StopWatchService: NSObject {
             repeats: true
         )
         timerRunning = true
-        initRun()
-    }
-    
-    func initRun() {
-
     }
     
     func timeIntervalElapsed() {
-        let totalTimeElapsed = calculateTimeBetweenPointAndNow(initialTime: startTime)
+        let totalTimeElapsed = calculateTotalTimeElapsed()
         
         delegate.stopWatchIntervalElapsed(totalTimeElapsed: totalTimeElapsed)
+    }
+    
+    func calculateTotalTimeElapsed() -> Double {
+        let timeSinceStart = calculateTimeBetweenPointAndNow(initialTime: startTime)
+        let totalLapTimes = calculateTotalLapsTime(_lapTimes: lapTimes)
+        
+        return timeSinceStart + totalLapTimes
+    }
+    
+    func calculateTotalLapsTime(_lapTimes: [Double]) -> Double {
+        return _lapTimes.map{$0}.reduce(0, +)
     }
     
     func calculateTimeBetweenPointAndNow(initialTime: TimeInterval) -> TimeInterval {
@@ -68,10 +80,11 @@ class StopWatchService: NSObject {
     }
     
     func resetInitialState() {
-        startTime = nil
         timer = nil
         timerRunning = false
+        startTime = nil
         elapsedTimeBeforePause = nil
+        lapTimes.removeAll()
     }
     
     func pause() {
@@ -82,11 +95,25 @@ class StopWatchService: NSObject {
         delegate.stopWatchPaused()
     }
     
-    func restart() { // UNTESTED
+    func restart() {
         let newStartTime = NSDate.timeIntervalSinceReferenceDate - elapsedTimeBeforePause
+        
+        elapsedTimeBeforePause = nil
         
         start(initialTime: newStartTime)
         
         delegate.stopWatchRestarted()
+    }
+    
+    func lap() {
+        let totalLapTime = calculateTimeBetweenPointAndNow(initialTime: startTime)
+        
+        lapTimes.append(totalLapTime)
+        
+        timer.invalidate()
+
+        start()
+        
+        delegate.lapStored()
     }
 }

@@ -40,7 +40,6 @@ class MainViewController: UIViewController {
 }
 
 extension MainViewController: StartButtonDelegate {
-    
     func onStartTap(sender: StartButton) { // TESTED
         print("Start tap has been delegated")
         
