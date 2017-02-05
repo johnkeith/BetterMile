@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		633966991E47549800D43896 /* TotalTimeLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633966981E47549800D43896 /* TotalTimeLabel.swift */; };
+		6339669B1E4754EC00D43896 /* TotalTimeLabelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6339669A1E4754EC00D43896 /* TotalTimeLabelTests.swift */; };
 		6386BF211E3EC1FC00BD2875 /* TimeToTextService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6386BF201E3EC1FC00BD2875 /* TimeToTextService.swift */; };
 		6386BF231E3ED67E00BD2875 /* TImeToTextServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6386BF221E3ED67E00BD2875 /* TImeToTextServiceTests.swift */; };
 		6386BF281E421A1300BD2875 /* DataModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6386BF271E421A1300BD2875 /* DataModelTests.swift */; };
@@ -49,6 +51,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		633966981E47549800D43896 /* TotalTimeLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TotalTimeLabel.swift; sourceTree = "<group>"; };
+		6339669A1E4754EC00D43896 /* TotalTimeLabelTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TotalTimeLabelTests.swift; sourceTree = "<group>"; };
 		6386BF201E3EC1FC00BD2875 /* TimeToTextService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeToTextService.swift; sourceTree = "<group>"; };
 		6386BF221E3ED67E00BD2875 /* TImeToTextServiceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TImeToTextServiceTests.swift; sourceTree = "<group>"; };
 		6386BF271E421A1300BD2875 /* DataModelTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataModelTests.swift; sourceTree = "<group>"; };
@@ -183,7 +187,8 @@
 		63A3F22E1E35356200AA8A92 /* Components */ = {
 			isa = PBXGroup;
 			children = (
-				63A3F2311E35359A00AA8A92 /* StartButton */,
+				63A3F2271E35355500AA8A92 /* StartButton.swift */,
+				633966981E47549800D43896 /* TotalTimeLabel.swift */,
 			);
 			name = Components;
 			sourceTree = "<group>";
@@ -203,14 +208,6 @@
 				63A3F2261E35355500AA8A92 /* MainViewControllerConstraints.swift */,
 			);
 			name = Constraints;
-			sourceTree = "<group>";
-		};
-		63A3F2311E35359A00AA8A92 /* StartButton */ = {
-			isa = PBXGroup;
-			children = (
-				63A3F2271E35355500AA8A92 /* StartButton.swift */,
-			);
-			name = StartButton;
 			sourceTree = "<group>";
 		};
 		63A3F2321E35363C00AA8A92 /* Storyboards */ = {
@@ -233,6 +230,7 @@
 			isa = PBXGroup;
 			children = (
 				63A3F2371E3AED5D00AA8A92 /* StartButtonTests.swift */,
+				6339669A1E4754EC00D43896 /* TotalTimeLabelTests.swift */,
 			);
 			name = Components;
 			sourceTree = "<group>";
@@ -323,7 +321,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0810;
-				LastUpgradeCheck = 0810;
+				LastUpgradeCheck = 0820;
 				ORGANIZATIONNAME = "John Keith";
 				TargetAttributes = {
 					63A3F1EA1E34FE3800AA8A92 = {
@@ -422,6 +420,7 @@
 				63A3F22A1E35355500AA8A92 /* MainViewController.swift in Sources */,
 				63A3F22C1E35355500AA8A92 /* StartButton.swift in Sources */,
 				6386BF2F1E440EE500BD2875 /* CoreDataService.swift in Sources */,
+				633966991E47549800D43896 /* TotalTimeLabel.swift in Sources */,
 				63A3F23B1E3C195400AA8A92 /* StopWatchService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -431,6 +430,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6386BF311E44143100BD2875 /* CoreDataService.swift in Sources */,
+				6339669B1E4754EC00D43896 /* TotalTimeLabelTests.swift in Sources */,
 				63A3F2381E3AED5D00AA8A92 /* StartButtonTests.swift in Sources */,
 				6386BF351E4602C600BD2875 /* RunPersistanceServiceTests.swift in Sources */,
 				6386BF2B1E421E5300BD2875 /* DataModelHelpers.swift in Sources */,
@@ -494,6 +494,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -543,6 +544,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
