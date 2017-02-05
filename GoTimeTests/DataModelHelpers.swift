@@ -47,28 +47,10 @@ class DataModelHelpers {
 }
 
 class FakeCoreDataService: CoreDataService {
-    lazy var inMemoryManagedObjectContext: NSManagedObjectContext = {
-        DataModelHelpers.setUpInMemoryManagedObjectContext()
-    }()
-    
-    override init() {
-        super.init()
-        
-        viewContext = {
-            self.inMemoryManagedObjectContext
-        }()
-    }
+    var saveWasCalled = false
     
     override func save() {
-        let context = persistentContainer.viewContext
-        
-        if context.hasChanges {
-            do {
-                _ = try DataModelHelpers.saveManagedObjectContext(context: self.viewContext)
-            } catch {
-                throw(SaveManagedContextError.Fail)
-            }
-        }
+        saveWasCalled = true
     }
 }
 

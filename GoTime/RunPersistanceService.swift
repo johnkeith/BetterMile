@@ -17,7 +17,7 @@ class RunPersistanceService {
         coreData = _coreData
     }
     
-    func save() { // untested
+    func save() {
         let run = createRun()
         let laps = createLaps()
         
@@ -27,14 +27,14 @@ class RunPersistanceService {
     }
 
     
-    func createRun() -> Run { // untested
+    func createRun() -> Run {
         let run = Run(context: coreData.viewContext)
         run.date = NSDate()
         
         return run
     }
     
-    func createLaps() -> NSOrderedSet { // untested
+    func createLaps() -> NSOrderedSet {
         let lapsCollection = lapTimes.map { (time) -> Lap in
             let lap = Lap(context: coreData.viewContext)
             lap.time = time
