@@ -10,7 +10,7 @@ import CoreData
 
 // much of implementation lifted from https://swifting.io/blog/2016/09/25/25-core-data-in-ios10-nspersistentcontainer/
 
-final class CoreDataService {
+class CoreDataService {
     static let shared = CoreDataService()
     
     lazy var persistentContainer: NSPersistentContainer = {

@@ -22,8 +22,10 @@ class RunPersistanceService {
         let laps = createLaps()
         
         run.laps = laps
+        
         coreData.save()
     }
+
     
     func createRun() -> Run { // untested
         let run = Run(context: coreData.viewContext)

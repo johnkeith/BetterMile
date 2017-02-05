@@ -8,6 +8,7 @@
 
 import XCTest
 import CoreData
+@testable import GoTime
 
 enum SaveManagedContextError: Error {
     case Fail
@@ -45,22 +46,28 @@ class DataModelHelpers {
     }
 }
 
-class FakeCoreDataService {
-    static let shared = FakeCoreDataService()
-    
+class FakeCoreDataService: CoreDataService {
     lazy var inMemoryManagedObjectContext: NSManagedObjectContext = {
         DataModelHelpers.setUpInMemoryManagedObjectContext()
     }()
     
-    lazy var viewContext: NSManagedObjectContext = {
-        return self.inMemoryManagedObjectContext
-    }()
+    override init() {
+        super.init()
+        
+        viewContext = {
+            self.inMemoryManagedObjectContext
+        }()
+    }
     
-    func save() throws {
-        do {
-            _ = try DataModelHelpers.saveManagedObjectContext(context: self.viewContext)
-        } catch {
-            throw(SaveManagedContextError.Fail)
+    override func save() {
+        let context = persistentContainer.viewContext
+        
+        if context.hasChanges {
+            do {
+                _ = try DataModelHelpers.saveManagedObjectContext(context: self.viewContext)
+            } catch {
+                throw(SaveManagedContextError.Fail)
+            }
         }
     }
 }

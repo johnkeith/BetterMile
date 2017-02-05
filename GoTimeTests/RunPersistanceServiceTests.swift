@@ -10,5 +10,13 @@ import XCTest
 @testable import GoTime
 
 class RunPersistanceServiceTests: XCTestCase {
+    var service: RunPersistanceService!
+    
+    override func setUp() {
+        let lapTimes = [100.0, 60.0, 30.0]
+        
+        service = RunPersistanceService(_lapTimes: lapTimes, _coreData: FakeCoreDataService())
+    }
+    
     
 }
