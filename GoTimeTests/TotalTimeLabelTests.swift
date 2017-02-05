@@ -24,4 +24,18 @@ class TotalTimeLabelTests: XCTestCase {
 
         XCTAssertEqual(time, label.text)
     }
+    
+    func testHide() {
+        label.hide()
+        XCTAssertTrue(label.isHidden)
+    }
+    
+    func testShow() {
+        label.show()
+        XCTAssertFalse(label.isHidden)
+    }
+    
+    func testVisibleByDefault() {
+        XCTAssertFalse(label.isHidden)
+    }
 }
