@@ -10,9 +10,19 @@ import UIKit
 
 class MainViewController: UIViewController {
     var startButton: StartButton
+    var totalTimeLabel: TotalTimeLabel
+    var stopWatchService: StopWatchService
+    var timeToTextService: TimeToTextService
     
-    init(startButton: StartButton = StartButton()) {
+    init(startButton: StartButton = StartButton(),
+         totalTimeLabel: TotalTimeLabel = TotalTimeLabel(hidden: true),
+         stopWatchService: StopWatchService = StopWatchService(),
+         timeToTextService: TimeToTextService = TimeToTextService()) {
+        
         self.startButton = startButton
+        self.totalTimeLabel = totalTimeLabel
+        self.stopWatchService = stopWatchService
+        self.timeToTextService = timeToTextService
         
         super.init(nibName: nil, bundle: nil)
     }
@@ -21,29 +31,55 @@ class MainViewController: UIViewController {
         fatalError("init(coder:) is not supported")
     }
     
-    // TODO: UNTESTED
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.view.backgroundColor = UIColor.white // TESTED
-    
-        startButton.delegate = self // TESTED
+        startButton.delegate = self
+        stopWatchService.delegate = self
         
-        self.view.addSubview(startButton) // TESTED
+        self.view.backgroundColor = UIColor.white
+
+        self.view.addSubview(startButton)
+        self.view.addSubview(totalTimeLabel)
         
         applyConstraints()
     }
     
     func applyConstraints() { // TODO: UNTESTED
         MainViewControllerConstraints.positionStartButton(startButton: startButton)
+        MainViewControllerConstraints.positionTotalTimeLabel(totalTimeLabel: totalTimeLabel)
     }
 }
 
 extension MainViewController: StartButtonDelegate {
-    func onStartTap(sender: StartButton) { // TESTED
-        print("Start tap has been delegated")
-        
+    func onStartTap(sender: StartButton) {
         sender.hide()
+        
+        totalTimeLabel.show()
+
+        stopWatchService.start()
+    }
+}
+
+extension MainViewController: StopWatchServiceDelegate {
+    func stopWatchIntervalElapsed(totalTimeElapsed: TimeInterval) {
+        totalTimeLabel.text = timeToTextService.timeAsSingleString(inputTime: totalTimeElapsed)
+    }
+    
+    func stopWatchStopped() {
+        
+    }
+    
+    func stopWatchPaused() {
+        
+    }
+    
+    func stopWatchRestarted() {
+        
+    }
+    
+    func lapStored() {
+        
     }
 }
 

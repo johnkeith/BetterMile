@@ -17,15 +17,36 @@ class MainViewControllerTests: XCTestCase {
             hideWasCalled = true
         }
     }
+    
+    class FakeTotalTimeLabel: TotalTimeLabel {
+        var showWasCalled = false
+        
+        override func show() {
+            showWasCalled = true
+        }
+    }
+    
+    class FakeStopWatchService: StopWatchService {
+        var startWasCalled = false
+        
+        override func start(initialTime: TimeInterval = NSDate.timeIntervalSinceReferenceDate) {
+            startWasCalled = true
+        }
+    }
 
     let startButton = FakeStartButton()
+    let stopWatchService = FakeStopWatchService()
+    let totalTimeLabel = FakeTotalTimeLabel()
     
     var ctrl: MainViewController!
     
     override func setUp() {
         super.setUp()
         
-        ctrl = MainViewController(startButton: startButton)
+        ctrl = MainViewController(
+            startButton: startButton,
+            totalTimeLabel: totalTimeLabel,
+            stopWatchService: stopWatchService)
         
         _ = ctrl.view
     }
@@ -50,6 +71,8 @@ class MainViewControllerTests: XCTestCase {
         ctrl.onStartTap(sender: startButton)
         
         XCTAssertTrue(startButton.hideWasCalled)
+        XCTAssertTrue(totalTimeLabel.showWasCalled)
+        XCTAssertTrue(stopWatchService.startWasCalled)
     }
     
     func testStartButtonDelegation() {
