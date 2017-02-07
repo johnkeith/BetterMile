@@ -13,6 +13,7 @@ class MainViewController: UIViewController {
     var totalTimeLabel: TotalTimeLabel
     var stopWatchService: StopWatchService
     var timeToTextService: TimeToTextService
+    var lapDoubleTap: UITapGestureRecognizer!
     
     init(startButton: StartButton = StartButton(),
          totalTimeLabel: TotalTimeLabel = TotalTimeLabel(hidden: true),
@@ -37,17 +38,35 @@ class MainViewController: UIViewController {
         startButton.delegate = self
         stopWatchService.delegate = self
         
+        setBackgroundColor()
+        addSubviews()
+        applyConstraints()
+    }
+    
+    func viewDoubleTapped() { // TODO: UNTESTED
+        stopWatchService.lap()
+    }
+    
+    func setBackgroundColor() { // TODO: UNTESTED
         self.view.backgroundColor = UIColor.white
-
+    }
+    
+    func addSubviews() { // TODO: UNTESTED
         self.view.addSubview(startButton)
         self.view.addSubview(totalTimeLabel)
-        
-        applyConstraints()
     }
     
     func applyConstraints() { // TODO: UNTESTED
         MainViewControllerConstraints.positionStartButton(startButton: startButton)
         MainViewControllerConstraints.positionTotalTimeLabel(totalTimeLabel: totalTimeLabel)
+    }
+    
+    func attachLapDoubleTapRecognizer() { // TODO: UNTESTED
+        lapDoubleTap = UITapGestureRecognizer(target: self, action: #selector(self.viewDoubleTapped))
+        lapDoubleTap.numberOfTapsRequired = 2
+        
+        self.view.addGestureRecognizer(lapDoubleTap)
+        self.view.isUserInteractionEnabled = true
     }
 }
 
@@ -56,6 +75,8 @@ extension MainViewController: StartButtonDelegate {
         sender.hide()
         
         totalTimeLabel.show()
+        
+        attachLapDoubleTapRecognizer()
 
         stopWatchService.start()
     }
