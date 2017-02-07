@@ -28,9 +28,14 @@ class MainViewControllerTests: XCTestCase {
     
     class FakeStopWatchService: StopWatchService {
         var startWasCalled = false
+        var lapWasCalled = false
         
         override func start(initialTime: TimeInterval = NSDate.timeIntervalSinceReferenceDate) {
             startWasCalled = true
+        }
+        
+        override func lap() {
+            lapWasCalled = true
         }
     }
 
@@ -55,17 +60,27 @@ class MainViewControllerTests: XCTestCase {
         super.tearDown()
     }
     
-    // CONTEXT viewDidLoad()
-    
-    func testStartButtonViewAdded() {
+    func testAddSubviews() {
         XCTAssertTrue(startButton.isDescendant(of: ctrl.view))
+        XCTAssertTrue(totalTimeLabel.isDescendant(of: ctrl.view))
     }
     
     func testBgColorSet() {
         XCTAssertEqual(ctrl.view.backgroundColor, UIColor.white)
     }
     
-    // END viewDidLoad()
+    func testViewDoubleTapped() {
+        ctrl.viewDoubleTapped()
+        
+        XCTAssertTrue(stopWatchService.lapWasCalled)
+    }
+    
+    func testAttachLapDoubleTapRecognizer() {
+        ctrl.onStartTap(sender: startButton)
+
+        XCTAssertEqual(ctrl.view.gestureRecognizers?.count, 1)
+        XCTAssertEqual(ctrl.view.gestureRecognizers?[0], ctrl.lapDoubleTap)
+    }
     
     func testOnStartTap() {
         ctrl.onStartTap(sender: startButton)

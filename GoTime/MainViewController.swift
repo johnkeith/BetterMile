@@ -43,15 +43,11 @@ class MainViewController: UIViewController {
         applyConstraints()
     }
     
-    func viewDoubleTapped() { // TODO: UNTESTED
-        stopWatchService.lap()
-    }
-    
-    func setBackgroundColor() { // TODO: UNTESTED
+    func setBackgroundColor() {
         self.view.backgroundColor = UIColor.white
     }
     
-    func addSubviews() { // TODO: UNTESTED
+    func addSubviews() {
         self.view.addSubview(startButton)
         self.view.addSubview(totalTimeLabel)
     }
@@ -60,8 +56,15 @@ class MainViewController: UIViewController {
         MainViewControllerConstraints.positionStartButton(startButton: startButton)
         MainViewControllerConstraints.positionTotalTimeLabel(totalTimeLabel: totalTimeLabel)
     }
+}
+
+// MARK: Gesture recognizer functions
+extension MainViewController {
+    func viewDoubleTapped() {
+        stopWatchService.lap()
+    }
     
-    func attachLapDoubleTapRecognizer() { // TODO: UNTESTED
+    func attachLapDoubleTapRecognizer() {
         lapDoubleTap = UITapGestureRecognizer(target: self, action: #selector(self.viewDoubleTapped))
         lapDoubleTap.numberOfTapsRequired = 2
         
