@@ -20,4 +20,6 @@ struct Constants {
         "black": UIColor.black,
         "white": UIColor.white
     ]
+    
+    static let digitFont: UIFont = UIFont.monospacedDigitSystemFont(ofSize: 999, weight: UIFontWeightLight)
 }

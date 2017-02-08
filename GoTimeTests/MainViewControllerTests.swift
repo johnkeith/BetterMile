@@ -17,15 +17,41 @@ class MainViewControllerTests: XCTestCase {
             hideWasCalled = true
         }
     }
+    
+    class FakeTotalTimeLabel: TotalTimeLabel {
+        var showWasCalled = false
+        
+        override func show() {
+            showWasCalled = true
+        }
+    }
+    
+    class FakeStopWatchService: StopWatchService {
+        var startWasCalled = false
+        var lapWasCalled = false
+        
+        override func start(initialTime: TimeInterval = NSDate.timeIntervalSinceReferenceDate) {
+            startWasCalled = true
+        }
+        
+        override func lap() {
+            lapWasCalled = true
+        }
+    }
 
     let startButton = FakeStartButton()
+    let stopWatchService = FakeStopWatchService()
+    let totalTimeLabel = FakeTotalTimeLabel()
     
     var ctrl: MainViewController!
     
     override func setUp() {
         super.setUp()
         
-        ctrl = MainViewController(startButton: startButton)
+        ctrl = MainViewController(
+            startButton: startButton,
+            totalTimeLabel: totalTimeLabel,
+            stopWatchService: stopWatchService)
         
         _ = ctrl.view
     }
@@ -34,22 +60,34 @@ class MainViewControllerTests: XCTestCase {
         super.tearDown()
     }
     
-    // CONTEXT viewDidLoad()
-    
-    func testStartButtonViewAdded() {
+    func testAddSubviews() {
         XCTAssertTrue(startButton.isDescendant(of: ctrl.view))
+        XCTAssertTrue(totalTimeLabel.isDescendant(of: ctrl.view))
     }
     
     func testBgColorSet() {
         XCTAssertEqual(ctrl.view.backgroundColor, UIColor.white)
     }
     
-    // END viewDidLoad()
+    func testViewDoubleTapped() {
+        ctrl.viewDoubleTapped()
+        
+        XCTAssertTrue(stopWatchService.lapWasCalled)
+    }
+    
+    func testAttachLapDoubleTapRecognizer() {
+        ctrl.attachLapDoubleTapRecognizer()
+
+        XCTAssertEqual(ctrl.view.gestureRecognizers?.count, 1)
+        XCTAssertEqual(ctrl.view.gestureRecognizers?[0], ctrl.lapDoubleTap)
+    }
     
     func testOnStartTap() {
         ctrl.onStartTap(sender: startButton)
         
         XCTAssertTrue(startButton.hideWasCalled)
+        XCTAssertTrue(totalTimeLabel.showWasCalled)
+        XCTAssertTrue(stopWatchService.startWasCalled)
     }
     
     func testStartButtonDelegation() {

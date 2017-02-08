@@ -13,7 +13,15 @@ class TotalTimeLabel: UILabel {
         let defaultFrame = CGRect(x: 0, y: 0, width: 100, height: 100)
         super.init(frame: defaultFrame)
 
-        isHidden = hidden
+        self.isHidden = hidden
+        
+        self.text = "00:00.00"
+        
+        self.font = Constants.digitFont
+        self.adjustsFontSizeToFitWidth = true
+        self.numberOfLines = 1
+        self.baselineAdjustment = .alignCenters
+        self.textAlignment = .center
     }
     
     override init(frame: CGRect) {
@@ -28,11 +36,11 @@ class TotalTimeLabel: UILabel {
         self.text = time
     }
     
-    func hide() { // UNTESTED
+    func hide() {
         isHidden = true
     }
     
-    func show() { // UNTESTED
+    func show() {
         isHidden = false
     }
 }
