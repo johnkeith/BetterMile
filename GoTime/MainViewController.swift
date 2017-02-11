@@ -67,7 +67,7 @@ class MainViewController: UIViewController {
     }
     
     func setDataSourceForLapTimeTable() {
-        lapTimeTable.setDataSource(dataStore: [100.0, 200.0, 300.0])
+        lapTimeTable.setDataSource(lapData: [100.0, 200.0, 300.0])
     }
 }
 
