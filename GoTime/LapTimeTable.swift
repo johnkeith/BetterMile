@@ -10,42 +10,60 @@ import UIKit
 
 // TODO: UNTESTED
 class LapTimeTable: UITableView {
-    init(dataStore: [Double]) {
+    init(hidden: Bool = false) {
         let defaultFrame = CGRect(x: 0, y: 0, width: 100, height: 100)
-        
-        super.init(frame: defaultFrame, style: .plain)
-        
-        self.dataSource = LapTimeTableDataSource(dataStore: dataStore)
-    }
 
-    override init(frame: CGRect, style: UITableViewStyle) {
-        super.init(frame: frame, style: style)
+        super.init(frame: defaultFrame, style: .plain)
+
+        self.isHidden = hidden
+        self.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
     }
     
     required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
+        fatalError("init(coder:) is not supported")
+    }
+    
+    func setDataSource(dataStore: [Double]) {
+        self.dataSource = LapTimeTableDataSource(dataStore: dataStore)
+        self.reloadData()
+        print(dataStore, "Set as dataSource")
+    }
+    
+    func hide() {
+        isHidden = true
+    }
+    
+    func show() {
+        isHidden = false
     }
 }
 
 // TODO: UNTESTED
-class LapTimeTableDataSource: NSObject, UITableViewDataSource {
+class LapTimeTableDataSource: NSObject {
     var dataStore: [Double]
     var timeToTextService: TimeToTextService
     
     init(dataStore: [Double], timeToTextService: TimeToTextService = TimeToTextService()) {
+        
         self.dataStore = dataStore
         self.timeToTextService = timeToTextService
+        print(dataStore, "init store")
     }
-    
+}
+
+extension LapTimeTableDataSource: UITableViewDataSource {
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        print("in sections")
         return 1
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        print("in count")
         return dataStore.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        print("settingUpCell")
         let time = timeToTextService.timeAsSingleString(inputTime: dataStore[indexPath.row])
         let cell = tableView.dequeueReusableCell(withIdentifier: "LapTimeTableCell", for: indexPath as IndexPath)
         

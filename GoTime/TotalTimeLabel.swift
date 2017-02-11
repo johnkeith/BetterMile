@@ -24,12 +24,8 @@ class TotalTimeLabel: UILabel {
         self.textAlignment = .center
     }
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-    }
-    
     required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
+        fatalError("init(coder:) is not supported")
     }
     
     func setText(time: String) {

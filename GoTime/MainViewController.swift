@@ -11,17 +11,23 @@ import UIKit
 class MainViewController: UIViewController {
     var startButton: StartButton
     var totalTimeLabel: TotalTimeLabel
+    var lapTimeTable: LapTimeTable
+    
     var stopWatchService: StopWatchService
     var timeToTextService: TimeToTextService
+    
     var lapDoubleTap: UITapGestureRecognizer!
     
     init(startButton: StartButton = StartButton(),
          totalTimeLabel: TotalTimeLabel = TotalTimeLabel(hidden: true),
+         lapTimeTable: LapTimeTable = LapTimeTable(hidden: true),
          stopWatchService: StopWatchService = StopWatchService(),
          timeToTextService: TimeToTextService = TimeToTextService()) {
         
         self.startButton = startButton
         self.totalTimeLabel = totalTimeLabel
+        self.lapTimeTable = lapTimeTable
+        
         self.stopWatchService = stopWatchService
         self.timeToTextService = timeToTextService
         
@@ -41,6 +47,7 @@ class MainViewController: UIViewController {
         setBackgroundColor()
         addSubviews()
         applyConstraints()
+        setDataSourceForLapTimeTable() // TODO: UNTESTED
     }
     
     func setBackgroundColor() {
@@ -50,18 +57,30 @@ class MainViewController: UIViewController {
     func addSubviews() {
         self.view.addSubview(startButton)
         self.view.addSubview(totalTimeLabel)
+        self.view.addSubview(lapTimeTable) // TODO: UNTESTED
     }
     
     func applyConstraints() { // TODO: UNTESTED
         MainViewControllerConstraints.positionStartButton(startButton: startButton)
         MainViewControllerConstraints.positionTotalTimeLabel(totalTimeLabel: totalTimeLabel)
+        MainViewControllerConstraints.positionLapTimeTable(lapTimeTable: lapTimeTable, totalTimeLabel: totalTimeLabel)
+    }
+    
+    func setDataSourceForLapTimeTable() {
+        lapTimeTable.setDataSource(dataStore: [100.0, 200.0, 300.0])
     }
 }
 
 // MARK: Gesture recognizer functions
 extension MainViewController {
     func viewDoubleTapped() {
+        print("lapping")
         stopWatchService.lap()
+        
+        // TODO: NOT WORKING!
+        DispatchQueue.main.async {
+            self.lapTimeTable.reloadData()
+        }
     }
     
     func attachLapDoubleTapRecognizer() {
@@ -78,6 +97,7 @@ extension MainViewController: StartButtonDelegate {
         sender.hide()
         
         totalTimeLabel.show()
+        lapTimeTable.show() // TODO: UNTESTED
         
         attachLapDoubleTapRecognizer()
 
@@ -105,5 +125,9 @@ extension MainViewController: StopWatchServiceDelegate {
     func lapStored() {
         
     }
+}
+
+extension MainViewController: UITableViewDelegate {
+    
 }
 

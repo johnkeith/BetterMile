@@ -15,7 +15,7 @@ class MainViewControllerConstraints {
     
     private static let defaultMargin = 20
     
-    class func positionStartButton(startButton: UIButton) {
+    class func positionStartButton(startButton: StartButton) {
         startButton.snp.makeConstraints { (make) -> Void in
             make.width.equalTo(startButton.superview!).offset(-(defaultMargin * 2))
             make.height.equalTo(startButton.superview!.frame.height / 5)
@@ -23,12 +23,22 @@ class MainViewControllerConstraints {
         }
     }
     
-    class func positionTotalTimeLabel(totalTimeLabel: UILabel) {
+    class func positionTotalTimeLabel(totalTimeLabel: TotalTimeLabel) {
         totalTimeLabel.snp.makeConstraints { (make) -> Void in
             make.width.equalTo(totalTimeLabel.superview!).offset(-(defaultMargin * 2))
             make.height.equalTo(totalTimeLabel.superview!.frame.height / 6)
-            make.top.equalTo(totalTimeLabel.superview!).offset(defaultMargin * 2)
+            make.top.equalTo(totalTimeLabel.superview!).offset(defaultMargin * 3)
             make.left.equalTo(totalTimeLabel.superview!).offset(defaultMargin)
+        }
+    }
+    
+    class func positionLapTimeTable(lapTimeTable: LapTimeTable, totalTimeLabel: TotalTimeLabel) {
+        // relative to totalTimeLabel
+        lapTimeTable.snp.makeConstraints { (make) -> Void in
+            make.width.equalTo(lapTimeTable.superview!).offset(-(defaultMargin))
+            make.height.equalTo(lapTimeTable.superview!.frame.height / 2)
+            make.top.equalTo(totalTimeLabel.snp.bottom).offset(defaultMargin / 2)
+            make.left.equalTo(lapTimeTable.superview!)
         }
     }
 }
