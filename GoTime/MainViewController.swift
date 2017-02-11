@@ -78,9 +78,9 @@ extension MainViewController {
         stopWatchService.lap()
         
         // TODO: NOT WORKING!
-        DispatchQueue.main.async {
-            self.lapTimeTable.reloadData()
-        }
+//        DispatchQueue.main.async {
+//            self.lapTimeTable.reloadData()
+//        }
     }
     
     func attachLapDoubleTapRecognizer() {
@@ -125,9 +125,5 @@ extension MainViewController: StopWatchServiceDelegate {
     func lapStored() {
         
     }
-}
-
-extension MainViewController: UITableViewDelegate {
-    
 }
 

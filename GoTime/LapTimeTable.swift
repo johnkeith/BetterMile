@@ -24,7 +24,11 @@ class LapTimeTable: UITableView {
     }
     
     func setDataSource(dataStore: [Double]) {
-        self.dataSource = LapTimeTableDataSource(dataStore: dataStore)
+        let data = LapTimeTableDataSource(dataStore: dataStore)
+        
+        self.dataSource = data
+        self.delegate = data
+        
         self.reloadData()
         print(dataStore, "Set as dataSource")
     }
@@ -39,7 +43,7 @@ class LapTimeTable: UITableView {
 }
 
 // TODO: UNTESTED
-class LapTimeTableDataSource: NSObject {
+class LapTimeTableDataSource: NSObject, UITableViewDelegate {
     var dataStore: [Double]
     var timeToTextService: TimeToTextService
     
@@ -58,7 +62,7 @@ extension LapTimeTableDataSource: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print("in count")
+        print("in count", dataStore.count)
         return dataStore.count
     }
     
