@@ -26,7 +26,7 @@ class MainViewControllerConstraints {
     class func positionTotalTimeLabel(totalTimeLabel: TotalTimeLabel) {
         totalTimeLabel.snp.makeConstraints { (make) -> Void in
             make.width.equalTo(totalTimeLabel.superview!).offset(-(defaultMargin * 2))
-            make.height.equalTo(totalTimeLabel.superview!.frame.height / 6)
+            make.height.equalTo(totalTimeLabel.superview!.frame.height * (1/6))
             make.top.equalTo(totalTimeLabel.superview!).offset(defaultMargin * 3)
             make.left.equalTo(totalTimeLabel.superview!).offset(defaultMargin)
         }
@@ -35,10 +35,19 @@ class MainViewControllerConstraints {
     class func positionLapTimeTable(lapTimeTable: LapTimeTable, totalTimeLabel: TotalTimeLabel) {
         // relative to totalTimeLabel
         lapTimeTable.snp.makeConstraints { (make) -> Void in
-            make.width.equalTo(lapTimeTable.superview!).offset(-(defaultMargin))
-            make.height.equalTo(lapTimeTable.superview!.frame.height / 2)
+            make.width.equalTo(lapTimeTable.superview!)
             make.top.equalTo(totalTimeLabel.snp.bottom).offset(defaultMargin / 2)
             make.left.equalTo(lapTimeTable.superview!)
+            make.bottom.equalTo(lapTimeTable.superview!)
+        }
+    }
+    
+    class func positionDividerLabel(dividerLabel: DividerLabel, lapTimeTable: LapTimeTable) {
+        dividerLabel.snp.makeConstraints { (make) -> Void in
+            make.width.equalTo(dividerLabel.superview!).offset(-(defaultMargin * 2))
+            make.height.equalTo(2)
+            make.top.equalTo(lapTimeTable.snp.top)
+            make.left.equalTo(lapTimeTable.superview!).offset(defaultMargin)
         }
     }
 }

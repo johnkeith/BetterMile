@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GoTime/MainViewController.swift"
-            timestampString = "508469882.813948"
+            timestampString = "508736098.966817"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "66"
-            endingLineNumber = "66"
+            startingLineNumber = "69"
+            endingLineNumber = "69"
             landmarkName = "applyConstraints()"
             landmarkType = "7">
          </BreakpointContent>
@@ -26,12 +26,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GoTime/MainViewController.swift"
-            timestampString = "508387026.453231"
+            timestampString = "508736098.966817"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "21"
-            endingLineNumber = "21"
-            landmarkName = "init(startButton:totalTimeLabel:lapTimeTable:stopWatchService:timeToTextService:)"
+            startingLineNumber = "22"
+            endingLineNumber = "22"
+            landmarkName = "init(startButton:totalTimeLabel:lapTimeTable:stopWatchService:timeToTextService:dividerLabel:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -137,22 +137,6 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "GoTime/MainViewController.swift"
-            timestampString = "508469882.813948"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "77"
-            endingLineNumber = "77"
-            landmarkName = "viewDoubleTapped()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "GoTimeTests/MainViewControllerTests.swift"
             timestampString = "508182151.0914"
             startingColumnNumber = "9223372036854775807"
@@ -186,7 +170,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GoTime/MainViewController.swift"
-            timestampString = "508468433.369497"
+            timestampString = "508736098.966817"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "14"

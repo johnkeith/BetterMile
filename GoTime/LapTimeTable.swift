@@ -22,15 +22,15 @@ class LapTimeTable: UITableView {
         self.isHidden = hidden
         self.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
         self.dataSource = self
-        self.delegate = self
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) is not supported")
     }
     
-    func setDataSource(lapData: [Double]) {
+    func setLapData(lapData: [Double]) {
         self.lapData = lapData
+        self.reloadData()
     }
     
     func hide() {
@@ -40,10 +40,6 @@ class LapTimeTable: UITableView {
     func show() {
         isHidden = false
     }
-}
-
-extension LapTimeTable: UITableViewDelegate {
-    
 }
 
 extension LapTimeTable: UITableViewDataSource {

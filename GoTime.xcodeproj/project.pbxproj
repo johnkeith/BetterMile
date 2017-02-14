@@ -10,6 +10,7 @@
 		633966991E47549800D43896 /* TotalTimeLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633966981E47549800D43896 /* TotalTimeLabel.swift */; };
 		6339669B1E4754EC00D43896 /* TotalTimeLabelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6339669A1E4754EC00D43896 /* TotalTimeLabelTests.swift */; };
 		634CACDF1E4BD4AE0064FD5E /* LapTimeTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634CACDE1E4BD4AE0064FD5E /* LapTimeTable.swift */; };
+		634CACE31E52A80B0064FD5E /* DividerLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634CACE21E52A80B0064FD5E /* DividerLabel.swift */; };
 		6386BF211E3EC1FC00BD2875 /* TimeToTextService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6386BF201E3EC1FC00BD2875 /* TimeToTextService.swift */; };
 		6386BF231E3ED67E00BD2875 /* TImeToTextServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6386BF221E3ED67E00BD2875 /* TImeToTextServiceTests.swift */; };
 		6386BF281E421A1300BD2875 /* DataModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6386BF271E421A1300BD2875 /* DataModelTests.swift */; };
@@ -55,6 +56,7 @@
 		633966981E47549800D43896 /* TotalTimeLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TotalTimeLabel.swift; sourceTree = "<group>"; };
 		6339669A1E4754EC00D43896 /* TotalTimeLabelTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TotalTimeLabelTests.swift; sourceTree = "<group>"; };
 		634CACDE1E4BD4AE0064FD5E /* LapTimeTable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LapTimeTable.swift; sourceTree = "<group>"; };
+		634CACE21E52A80B0064FD5E /* DividerLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DividerLabel.swift; sourceTree = "<group>"; };
 		6386BF201E3EC1FC00BD2875 /* TimeToTextService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeToTextService.swift; sourceTree = "<group>"; };
 		6386BF221E3ED67E00BD2875 /* TImeToTextServiceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TImeToTextServiceTests.swift; sourceTree = "<group>"; };
 		6386BF271E421A1300BD2875 /* DataModelTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataModelTests.swift; sourceTree = "<group>"; };
@@ -192,6 +194,7 @@
 				63A3F2271E35355500AA8A92 /* StartButton.swift */,
 				633966981E47549800D43896 /* TotalTimeLabel.swift */,
 				634CACDE1E4BD4AE0064FD5E /* LapTimeTable.swift */,
+				634CACE21E52A80B0064FD5E /* DividerLabel.swift */,
 			);
 			name = Components;
 			sourceTree = "<group>";
@@ -416,6 +419,7 @@
 			files = (
 				63A3F22B1E35355500AA8A92 /* MainViewControllerConstraints.swift in Sources */,
 				6386BF331E45FE9700BD2875 /* RunPersistanceService.swift in Sources */,
+				634CACE31E52A80B0064FD5E /* DividerLabel.swift in Sources */,
 				63A3F1F71E34FE3800AA8A92 /* GoTime.xcdatamodeld in Sources */,
 				6386BF211E3EC1FC00BD2875 /* TimeToTextService.swift in Sources */,
 				63A3F1EF1E34FE3800AA8A92 /* AppDelegate.swift in Sources */,

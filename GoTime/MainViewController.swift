@@ -12,6 +12,7 @@ class MainViewController: UIViewController {
     var startButton: StartButton
     var totalTimeLabel: TotalTimeLabel
     var lapTimeTable: LapTimeTable
+    var dividerLabel: DividerLabel
     
     var stopWatchService: StopWatchService
     var timeToTextService: TimeToTextService
@@ -22,11 +23,13 @@ class MainViewController: UIViewController {
          totalTimeLabel: TotalTimeLabel = TotalTimeLabel(hidden: true),
          lapTimeTable: LapTimeTable = LapTimeTable(hidden: true),
          stopWatchService: StopWatchService = StopWatchService(),
-         timeToTextService: TimeToTextService = TimeToTextService()) {
+         timeToTextService: TimeToTextService = TimeToTextService(),
+         dividerLabel: DividerLabel = DividerLabel(hidden: true)) {
         
         self.startButton = startButton
         self.totalTimeLabel = totalTimeLabel
         self.lapTimeTable = lapTimeTable
+        self.dividerLabel = dividerLabel
         
         self.stopWatchService = stopWatchService
         self.timeToTextService = timeToTextService
@@ -47,7 +50,6 @@ class MainViewController: UIViewController {
         setBackgroundColor()
         addSubviews()
         applyConstraints()
-        setDataSourceForLapTimeTable() // TODO: UNTESTED
     }
     
     func setBackgroundColor() {
@@ -58,29 +60,34 @@ class MainViewController: UIViewController {
         self.view.addSubview(startButton)
         self.view.addSubview(totalTimeLabel)
         self.view.addSubview(lapTimeTable) // TODO: UNTESTED
+        self.view.addSubview(dividerLabel) // TODO: UNTESTED
     }
     
     func applyConstraints() { // TODO: UNTESTED
         MainViewControllerConstraints.positionStartButton(startButton: startButton)
         MainViewControllerConstraints.positionTotalTimeLabel(totalTimeLabel: totalTimeLabel)
         MainViewControllerConstraints.positionLapTimeTable(lapTimeTable: lapTimeTable, totalTimeLabel: totalTimeLabel)
+        MainViewControllerConstraints.positionDividerLabel(dividerLabel: dividerLabel, lapTimeTable: lapTimeTable)
     }
     
-    func setDataSourceForLapTimeTable() {
-        lapTimeTable.setDataSource(lapData: [100.0, 200.0, 300.0])
+    // MARK - REMOVE, ONLY FOR DEBUGGING
+    func setBordersForView(targetView: AnyObject, borderWidth: CGFloat = CGFloat(2.0), borderRadius: CGFloat = CGFloat(4.0), borderColor: CGColor = UIColor.blue.cgColor) {
+        targetView.layer.borderWidth = borderWidth
+        targetView.layer.cornerRadius = borderRadius
+        targetView.layer.borderColor = borderColor
     }
 }
 
 // MARK: Gesture recognizer functions
 extension MainViewController {
     func viewDoubleTapped() {
-        print("lapping")
         stopWatchService.lap()
         
-        // TODO: NOT WORKING!
-//        DispatchQueue.main.async {
-//            self.lapTimeTable.reloadData()
-//        }
+        // TODO: UNTESTED!
+        DispatchQueue.main.async {
+            self.lapTimeTable.setLapData(lapData: self.stopWatchService.lapTimes)
+        }
+        
     }
     
     func attachLapDoubleTapRecognizer() {
@@ -98,6 +105,7 @@ extension MainViewController: StartButtonDelegate {
         
         totalTimeLabel.show()
         lapTimeTable.show() // TODO: UNTESTED
+        dividerLabel.show() // TODO: UNTESTED
         
         attachLapDoubleTapRecognizer()
 
