@@ -116,6 +116,10 @@ extension MainViewController: StartButtonDelegate {
 extension MainViewController: StopWatchServiceDelegate {
     func stopWatchIntervalElapsed(totalTimeElapsed: TimeInterval) {
         totalTimeLabel.text = timeToTextService.timeAsSingleString(inputTime: totalTimeElapsed)
+        
+        DispatchQueue.main.async {
+            self.lapTimeTable.setLapData(lapData: self.stopWatchService.lapTimes)
+        }
     }
     
     func stopWatchStopped() {

@@ -46,11 +46,13 @@ class StopWatchService: NSObject {
             repeats: true
         )
         timerRunning = true
+        lapTimes.append(0.0) // TODO: UNTESTED
     }
     
     func timeIntervalElapsed() {
-        let totalTimeElapsed = calculateTotalTimeElapsed()
-        
+        lapTimes[lapTimes.endIndex - 1] = calculateTimeBetweenPointAndNow(initialTime: startTime) // TODO: UNTESTED
+        let totalTimeElapsed = calculateTotalLapsTime(_lapTimes: lapTimes)
+
         delegate.stopWatchIntervalElapsed(totalTimeElapsed: totalTimeElapsed)
     }
     
@@ -108,7 +110,7 @@ class StopWatchService: NSObject {
     func lap() {
         let totalLapTime = calculateTimeBetweenPointAndNow(initialTime: startTime)
         
-        lapTimes.append(totalLapTime)
+//        lapTimes.append(totalLapTime)
         
         timer.invalidate()
 
