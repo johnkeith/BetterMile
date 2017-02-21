@@ -83,6 +83,7 @@ class StopWatchServiceTests: XCTestCase {
         
         XCTAssertTrue(fakeDelegate.intervalElapsedWasCalled)
         XCTAssertTrue(service.timerRunning)
+        XCTAssertEqual(service.lapTimes.count, 1)
     }
     
     func testTimeIntervalElapsed() {
@@ -92,21 +93,6 @@ class StopWatchServiceTests: XCTestCase {
         
         XCTAssertTrue(fakeDelegate.intervalElapsedWasCalled)
         XCTAssertLessThan(fakeDelegate.currentTimePassed, 1)
-    }
-    
-    func testCalculateTotalTimeElapsed() {
-        service.start()
-        
-        waitForTimer(until: nil)
-        
-        service.lap()
-        
-        waitForTimer(until: nil)
-        
-        let totalLapTime = service.calculateTotalLapsTime(_lapTimes: service.lapTimes)
-        let result = service.calculateTotalTimeElapsed()
-        
-        XCTAssertGreaterThan(result, totalLapTime)
     }
     
     func testCalculateTotalLapTime() {
@@ -180,7 +166,7 @@ class StopWatchServiceTests: XCTestCase {
         
         service.pause()
         
-        waitForTimer(until: getTimeToRunUntil(timeToWait: 5.0))
+        waitForTimer(until: getTimeToRunUntil(timeToWait: 1.0))
         
         service.restart()
         
@@ -189,6 +175,7 @@ class StopWatchServiceTests: XCTestCase {
         
         XCTAssertLessThan(service.startTime, NSDate.timeIntervalSinceReferenceDate)
         XCTAssertTrue(fakeDelegate.restartWasCalled)
+        XCTAssertEqual(service.lapTimes.count, 1)
     }
     
     func testLap() {
@@ -199,7 +186,7 @@ class StopWatchServiceTests: XCTestCase {
         
         let result = service.lapTimes.count
         
-        XCTAssertEqual(result, 2)
+        XCTAssertEqual(result, 3)
         XCTAssertTrue(fakeDelegate.lapWasCalled)
     }
 }

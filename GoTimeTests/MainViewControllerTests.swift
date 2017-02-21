@@ -30,7 +30,7 @@ class MainViewControllerTests: XCTestCase {
         var startWasCalled = false
         var lapWasCalled = false
         
-        override func start(initialTime: TimeInterval = NSDate.timeIntervalSinceReferenceDate) {
+        override func start(initialTime: TimeInterval = NSDate.timeIntervalSinceReferenceDate, restart: Bool = false) {
             startWasCalled = true
         }
         
@@ -38,10 +38,33 @@ class MainViewControllerTests: XCTestCase {
             lapWasCalled = true
         }
     }
+    
+    class FakeLapTimeTable: LapTimeTable {
+        var setLapDataWasCalled = false
+        var showWasCalled = false
+        
+        override func setLapData(lapData: [Double]) {
+            setLapDataWasCalled = true
+        }
+        
+        override func show() {
+            showWasCalled = true
+        }
+    }
+    
+    class FakeDividerLabel: DividerLabel {
+        var showWasCalled = false
+        
+        override func show() {
+            showWasCalled = true
+        }
+    }
 
     let startButton = FakeStartButton()
     let stopWatchService = FakeStopWatchService()
     let totalTimeLabel = FakeTotalTimeLabel()
+    let lapTimeTable = FakeLapTimeTable()
+    let dividerLabel = FakeDividerLabel()
     
     var ctrl: MainViewController!
     
@@ -51,7 +74,9 @@ class MainViewControllerTests: XCTestCase {
         ctrl = MainViewController(
             startButton: startButton,
             totalTimeLabel: totalTimeLabel,
-            stopWatchService: stopWatchService)
+            lapTimeTable: lapTimeTable,
+            stopWatchService: stopWatchService,
+            dividerLabel: dividerLabel)
         
         _ = ctrl.view
     }
@@ -63,16 +88,32 @@ class MainViewControllerTests: XCTestCase {
     func testAddSubviews() {
         XCTAssertTrue(startButton.isDescendant(of: ctrl.view))
         XCTAssertTrue(totalTimeLabel.isDescendant(of: ctrl.view))
+        XCTAssertTrue(lapTimeTable.isDescendant(of: ctrl.view))
+        XCTAssertTrue(dividerLabel.isDescendant(of: ctrl.view))
     }
     
     func testBgColorSet() {
         XCTAssertEqual(ctrl.view.backgroundColor, UIColor.white)
     }
     
+    // another way to async test as in StopWatchServiceTests use of RunLoop
     func testViewDoubleTapped() {
         ctrl.viewDoubleTapped()
         
-        XCTAssertTrue(stopWatchService.lapWasCalled)
+        let err = expectation(description: "setLapData was not called")
+    
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            XCTAssertTrue(self.stopWatchService.lapWasCalled)
+            XCTAssertTrue(self.lapTimeTable.setLapDataWasCalled)
+            
+            err.fulfill()
+        }
+        
+        waitForExpectations(timeout: 1) { error in
+            if let error = error {
+                XCTFail("waitForExpectationsWithTimeout errored: \(error)")
+            }
+        }
     }
     
     func testAttachLapDoubleTapRecognizer() {
@@ -88,11 +129,26 @@ class MainViewControllerTests: XCTestCase {
         XCTAssertTrue(startButton.hideWasCalled)
         XCTAssertTrue(totalTimeLabel.showWasCalled)
         XCTAssertTrue(stopWatchService.startWasCalled)
+        XCTAssertTrue(lapTimeTable.showWasCalled)
+        XCTAssertTrue(dividerLabel.showWasCalled)
     }
     
     func testStartButtonDelegation() {
         startButton.onStartTap(sender: startButton)
         
         XCTAssertTrue(startButton.hideWasCalled)
+    }
+    
+    func testStopWatchIntervalElapsed() {
+        let interval = 60.0
+        
+        totalTimeLabel.text = "test"
+        
+        ctrl.stopWatchIntervalElapsed(totalTimeElapsed: interval)
+        
+        RunLoop.current.run(until: Date().addingTimeInterval(0.5))
+        
+        XCTAssertEqual(totalTimeLabel.text, TimeToTextService().timeAsSingleString(inputTime: interval))
+        XCTAssertTrue(lapTimeTable.setLapDataWasCalled)
     }
 }

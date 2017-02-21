@@ -154,11 +154,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GoTimeTests/MainViewControllerTests.swift"
-            timestampString = "508182414.121534"
+            timestampString = "508906105.534415"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "78"
-            endingLineNumber = "78"
+            startingLineNumber = "119"
+            endingLineNumber = "119"
             landmarkName = "testAttachLapDoubleTapRecognizer()"
             landmarkType = "7">
          </BreakpointContent>
@@ -177,6 +177,22 @@
             endingLineNumber = "14"
             landmarkName = "MainViewController"
             landmarkType = "3">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "GoTimeTests/MainViewControllerTests.swift"
+            timestampString = "508906016.80115"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "50"
+            endingLineNumber = "50"
+            landmarkName = "show()"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

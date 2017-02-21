@@ -8,7 +8,6 @@
 
 import UIKit
 
-// TODO: UNTESTED
 class LapTimeTable: UITableView {
     var lapData = [Double]()
     var timeToTextService: TimeToTextService
@@ -44,17 +43,14 @@ class LapTimeTable: UITableView {
 
 extension LapTimeTable: UITableViewDataSource {
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        print("in sections")
         return 1
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print("in count", lapData.count)
         return lapData.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        print("settingUpCell")
         let time = timeToTextService.timeAsSingleString(inputTime: lapData[indexPath.row])
 //        let cell = tableView.dequeueReusableCell(withIdentifier: "LapTimeTableCell", for: indexPath as IndexPath)
         let cell = UITableViewCell()

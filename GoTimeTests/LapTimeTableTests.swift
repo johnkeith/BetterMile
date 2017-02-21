@@ -1,0 +1,73 @@
+//
+//  LapTimeTableTests.swift
+//  GoTime
+//
+//  Created by John Keith on 2/21/17.
+//  Copyright © 2017 John Keith. All rights reserved.
+//
+
+import XCTest
+@testable import GoTime
+
+class LapTimeTableTests: XCTestCase {
+    let lapData = [1.0, 2.0, 3.0]
+    
+    class FakeTimeToTextService: TimeToTextService {
+        var timeAsSingleStringCalled = false
+        
+        override func timeAsSingleString(inputTime: Double) -> String {
+            timeAsSingleStringCalled = true
+            return "10:10.10"
+        }
+    }
+    
+    let timeToTextService = FakeTimeToTextService()
+    var table: LapTimeTable!
+    
+    override func setUp() {
+        super.setUp()
+        
+        table = LapTimeTable(hidden: true, timeToTextService: timeToTextService)
+    }
+    
+    func testInitOfTable() {
+        XCTAssertTrue(table.isHidden)
+        XCTAssertNotNil(table.dataSource)
+    }
+    
+    func testNumberOfSectionsInTableView() {
+        XCTAssertEqual(table.numberOfSectionsInTableView(tableView: table), 1)
+    }
+    
+    func testSetLapData() {
+        XCTAssertEqual(table.lapData.count, 0)
+        
+        table.setLapData(lapData: lapData)
+        
+        XCTAssertEqual(table.lapData.count, lapData.count)
+        
+        let firstCell = table.tableView(table, cellForRowAt: IndexPath(row: 0, section: 1))
+        
+        XCTAssertNotNil(firstCell)
+    }
+    
+    func testTableViewConvertsTimes() {
+        table.lapData = lapData
+        table.reloadData()
+        
+        let firstCell = table.tableView(table, cellForRowAt: IndexPath(row: 0, section: 1))
+        
+        XCTAssertEqual(firstCell.textLabel?.text, "10:10.10")
+        XCTAssertTrue(timeToTextService.timeAsSingleStringCalled)
+    }
+    
+    func testHide() {
+        table.hide()
+        XCTAssertTrue(table.isHidden)
+    }
+    
+    func testShow() {
+        table.show()
+        XCTAssertFalse(table.isHidden)
+    }
+}

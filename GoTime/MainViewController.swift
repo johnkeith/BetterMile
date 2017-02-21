@@ -59,8 +59,8 @@ class MainViewController: UIViewController {
     func addSubviews() {
         self.view.addSubview(startButton)
         self.view.addSubview(totalTimeLabel)
-        self.view.addSubview(lapTimeTable) // TODO: UNTESTED
-        self.view.addSubview(dividerLabel) // TODO: UNTESTED
+        self.view.addSubview(lapTimeTable)
+        self.view.addSubview(dividerLabel)
     }
     
     func applyConstraints() { // TODO: UNTESTED
@@ -83,7 +83,6 @@ extension MainViewController {
     func viewDoubleTapped() {
         stopWatchService.lap()
         
-        // TODO: UNTESTED!
         DispatchQueue.main.async {
             self.lapTimeTable.setLapData(lapData: self.stopWatchService.lapTimes)
         }
@@ -104,8 +103,8 @@ extension MainViewController: StartButtonDelegate {
         sender.hide()
         
         totalTimeLabel.show()
-        lapTimeTable.show() // TODO: UNTESTED
-        dividerLabel.show() // TODO: UNTESTED
+        lapTimeTable.show()
+        dividerLabel.show()
         
         attachLapDoubleTapRecognizer()
 
