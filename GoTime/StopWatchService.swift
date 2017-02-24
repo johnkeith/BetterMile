@@ -28,7 +28,7 @@ class StopWatchService: NSObject {
     var timer: Timer!
     var timerRunning: Bool = false
     var startTime: TimeInterval!
-    var elapsedTimeBeforePause: TimeInterval!
+    var elapsedTimeBeforePause: TimeInterval = 0.0
 
     lazy var lapTimes: Array = [Double]()
     
@@ -45,6 +45,7 @@ class StopWatchService: NSObject {
             userInfo: nil,
             repeats: true
         )
+
         timerRunning = true
         
         if(!restart) {
@@ -81,7 +82,7 @@ class StopWatchService: NSObject {
         timer = nil
         timerRunning = false
         startTime = nil
-        elapsedTimeBeforePause = nil
+        elapsedTimeBeforePause = 0.0
         lapTimes.removeAll()
     }
     
@@ -96,7 +97,7 @@ class StopWatchService: NSObject {
     func restart() {
         let newStartTime = NSDate.timeIntervalSinceReferenceDate - elapsedTimeBeforePause
         
-        elapsedTimeBeforePause = nil
+        elapsedTimeBeforePause = 0.0
         
         start(initialTime: newStartTime, restart: true)
         

@@ -138,7 +138,7 @@ class StopWatchServiceTests: XCTestCase {
         XCTAssertNil(service.startTime)
         XCTAssertNil(service.timer)
         XCTAssertFalse(service.timerRunning)
-        XCTAssertNil(service.elapsedTimeBeforePause)
+        XCTAssertEqual(service.elapsedTimeBeforePause, 0.0)
         XCTAssertEqual(service.lapTimes.count, 0)
     }
     

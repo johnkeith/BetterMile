@@ -32,6 +32,7 @@ class MainViewControllerTests: XCTestCase {
         
         override func start(initialTime: TimeInterval = NSDate.timeIntervalSinceReferenceDate, restart: Bool = false) {
             startWasCalled = true
+            timerRunning = true
         }
         
         override func lap() {
@@ -97,7 +98,8 @@ class MainViewControllerTests: XCTestCase {
     }
     
     // another way to async test as in StopWatchServiceTests use of RunLoop
-    func testViewDoubleTapped() {
+    func testViewDoubleTappedWhenTimerRunning() {
+        ctrl.onStartTap(sender: startButton)
         ctrl.viewDoubleTapped()
         
         let err = expectation(description: "setLapData was not called")
@@ -116,11 +118,30 @@ class MainViewControllerTests: XCTestCase {
         }
     }
     
+    func testViewDoubleTappedWhenTimerNotRunning() {
+        ctrl.viewDoubleTapped()
+        
+        let err = expectation(description: "setLapData was not called")
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            XCTAssertFalse(self.stopWatchService.lapWasCalled)
+            XCTAssertTrue(self.lapTimeTable.setLapDataWasCalled)
+            
+            err.fulfill()
+        }
+        
+        waitForExpectations(timeout: 1) { error in
+            if let error = error {
+                XCTFail("waitForExpectationsWithTimeout errored: \(error)")
+            }
+        }
+    }
+    
     func testAttachDoubleTapRecognizer() {
         ctrl.attachDoubleTapRecognizer()
 
         XCTAssertEqual(ctrl.view.gestureRecognizers?.count, 1)
-        XCTAssertEqual(ctrl.view.gestureRecognizers?[0], ctrl.lapDoubleTap)
+        XCTAssertEqual(ctrl.view.gestureRecognizers?[0], ctrl.doubleTapRecognizer)
     }
     
     func testOnStartTap() {

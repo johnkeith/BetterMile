@@ -17,7 +17,8 @@ class MainViewController: UIViewController {
     var stopWatchService: StopWatchService
     var timeToTextService: TimeToTextService
     
-    var lapDoubleTap: UITapGestureRecognizer!
+    var doubleTapRecognizer: UITapGestureRecognizer!
+    var longPressRecognizer: UILongPressGestureRecognizer!
     
     init(startButton: StartButton = StartButton(),
          totalTimeLabel: TotalTimeLabel = TotalTimeLabel(hidden: true),
@@ -50,6 +51,8 @@ class MainViewController: UIViewController {
         setBackgroundColor()
         addSubviews()
         applyConstraints()
+        
+        self.view.isUserInteractionEnabled = true
     }
     
     func setBackgroundColor() {
@@ -80,21 +83,37 @@ class MainViewController: UIViewController {
 
 // MARK: Gesture recognizer functions
 extension MainViewController {
-    func viewDoubleTapped() {
-        stopWatchService.timerRunning ? stopWatchService.lap() : stopWatchService.restart()
-        
+    func refreshLapTableData() {
         DispatchQueue.main.async {
             self.lapTimeTable.setLapData(lapData: self.stopWatchService.lapTimes)
         }
+    }
+    
+    func viewDoubleTapped() {
+        stopWatchService.timerRunning ? stopWatchService.lap() : stopWatchService.restart()
         
+        refreshLapTableData()
     }
     
     func attachDoubleTapRecognizer() {
-        lapDoubleTap = UITapGestureRecognizer(target: self, action: #selector(self.viewDoubleTapped))
-        lapDoubleTap.numberOfTapsRequired = 2
+        doubleTapRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.viewDoubleTapped))
+        doubleTapRecognizer.numberOfTapsRequired = 2
         
-        self.view.addGestureRecognizer(lapDoubleTap)
-        self.view.isUserInteractionEnabled = true
+        self.view.addGestureRecognizer(doubleTapRecognizer)
+    }
+    
+    // TODO: UNTESTED
+    func viewLongPressed() {
+        stopWatchService.timerRunning ? stopWatchService.pause() : stopWatchService.stop()
+
+        refreshLapTableData()
+    }
+    
+    // TODO: UNTESTED
+    func attachLongPressRecognizer() {
+        longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(self.viewLongPressed))
+        
+        self.view.addGestureRecognizer(longPressRecognizer)
     }
 }
 
@@ -107,6 +126,7 @@ extension MainViewController: StartButtonDelegate {
         dividerLabel.show()
         
         attachDoubleTapRecognizer()
+        attachLongPressRecognizer()
 
         stopWatchService.start()
     }
@@ -121,18 +141,22 @@ extension MainViewController: StopWatchServiceDelegate {
         }
     }
     
+    // TODO: UNNEEDED?
     func stopWatchStopped() {
         
     }
     
+    // TODO: UNNEEDED?
     func stopWatchPaused() {
         
     }
     
+    // TODO: UNNEEDED?
     func stopWatchRestarted() {
         
     }
     
+    // TODO: UNNEEDED?
     func lapStored() {
         
     }

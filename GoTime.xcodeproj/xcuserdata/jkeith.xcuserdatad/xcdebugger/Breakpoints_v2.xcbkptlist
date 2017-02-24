@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GoTime/MainViewController.swift"
-            timestampString = "508736098.966817"
+            timestampString = "509599439.981999"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "69"
-            endingLineNumber = "69"
+            startingLineNumber = "72"
+            endingLineNumber = "72"
             landmarkName = "applyConstraints()"
             landmarkType = "7">
          </BreakpointContent>
@@ -26,11 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GoTime/MainViewController.swift"
-            timestampString = "508736098.966817"
+            timestampString = "509596429.474372"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "22"
-            endingLineNumber = "22"
+            startingLineNumber = "23"
+            endingLineNumber = "23"
             landmarkName = "init(startButton:totalTimeLabel:lapTimeTable:stopWatchService:timeToTextService:dividerLabel:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -154,12 +154,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GoTimeTests/MainViewControllerTests.swift"
-            timestampString = "508906105.534415"
+            timestampString = "509595024.081612"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "119"
-            endingLineNumber = "119"
-            landmarkName = "testAttachLapDoubleTapRecognizer()"
+            startingLineNumber = "140"
+            endingLineNumber = "140"
+            landmarkName = "testAttachDoubleTapRecognizer()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -186,11 +186,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GoTimeTests/MainViewControllerTests.swift"
-            timestampString = "508906016.80115"
+            timestampString = "509593658.400463"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "50"
-            endingLineNumber = "50"
+            startingLineNumber = "51"
+            endingLineNumber = "51"
             landmarkName = "show()"
             landmarkType = "7">
          </BreakpointContent>
