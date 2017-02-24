@@ -46,7 +46,7 @@ class MainViewControllerConstraints {
         dividerLabel.snp.makeConstraints { (make) -> Void in
             make.width.equalTo(dividerLabel.superview!).offset(-(defaultMargin * 2))
             make.height.equalTo(2)
-            make.top.equalTo(lapTimeTable.snp.top)
+            make.top.equalTo(lapTimeTable.snp.top).offset(-(defaultMargin / 2))
             make.left.equalTo(lapTimeTable.superview!).offset(defaultMargin)
         }
     }

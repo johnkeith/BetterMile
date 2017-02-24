@@ -17,7 +17,7 @@ class TotalTimeLabel: UILabel {
         
         self.text = "00:00.00"
         
-        self.font = Constants.digitFont
+        self.font = Constants.responsiveDigitFont
         self.adjustsFontSizeToFitWidth = true
         self.numberOfLines = 1
         self.baselineAdjustment = .alignCenters

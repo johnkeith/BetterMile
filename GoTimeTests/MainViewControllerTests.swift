@@ -116,8 +116,8 @@ class MainViewControllerTests: XCTestCase {
         }
     }
     
-    func testAttachLapDoubleTapRecognizer() {
-        ctrl.attachLapDoubleTapRecognizer()
+    func testAttachDoubleTapRecognizer() {
+        ctrl.attachDoubleTapRecognizer()
 
         XCTAssertEqual(ctrl.view.gestureRecognizers?.count, 1)
         XCTAssertEqual(ctrl.view.gestureRecognizers?[0], ctrl.lapDoubleTap)

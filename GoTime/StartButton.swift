@@ -40,12 +40,14 @@ class StartButton: UIButton {
     func sharedInit() { // UNTESTED
         backgroundColor = Constants.colorPalette["white"]
         
-        layer.borderWidth = 2
-        layer.cornerRadius = 0
-        layer.borderColor = Constants.colorPalette["black"]?.cgColor
-        
         setTitle("START", for: UIControlState.normal)
         setTitleColor(Constants.colorPalette["black"], for: UIControlState.normal)
+        
+        titleLabel?.font = Constants.responsiveDefaultFont
+        titleLabel?.adjustsFontSizeToFitWidth = true
+        titleLabel?.numberOfLines = 1
+        titleLabel?.baselineAdjustment = .alignCenters
+        titleLabel?.textAlignment = .center
         
         addTarget(self, action:#selector(onStartTap), for: .touchUpInside)
     }

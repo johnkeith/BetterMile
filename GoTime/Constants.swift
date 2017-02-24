@@ -21,5 +21,11 @@ struct Constants {
         "white": UIColor.white
     ]
     
-    static let digitFont: UIFont = UIFont.monospacedDigitSystemFont(ofSize: 999, weight: UIFontWeightLight)
+    static let responsiveDefaultFont: UIFont = UIFont.systemFont(ofSize: 999, weight: UIFontWeightThin)
+    static let responsiveDigitFont: UIFont = UIFont.monospacedDigitSystemFont(ofSize: 999, weight: UIFontWeightLight)
+
+// TODO: FIX - maybe different struct?
+//    static let uiColorCombos: [String: (textColor: UIColor, bgColor: UIColor)] = [
+//        "default": (textColor: colorPalette["black"], bgColor: colorPalette["white"])
+//    ]
 }

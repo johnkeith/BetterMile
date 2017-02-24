@@ -81,7 +81,7 @@ class MainViewController: UIViewController {
 // MARK: Gesture recognizer functions
 extension MainViewController {
     func viewDoubleTapped() {
-        stopWatchService.lap()
+        stopWatchService.timerRunning ? stopWatchService.lap() : stopWatchService.restart()
         
         DispatchQueue.main.async {
             self.lapTimeTable.setLapData(lapData: self.stopWatchService.lapTimes)
@@ -89,7 +89,7 @@ extension MainViewController {
         
     }
     
-    func attachLapDoubleTapRecognizer() {
+    func attachDoubleTapRecognizer() {
         lapDoubleTap = UITapGestureRecognizer(target: self, action: #selector(self.viewDoubleTapped))
         lapDoubleTap.numberOfTapsRequired = 2
         
@@ -106,7 +106,7 @@ extension MainViewController: StartButtonDelegate {
         lapTimeTable.show()
         dividerLabel.show()
         
-        attachLapDoubleTapRecognizer()
+        attachDoubleTapRecognizer()
 
         stopWatchService.start()
     }
