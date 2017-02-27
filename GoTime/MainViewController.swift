@@ -102,18 +102,26 @@ extension MainViewController {
         self.view.addGestureRecognizer(doubleTapRecognizer)
     }
     
-    // TODO: UNTESTED
-    func viewLongPressed() {
-        stopWatchService.timerRunning ? stopWatchService.pause() : stopWatchService.stop()
-
-        refreshLapTableData()
+    func viewLongPressed(sender: UILongPressGestureRecognizer) {
+        if(sender.state == UIGestureRecognizerState.ended) {
+            if(stopWatchService.timerRunning) {
+                stopWatchService.pause()
+                refreshLapTableData()
+            } else {
+                stopWatchService.stop()
+            }
+        }
     }
     
-    // TODO: UNTESTED
     func attachLongPressRecognizer() {
         longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(self.viewLongPressed))
         
         self.view.addGestureRecognizer(longPressRecognizer)
+    }
+    
+    func removeViewRecognizers() {
+        self.view.removeGestureRecognizer(doubleTapRecognizer)
+        self.view.removeGestureRecognizer(longPressRecognizer)
     }
 }
 
@@ -141,22 +149,28 @@ extension MainViewController: StopWatchServiceDelegate {
         }
     }
     
-    // TODO: UNNEEDED?
+    // TODO: UNTESTED
     func stopWatchStopped() {
+        removeViewRecognizers()
         
+        totalTimeLabel.hide()
+        
+        lapTimeTable.clearLapData()
+        lapTimeTable.hide()
+        
+        dividerLabel.hide()
+        
+        startButton.show()
     }
     
-    // TODO: UNNEEDED?
     func stopWatchPaused() {
         
     }
     
-    // TODO: UNNEEDED?
     func stopWatchRestarted() {
         
     }
     
-    // TODO: UNNEEDED?
     func lapStored() {
         
     }

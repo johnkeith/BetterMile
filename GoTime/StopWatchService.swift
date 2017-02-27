@@ -71,7 +71,10 @@ class StopWatchService: NSObject {
     }
     
     func stop() {
-        timer.invalidate()
+        print("stopping")
+        if(timer != nil) {
+            timer.invalidate()
+        }
         
         resetInitialState()
         
@@ -87,7 +90,10 @@ class StopWatchService: NSObject {
     }
     
     func pause() {
+        print("pausing")
         elapsedTimeBeforePause = calculateTimeBetweenPointAndNow(initialTime: startTime)
+        
+        timerRunning = false
         
         timer.invalidate()
         

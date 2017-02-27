@@ -14,6 +14,8 @@ class MainViewControllerTests: XCTestCase {
         var hideWasCalled = false
         
         override func hide() {
+            super.hide()
+            
             hideWasCalled = true
         }
     }
@@ -22,6 +24,8 @@ class MainViewControllerTests: XCTestCase {
         var showWasCalled = false
         
         override func show() {
+            super.show()
+            
             showWasCalled = true
         }
     }
@@ -29,14 +33,39 @@ class MainViewControllerTests: XCTestCase {
     class FakeStopWatchService: StopWatchService {
         var startWasCalled = false
         var lapWasCalled = false
+        var restartWasCalled = false
+        var pauseWasCalled = false
+        var stopWasCalled = false
         
         override func start(initialTime: TimeInterval = NSDate.timeIntervalSinceReferenceDate, restart: Bool = false) {
+            super.start()
+            
             startWasCalled = true
             timerRunning = true
         }
         
         override func lap() {
+            super.lap()
+            
             lapWasCalled = true
+        }
+        
+        override func restart() {
+            super.restart()
+            
+            restartWasCalled = true
+        }
+        
+        override func pause() {
+            super.pause()
+            
+            pauseWasCalled = true
+        }
+        
+        override func stop() {
+            super.stop()
+            
+            stopWasCalled = true
         }
     }
     
@@ -45,10 +74,14 @@ class MainViewControllerTests: XCTestCase {
         var showWasCalled = false
         
         override func setLapData(lapData: [Double]) {
+            super.setLapData(lapData: lapData)
+            
             setLapDataWasCalled = true
         }
         
         override func show() {
+            super.show()
+            
             showWasCalled = true
         }
     }
@@ -57,7 +90,15 @@ class MainViewControllerTests: XCTestCase {
         var showWasCalled = false
         
         override func show() {
+            super.show()
+            
             showWasCalled = true
+        }
+    }
+    
+    class FakeEndedLongPressRecognizer: UILongPressGestureRecognizer {
+        override var state: UIGestureRecognizerState {
+            return UIGestureRecognizerState.ended
         }
     }
 
@@ -104,7 +145,8 @@ class MainViewControllerTests: XCTestCase {
         
         let err = expectation(description: "setLapData was not called")
     
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+            XCTAssertTrue(self.stopWatchService.startWasCalled)
             XCTAssertTrue(self.stopWatchService.lapWasCalled)
             XCTAssertTrue(self.lapTimeTable.setLapDataWasCalled)
             
@@ -123,8 +165,8 @@ class MainViewControllerTests: XCTestCase {
         
         let err = expectation(description: "setLapData was not called")
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            XCTAssertFalse(self.stopWatchService.lapWasCalled)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+            XCTAssertTrue(self.stopWatchService.restartWasCalled)
             XCTAssertTrue(self.lapTimeTable.setLapDataWasCalled)
             
             err.fulfill()
@@ -137,11 +179,48 @@ class MainViewControllerTests: XCTestCase {
         }
     }
     
+    func testViewLongPressedWhenTimerRunning() {
+        ctrl.onStartTap(sender: startButton)
+        ctrl.viewLongPressed(sender: FakeEndedLongPressRecognizer())
+        
+        RunLoop.current.run(until: Date().addingTimeInterval(0.2))
+        
+        XCTAssertTrue(self.stopWatchService.pauseWasCalled)
+        XCTAssertTrue(self.lapTimeTable.setLapDataWasCalled)
+    }
+    
+    func testViewLongPressedWhenTimerNotRunning() {
+        ctrl.attachDoubleTapRecognizer()
+        ctrl.attachLongPressRecognizer()
+        ctrl.viewLongPressed(sender: FakeEndedLongPressRecognizer())
+        
+        RunLoop.current.run(until: Date().addingTimeInterval(0.2))
+        
+        XCTAssertTrue(self.stopWatchService.stopWasCalled)
+        XCTAssertFalse(self.lapTimeTable.setLapDataWasCalled)
+    }
+    
     func testAttachDoubleTapRecognizer() {
         ctrl.attachDoubleTapRecognizer()
 
         XCTAssertEqual(ctrl.view.gestureRecognizers?.count, 1)
         XCTAssertEqual(ctrl.view.gestureRecognizers?[0], ctrl.doubleTapRecognizer)
+    }
+    
+    func testAttachLongPressRecognizer() {
+        ctrl.attachLongPressRecognizer()
+        
+        XCTAssertEqual(ctrl.view.gestureRecognizers?.count, 1)
+        XCTAssertEqual(ctrl.view.gestureRecognizers?[0], ctrl.longPressRecognizer)
+    }
+    
+    func testRemoveViewRecognizers() {
+        ctrl.attachDoubleTapRecognizer()
+        ctrl.attachLongPressRecognizer()
+        
+        ctrl.removeViewRecognizers()
+        
+        XCTAssertEqual(ctrl.view.gestureRecognizers?.count, 0)
     }
     
     func testOnStartTap() {
@@ -167,7 +246,7 @@ class MainViewControllerTests: XCTestCase {
         
         ctrl.stopWatchIntervalElapsed(totalTimeElapsed: interval)
         
-        RunLoop.current.run(until: Date().addingTimeInterval(0.5))
+        RunLoop.current.run(until: Date().addingTimeInterval(0.2))
         
         XCTAssertEqual(totalTimeLabel.text, TimeToTextService().timeAsSingleString(inputTime: interval))
         XCTAssertTrue(lapTimeTable.setLapDataWasCalled)

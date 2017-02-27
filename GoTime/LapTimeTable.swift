@@ -32,6 +32,12 @@ class LapTimeTable: UITableView {
         self.reloadData()
     }
     
+    // TODO: UNTESTED
+    func clearLapData() {
+        self.lapData.removeAll()
+        self.reloadData()
+    }
+    
     func hide() {
         isHidden = true
     }
