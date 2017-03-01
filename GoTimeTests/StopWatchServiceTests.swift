@@ -47,7 +47,7 @@ class StopWatchServiceTests: XCTestCase {
             restartWasCalled = true
         }
         
-        func lapStored() {
+        func stopWatchLapStored() {
             lapWasCalled = true
         }
     }

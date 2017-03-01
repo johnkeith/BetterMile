@@ -17,7 +17,7 @@ protocol StopWatchServiceDelegate: class {
     
     func stopWatchRestarted()
     
-    func lapStored()
+    func stopWatchLapStored()
 }
 
 class StopWatchService: NSObject {
@@ -115,6 +115,6 @@ class StopWatchService: NSObject {
 
         start()
         
-        delegate.lapStored()
+        delegate.stopWatchLapStored()
     }
 }

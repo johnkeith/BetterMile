@@ -61,7 +61,7 @@ extension LapTimeTable: UITableViewDataSource {
 //        let cell = tableView.dequeueReusableCell(withIdentifier: "LapTimeTableCell", for: indexPath as IndexPath)
         let cell = UITableViewCell()
         
-        cell.textLabel?.text = "\(time)"
+        cell.textLabel?.text = "\(lapData.count - indexPath.row) - \(time)"
         
         return cell
     }

@@ -51,13 +51,13 @@ class LapTimeTableTests: XCTestCase {
         XCTAssertNotNil(firstCell)
     }
     
-    func testTableViewConvertsTimes() {
+    func testTableViewConvertsTimesAndIncludesLapNumber() {
         table.lapData = lapData
         table.reloadData()
         
         let firstCell = table.tableView(table, cellForRowAt: IndexPath(row: 0, section: 1))
         
-        XCTAssertEqual(firstCell.textLabel?.text, "10:10.10")
+        XCTAssertEqual(firstCell.textLabel?.text, "3 - 10:10.10")
         XCTAssertTrue(timeToTextService.timeAsSingleStringCalled)
     }
     

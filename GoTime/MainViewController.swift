@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AudioToolbox
 
 class MainViewController: UIViewController {
     var startButton: StartButton
@@ -85,7 +86,8 @@ class MainViewController: UIViewController {
 extension MainViewController {
     func refreshLapTableData() {
         DispatchQueue.main.async {
-            self.lapTimeTable.setLapData(lapData: self.stopWatchService.lapTimes)
+            // TODO: REVERSE UNTESTED
+            self.lapTimeTable.setLapData(lapData: self.stopWatchService.lapTimes.reversed())
         }
     }
     
@@ -145,7 +147,7 @@ extension MainViewController: StopWatchServiceDelegate {
         totalTimeLabel.text = timeToTextService.timeAsSingleString(inputTime: totalTimeElapsed)
         
         DispatchQueue.main.async {
-            self.lapTimeTable.setLapData(lapData: self.stopWatchService.lapTimes)
+            self.lapTimeTable.setLapData(lapData: self.stopWatchService.lapTimes.reversed())
         }
     }
     
@@ -171,8 +173,10 @@ extension MainViewController: StopWatchServiceDelegate {
         
     }
     
-    func lapStored() {
-        
+    // TODO: UNTESTED; also, right place for this?
+    func stopWatchLapStored() {
+        print("about to vibrate")
+        AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
     }
 }
 
