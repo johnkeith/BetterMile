@@ -156,7 +156,6 @@ extension MainViewController: StopWatchServiceDelegate {
         }
     }
     
-    // TODO: UNTESTED
     func stopWatchStopped() {
         removeViewRecognizers()
         

@@ -21,6 +21,8 @@ class LapTimeTable: UITableView {
         self.isHidden = hidden
         self.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
         self.dataSource = self
+        
+        self.rowHeight = 60
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -32,7 +34,6 @@ class LapTimeTable: UITableView {
         self.reloadData()
     }
     
-    // TODO: UNTESTED
     func clearLapData() {
         self.lapData.removeAll()
         self.reloadData()
@@ -57,12 +58,17 @@ extension LapTimeTable: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+//        tableView.register(LapTimeTableCell.self, forCellReuseIdentifier: "LapTimeTableCell")
+        
         let time = timeToTextService.timeAsSingleString(inputTime: lapData[indexPath.row])
 //        let cell = tableView.dequeueReusableCell(withIdentifier: "LapTimeTableCell", for: indexPath as IndexPath)
-        let cell = UITableViewCell()
+        let cell = LapTimeTableCell()
         
-        cell.textLabel?.text = "\(lapData.count - indexPath.row) - \(time)"
+        let content = "\(lapData.count - indexPath.row) - \(time)"
         
+        cell.setContent(labelText: content)
+        
+//        cell.textLabel?.text = content
         return cell
     }
 }

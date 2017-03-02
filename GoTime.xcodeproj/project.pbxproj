@@ -34,6 +34,7 @@
 		63A3F2381E3AED5D00AA8A92 /* StartButtonTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A3F2371E3AED5D00AA8A92 /* StartButtonTests.swift */; };
 		63A3F23B1E3C195400AA8A92 /* StopWatchService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A3F23A1E3C195400AA8A92 /* StopWatchService.swift */; };
 		63A3F23E1E3D1FFA00AA8A92 /* StopWatchServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A3F23D1E3D1FFA00AA8A92 /* StopWatchServiceTests.swift */; };
+		63CB14061E67AD2900F7BC14 /* LapTimeTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63CB14051E67AD2900F7BC14 /* LapTimeTableCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -87,6 +88,7 @@
 		63A3F2371E3AED5D00AA8A92 /* StartButtonTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartButtonTests.swift; sourceTree = "<group>"; };
 		63A3F23A1E3C195400AA8A92 /* StopWatchService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StopWatchService.swift; sourceTree = "<group>"; };
 		63A3F23D1E3D1FFA00AA8A92 /* StopWatchServiceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StopWatchServiceTests.swift; sourceTree = "<group>"; };
+		63CB14051E67AD2900F7BC14 /* LapTimeTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LapTimeTableCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -195,8 +197,9 @@
 			children = (
 				63A3F2271E35355500AA8A92 /* StartButton.swift */,
 				633966981E47549800D43896 /* TotalTimeLabel.swift */,
-				634CACDE1E4BD4AE0064FD5E /* LapTimeTable.swift */,
 				634CACE21E52A80B0064FD5E /* DividerLabel.swift */,
+				634CACDE1E4BD4AE0064FD5E /* LapTimeTable.swift */,
+				63CB14051E67AD2900F7BC14 /* LapTimeTableCell.swift */,
 			);
 			name = Components;
 			sourceTree = "<group>";
@@ -433,6 +436,7 @@
 				634CACDF1E4BD4AE0064FD5E /* LapTimeTable.swift in Sources */,
 				633966991E47549800D43896 /* TotalTimeLabel.swift in Sources */,
 				63A3F23B1E3C195400AA8A92 /* StopWatchService.swift in Sources */,
+				63CB14061E67AD2900F7BC14 /* LapTimeTableCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

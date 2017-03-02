@@ -70,4 +70,12 @@ class LapTimeTableTests: XCTestCase {
         table.show()
         XCTAssertFalse(table.isHidden)
     }
+    
+    func testClearLapData() {
+        table.lapData = lapData
+        
+        table.clearLapData()
+        
+        XCTAssertEqual(table.lapData.count, 0)
+    }
 }
