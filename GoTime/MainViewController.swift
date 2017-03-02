@@ -122,8 +122,13 @@ extension MainViewController {
     }
     
     func removeViewRecognizers() {
-        self.view.removeGestureRecognizer(doubleTapRecognizer)
-        self.view.removeGestureRecognizer(longPressRecognizer)
+        if(doubleTapRecognizer != nil) {
+            self.view.removeGestureRecognizer(doubleTapRecognizer)
+        }
+        
+        if(longPressRecognizer != nil) {
+            self.view.removeGestureRecognizer(longPressRecognizer)
+        }
     }
 }
 
@@ -156,11 +161,10 @@ extension MainViewController: StopWatchServiceDelegate {
         removeViewRecognizers()
         
         totalTimeLabel.hide()
-        
-        lapTimeTable.clearLapData()
-        lapTimeTable.hide()
-        
         dividerLabel.hide()
+        lapTimeTable.hide()
+
+        lapTimeTable.clearLapData()
         
         startButton.show()
     }
@@ -175,7 +179,6 @@ extension MainViewController: StopWatchServiceDelegate {
     
     // TODO: UNTESTED; also, right place for this?
     func stopWatchLapStored() {
-        print("about to vibrate")
         AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
     }
 }

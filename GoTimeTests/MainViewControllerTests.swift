@@ -251,4 +251,18 @@ class MainViewControllerTests: XCTestCase {
         XCTAssertEqual(totalTimeLabel.text, TimeToTextService().timeAsSingleString(inputTime: interval))
         XCTAssertTrue(lapTimeTable.setLapDataWasCalled)
     }
+    
+    // You must test all side effects!
+    func testStopWatchStopped() {
+        ctrl.onStartTap(sender: startButton)
+        
+        ctrl.stopWatchStopped()
+        
+        XCTAssertEqual(ctrl.view.gestureRecognizers?.count, 0)
+        XCTAssertTrue(ctrl.totalTimeLabel.isHidden)
+        XCTAssertTrue(ctrl.dividerLabel.isHidden)
+        XCTAssertTrue(ctrl.lapTimeTable.isHidden)
+        XCTAssertEqual(ctrl.lapTimeTable.lapData.count, 0)
+        XCTAssertFalse(ctrl.startButton.isHidden)
+    }
 }
