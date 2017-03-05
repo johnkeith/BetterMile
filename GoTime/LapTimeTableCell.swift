@@ -11,6 +11,8 @@ import UIKit
 class LapTimeTableCell: UITableViewCell {
     override init(style: UITableViewCellStyle = .default, reuseIdentifier: String? = "LapTimeTableCell") {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        
+        self.selectionStyle = UITableViewCellSelectionStyle.none
     }
     
     required init?(coder aDecoder: NSCoder) {

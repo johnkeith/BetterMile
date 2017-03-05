@@ -17,7 +17,7 @@ class MainViewControllerConstraints {
     
     class func positionStartButton(startButton: StartButton) {
         startButton.snp.makeConstraints { (make) -> Void in
-            make.width.equalTo(startButton.superview!).offset(-(defaultMargin * 2))
+            make.width.equalTo(startButton.superview!).offset(-(defaultMargin * 6))
             make.height.equalTo(startButton.superview!.frame.height / 5)
             make.center.equalTo(startButton.superview!)
         }

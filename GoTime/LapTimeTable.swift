@@ -31,13 +31,16 @@ class LapTimeTable: UITableView {
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        gradientLayer.frame = self.bounds
-
-        let firstColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1).cgColor
-        let secondColor = UIColor(white: 1, alpha: 0).cgColor
-        gradientLayer.colors = [firstColor, secondColor]
-        
-        self.layer.mask = gradientLayer
+        if self.layer.mask == nil {
+            print(self.bounds)
+            gradientLayer.frame = self.bounds
+            
+            let firstColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1).cgColor
+            let secondColor = UIColor(white: 1, alpha: 0).cgColor
+            gradientLayer.colors = [firstColor, secondColor]
+            
+            self.layer.mask = gradientLayer
+        }
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -52,20 +55,6 @@ class LapTimeTable: UITableView {
     func clearLapData() {
         self.lapData.removeAll()
         self.reloadData()
-    }
-    
-    func applyGradientMask() {
-//        print(self.bounds, self.frame)
-//        gradientLayer.bounds = CGRect(x: 0,y: 0, width: 500, height: 500)
-//        // GOTTA FIGURE OUT WHY THE SIZING IS NOT CORRECT
-//        let firstColor = UIColor.clear.cgColor
-//        let secondColor = UIColor.clear.withAlphaComponent(0).cgColor
-////        gradientLayer.colors = [firstColor, secondColor]
-//        gradientLayer.colors = [UIColor(red: 0, green: 0, blue: 0, alpha: 1).cgColor, UIColor(white: 1, alpha: 0).cgColor ]
-//        
-//        
-////        self.layer.mask = gradientLayer
-//        self.layer.mask = UIColor.black.cgColor
     }
     
     func hide() {
@@ -87,7 +76,6 @@ extension LapTimeTable: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
         let time = timeToTextService.timeAsSingleString(inputTime: lapData[indexPath.row])
         let cell = LapTimeTableCell()
         
