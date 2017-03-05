@@ -9,6 +9,8 @@
 import UIKit
 
 class LapTimeTable: UITableView {
+    let gradientLayer = CAGradientLayer()
+    
     var lapData = [Double]()
     var timeToTextService: TimeToTextService
     
@@ -26,6 +28,18 @@ class LapTimeTable: UITableView {
         self.separatorStyle = .none
     }
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        gradientLayer.frame = self.bounds
+
+        let firstColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1).cgColor
+        let secondColor = UIColor(white: 1, alpha: 0).cgColor
+        gradientLayer.colors = [firstColor, secondColor]
+        
+        self.layer.mask = gradientLayer
+    }
+    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) is not supported")
     }
@@ -38,6 +52,20 @@ class LapTimeTable: UITableView {
     func clearLapData() {
         self.lapData.removeAll()
         self.reloadData()
+    }
+    
+    func applyGradientMask() {
+//        print(self.bounds, self.frame)
+//        gradientLayer.bounds = CGRect(x: 0,y: 0, width: 500, height: 500)
+//        // GOTTA FIGURE OUT WHY THE SIZING IS NOT CORRECT
+//        let firstColor = UIColor.clear.cgColor
+//        let secondColor = UIColor.clear.withAlphaComponent(0).cgColor
+////        gradientLayer.colors = [firstColor, secondColor]
+//        gradientLayer.colors = [UIColor(red: 0, green: 0, blue: 0, alpha: 1).cgColor, UIColor(white: 1, alpha: 0).cgColor ]
+//        
+//        
+////        self.layer.mask = gradientLayer
+//        self.layer.mask = UIColor.black.cgColor
     }
     
     func hide() {

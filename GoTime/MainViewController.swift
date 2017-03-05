@@ -53,6 +53,8 @@ class MainViewController: UIViewController {
         addSubviews()
         applyConstraints()
         
+        lapTimeTable.applyGradientMask()
+        
         self.view.isUserInteractionEnabled = true
     }
     
