@@ -32,7 +32,8 @@ class LapTimeTableCell: UITableViewCell {
         
         label.snp.makeConstraints { (make) -> Void in
             make.width.equalTo(label.superview!)
-            make.height.equalTo(60)
+//            make.left.equalTo(25)
+            make.height.equalTo(50)
         }
     }
 }

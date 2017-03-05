@@ -23,6 +23,7 @@ class LapTimeTable: UITableView {
         self.dataSource = self
         
         self.rowHeight = 60
+        self.separatorStyle = .none
     }
     
     required init?(coder aDecoder: NSCoder) {
