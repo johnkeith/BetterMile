@@ -50,4 +50,12 @@ class MainViewControllerConstraints {
             make.left.equalTo(lapTimeTable.superview!).offset(defaultMargin)
         }
     }
+    
+    class func positionTimerHelpTextLabel(timerHelpTextLabel: TimerHelpTextLabel) {
+        timerHelpTextLabel.snp.makeConstraints { (make) -> Void in
+            make.width.equalTo(timerHelpTextLabel.superview!).offset(-(defaultMargin * 2))
+            make.height.equalTo(timerHelpTextLabel.superview!.frame.height / 5)
+            make.center.equalTo(timerHelpTextLabel.superview!)
+        }
+    }
 }

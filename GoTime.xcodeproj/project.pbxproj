@@ -35,6 +35,7 @@
 		63A3F23B1E3C195400AA8A92 /* StopWatchService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A3F23A1E3C195400AA8A92 /* StopWatchService.swift */; };
 		63A3F23E1E3D1FFA00AA8A92 /* StopWatchServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A3F23D1E3D1FFA00AA8A92 /* StopWatchServiceTests.swift */; };
 		63CB14061E67AD2900F7BC14 /* LapTimeTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63CB14051E67AD2900F7BC14 /* LapTimeTableCell.swift */; };
+		63CB140A1E6D0A6300F7BC14 /* TimerHelpTextLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63CB14091E6D0A6300F7BC14 /* TimerHelpTextLabel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -89,6 +90,7 @@
 		63A3F23A1E3C195400AA8A92 /* StopWatchService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StopWatchService.swift; sourceTree = "<group>"; };
 		63A3F23D1E3D1FFA00AA8A92 /* StopWatchServiceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StopWatchServiceTests.swift; sourceTree = "<group>"; };
 		63CB14051E67AD2900F7BC14 /* LapTimeTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LapTimeTableCell.swift; sourceTree = "<group>"; };
+		63CB14091E6D0A6300F7BC14 /* TimerHelpTextLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimerHelpTextLabel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -200,6 +202,7 @@
 				634CACE21E52A80B0064FD5E /* DividerLabel.swift */,
 				634CACDE1E4BD4AE0064FD5E /* LapTimeTable.swift */,
 				63CB14051E67AD2900F7BC14 /* LapTimeTableCell.swift */,
+				63CB14091E6D0A6300F7BC14 /* TimerHelpTextLabel.swift */,
 			);
 			name = Components;
 			sourceTree = "<group>";
@@ -434,6 +437,7 @@
 				63A3F22C1E35355500AA8A92 /* StartButton.swift in Sources */,
 				6386BF2F1E440EE500BD2875 /* CoreDataService.swift in Sources */,
 				634CACDF1E4BD4AE0064FD5E /* LapTimeTable.swift in Sources */,
+				63CB140A1E6D0A6300F7BC14 /* TimerHelpTextLabel.swift in Sources */,
 				633966991E47549800D43896 /* TotalTimeLabel.swift in Sources */,
 				63A3F23B1E3C195400AA8A92 /* StopWatchService.swift in Sources */,
 				63CB14061E67AD2900F7BC14 /* LapTimeTableCell.swift in Sources */,

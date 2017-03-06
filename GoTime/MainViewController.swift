@@ -14,6 +14,7 @@ class MainViewController: UIViewController {
     var totalTimeLabel: TotalTimeLabel
     var lapTimeTable: LapTimeTable
     var dividerLabel: DividerLabel
+    var timerHelpTextLabel: TimerHelpTextLabel
     
     var stopWatchService: StopWatchService
     var timeToTextService: TimeToTextService
@@ -26,12 +27,14 @@ class MainViewController: UIViewController {
          lapTimeTable: LapTimeTable = LapTimeTable(hidden: true),
          stopWatchService: StopWatchService = StopWatchService(),
          timeToTextService: TimeToTextService = TimeToTextService(),
-         dividerLabel: DividerLabel = DividerLabel(hidden: true)) {
+         dividerLabel: DividerLabel = DividerLabel(hidden: true),
+         timerHelpTextLabel: TimerHelpTextLabel = TimerHelpTextLabel(hidden: true)) {
         
         self.startButton = startButton
         self.totalTimeLabel = totalTimeLabel
         self.lapTimeTable = lapTimeTable
         self.dividerLabel = dividerLabel
+        self.timerHelpTextLabel = timerHelpTextLabel // TODO: UNTESTED
         
         self.stopWatchService = stopWatchService
         self.timeToTextService = timeToTextService
@@ -52,9 +55,7 @@ class MainViewController: UIViewController {
         setBackgroundColor()
         addSubviews()
         applyConstraints()
-        
-        lapTimeTable.applyGradientMask()
-        
+
         self.view.isUserInteractionEnabled = true
     }
     
@@ -67,6 +68,7 @@ class MainViewController: UIViewController {
         self.view.addSubview(totalTimeLabel)
         self.view.addSubview(lapTimeTable)
         self.view.addSubview(dividerLabel)
+        self.view.addSubview(timerHelpTextLabel) // TODO: UNTESTED
     }
     
     func applyConstraints() { // TODO: UNTESTED
@@ -74,6 +76,7 @@ class MainViewController: UIViewController {
         MainViewControllerConstraints.positionTotalTimeLabel(totalTimeLabel: totalTimeLabel)
         MainViewControllerConstraints.positionLapTimeTable(lapTimeTable: lapTimeTable, totalTimeLabel: totalTimeLabel)
         MainViewControllerConstraints.positionDividerLabel(dividerLabel: dividerLabel, lapTimeTable: lapTimeTable)
+        MainViewControllerConstraints.positionTimerHelpTextLabel(timerHelpTextLabel: timerHelpTextLabel)
     }
     
     // MARK - REMOVE, ONLY FOR DEBUGGING
@@ -141,6 +144,7 @@ extension MainViewController: StartButtonDelegate {
         totalTimeLabel.show()
         lapTimeTable.show()
         dividerLabel.show()
+        timerHelpTextLabel.showBriefly() // TODO: UNTESTED
         
         attachDoubleTapRecognizer()
         attachLongPressRecognizer()

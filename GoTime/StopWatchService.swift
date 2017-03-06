@@ -45,7 +45,10 @@ class StopWatchService: NSObject {
             userInfo: nil,
             repeats: true
         )
-
+        
+        // TODO: UNTESTED
+        RunLoop.main.add(timer, forMode: .commonModes)
+        
         timerRunning = true
         
         if(!restart) {
