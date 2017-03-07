@@ -26,21 +26,27 @@ class LapTimeTable: UITableView {
         
         self.rowHeight = 60
         self.separatorStyle = .none
+        self.contentInset = UIEdgeInsetsMake(0.0, 0.0, 120.0, 0.0)
+        self.showsVerticalScrollIndicator = false
     }
     
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        if self.layer.mask == nil {
-            print(self.bounds)
-            gradientLayer.frame = self.bounds
-            
-            let firstColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1).cgColor
-            let secondColor = UIColor(white: 1, alpha: 0).cgColor
-            gradientLayer.colors = [firstColor, secondColor]
-            
-            self.layer.mask = gradientLayer
-        }
+//        if self.layer.mask == nil {
+//            let contentHeight = self.contentSize.height
+//            let contentWidth = self.contentSize.width
+//        
+//            print(self.bounds, self.frame, contentHeight)
+//        
+//        gradientLayer.frame = CGRect(x: 0, y: 0, width: contentWidth, height: contentHeight)
+//            
+//            let firstColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1).cgColor
+//            let secondColor = UIColor(white: 1, alpha: 0).cgColor
+//            gradientLayer.colors = [firstColor, secondColor]
+//            
+//            self.layer.mask = gradientLayer
+//        }
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -78,8 +84,9 @@ extension LapTimeTable: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let time = timeToTextService.timeAsSingleString(inputTime: lapData[indexPath.row])
         let cell = LapTimeTableCell()
+        let lapNumber = lapData.count - indexPath.row
         
-        let content = "\(lapData.count - indexPath.row) - \(time)"
+        let content = "\(lapNumber > 9 ? "" : "0")\(lapNumber) - \(time)"
         
         cell.setContent(labelText: content)
         

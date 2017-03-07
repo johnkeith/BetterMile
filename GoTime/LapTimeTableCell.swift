@@ -28,7 +28,7 @@ class LapTimeTableCell: UITableViewCell {
         label.adjustsFontSizeToFitWidth = true
         label.numberOfLines = 1
         label.baselineAdjustment = .alignCenters
-        label.textAlignment = .left
+        label.textAlignment = .center
         
         contentView.addSubview(label)
         
