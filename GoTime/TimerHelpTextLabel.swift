@@ -25,7 +25,7 @@ class TimerHelpTextLabel: UILabel {
         
         self.font = Constants.responsiveDefaultFont
         self.adjustsFontSizeToFitWidth = true
-        self.numberOfLines = 0
+        self.numberOfLines = 2
         self.baselineAdjustment = .alignCenters
         self.textAlignment = .center
     }

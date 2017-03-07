@@ -26,7 +26,6 @@ class LapTimeTable: UITableView {
         
         self.rowHeight = 60
         self.separatorStyle = .none
-        self.contentInset = UIEdgeInsetsMake(0.0, 0.0, 120.0, 0.0)
         self.showsVerticalScrollIndicator = false
     }
     
