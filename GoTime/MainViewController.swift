@@ -122,7 +122,7 @@ extension MainViewController {
     
     func attachLongPressRecognizer() {
         longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(self.viewLongPressed))
-        longPressRecognizer.minimumPressDuration = 1.0
+        longPressRecognizer.minimumPressDuration = 0.75
         
         self.view.addGestureRecognizer(longPressRecognizer)
     }
@@ -186,6 +186,7 @@ extension MainViewController: StopWatchServiceDelegate {
     // TODO: UNTESTED; also, right place for this?
     func stopWatchLapStored() {
         AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
+        timerHelpTextLabel.hide()
     }
 }
 

@@ -10,8 +10,13 @@ import UIKit
 
 // TODO: UNTESTED
 class TimerHelpTextLabel: UILabel {
-    init(hidden: Bool = false) {
+    var animationService: AnimationService
+    
+    init(hidden: Bool = false, animationService: AnimationService = AnimationService()) {
         let defaultFrame = CGRect(x: 0, y: 0, width: 100, height: 100)
+        
+        self.animationService = animationService
+
         super.init(frame: defaultFrame)
         
         self.isHidden = hidden
@@ -40,8 +45,8 @@ class TimerHelpTextLabel: UILabel {
     func showBriefly() {
         show()
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(4)) {
-            self.hide()
+        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) {
+            self.animationService.animateFadeOutView(viewToFadeOut: self, duration: 2.0)
         }
     }
 }
