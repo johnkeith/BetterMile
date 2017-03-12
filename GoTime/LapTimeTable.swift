@@ -29,25 +29,6 @@ class LapTimeTable: UITableView {
         self.showsVerticalScrollIndicator = false
     }
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        
-//        if self.layer.mask == nil {
-//            let contentHeight = self.contentSize.height
-//            let contentWidth = self.contentSize.width
-//        
-//            print(self.bounds, self.frame, contentHeight)
-//        
-//        gradientLayer.frame = CGRect(x: 0, y: 0, width: contentWidth, height: contentHeight)
-//            
-//            let firstColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1).cgColor
-//            let secondColor = UIColor(white: 1, alpha: 0).cgColor
-//            gradientLayer.colors = [firstColor, secondColor]
-//            
-//            self.layer.mask = gradientLayer
-//        }
-    }
-    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) is not supported")
     }

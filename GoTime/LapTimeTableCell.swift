@@ -22,6 +22,7 @@ class LapTimeTableCell: UITableViewCell {
     // TODO: UNTESTED
     func setContent(labelText: String) {
         let label = UILabel(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
+        let line = UILabel(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
         
         label.text = labelText
         label.font = Constants.responsiveDigitFont
@@ -30,11 +31,19 @@ class LapTimeTableCell: UITableViewCell {
         label.baselineAdjustment = .alignCenters
         label.textAlignment = .center
         
+        line.backgroundColor = Constants.colorPalette["black"]
+
         contentView.addSubview(label)
+        contentView.addSubview(line)
         
         label.snp.makeConstraints { (make) -> Void in
             make.width.equalTo(label.superview!)
-            make.height.equalTo(50)
+            make.height.equalTo(60)
+        }
+        
+        line.snp.makeConstraints { (make) -> Void in
+            make.width.equalTo(line.superview!)
+            make.height.equalTo(2)
         }
     }
 }

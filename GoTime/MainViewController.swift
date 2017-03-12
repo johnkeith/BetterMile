@@ -122,7 +122,7 @@ extension MainViewController {
     
     func attachLongPressRecognizer() {
         longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(self.viewLongPressed))
-        longPressRecognizer.minimumPressDuration = 0.75
+        longPressRecognizer.minimumPressDuration = 0.6
         
         self.view.addGestureRecognizer(longPressRecognizer)
     }
