@@ -9,8 +9,8 @@
 import UIKit
 
 class AnimationService {
-    func animateFadeInView(viewToFadeIn: UIView) {
-        UIView.animate(withDuration: 0.3, animations: {
+    func animateFadeInView(viewToFadeIn: UIView, duration: Double = 0.3) {
+        UIView.animate(withDuration: duration, animations: {
             viewToFadeIn.alpha = 1.0
         })
     }
