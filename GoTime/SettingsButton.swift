@@ -9,11 +9,16 @@
 import UIKit
 
 class SettingsButton: UIButton {
-    init(hidden: Bool = false) {
+    let image = UIImage(named: "#imageLiteral(resourceName: \"ic_more_horiz\")")?.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
+    
+    init() {
         let defaultFrame = CGRect(x: 0, y: 0, width: 100, height: 100)
         super.init(frame: defaultFrame)
         
-        self.isHidden = hidden
+//        self.tintColor = Constants.colorPalette["black"]
+//        self.setImage(image, for: UIControlState.normal)
+        
+        setTitle("TEST", for: UIControlState.normal)
     }
     
     required init?(coder aDecoder: NSCoder) {

@@ -15,6 +15,7 @@ class MainViewController: UIViewController {
     var lapTimeTable: LapTimeTable
     var dividerLabel: DividerLabel
     var timerHelpTextLabel: TimerHelpTextLabel
+    var settingsButton: SettingsButton
     
     var stopWatchService: StopWatchService
     var timeToTextService: TimeToTextService
@@ -28,13 +29,15 @@ class MainViewController: UIViewController {
          stopWatchService: StopWatchService = StopWatchService(),
          timeToTextService: TimeToTextService = TimeToTextService(),
          dividerLabel: DividerLabel = DividerLabel(hidden: true),
-         timerHelpTextLabel: TimerHelpTextLabel = TimerHelpTextLabel(hidden: true)) {
+         timerHelpTextLabel: TimerHelpTextLabel = TimerHelpTextLabel(hidden: true),
+         settingsButton: SettingsButton = SettingsButton()) {
         
         self.startButton = startButton
         self.totalTimeLabel = totalTimeLabel
         self.lapTimeTable = lapTimeTable
         self.dividerLabel = dividerLabel
         self.timerHelpTextLabel = timerHelpTextLabel
+        self.settingsButton = settingsButton
         
         self.stopWatchService = stopWatchService
         self.timeToTextService = timeToTextService
@@ -69,6 +72,7 @@ class MainViewController: UIViewController {
         self.view.addSubview(lapTimeTable)
         self.view.addSubview(dividerLabel)
         self.view.addSubview(timerHelpTextLabel)
+        self.view.addSubview(settingsButton)
     }
     
     func applyConstraints() { // TODO: UNTESTED
@@ -77,6 +81,7 @@ class MainViewController: UIViewController {
         MainViewControllerConstraints.positionLapTimeTable(lapTimeTable: lapTimeTable, totalTimeLabel: totalTimeLabel)
         MainViewControllerConstraints.positionDividerLabel(dividerLabel: dividerLabel, lapTimeTable: lapTimeTable)
         MainViewControllerConstraints.positionTimerHelpTextLabel(timerHelpTextLabel: timerHelpTextLabel)
+        MainViewControllerConstraints.positionSettingsButton(settingsButton: settingsButton)
     }
     
     // MARK - REMOVE, ONLY FOR DEBUGGING

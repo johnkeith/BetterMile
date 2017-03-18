@@ -58,4 +58,13 @@ class MainViewControllerConstraints {
             make.center.equalTo(timerHelpTextLabel.superview!)
         }
     }
+    
+    class func positionSettingsButton(settingsButton: SettingsButton) {
+        print("setting position")
+        settingsButton.snp.makeConstraints { (make) -> Void in
+            make.width.equalTo(settingsButton.superview!).offset(defaultMargin)
+            make.top.equalTo(settingsButton.superview!).offset(defaultMargin)
+            make.right.equalTo(settingsButton.superview!).offset(defaultMargin)
+        }
+    }
 }

@@ -8,9 +8,7 @@
 
 import UIKit
 
-class LapTimeTable: UITableView {
-    let gradientLayer = CAGradientLayer()
-    
+class LapTimeTable: UITableView {    
     var lapData = [Double]()
     var timeToTextService: TimeToTextService
     
