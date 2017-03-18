@@ -154,11 +154,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GoTimeTests/MainViewControllerTests.swift"
-            timestampString = "509858588.35374"
+            timestampString = "511148747.979853"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "203"
-            endingLineNumber = "203"
+            startingLineNumber = "216"
+            endingLineNumber = "216"
             landmarkName = "testAttachDoubleTapRecognizer()"
             landmarkType = "7">
          </BreakpointContent>
@@ -224,6 +224,22 @@
             startingLineNumber = "20"
             endingLineNumber = "20"
             landmarkName = "init(hidden:animationService:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "GoTimeTests/LapTimeTableTests.swift"
+            timestampString = "511146778.644099"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "54"
+            endingLineNumber = "54"
+            landmarkName = "testTableViewConvertsTimesAndIncludesLapNumber()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

@@ -56,8 +56,9 @@ class LapTimeTableTests: XCTestCase {
         table.reloadData()
         
         let firstCell = table.tableView(table, cellForRowAt: IndexPath(row: 0, section: 1))
-        
-        XCTAssertEqual(firstCell.textLabel?.text, "3 - 10:10.10")
+        let firstCellTextLabel = firstCell.contentView.subviews[0] as! UILabel
+
+        XCTAssertEqual(firstCellTextLabel.text!, "03 - 10:10.10")
         XCTAssertTrue(timeToTextService.timeAsSingleStringCalled)
     }
     

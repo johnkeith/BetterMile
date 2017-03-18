@@ -101,12 +101,23 @@ class MainViewControllerTests: XCTestCase {
             return UIGestureRecognizerState.ended
         }
     }
+    
+    class FakeTimerHelpTextLabel: TimerHelpTextLabel {
+        var showBrieflyWasCalled = false
+        
+        override func showBriefly() {
+            super.showBriefly()
+            
+            showBrieflyWasCalled = true
+        }
+    }
 
     let startButton = FakeStartButton()
     let stopWatchService = FakeStopWatchService()
     let totalTimeLabel = FakeTotalTimeLabel()
     let lapTimeTable = FakeLapTimeTable()
     let dividerLabel = FakeDividerLabel()
+    let timerHelpTextLabel = FakeTimerHelpTextLabel()
     
     var ctrl: MainViewController!
     
@@ -118,7 +129,8 @@ class MainViewControllerTests: XCTestCase {
             totalTimeLabel: totalTimeLabel,
             lapTimeTable: lapTimeTable,
             stopWatchService: stopWatchService,
-            dividerLabel: dividerLabel)
+            dividerLabel: dividerLabel,
+            timerHelpTextLabel: timerHelpTextLabel)
         
         _ = ctrl.view
     }
@@ -132,6 +144,7 @@ class MainViewControllerTests: XCTestCase {
         XCTAssertTrue(totalTimeLabel.isDescendant(of: ctrl.view))
         XCTAssertTrue(lapTimeTable.isDescendant(of: ctrl.view))
         XCTAssertTrue(dividerLabel.isDescendant(of: ctrl.view))
+        XCTAssertTrue(timerHelpTextLabel.isDescendant(of: ctrl.view))
     }
     
     func testBgColorSet() {
@@ -231,6 +244,7 @@ class MainViewControllerTests: XCTestCase {
         XCTAssertTrue(stopWatchService.startWasCalled)
         XCTAssertTrue(lapTimeTable.showWasCalled)
         XCTAssertTrue(dividerLabel.showWasCalled)
+        XCTAssertTrue(timerHelpTextLabel.showBrieflyWasCalled)
     }
     
     func testStartButtonDelegation() {

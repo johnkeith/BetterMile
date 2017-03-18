@@ -34,7 +34,7 @@ class MainViewController: UIViewController {
         self.totalTimeLabel = totalTimeLabel
         self.lapTimeTable = lapTimeTable
         self.dividerLabel = dividerLabel
-        self.timerHelpTextLabel = timerHelpTextLabel // TODO: UNTESTED
+        self.timerHelpTextLabel = timerHelpTextLabel
         
         self.stopWatchService = stopWatchService
         self.timeToTextService = timeToTextService
@@ -68,7 +68,7 @@ class MainViewController: UIViewController {
         self.view.addSubview(totalTimeLabel)
         self.view.addSubview(lapTimeTable)
         self.view.addSubview(dividerLabel)
-        self.view.addSubview(timerHelpTextLabel) // TODO: UNTESTED
+        self.view.addSubview(timerHelpTextLabel)
     }
     
     func applyConstraints() { // TODO: UNTESTED
@@ -91,7 +91,7 @@ class MainViewController: UIViewController {
 extension MainViewController {
     func refreshLapTableData() {
         DispatchQueue.main.async {
-            // TODO: REVERSE UNTESTED
+            // TODO: UNTESTED (the reversing)
             self.lapTimeTable.setLapData(lapData: self.stopWatchService.lapTimes.reversed())
         }
     }
@@ -145,7 +145,7 @@ extension MainViewController: StartButtonDelegate {
         totalTimeLabel.show()
         lapTimeTable.show()
         dividerLabel.show()
-        timerHelpTextLabel.showBriefly() // TODO: UNTESTED
+        timerHelpTextLabel.showBriefly()
         
         attachDoubleTapRecognizer()
         attachLongPressRecognizer()
