@@ -60,11 +60,11 @@ class MainViewControllerConstraints {
     }
     
     class func positionSettingsButton(settingsButton: SettingsButton) {
-        print("setting position")
         settingsButton.snp.makeConstraints { (make) -> Void in
-            make.width.equalTo(settingsButton.superview!).offset(defaultMargin)
+            make.width.equalTo(settingsButton.superview!.frame.width * (1/6))
+            make.height.equalTo(settingsButton.superview!.frame.width * (1/6))
             make.top.equalTo(settingsButton.superview!).offset(defaultMargin)
-            make.right.equalTo(settingsButton.superview!).offset(defaultMargin)
+            make.right.equalTo(settingsButton.superview!).offset(-defaultMargin)
         }
     }
 }
