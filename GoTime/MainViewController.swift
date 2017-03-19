@@ -195,3 +195,9 @@ extension MainViewController: StopWatchServiceDelegate {
     }
 }
 
+extension MainViewController: SettingsButtonDelegate {
+    func onSettingsTap(sender: SettingsButton) {
+        
+    }
+}
+

@@ -13,7 +13,7 @@ class TimerHelpTextLabel: UILabel {
     var animationService: AnimationService
     
     init(hidden: Bool = false, animationService: AnimationService = AnimationService()) {
-        let defaultFrame = CGRect(x: 0, y: 0, width: 100, height: 100)
+        let defaultFrame = CGRect(x: 0, y: 0, width: 0, height: 0)
         
         self.animationService = animationService
 
@@ -21,11 +21,11 @@ class TimerHelpTextLabel: UILabel {
         
         self.isHidden = hidden
         
-        self.text = "Double tap to lap.\nPress and hold to pause."
+        self.text = "Double tap to lap.\n\nPress and hold to pause."
         
         self.font = Constants.responsiveDefaultFont
         self.adjustsFontSizeToFitWidth = true
-        self.numberOfLines = 2
+        self.numberOfLines = 3
         self.baselineAdjustment = .alignCenters
         self.textAlignment = .center
     }

@@ -20,7 +20,7 @@ class LapTimeTableCell: UITableViewCell {
     }
     
     func setContent(labelText: String) {
-        let label = UILabel(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
+        let label = UILabel(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
         let line = UILabel(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
         
         label.text = labelText

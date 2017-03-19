@@ -16,7 +16,7 @@ class SettingsButton: UIButton {
     var delegate: SettingsButtonDelegate!
     
     init() {
-        let defaultFrame = CGRect(x: 0, y: 0, width: 100, height: 100)
+        let defaultFrame = CGRect(x: 0, y: 0, width: 0, height: 0)
         let buttonImage = UIImage(named: "ic_more_horiz")?.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
 
         super.init(frame: defaultFrame)

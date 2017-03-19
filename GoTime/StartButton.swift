@@ -17,7 +17,7 @@ class StartButton: UIButton {
     
     // this is the init for when no frame is passed - StartButton()
     init() {
-        let defaultFrame = CGRect(x: 0, y: 0, width: 100, height: 100)
+        let defaultFrame = CGRect(x: 0, y: 0, width: 0, height: 0)
         super.init(frame: defaultFrame)
         
         sharedInit()
