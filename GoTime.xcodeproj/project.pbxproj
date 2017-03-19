@@ -40,6 +40,7 @@
 		63C9A1821E7D55EB00AB9144 /* AnimationServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C9A1811E7D55EB00AB9144 /* AnimationServiceTests.swift */; };
 		63C9A1841E7D752500AB9144 /* SettingsButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C9A1831E7D752500AB9144 /* SettingsButton.swift */; };
 		63C9A1861E7D7A0800AB9144 /* SettingsButtonTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C9A1851E7D7A0800AB9144 /* SettingsButtonTests.swift */; };
+		63C9A1881E7E242B00AB9144 /* SettingsOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C9A1871E7E242B00AB9144 /* SettingsOverlay.swift */; };
 		63CB14061E67AD2900F7BC14 /* LapTimeTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63CB14051E67AD2900F7BC14 /* LapTimeTableCell.swift */; };
 		63CB140A1E6D0A6300F7BC14 /* TimerHelpTextLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63CB14091E6D0A6300F7BC14 /* TimerHelpTextLabel.swift */; };
 		63CB140C1E6E4E0A00F7BC14 /* AnimationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63CB140B1E6E4E0A00F7BC14 /* AnimationService.swift */; };
@@ -102,6 +103,7 @@
 		63C9A1811E7D55EB00AB9144 /* AnimationServiceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimationServiceTests.swift; sourceTree = "<group>"; };
 		63C9A1831E7D752500AB9144 /* SettingsButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsButton.swift; sourceTree = "<group>"; };
 		63C9A1851E7D7A0800AB9144 /* SettingsButtonTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsButtonTests.swift; sourceTree = "<group>"; };
+		63C9A1871E7E242B00AB9144 /* SettingsOverlay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsOverlay.swift; sourceTree = "<group>"; };
 		63CB14051E67AD2900F7BC14 /* LapTimeTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LapTimeTableCell.swift; sourceTree = "<group>"; };
 		63CB14091E6D0A6300F7BC14 /* TimerHelpTextLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimerHelpTextLabel.swift; sourceTree = "<group>"; };
 		63CB140B1E6E4E0A00F7BC14 /* AnimationService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimationService.swift; sourceTree = "<group>"; };
@@ -218,6 +220,7 @@
 				63CB14051E67AD2900F7BC14 /* LapTimeTableCell.swift */,
 				63CB14091E6D0A6300F7BC14 /* TimerHelpTextLabel.swift */,
 				63C9A1831E7D752500AB9144 /* SettingsButton.swift */,
+				63C9A1871E7E242B00AB9144 /* SettingsOverlay.swift */,
 			);
 			name = Components;
 			sourceTree = "<group>";
@@ -454,6 +457,7 @@
 				63A3F1F71E34FE3800AA8A92 /* GoTime.xcdatamodeld in Sources */,
 				6386BF211E3EC1FC00BD2875 /* TimeToTextService.swift in Sources */,
 				63A3F1EF1E34FE3800AA8A92 /* AppDelegate.swift in Sources */,
+				63C9A1881E7E242B00AB9144 /* SettingsOverlay.swift in Sources */,
 				63A3F2291E35355500AA8A92 /* Constants.swift in Sources */,
 				63C9A1841E7D752500AB9144 /* SettingsButton.swift in Sources */,
 				63A3F22A1E35355500AA8A92 /* MainViewController.swift in Sources */,

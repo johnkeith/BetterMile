@@ -67,4 +67,11 @@ class MainViewControllerConstraints {
             make.right.equalTo(settingsButton.superview!).offset(-defaultMargin)
         }
     }
+    
+    class func positionSettingsOverlay(settingsOverlay: SettingsOverlay) {
+        settingsOverlay.snp.makeConstraints { (make) -> Void in
+            make.width.equalTo(settingsOverlay.superview!)
+            make.height.equalTo(settingsOverlay.superview!)
+        }
+    }
 }

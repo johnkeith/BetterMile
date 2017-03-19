@@ -1,0 +1,46 @@
+//
+//  SettingsOverlay.swift
+//  GoTime
+//
+//  Created by John Keith on 3/18/17.
+//  Copyright © 2017 John Keith. All rights reserved.
+//
+
+import UIKit
+
+// TODO: UNTESTED
+class SettingsOverlay: UIView {
+    init(hidden: Bool = true) {
+        let defaultFrame = CGRect(x: 0, y: 0, width: 0, height: 0)
+        
+        super.init(frame: defaultFrame)
+        
+        self.isHidden = hidden
+        
+        if !UIAccessibilityIsReduceTransparencyEnabled() {
+            self.backgroundColor = UIColor.clear
+            
+            let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.dark)
+            let blurEffectView = UIVisualEffectView(effect: blurEffect)
+            
+            blurEffectView.frame = self.bounds
+            blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+            
+            self.addSubview(blurEffectView)
+        } else {
+            self.backgroundColor = Constants.colorPalette["white"]
+        }
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) is not supported")
+    }
+    
+    func hide() {
+        isHidden = true
+    }
+    
+    func show() {
+        isHidden = false
+    }
+}

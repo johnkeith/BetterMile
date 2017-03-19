@@ -119,6 +119,7 @@ class MainViewControllerTests: XCTestCase {
     let dividerLabel = FakeDividerLabel()
     let timerHelpTextLabel = FakeTimerHelpTextLabel()
     let settingsButton = SettingsButton()
+    let settingsOverlay = SettingsOverlay()
     
     var ctrl: MainViewController!
     
@@ -132,7 +133,8 @@ class MainViewControllerTests: XCTestCase {
             stopWatchService: stopWatchService,
             dividerLabel: dividerLabel,
             timerHelpTextLabel: timerHelpTextLabel,
-            settingsButton: settingsButton)
+            settingsButton: settingsButton,
+            settingsOverlay: settingsOverlay)
         
         _ = ctrl.view
     }
@@ -148,6 +150,7 @@ class MainViewControllerTests: XCTestCase {
         XCTAssertTrue(dividerLabel.isDescendant(of: ctrl.view))
         XCTAssertTrue(timerHelpTextLabel.isDescendant(of: ctrl.view))
         XCTAssertTrue(settingsButton.isDescendant(of: ctrl.view))
+        XCTAssertTrue(settingsOverlay.isDescendant(of: ctrl.view))
     }
     
     func testBgColorSet() {

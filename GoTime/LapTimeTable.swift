@@ -12,7 +12,7 @@ class LapTimeTable: UITableView {
     var lapData = [Double]()
     var timeToTextService: TimeToTextService
     
-    init(hidden: Bool = false, timeToTextService: TimeToTextService = TimeToTextService()) {
+    init(hidden: Bool = true, timeToTextService: TimeToTextService = TimeToTextService()) {
         self.timeToTextService = timeToTextService
         let defaultFrame = CGRect(x: 0, y: 0, width: 0, height: 0)
 

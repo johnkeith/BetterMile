@@ -16,6 +16,7 @@ class MainViewController: UIViewController {
     var dividerLabel: DividerLabel
     var timerHelpTextLabel: TimerHelpTextLabel
     var settingsButton: SettingsButton
+    var settingsOverlay: SettingsOverlay
     
     var stopWatchService: StopWatchService
     var timeToTextService: TimeToTextService
@@ -25,12 +26,13 @@ class MainViewController: UIViewController {
     
     init(startButton: StartButton = StartButton(),
          totalTimeLabel: TotalTimeLabel = TotalTimeLabel(hidden: true),
-         lapTimeTable: LapTimeTable = LapTimeTable(hidden: true),
+         lapTimeTable: LapTimeTable = LapTimeTable(),
          stopWatchService: StopWatchService = StopWatchService(),
          timeToTextService: TimeToTextService = TimeToTextService(),
-         dividerLabel: DividerLabel = DividerLabel(hidden: true),
-         timerHelpTextLabel: TimerHelpTextLabel = TimerHelpTextLabel(hidden: true),
-         settingsButton: SettingsButton = SettingsButton()) {
+         dividerLabel: DividerLabel = DividerLabel(),
+         timerHelpTextLabel: TimerHelpTextLabel = TimerHelpTextLabel(),
+         settingsButton: SettingsButton = SettingsButton(),
+         settingsOverlay: SettingsOverlay = SettingsOverlay()) {
         
         self.startButton = startButton
         self.totalTimeLabel = totalTimeLabel
@@ -38,6 +40,7 @@ class MainViewController: UIViewController {
         self.dividerLabel = dividerLabel
         self.timerHelpTextLabel = timerHelpTextLabel
         self.settingsButton = settingsButton
+        self.settingsOverlay = settingsOverlay
         
         self.stopWatchService = stopWatchService
         self.timeToTextService = timeToTextService
@@ -54,6 +57,7 @@ class MainViewController: UIViewController {
         
         startButton.delegate = self
         stopWatchService.delegate = self
+        settingsButton.delegate = self
         
         setBackgroundColor()
         addSubviews()
@@ -73,6 +77,7 @@ class MainViewController: UIViewController {
         self.view.addSubview(dividerLabel)
         self.view.addSubview(timerHelpTextLabel)
         self.view.addSubview(settingsButton)
+        self.view.addSubview(settingsOverlay)
     }
     
     func applyConstraints() { // TODO: UNTESTED
@@ -82,6 +87,7 @@ class MainViewController: UIViewController {
         MainViewControllerConstraints.positionDividerLabel(dividerLabel: dividerLabel, lapTimeTable: lapTimeTable)
         MainViewControllerConstraints.positionTimerHelpTextLabel(timerHelpTextLabel: timerHelpTextLabel)
         MainViewControllerConstraints.positionSettingsButton(settingsButton: settingsButton)
+        MainViewControllerConstraints.positionSettingsOverlay(settingsOverlay: settingsOverlay)
     }
     
     // MARK - REMOVE, ONLY FOR DEBUGGING
@@ -196,8 +202,9 @@ extension MainViewController: StopWatchServiceDelegate {
 }
 
 extension MainViewController: SettingsButtonDelegate {
+    // TODO: UNTESTED
     func onSettingsTap(sender: SettingsButton) {
-        
+        settingsOverlay.show()
     }
 }
 

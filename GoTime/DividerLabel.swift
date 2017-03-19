@@ -9,7 +9,7 @@
 import UIKit
 
 class DividerLabel: UILabel {
-    init(hidden: Bool = false) {
+    init(hidden: Bool = true) {
         let defaultFrame = CGRect(x: 0, y: 0, width: 0, height: 0)
         super.init(frame: defaultFrame)
         
