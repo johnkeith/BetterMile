@@ -17,19 +17,7 @@ class SettingsOverlay: UIView {
         
         self.isHidden = hidden
         
-        if !UIAccessibilityIsReduceTransparencyEnabled() {
-            self.backgroundColor = UIColor.clear
-            
-            let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.dark)
-            let blurEffectView = UIVisualEffectView(effect: blurEffect)
-            
-            blurEffectView.frame = self.bounds
-            blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-            
-            self.addSubview(blurEffectView)
-        } else {
-            self.backgroundColor = Constants.colorPalette["white"]
-        }
+        self.backgroundColor = Constants.colorPalette["white"]
     }
     
     required init?(coder aDecoder: NSCoder) {
