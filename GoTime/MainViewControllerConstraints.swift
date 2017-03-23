@@ -74,4 +74,18 @@ class MainViewControllerConstraints {
             make.height.equalTo(settingsOverlay.superview!)
         }
     }
+    
+    class func positionFadeOverlayView(fadeOverlayView: FadeOverlayView, lapTimeTable: LapTimeTable) {
+        fadeOverlayView.snp.makeConstraints { (make) -> Void in
+            make.top.equalTo(lapTimeTable.snp.top)
+            make.bottom.equalTo(lapTimeTable.snp.bottom)
+            make.width.equalTo(lapTimeTable.snp.width)
+            make.height.equalTo(lapTimeTable.snp.height)
+            make.left.equalTo(lapTimeTable.snp.left)
+        }
+        
+        fadeOverlayView.layoutIfNeeded()
+        
+        fadeOverlayView.gradientLayer.frame = fadeOverlayView.bounds        
+    }
 }

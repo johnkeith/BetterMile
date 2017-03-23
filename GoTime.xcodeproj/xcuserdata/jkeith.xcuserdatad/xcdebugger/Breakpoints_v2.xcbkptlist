@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GoTime/MainViewController.swift"
-            timestampString = "511584881.517173"
+            timestampString = "511924227.521632"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "86"
-            endingLineNumber = "86"
+            startingLineNumber = "90"
+            endingLineNumber = "90"
             landmarkName = "applyConstraints()"
             landmarkType = "7">
          </BreakpointContent>
@@ -26,12 +26,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GoTime/MainViewController.swift"
-            timestampString = "511584296.866884"
+            timestampString = "511924227.521632"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "27"
-            endingLineNumber = "27"
-            landmarkName = "init(startButton:totalTimeLabel:lapTimeTable:stopWatchService:timeToTextService:dividerLabel:timerHelpTextLabel:settingsButton:settingsOverlay:)"
+            startingLineNumber = "28"
+            endingLineNumber = "28"
+            landmarkName = "init(startButton:totalTimeLabel:lapTimeTable:stopWatchService:timeToTextService:dividerLabel:timerHelpTextLabel:settingsButton:settingsOverlay:fadeOverlayView:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -241,6 +241,20 @@
             endingLineNumber = "54"
             landmarkName = "testTableViewConvertsTimesAndIncludesLapNumber()"
             landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "GoTimeTests/SettingsOverlayTests.swift"
+            timestampString = "511754577.501324"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "37"
+            endingLineNumber = "37">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

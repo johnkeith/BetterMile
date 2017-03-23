@@ -17,6 +17,7 @@ class MainViewController: UIViewController {
     var timerHelpTextLabel: TimerHelpTextLabel
     var settingsButton: SettingsButton
     var settingsOverlay: SettingsOverlay
+    var fadeOverlayView: FadeOverlayView
     
     var stopWatchService: StopWatchService
     var timeToTextService: TimeToTextService
@@ -32,7 +33,8 @@ class MainViewController: UIViewController {
          dividerLabel: DividerLabel = DividerLabel(),
          timerHelpTextLabel: TimerHelpTextLabel = TimerHelpTextLabel(),
          settingsButton: SettingsButton = SettingsButton(),
-         settingsOverlay: SettingsOverlay = SettingsOverlay()) {
+         settingsOverlay: SettingsOverlay = SettingsOverlay(),
+         fadeOverlayView: FadeOverlayView = FadeOverlayView()) {
         
         self.startButton = startButton
         self.totalTimeLabel = totalTimeLabel
@@ -41,6 +43,7 @@ class MainViewController: UIViewController {
         self.timerHelpTextLabel = timerHelpTextLabel
         self.settingsButton = settingsButton
         self.settingsOverlay = settingsOverlay
+        self.fadeOverlayView = fadeOverlayView
         
         self.stopWatchService = stopWatchService
         self.timeToTextService = timeToTextService
@@ -78,6 +81,7 @@ class MainViewController: UIViewController {
         self.view.addSubview(timerHelpTextLabel)
         self.view.addSubview(settingsButton)
         self.view.addSubview(settingsOverlay)
+        self.view.addSubview(fadeOverlayView)
     }
     
     func applyConstraints() { // TODO: UNTESTED
@@ -88,6 +92,7 @@ class MainViewController: UIViewController {
         MainViewControllerConstraints.positionTimerHelpTextLabel(timerHelpTextLabel: timerHelpTextLabel)
         MainViewControllerConstraints.positionSettingsButton(settingsButton: settingsButton)
         MainViewControllerConstraints.positionSettingsOverlay(settingsOverlay: settingsOverlay)
+        MainViewControllerConstraints.positionFadeOverlayView(fadeOverlayView: fadeOverlayView, lapTimeTable: lapTimeTable)
     }
     
     // MARK - REMOVE, ONLY FOR DEBUGGING
