@@ -8,10 +8,11 @@
 
 import UIKit
 
+// TODO: UNTESTED
 class FadeOverlayView: UIView {
     let gradientLayer = CAGradientLayer()
     
-    init(hidden: Bool = false) {
+    init(hidden: Bool = true) {
         super.init(frame: Constants.defaultFrame)
         
         self.isHidden = hidden

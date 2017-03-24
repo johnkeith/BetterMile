@@ -161,6 +161,7 @@ extension MainViewController: StartButtonDelegate {
         totalTimeLabel.show()
         lapTimeTable.show()
         dividerLabel.show()
+        fadeOverlayView.show()
         timerHelpTextLabel.showBriefly()
         
         attachDoubleTapRecognizer()
@@ -185,6 +186,7 @@ extension MainViewController: StopWatchServiceDelegate {
         totalTimeLabel.hide()
         dividerLabel.hide()
         lapTimeTable.hide()
+        fadeOverlayView.hide()
 
         lapTimeTable.clearLapData()
         
