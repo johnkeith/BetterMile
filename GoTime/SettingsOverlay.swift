@@ -10,25 +10,38 @@ import UIKit
 
 // TODO: UNTESTED
 class SettingsOverlay: UIView {
+    var singleTapRecognizer: UITapGestureRecognizer! // TODO: SMELLY
+    
     init(hidden: Bool = true) {
-        let defaultFrame = CGRect()
-        
-        super.init(frame: defaultFrame)
+        super.init(frame: Constants.defaultFrame)
         
         self.isHidden = hidden
+        self.backgroundColor = Constants.colorPalette["gray"]
         
-        self.backgroundColor = Constants.colorPalette["white"]
+        singleTapRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.hide))
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) is not supported")
     }
     
+    func attachMenuDismissRecognizer() {
+        self.addGestureRecognizer(singleTapRecognizer)
+    }
+    
+    func removeMenuDismissRecognizer() {
+        self.removeGestureRecognizer(singleTapRecognizer)
+    }
+    
     func hide() {
+        removeMenuDismissRecognizer()
+        
         isHidden = true
     }
     
     func show() {
+        attachMenuDismissRecognizer()
+        
         isHidden = false
     }
 }

@@ -24,5 +24,5 @@ struct Constants {
     static let responsiveDefaultFont: UIFont = UIFont.systemFont(ofSize: 999, weight: UIFontWeightThin)
     static let responsiveDigitFont: UIFont = UIFont.monospacedDigitSystemFont(ofSize: 999, weight: UIFontWeightLight)
     
-    static let defaultFrame: CGRect = CGRect(x: 0, y: 0, width: 0, height: 0)
+    static let defaultFrame: CGRect = CGRect()
 }

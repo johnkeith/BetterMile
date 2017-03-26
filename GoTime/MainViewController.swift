@@ -22,8 +22,8 @@ class MainViewController: UIViewController {
     var stopWatchService: StopWatchService
     var timeToTextService: TimeToTextService
     
-    var doubleTapRecognizer: UITapGestureRecognizer!
-    var longPressRecognizer: UILongPressGestureRecognizer!
+    var doubleTapRecognizer: UITapGestureRecognizer! // TODO: SMELLY
+    var longPressRecognizer: UILongPressGestureRecognizer! // TODO: SMELLY
     
     init(startButton: StartButton = StartButton(),
          totalTimeLabel: TotalTimeLabel = TotalTimeLabel(hidden: true),
@@ -80,8 +80,8 @@ class MainViewController: UIViewController {
         self.view.addSubview(dividerLabel)
         self.view.addSubview(timerHelpTextLabel)
         self.view.addSubview(settingsButton)
-        self.view.addSubview(settingsOverlay)
         self.view.addSubview(fadeOverlayView)
+        self.view.addSubview(settingsOverlay)
     }
     
     func applyConstraints() { // TODO: UNTESTED

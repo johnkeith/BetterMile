@@ -34,6 +34,7 @@ class LapTimeTableCell: UITableViewCell {
         label.text = labelText
     }
     
+    // TODO: UNTESTED
     func setLabelAttributes(label: UILabel) {
         label.font = Constants.responsiveDigitFont
         label.adjustsFontSizeToFitWidth = true
@@ -42,10 +43,12 @@ class LapTimeTableCell: UITableViewCell {
         label.textAlignment = .center
     }
     
+    // TODO: UNTESTED
     func setLineAttributes(line: UILabel) {
         line.backgroundColor = Constants.colorPalette["black"]
     }
     
+    // TODO: UNTESTED
     func addLabelAndLineConstraints(label: UILabel, line: UILabel) {
         // TODO: FIX - there must be a better place for this
         label.snp.makeConstraints { (make) -> Void in
