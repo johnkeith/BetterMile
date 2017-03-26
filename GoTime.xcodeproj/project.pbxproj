@@ -45,6 +45,7 @@
 		63C9A1901E83544000AB9144 /* FadeOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C9A18F1E83544000AB9144 /* FadeOverlayView.swift */; };
 		63C9A1941E87F8D900AB9144 /* VoiceNotificationsButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C9A1931E87F8D900AB9144 /* VoiceNotificationsButton.swift */; };
 		63C9A1991E883DA300AB9144 /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C9A1981E883DA300AB9144 /* UIViewExtension.swift */; };
+		63C9A19B1E88445A00AB9144 /* SettingsButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C9A19A1E88445A00AB9144 /* SettingsButton.swift */; };
 		63CB14061E67AD2900F7BC14 /* LapTimeTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63CB14051E67AD2900F7BC14 /* LapTimeTableCell.swift */; };
 		63CB140A1E6D0A6300F7BC14 /* TimerHelpTextLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63CB14091E6D0A6300F7BC14 /* TimerHelpTextLabel.swift */; };
 		63CB140C1E6E4E0A00F7BC14 /* AnimationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63CB140B1E6E4E0A00F7BC14 /* AnimationService.swift */; };
@@ -112,6 +113,7 @@
 		63C9A18F1E83544000AB9144 /* FadeOverlayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FadeOverlayView.swift; sourceTree = "<group>"; };
 		63C9A1931E87F8D900AB9144 /* VoiceNotificationsButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VoiceNotificationsButton.swift; sourceTree = "<group>"; };
 		63C9A1981E883DA300AB9144 /* UIViewExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewExtension.swift; sourceTree = "<group>"; };
+		63C9A19A1E88445A00AB9144 /* SettingsButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsButton.swift; sourceTree = "<group>"; };
 		63CB14051E67AD2900F7BC14 /* LapTimeTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LapTimeTableCell.swift; sourceTree = "<group>"; };
 		63CB14091E6D0A6300F7BC14 /* TimerHelpTextLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimerHelpTextLabel.swift; sourceTree = "<group>"; };
 		63CB140B1E6E4E0A00F7BC14 /* AnimationService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimationService.swift; sourceTree = "<group>"; };
@@ -231,6 +233,7 @@
 				63C9A1831E7D752500AB9144 /* OpenSettingsButton.swift */,
 				63C9A1871E7E242B00AB9144 /* SettingsOverlay.swift */,
 				63C9A18F1E83544000AB9144 /* FadeOverlayView.swift */,
+				63C9A19A1E88445A00AB9144 /* SettingsButton.swift */,
 				63C9A1931E87F8D900AB9144 /* VoiceNotificationsButton.swift */,
 			);
 			name = Components;
@@ -490,6 +493,7 @@
 				63CB140A1E6D0A6300F7BC14 /* TimerHelpTextLabel.swift in Sources */,
 				633966991E47549800D43896 /* TotalTimeLabel.swift in Sources */,
 				63A3F23B1E3C195400AA8A92 /* StopWatchService.swift in Sources */,
+				63C9A19B1E88445A00AB9144 /* SettingsButton.swift in Sources */,
 				63CB14061E67AD2900F7BC14 /* LapTimeTableCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
