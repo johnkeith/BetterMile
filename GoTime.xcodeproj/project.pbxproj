@@ -46,6 +46,14 @@
 		63C9A1941E87F8D900AB9144 /* VoiceNotificationsButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C9A1931E87F8D900AB9144 /* VoiceNotificationsButton.swift */; };
 		63C9A1991E883DA300AB9144 /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C9A1981E883DA300AB9144 /* UIViewExtension.swift */; };
 		63C9A19B1E88445A00AB9144 /* SettingsButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C9A19A1E88445A00AB9144 /* SettingsButton.swift */; };
+		63C9A19E1E8844E200AB9144 /* VibrationNotificationsButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C9A19D1E8844E200AB9144 /* VibrationNotificationsButton.swift */; };
+		63C9A1A01E88451800AB9144 /* ThemeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C9A19F1E88451800AB9144 /* ThemeButton.swift */; };
+		63C9A1A21E88455900AB9144 /* PreviousLapTimeSettingsButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C9A1A11E88455900AB9144 /* PreviousLapTimeSettingsButton.swift */; };
+		63C9A1A41E8845B400AB9144 /* AverageLapTimeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C9A1A31E8845B400AB9144 /* AverageLapTimeButton.swift */; };
+		63C9A1A61E8845D400AB9144 /* TotalTimeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C9A1A51E8845D400AB9144 /* TotalTimeButton.swift */; };
+		63C9A1A81E8845F500AB9144 /* VibrateOnLapButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C9A1A71E8845F500AB9144 /* VibrateOnLapButton.swift */; };
+		63C9A1AA1E88462F00AB9144 /* VibrateOnPauseButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C9A1A91E88462F00AB9144 /* VibrateOnPauseButton.swift */; };
+		63C9A1AC1E88465100AB9144 /* VibrateOnClearButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C9A1AB1E88465100AB9144 /* VibrateOnClearButton.swift */; };
 		63CB14061E67AD2900F7BC14 /* LapTimeTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63CB14051E67AD2900F7BC14 /* LapTimeTableCell.swift */; };
 		63CB140A1E6D0A6300F7BC14 /* TimerHelpTextLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63CB14091E6D0A6300F7BC14 /* TimerHelpTextLabel.swift */; };
 		63CB140C1E6E4E0A00F7BC14 /* AnimationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63CB140B1E6E4E0A00F7BC14 /* AnimationService.swift */; };
@@ -114,6 +122,14 @@
 		63C9A1931E87F8D900AB9144 /* VoiceNotificationsButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VoiceNotificationsButton.swift; sourceTree = "<group>"; };
 		63C9A1981E883DA300AB9144 /* UIViewExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewExtension.swift; sourceTree = "<group>"; };
 		63C9A19A1E88445A00AB9144 /* SettingsButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsButton.swift; sourceTree = "<group>"; };
+		63C9A19D1E8844E200AB9144 /* VibrationNotificationsButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VibrationNotificationsButton.swift; sourceTree = "<group>"; };
+		63C9A19F1E88451800AB9144 /* ThemeButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeButton.swift; sourceTree = "<group>"; };
+		63C9A1A11E88455900AB9144 /* PreviousLapTimeSettingsButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreviousLapTimeSettingsButton.swift; sourceTree = "<group>"; };
+		63C9A1A31E8845B400AB9144 /* AverageLapTimeButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AverageLapTimeButton.swift; sourceTree = "<group>"; };
+		63C9A1A51E8845D400AB9144 /* TotalTimeButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TotalTimeButton.swift; sourceTree = "<group>"; };
+		63C9A1A71E8845F500AB9144 /* VibrateOnLapButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VibrateOnLapButton.swift; sourceTree = "<group>"; };
+		63C9A1A91E88462F00AB9144 /* VibrateOnPauseButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VibrateOnPauseButton.swift; sourceTree = "<group>"; };
+		63C9A1AB1E88465100AB9144 /* VibrateOnClearButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VibrateOnClearButton.swift; sourceTree = "<group>"; };
 		63CB14051E67AD2900F7BC14 /* LapTimeTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LapTimeTableCell.swift; sourceTree = "<group>"; };
 		63CB14091E6D0A6300F7BC14 /* TimerHelpTextLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimerHelpTextLabel.swift; sourceTree = "<group>"; };
 		63CB140B1E6E4E0A00F7BC14 /* AnimationService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimationService.swift; sourceTree = "<group>"; };
@@ -235,6 +251,14 @@
 				63C9A18F1E83544000AB9144 /* FadeOverlayView.swift */,
 				63C9A19A1E88445A00AB9144 /* SettingsButton.swift */,
 				63C9A1931E87F8D900AB9144 /* VoiceNotificationsButton.swift */,
+				63C9A19D1E8844E200AB9144 /* VibrationNotificationsButton.swift */,
+				63C9A19F1E88451800AB9144 /* ThemeButton.swift */,
+				63C9A1A11E88455900AB9144 /* PreviousLapTimeSettingsButton.swift */,
+				63C9A1A31E8845B400AB9144 /* AverageLapTimeButton.swift */,
+				63C9A1A51E8845D400AB9144 /* TotalTimeButton.swift */,
+				63C9A1A71E8845F500AB9144 /* VibrateOnLapButton.swift */,
+				63C9A1A91E88462F00AB9144 /* VibrateOnPauseButton.swift */,
+				63C9A1AB1E88465100AB9144 /* VibrateOnClearButton.swift */,
 			);
 			name = Components;
 			sourceTree = "<group>";
@@ -479,11 +503,15 @@
 				6386BF331E45FE9700BD2875 /* RunPersistanceService.swift in Sources */,
 				63CB140C1E6E4E0A00F7BC14 /* AnimationService.swift in Sources */,
 				634CACE31E52A80B0064FD5E /* DividerLabel.swift in Sources */,
+				63C9A1A41E8845B400AB9144 /* AverageLapTimeButton.swift in Sources */,
 				63A3F1F71E34FE3800AA8A92 /* GoTime.xcdatamodeld in Sources */,
 				63C9A1901E83544000AB9144 /* FadeOverlayView.swift in Sources */,
+				63C9A1A61E8845D400AB9144 /* TotalTimeButton.swift in Sources */,
 				6386BF211E3EC1FC00BD2875 /* TimeToTextService.swift in Sources */,
 				63A3F1EF1E34FE3800AA8A92 /* AppDelegate.swift in Sources */,
 				63C9A1881E7E242B00AB9144 /* SettingsOverlay.swift in Sources */,
+				63C9A1A01E88451800AB9144 /* ThemeButton.swift in Sources */,
+				63C9A1AC1E88465100AB9144 /* VibrateOnClearButton.swift in Sources */,
 				63A3F2291E35355500AA8A92 /* Constants.swift in Sources */,
 				63C9A1841E7D752500AB9144 /* OpenSettingsButton.swift in Sources */,
 				63A3F22A1E35355500AA8A92 /* MainViewController.swift in Sources */,
@@ -493,7 +521,11 @@
 				63CB140A1E6D0A6300F7BC14 /* TimerHelpTextLabel.swift in Sources */,
 				633966991E47549800D43896 /* TotalTimeLabel.swift in Sources */,
 				63A3F23B1E3C195400AA8A92 /* StopWatchService.swift in Sources */,
+				63C9A19E1E8844E200AB9144 /* VibrationNotificationsButton.swift in Sources */,
+				63C9A1A21E88455900AB9144 /* PreviousLapTimeSettingsButton.swift in Sources */,
+				63C9A1AA1E88462F00AB9144 /* VibrateOnPauseButton.swift in Sources */,
 				63C9A19B1E88445A00AB9144 /* SettingsButton.swift in Sources */,
+				63C9A1A81E8845F500AB9144 /* VibrateOnLapButton.swift in Sources */,
 				63CB14061E67AD2900F7BC14 /* LapTimeTableCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
