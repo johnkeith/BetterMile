@@ -10,7 +10,7 @@ import UIKit
 
 class DividerLabel: UILabel {
     init(hidden: Bool = true) {
-        let defaultFrame = CGRect(x: 0, y: 0, width: 0, height: 0)
+        let defaultFrame = CGRect()
         super.init(frame: defaultFrame)
         
         self.isHidden = hidden

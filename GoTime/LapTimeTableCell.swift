@@ -9,10 +9,21 @@
 import UIKit
 
 class LapTimeTableCell: UITableViewCell {
+    let label = UILabel(frame: CGRect())
+    let line = UILabel(frame: CGRect())
+    
     override init(style: UITableViewCellStyle = .default, reuseIdentifier: String? = "LapTimeTableCell") {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         self.selectionStyle = UITableViewCellSelectionStyle.none
+        
+        self.setLabelAttributes(label: label)
+        self.setLineAttributes(line: line)
+        
+        self.contentView.addSubview(label)
+        self.contentView.addSubview(line)
+        
+        self.addLabelAndLineConstraints(label: label, line: line)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -20,21 +31,22 @@ class LapTimeTableCell: UITableViewCell {
     }
     
     func setContent(labelText: String) {
-        let label = UILabel(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
-        let line = UILabel(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
-        
         label.text = labelText
+    }
+    
+    func setLabelAttributes(label: UILabel) {
         label.font = Constants.responsiveDigitFont
         label.adjustsFontSizeToFitWidth = true
         label.numberOfLines = 1
         label.baselineAdjustment = .alignCenters
         label.textAlignment = .center
-        
+    }
+    
+    func setLineAttributes(line: UILabel) {
         line.backgroundColor = Constants.colorPalette["black"]
-
-        contentView.addSubview(label)
-        contentView.addSubview(line)
-        
+    }
+    
+    func addLabelAndLineConstraints(label: UILabel, line: UILabel) {
         // TODO: FIX - there must be a better place for this
         label.snp.makeConstraints { (make) -> Void in
             make.width.equalTo(label.superview!)

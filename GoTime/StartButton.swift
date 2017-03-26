@@ -17,7 +17,7 @@ class StartButton: UIButton {
     
     // this is the init for when no frame is passed - StartButton()
     init() {
-        let defaultFrame = CGRect(x: 0, y: 0, width: 0, height: 0)
+        let defaultFrame = CGRect()
         super.init(frame: defaultFrame)
         
         sharedInit()
@@ -37,9 +37,7 @@ class StartButton: UIButton {
         sharedInit()
     }
     
-    func sharedInit() { // UNTESTED
-        backgroundColor = Constants.colorPalette["white"]
-        
+    func sharedInit() { // UNTESTED        
         setTitle("START", for: UIControlState.normal)
         setTitleColor(Constants.colorPalette["black"], for: UIControlState.normal)
         

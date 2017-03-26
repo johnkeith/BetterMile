@@ -80,7 +80,6 @@ class MainViewControllerConstraints {
             make.top.equalTo(lapTimeTable.snp.top)
             make.bottom.equalTo(lapTimeTable.snp.bottom)
             make.width.equalTo(lapTimeTable.snp.width)
-            make.height.equalTo(lapTimeTable.snp.height)
             make.left.equalTo(lapTimeTable.snp.left)
         }
         

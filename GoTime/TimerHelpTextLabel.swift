@@ -13,7 +13,7 @@ class TimerHelpTextLabel: UILabel {
     var animationService: AnimationService
     
     init(hidden: Bool = true, animationService: AnimationService = AnimationService()) {
-        let defaultFrame = CGRect(x: 0, y: 0, width: 0, height: 0)
+        let defaultFrame = CGRect()
         
         self.animationService = animationService
 

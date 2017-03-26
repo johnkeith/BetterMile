@@ -14,7 +14,7 @@ class LapTimeTable: UITableView {
     
     init(hidden: Bool = true, timeToTextService: TimeToTextService = TimeToTextService()) {
         self.timeToTextService = timeToTextService
-        let defaultFrame = CGRect(x: 0, y: 0, width: 0, height: 0)
+        let defaultFrame = CGRect()
 
         super.init(frame: defaultFrame, style: .plain)
 
@@ -26,6 +26,8 @@ class LapTimeTable: UITableView {
         self.separatorStyle = .none
         self.showsVerticalScrollIndicator = false
         self.contentInset = UIEdgeInsetsMake(0.0, 0.0, 164.0, 0.0)
+        
+        self.register(LapTimeTableCell.self, forCellReuseIdentifier: "lapTimeTableCell")
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -62,10 +64,10 @@ extension LapTimeTable: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let time = timeToTextService.timeAsSingleString(inputTime: lapData[indexPath.row])
-        let cell = LapTimeTableCell()
         let lapNumber = lapData.count - indexPath.row
-        
         let content = "\(lapNumber > 9 ? "" : "0")\(lapNumber) - \(time)"
+        
+        let cell = self.dequeueReusableCell(withIdentifier: "lapTimeTableCell", for: indexPath) as! LapTimeTableCell
         
         cell.setContent(labelText: content)
         
