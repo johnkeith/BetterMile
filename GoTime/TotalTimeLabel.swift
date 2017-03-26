@@ -31,13 +31,5 @@ class TotalTimeLabel: UILabel {
     func setText(time: String) {
         self.text = time
     }
-    
-    func hide() {
-        isHidden = true
-    }
-    
-    func show() {
-        isHidden = false
-    }
 }
 

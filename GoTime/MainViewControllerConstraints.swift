@@ -59,13 +59,15 @@ class MainViewControllerConstraints {
         }
     }
     
-    class func positionSettingsButton(settingsButton: SettingsButton) {
-        settingsButton.snp.makeConstraints { (make) -> Void in
-            make.width.equalTo(settingsButton.superview!.frame.width * (1/6))
-            make.height.equalTo(settingsButton.superview!.frame.width * (1/6))
-            make.top.equalTo(settingsButton.superview!).offset(defaultMargin)
-            make.right.equalTo(settingsButton.superview!).offset(-defaultMargin)
+    class func positionOpenSettingsButton(openSettingsButton: OpenSettingsButton) {
+        openSettingsButton.snp.makeConstraints { (make) -> Void in
+            make.width.equalTo(openSettingsButton.superview!.frame.width * (1/6))
+            make.height.equalTo(openSettingsButton.superview!.frame.width * (1/6))
+            make.top.equalTo(openSettingsButton.superview!).offset(defaultMargin)
+            make.right.equalTo(openSettingsButton.superview!).offset(-defaultMargin)
         }
+        
+        openSettingsButton.layoutIfNeeded()
     }
     
     class func positionSettingsOverlay(settingsOverlay: SettingsOverlay) {
@@ -86,5 +88,15 @@ class MainViewControllerConstraints {
         fadeOverlayView.layoutIfNeeded()
         
         fadeOverlayView.gradientLayer.frame = fadeOverlayView.bounds        
+    }
+    
+    class func positionVoiceNotificationsButton(voiceNotificationsButton: VoiceNotificationsButton, openSettingsButton: OpenSettingsButton) {
+        
+        voiceNotificationsButton.snp.makeConstraints { (make) -> Void in
+            make.top.equalTo(openSettingsButton.snp.top)
+            make.width.equalTo(openSettingsButton.frame.width / 5)
+            make.height.equalTo(openSettingsButton.frame.height / 5)
+            make.left.equalTo(openSettingsButton.snp.left)
+        }
     }
 }

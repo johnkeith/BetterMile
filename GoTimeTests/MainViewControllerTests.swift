@@ -118,7 +118,7 @@ class MainViewControllerTests: XCTestCase {
     let lapTimeTable = FakeLapTimeTable()
     let dividerLabel = FakeDividerLabel()
     let timerHelpTextLabel = FakeTimerHelpTextLabel()
-    let settingsButton = SettingsButton()
+    let openSettingsButton = OpenSettingsButton()
     let settingsOverlay = SettingsOverlay()
     
     var ctrl: MainViewController!
@@ -133,7 +133,7 @@ class MainViewControllerTests: XCTestCase {
             stopWatchService: stopWatchService,
             dividerLabel: dividerLabel,
             timerHelpTextLabel: timerHelpTextLabel,
-            settingsButton: settingsButton,
+            openSettingsButton: openSettingsButton,
             settingsOverlay: settingsOverlay)
         
         _ = ctrl.view
@@ -149,7 +149,7 @@ class MainViewControllerTests: XCTestCase {
         XCTAssertTrue(lapTimeTable.isDescendant(of: ctrl.view))
         XCTAssertTrue(dividerLabel.isDescendant(of: ctrl.view))
         XCTAssertTrue(timerHelpTextLabel.isDescendant(of: ctrl.view))
-        XCTAssertTrue(settingsButton.isDescendant(of: ctrl.view))
+        XCTAssertTrue(openSettingsButton.isDescendant(of: ctrl.view))
         XCTAssertTrue(settingsOverlay.isDescendant(of: ctrl.view))
     }
     

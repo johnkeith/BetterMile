@@ -34,14 +34,6 @@ class TimerHelpTextLabel: UILabel {
         fatalError("init(coder:) is not supported")
     }
     
-    func hide() {
-        isHidden = true
-    }
-    
-    func show() {
-        isHidden = false
-    }
-    
     func showBriefly() {
         show()
         

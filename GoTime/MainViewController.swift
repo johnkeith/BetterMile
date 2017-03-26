@@ -15,9 +15,10 @@ class MainViewController: UIViewController {
     var lapTimeTable: LapTimeTable
     var dividerLabel: DividerLabel
     var timerHelpTextLabel: TimerHelpTextLabel
-    var settingsButton: SettingsButton
+    var openSettingsButton: OpenSettingsButton
     var settingsOverlay: SettingsOverlay
     var fadeOverlayView: FadeOverlayView
+    var voiceNotificationsButton: VoiceNotificationsButton
     
     var stopWatchService: StopWatchService
     var timeToTextService: TimeToTextService
@@ -32,18 +33,20 @@ class MainViewController: UIViewController {
          timeToTextService: TimeToTextService = TimeToTextService(),
          dividerLabel: DividerLabel = DividerLabel(),
          timerHelpTextLabel: TimerHelpTextLabel = TimerHelpTextLabel(),
-         settingsButton: SettingsButton = SettingsButton(),
+         openSettingsButton: OpenSettingsButton = OpenSettingsButton(),
          settingsOverlay: SettingsOverlay = SettingsOverlay(),
-         fadeOverlayView: FadeOverlayView = FadeOverlayView()) {
+         fadeOverlayView: FadeOverlayView = FadeOverlayView(),
+         voiceNotificationsButton: VoiceNotificationsButton = VoiceNotificationsButton()) {
         
         self.startButton = startButton
         self.totalTimeLabel = totalTimeLabel
         self.lapTimeTable = lapTimeTable
         self.dividerLabel = dividerLabel
         self.timerHelpTextLabel = timerHelpTextLabel
-        self.settingsButton = settingsButton
+        self.openSettingsButton = openSettingsButton
         self.settingsOverlay = settingsOverlay
         self.fadeOverlayView = fadeOverlayView
+        self.voiceNotificationsButton = voiceNotificationsButton // TODO: UNTESTED
         
         self.stopWatchService = stopWatchService
         self.timeToTextService = timeToTextService
@@ -60,7 +63,7 @@ class MainViewController: UIViewController {
         
         startButton.delegate = self
         stopWatchService.delegate = self
-        settingsButton.delegate = self
+        openSettingsButton.delegate = self
         
         setBackgroundColor()
         addSubviews()
@@ -79,9 +82,10 @@ class MainViewController: UIViewController {
         self.view.addSubview(lapTimeTable)
         self.view.addSubview(dividerLabel)
         self.view.addSubview(timerHelpTextLabel)
-        self.view.addSubview(settingsButton)
+        self.view.addSubview(openSettingsButton)
         self.view.addSubview(fadeOverlayView)
         self.view.addSubview(settingsOverlay)
+        self.view.addSubview(voiceNotificationsButton)
     }
     
     func applyConstraints() { // TODO: UNTESTED
@@ -90,9 +94,10 @@ class MainViewController: UIViewController {
         MainViewControllerConstraints.positionLapTimeTable(lapTimeTable: lapTimeTable, totalTimeLabel: totalTimeLabel)
         MainViewControllerConstraints.positionDividerLabel(dividerLabel: dividerLabel, lapTimeTable: lapTimeTable)
         MainViewControllerConstraints.positionTimerHelpTextLabel(timerHelpTextLabel: timerHelpTextLabel)
-        MainViewControllerConstraints.positionSettingsButton(settingsButton: settingsButton)
+        MainViewControllerConstraints.positionOpenSettingsButton(openSettingsButton: openSettingsButton)
         MainViewControllerConstraints.positionSettingsOverlay(settingsOverlay: settingsOverlay)
         MainViewControllerConstraints.positionFadeOverlayView(fadeOverlayView: fadeOverlayView, lapTimeTable: lapTimeTable)
+        MainViewControllerConstraints.positionVoiceNotificationsButton(voiceNotificationsButton: voiceNotificationsButton, openSettingsButton: openSettingsButton)
     }
     
     // MARK - REMOVE, ONLY FOR DEBUGGING
@@ -208,9 +213,9 @@ extension MainViewController: StopWatchServiceDelegate {
     }
 }
 
-extension MainViewController: SettingsButtonDelegate {
+extension MainViewController: OpenSettingsButtonDelegate {
     // TODO: UNTESTED
-    func onSettingsTap(sender: SettingsButton) {
+    func onSettingsTap(sender: OpenSettingsButton) {
         settingsOverlay.show()
     }
 }

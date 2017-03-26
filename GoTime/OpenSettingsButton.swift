@@ -1,5 +1,5 @@
 //
-//  SettingsButton.swift
+//  OpenSettingsButton.swift
 //  GoTime
 //
 //  Created by John Keith on 3/18/17.
@@ -8,12 +8,12 @@
 
 import UIKit
 
-protocol SettingsButtonDelegate: class {
-    func onSettingsTap(sender: SettingsButton)
+protocol OpenSettingsButtonDelegate: class {
+    func onSettingsTap(sender: OpenSettingsButton)
 }
 
-class SettingsButton: UIButton {
-    var delegate: SettingsButtonDelegate!
+class OpenSettingsButton: UIButton {
+    var delegate: OpenSettingsButtonDelegate!
     
     init(hidden: Bool = false) {
         let defaultFrame = CGRect()
@@ -24,8 +24,9 @@ class SettingsButton: UIButton {
         self.isHidden = hidden
         
         self.tintColor = Constants.colorPalette["black"]
-        self.setImage(buttonImage, for: UIControlState.normal)
+//        self.setImage(buttonImage, for: UIControlState.normal)
         self.contentHorizontalAlignment = UIControlContentHorizontalAlignment.right
+        self.layer.borderWidth = 1.0
         
         addTarget(self, action:#selector(onSettingsTap), for: .touchUpInside)
     }
@@ -34,15 +35,7 @@ class SettingsButton: UIButton {
         fatalError("init(coder:) is not supported")
     }
     
-    func onSettingsTap(sender: SettingsButton) {
+    func onSettingsTap(sender: OpenSettingsButton) {
         delegate.onSettingsTap(sender: sender)
-    }
-    
-    func hide() {
-        isHidden = true
-    }
-    
-    func show() {
-        isHidden = false
     }
 }

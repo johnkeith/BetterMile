@@ -33,13 +33,13 @@ class SettingsOverlay: UIView {
         self.removeGestureRecognizer(singleTapRecognizer)
     }
     
-    func hide() {
+    override func hide() {
         removeMenuDismissRecognizer()
         
         isHidden = true
     }
     
-    func show() {
+    override func show() {
         attachMenuDismissRecognizer()
         
         isHidden = false

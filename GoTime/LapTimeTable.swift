@@ -43,14 +43,6 @@ class LapTimeTable: UITableView {
         self.lapData.removeAll()
         self.reloadData()
     }
-    
-    func hide() {
-        isHidden = true
-    }
-    
-    func show() {
-        isHidden = false
-    }
 }
 
 extension LapTimeTable: UITableViewDataSource {
@@ -66,8 +58,9 @@ extension LapTimeTable: UITableViewDataSource {
         let time = timeToTextService.timeAsSingleString(inputTime: lapData[indexPath.row])
         let lapNumber = lapData.count - indexPath.row
         let content = "\(lapNumber > 9 ? "" : "0")\(lapNumber) - \(time)"
-        
-        let cell = self.dequeueReusableCell(withIdentifier: "lapTimeTableCell", for: indexPath) as! LapTimeTableCell
+// TODO: WHY DOES THIS NOT WORK, BUT REMOVING THE FOR MAKES IT WORK?
+//        let cell = self.dequeueReusableCell(withIdentifier: "lapTimeTableCell", for: indexPath) as! LapTimeTableCell
+        let cell = self.dequeueReusableCell(withIdentifier: "lapTimeTableCell") as! LapTimeTableCell
         
         cell.setContent(labelText: content)
         

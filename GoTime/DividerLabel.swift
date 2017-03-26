@@ -20,12 +20,4 @@ class DividerLabel: UILabel {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) is not supported")
     }
-    
-    func hide() {
-        isHidden = true
-    }
-    
-    func show() {
-        isHidden = false
-    }
 }

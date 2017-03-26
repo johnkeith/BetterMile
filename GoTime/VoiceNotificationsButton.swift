@@ -11,19 +11,18 @@ import UIKit
 class VoiceNotificationsButton: UIButton {
     init(hidden: Bool = false) {
         super.init(frame: Constants.defaultFrame)
+        
+        self.isHidden = hidden
+        self.backgroundColor = Constants.colorPalette["black"]
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) is not supported")
     }
-}
-
-extension VoiceNotificationsButton: GTComponent {
-    func hide() {
-        self.isHidden = true
-    }
     
-    func show() {
-        self.isHidden = false
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        self.layer.cornerRadius = self.bounds.size.height / 2.0
     }
 }

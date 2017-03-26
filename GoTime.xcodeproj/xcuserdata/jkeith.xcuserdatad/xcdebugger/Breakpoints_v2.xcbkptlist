@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GoTime/MainViewController.swift"
-            timestampString = "512102306.328042"
+            timestampString = "512228134.077527"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "90"
-            endingLineNumber = "90"
+            startingLineNumber = "94"
+            endingLineNumber = "94"
             landmarkName = "applyConstraints()"
             landmarkType = "7">
          </BreakpointContent>
@@ -26,12 +26,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GoTime/MainViewController.swift"
-            timestampString = "511924227.521632"
+            timestampString = "512228134.077527"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "28"
-            endingLineNumber = "28"
-            landmarkName = "init(startButton:totalTimeLabel:lapTimeTable:stopWatchService:timeToTextService:dividerLabel:timerHelpTextLabel:settingsButton:settingsOverlay:fadeOverlayView:)"
+            startingLineNumber = "29"
+            endingLineNumber = "29"
+            landmarkName = "init(startButton:totalTimeLabel:lapTimeTable:stopWatchService:timeToTextService:dividerLabel:timerHelpTextLabel:openSettingsButton:settingsOverlay:fadeOverlayView:voiceNotificationsButton:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -264,11 +264,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GoTime/LapTimeTable.swift"
-            timestampString = "512181078.593531"
+            timestampString = "512246641.047437"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "71"
-            endingLineNumber = "71"
+            startingLineNumber = "64"
+            endingLineNumber = "64"
             landmarkName = "tableView(_:cellForRowAt:)"
             landmarkType = "7">
          </BreakpointContent>

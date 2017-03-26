@@ -9,13 +9,13 @@
 import XCTest
 @testable import GoTime
 
-class SettingsButtonTests: XCTestCase {
-    var button: SettingsButton!
+class OpenSettingsButtonTests: XCTestCase {
+    var button: OpenSettingsButton!
     
     override func setUp() {
         super.setUp()
         
-        button = SettingsButton()
+        button = OpenSettingsButton()
     }
     
     override func tearDown() {
