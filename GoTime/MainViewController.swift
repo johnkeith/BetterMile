@@ -28,6 +28,8 @@ class MainViewController: UIViewController {
     var vibrateOnPauseButton: VibrateOnPauseButton
     var vibrateOnClearButton: VibrateOnClearButton
     
+    let settingsButtonCollection: [SettingsButton]
+    
     var stopWatchService: StopWatchService
     var timeToTextService: TimeToTextService
     
@@ -74,6 +76,17 @@ class MainViewController: UIViewController {
         self.vibrateOnPauseButton = vibrateOnPauseButton
         self.vibrateOnClearButton = vibrateOnClearButton
         
+        self.settingsButtonCollection = [
+            voiceNotificationsButton,
+            vibrationNotificationsButton,
+            themeButton,
+            previousLapTimeButton,
+            averageLapTimeButton,
+            totalTimeButton,
+            vibrateOnLapButton,
+            vibrateOnPauseButton,
+            vibrateOnClearButton]
+        
         self.stopWatchService = stopWatchService
         self.timeToTextService = timeToTextService
         
@@ -90,6 +103,7 @@ class MainViewController: UIViewController {
         startButton.delegate = self
         stopWatchService.delegate = self
         openSettingsButton.delegate = self
+        settingsOverlay.delegate = self
         
         setBackgroundColor()
         addSubviews()
@@ -259,6 +273,18 @@ extension MainViewController: OpenSettingsButtonDelegate {
     // TODO: UNTESTED
     func onSettingsTap(sender: OpenSettingsButton) {
         settingsOverlay.show()
+        
+        for button in settingsButtonCollection {
+            button.animateButtonFromOrigin()
+        }
+    }
+}
+
+extension MainViewController: SettingsOverlayDelegate {
+    func onSettingsOverlayHide() {
+        for button in settingsButtonCollection {
+            button.animateButtonToOrigin()
+        }
     }
 }
 

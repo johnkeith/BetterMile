@@ -240,6 +240,7 @@
 		63A3F22E1E35356200AA8A92 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				63C9A1AD1E8DD97300AB9144 /* SettingsButtons */,
 				63A3F2271E35355500AA8A92 /* StartButton.swift */,
 				633966981E47549800D43896 /* TotalTimeLabel.swift */,
 				634CACE21E52A80B0064FD5E /* DividerLabel.swift */,
@@ -250,15 +251,6 @@
 				63C9A1871E7E242B00AB9144 /* SettingsOverlay.swift */,
 				63C9A18F1E83544000AB9144 /* FadeOverlayView.swift */,
 				63C9A19A1E88445A00AB9144 /* SettingsButton.swift */,
-				63C9A1931E87F8D900AB9144 /* VoiceNotificationsButton.swift */,
-				63C9A19D1E8844E200AB9144 /* VibrationNotificationsButton.swift */,
-				63C9A19F1E88451800AB9144 /* ThemeButton.swift */,
-				63C9A1A11E88455900AB9144 /* PreviousLapTimeButton.swift */,
-				63C9A1A31E8845B400AB9144 /* AverageLapTimeButton.swift */,
-				63C9A1A51E8845D400AB9144 /* TotalTimeButton.swift */,
-				63C9A1A71E8845F500AB9144 /* VibrateOnLapButton.swift */,
-				63C9A1A91E88462F00AB9144 /* VibrateOnPauseButton.swift */,
-				63C9A1AB1E88465100AB9144 /* VibrateOnClearButton.swift */,
 			);
 			name = Components;
 			sourceTree = "<group>";
@@ -341,6 +333,22 @@
 				63C9A1981E883DA300AB9144 /* UIViewExtension.swift */,
 			);
 			name = Extensions;
+			sourceTree = "<group>";
+		};
+		63C9A1AD1E8DD97300AB9144 /* SettingsButtons */ = {
+			isa = PBXGroup;
+			children = (
+				63C9A1931E87F8D900AB9144 /* VoiceNotificationsButton.swift */,
+				63C9A19D1E8844E200AB9144 /* VibrationNotificationsButton.swift */,
+				63C9A19F1E88451800AB9144 /* ThemeButton.swift */,
+				63C9A1A11E88455900AB9144 /* PreviousLapTimeButton.swift */,
+				63C9A1A31E8845B400AB9144 /* AverageLapTimeButton.swift */,
+				63C9A1A51E8845D400AB9144 /* TotalTimeButton.swift */,
+				63C9A1A71E8845F500AB9144 /* VibrateOnLapButton.swift */,
+				63C9A1A91E88462F00AB9144 /* VibrateOnPauseButton.swift */,
+				63C9A1AB1E88465100AB9144 /* VibrateOnClearButton.swift */,
+			);
+			name = SettingsButtons;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

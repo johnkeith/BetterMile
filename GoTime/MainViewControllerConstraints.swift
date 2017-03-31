@@ -11,9 +11,10 @@ import SnapKit
 
 class MainViewControllerConstraints {
     static let sharedInstance = MainViewControllerConstraints()
+    
     private init() {}
     
-    private static let defaultMargin = 20
+    private static let defaultMargin = Constants.defaultMargin
     
     class func positionStartButton(startButton: StartButton) {
         startButton.snp.makeConstraints { (make) -> Void in

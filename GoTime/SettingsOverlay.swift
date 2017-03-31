@@ -8,8 +8,14 @@
 
 import UIKit
 
+protocol SettingsOverlayDelegate: class  {
+    func onSettingsOverlayHide()
+}
+
 // TODO: UNTESTED
 class SettingsOverlay: UIView {
+    var delegate: SettingsOverlayDelegate!
+    
     var singleTapRecognizer: UITapGestureRecognizer! // TODO: SMELLY
     
     init(hidden: Bool = true) {
@@ -35,6 +41,8 @@ class SettingsOverlay: UIView {
     
     override func hide() {
         removeMenuDismissRecognizer()
+        
+        delegate.onSettingsOverlayHide()
         
         isHidden = true
     }

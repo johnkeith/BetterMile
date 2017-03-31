@@ -181,6 +181,10 @@ class MainViewControllerTests: XCTestCase {
         XCTAssertTrue(vibrateOnClearButton.isDescendant(of: ctrl.view))
     }
     
+    func testSettingsButtonCollection() {
+        XCTAssertEqual(ctrl.settingsButtonCollection.count, 9)
+    }
+    
     func testBgColorSet() {
         XCTAssertEqual(ctrl.view.backgroundColor, UIColor.white)
     }
