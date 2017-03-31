@@ -64,7 +64,6 @@ class MainViewController: UIViewController {
         self.settingsOverlay = settingsOverlay
         self.fadeOverlayView = fadeOverlayView
         
-        // TODO: UNTESTED
         self.voiceNotificationsButton = voiceNotificationsButton
         self.vibrationNotificationsButton = vibrationNotificationsButton
         self.themeButton = themeButton

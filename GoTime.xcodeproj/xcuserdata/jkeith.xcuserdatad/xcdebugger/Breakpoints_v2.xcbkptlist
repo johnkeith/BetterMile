@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GoTime/MainViewController.swift"
-            timestampString = "512352164.780064"
+            timestampString = "512612697.440968"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "129"
-            endingLineNumber = "129"
+            startingLineNumber = "128"
+            endingLineNumber = "128"
             landmarkName = "applyConstraints()"
             landmarkType = "7">
          </BreakpointContent>
@@ -154,11 +154,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GoTimeTests/MainViewControllerTests.swift"
-            timestampString = "511584296.866884"
+            timestampString = "512612631.493072"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "222"
-            endingLineNumber = "222"
+            startingLineNumber = "250"
+            endingLineNumber = "250"
             landmarkName = "testAttachDoubleTapRecognizer()"
             landmarkType = "7">
          </BreakpointContent>

@@ -120,6 +120,16 @@ class MainViewControllerTests: XCTestCase {
     let timerHelpTextLabel = FakeTimerHelpTextLabel()
     let openSettingsButton = OpenSettingsButton()
     let settingsOverlay = SettingsOverlay()
+    let fadeOverlayView = FadeOverlayView()
+    let voiceNotificationsButton = VoiceNotificationsButton()
+    let vibrationNotificationsButton = VibrationNotificationsButton()
+    let themeButton = ThemeButton()
+    let previousLapTimeButton = PreviousLapTimeButton()
+    let averageLapTimeButton = AverageLapTimeButton()
+    let totalTimeButton = TotalTimeButton()
+    let vibrateOnLapButton = VibrateOnLapButton()
+    let vibrateOnPauseButton = VibrateOnPauseButton()
+    let vibrateOnClearButton = VibrateOnClearButton()
     
     var ctrl: MainViewController!
     
@@ -134,7 +144,16 @@ class MainViewControllerTests: XCTestCase {
             dividerLabel: dividerLabel,
             timerHelpTextLabel: timerHelpTextLabel,
             openSettingsButton: openSettingsButton,
-            settingsOverlay: settingsOverlay)
+            settingsOverlay: settingsOverlay,
+            fadeOverlayView: fadeOverlayView,
+            voiceNotificationsButton: voiceNotificationsButton,
+            vibrationNotificationsButton: vibrationNotificationsButton,
+            themeButton: themeButton,
+            previousLapTimeButton: previousLapTimeButton,
+            totalTimeButton: totalTimeButton,
+            vibrateOnLapButton: vibrateOnLapButton,
+            vibrateOnPauseButton: vibrateOnPauseButton,
+            vibrateOnClearButton: vibrateOnClearButton)
         
         _ = ctrl.view
     }
@@ -151,6 +170,15 @@ class MainViewControllerTests: XCTestCase {
         XCTAssertTrue(timerHelpTextLabel.isDescendant(of: ctrl.view))
         XCTAssertTrue(openSettingsButton.isDescendant(of: ctrl.view))
         XCTAssertTrue(settingsOverlay.isDescendant(of: ctrl.view))
+        XCTAssertTrue(fadeOverlayView.isDescendant(of: ctrl.view))
+        XCTAssertTrue(voiceNotificationsButton.isDescendant(of: ctrl.view))
+        XCTAssertTrue(vibrationNotificationsButton.isDescendant(of: ctrl.view))
+        XCTAssertTrue(themeButton.isDescendant(of: ctrl.view))
+        XCTAssertTrue(previousLapTimeButton.isDescendant(of: ctrl.view))
+        XCTAssertTrue(totalTimeButton.isDescendant(of: ctrl.view))
+        XCTAssertTrue(vibrateOnLapButton.isDescendant(of: ctrl.view))
+        XCTAssertTrue(vibrateOnPauseButton.isDescendant(of: ctrl.view))
+        XCTAssertTrue(vibrateOnClearButton.isDescendant(of: ctrl.view))
     }
     
     func testBgColorSet() {
