@@ -19,6 +19,14 @@ class MainViewController: UIViewController {
     var settingsOverlay: SettingsOverlay
     var fadeOverlayView: FadeOverlayView
     var voiceNotificationsButton: VoiceNotificationsButton
+    var vibrationNotificationsButton: VibrationNotificationsButton
+    var themeButton: ThemeButton
+    var previousLapTimeButton: PreviousLapTimeButton
+    var averageLapTimeButton: AverageLapTimeButton
+    var totalTimeButton: TotalTimeButton
+    var vibrateOnLapButton: VibrateOnLapButton
+    var vibrateOnPauseButton: VibrateOnPauseButton
+    var vibrateOnClearButton: VibrateOnClearButton
     
     var stopWatchService: StopWatchService
     var timeToTextService: TimeToTextService
@@ -26,6 +34,7 @@ class MainViewController: UIViewController {
     var doubleTapRecognizer: UITapGestureRecognizer! // TODO: SMELLY
     var longPressRecognizer: UILongPressGestureRecognizer! // TODO: SMELLY
     
+    // TODO: SMELLY, SMELLY, SMELLY
     init(startButton: StartButton = StartButton(),
          totalTimeLabel: TotalTimeLabel = TotalTimeLabel(hidden: true),
          lapTimeTable: LapTimeTable = LapTimeTable(),
@@ -36,7 +45,15 @@ class MainViewController: UIViewController {
          openSettingsButton: OpenSettingsButton = OpenSettingsButton(),
          settingsOverlay: SettingsOverlay = SettingsOverlay(),
          fadeOverlayView: FadeOverlayView = FadeOverlayView(),
-         voiceNotificationsButton: VoiceNotificationsButton = VoiceNotificationsButton()) {
+         voiceNotificationsButton: VoiceNotificationsButton = VoiceNotificationsButton(),
+         vibrationNotificationsButton: VibrationNotificationsButton = VibrationNotificationsButton(),
+         themeButton: ThemeButton = ThemeButton(),
+         previousLapTimeButton: PreviousLapTimeButton = PreviousLapTimeButton(),
+         averageLapTimeButton: AverageLapTimeButton = AverageLapTimeButton(),
+         totalTimeButton: TotalTimeButton = TotalTimeButton(),
+         vibrateOnLapButton: VibrateOnLapButton = VibrateOnLapButton(),
+         vibrateOnPauseButton: VibrateOnPauseButton = VibrateOnPauseButton(),
+         vibrateOnClearButton: VibrateOnClearButton = VibrateOnClearButton()) {
         
         self.startButton = startButton
         self.totalTimeLabel = totalTimeLabel
@@ -46,7 +63,17 @@ class MainViewController: UIViewController {
         self.openSettingsButton = openSettingsButton
         self.settingsOverlay = settingsOverlay
         self.fadeOverlayView = fadeOverlayView
-        self.voiceNotificationsButton = voiceNotificationsButton // TODO: UNTESTED
+        
+        // TODO: UNTESTED
+        self.voiceNotificationsButton = voiceNotificationsButton
+        self.vibrationNotificationsButton = vibrationNotificationsButton
+        self.themeButton = themeButton
+        self.previousLapTimeButton = previousLapTimeButton
+        self.averageLapTimeButton = averageLapTimeButton
+        self.totalTimeButton = totalTimeButton
+        self.vibrateOnLapButton = vibrateOnLapButton
+        self.vibrateOnPauseButton = vibrateOnPauseButton
+        self.vibrateOnClearButton = vibrateOnClearButton
         
         self.stopWatchService = stopWatchService
         self.timeToTextService = timeToTextService
@@ -86,6 +113,14 @@ class MainViewController: UIViewController {
         self.view.addSubview(fadeOverlayView)
         self.view.addSubview(settingsOverlay)
         self.view.addSubview(voiceNotificationsButton)
+        self.view.addSubview(vibrationNotificationsButton)
+        self.view.addSubview(themeButton)
+        self.view.addSubview(previousLapTimeButton)
+        self.view.addSubview(averageLapTimeButton)
+        self.view.addSubview(totalTimeButton)
+        self.view.addSubview(vibrateOnLapButton)
+        self.view.addSubview(vibrateOnPauseButton)
+        self.view.addSubview(vibrateOnClearButton)
     }
     
     func applyConstraints() { // TODO: UNTESTED
@@ -98,6 +133,14 @@ class MainViewController: UIViewController {
         MainViewControllerConstraints.positionSettingsOverlay(settingsOverlay: settingsOverlay)
         MainViewControllerConstraints.positionFadeOverlayView(fadeOverlayView: fadeOverlayView, lapTimeTable: lapTimeTable)
         MainViewControllerConstraints.positionVoiceNotificationsButton(voiceNotificationsButton: voiceNotificationsButton, openSettingsButton: openSettingsButton)
+        MainViewControllerConstraints.positionVibrationNotificationsButton(vibrationNotificationsButton: vibrationNotificationsButton, openSettingsButton: openSettingsButton)
+        MainViewControllerConstraints.positionThemeButton(themeButton: themeButton, openSettingsButton: openSettingsButton)
+        MainViewControllerConstraints.positionPreviousLapTimeButton(previousLapTimeButton: previousLapTimeButton, openSettingsButton: openSettingsButton)
+        MainViewControllerConstraints.positionAverageLapTimeButton(averageLapTimeButton: averageLapTimeButton, openSettingsButton: openSettingsButton)
+        MainViewControllerConstraints.positionTotalTimeButton(totalTimeButton: totalTimeButton, openSettingsButton: openSettingsButton)
+        MainViewControllerConstraints.positionVibrateOnLapButton(vibrateOnLapButton: vibrateOnLapButton, openSettingsButton: openSettingsButton)
+        MainViewControllerConstraints.positionVibrateOnPauseButton(vibrateOnPauseButton: vibrateOnPauseButton, openSettingsButton: openSettingsButton)
+        MainViewControllerConstraints.positionVibrateOnClearButton(vibrateOnClearButton: vibrateOnClearButton, openSettingsButton: openSettingsButton)
     }
     
     // MARK - REMOVE, ONLY FOR DEBUGGING

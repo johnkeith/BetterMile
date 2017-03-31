@@ -9,6 +9,11 @@
 import UIKit
 
 class SettingsButton: UIButton {
+    // will need to have a method to animate
+    // will need subclasses to define the where and when
+    // will need method to toggle certain setting
+    // will need subclasses to define which setting to toggle
+    
     init(hidden: Bool = false) {
         super.init(frame: Constants.defaultFrame)
         

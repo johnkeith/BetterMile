@@ -48,7 +48,7 @@
 		63C9A19B1E88445A00AB9144 /* SettingsButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C9A19A1E88445A00AB9144 /* SettingsButton.swift */; };
 		63C9A19E1E8844E200AB9144 /* VibrationNotificationsButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C9A19D1E8844E200AB9144 /* VibrationNotificationsButton.swift */; };
 		63C9A1A01E88451800AB9144 /* ThemeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C9A19F1E88451800AB9144 /* ThemeButton.swift */; };
-		63C9A1A21E88455900AB9144 /* PreviousLapTimeSettingsButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C9A1A11E88455900AB9144 /* PreviousLapTimeSettingsButton.swift */; };
+		63C9A1A21E88455900AB9144 /* PreviousLapTimeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C9A1A11E88455900AB9144 /* PreviousLapTimeButton.swift */; };
 		63C9A1A41E8845B400AB9144 /* AverageLapTimeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C9A1A31E8845B400AB9144 /* AverageLapTimeButton.swift */; };
 		63C9A1A61E8845D400AB9144 /* TotalTimeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C9A1A51E8845D400AB9144 /* TotalTimeButton.swift */; };
 		63C9A1A81E8845F500AB9144 /* VibrateOnLapButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C9A1A71E8845F500AB9144 /* VibrateOnLapButton.swift */; };
@@ -124,7 +124,7 @@
 		63C9A19A1E88445A00AB9144 /* SettingsButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsButton.swift; sourceTree = "<group>"; };
 		63C9A19D1E8844E200AB9144 /* VibrationNotificationsButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VibrationNotificationsButton.swift; sourceTree = "<group>"; };
 		63C9A19F1E88451800AB9144 /* ThemeButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeButton.swift; sourceTree = "<group>"; };
-		63C9A1A11E88455900AB9144 /* PreviousLapTimeSettingsButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreviousLapTimeSettingsButton.swift; sourceTree = "<group>"; };
+		63C9A1A11E88455900AB9144 /* PreviousLapTimeButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreviousLapTimeButton.swift; sourceTree = "<group>"; };
 		63C9A1A31E8845B400AB9144 /* AverageLapTimeButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AverageLapTimeButton.swift; sourceTree = "<group>"; };
 		63C9A1A51E8845D400AB9144 /* TotalTimeButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TotalTimeButton.swift; sourceTree = "<group>"; };
 		63C9A1A71E8845F500AB9144 /* VibrateOnLapButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VibrateOnLapButton.swift; sourceTree = "<group>"; };
@@ -253,7 +253,7 @@
 				63C9A1931E87F8D900AB9144 /* VoiceNotificationsButton.swift */,
 				63C9A19D1E8844E200AB9144 /* VibrationNotificationsButton.swift */,
 				63C9A19F1E88451800AB9144 /* ThemeButton.swift */,
-				63C9A1A11E88455900AB9144 /* PreviousLapTimeSettingsButton.swift */,
+				63C9A1A11E88455900AB9144 /* PreviousLapTimeButton.swift */,
 				63C9A1A31E8845B400AB9144 /* AverageLapTimeButton.swift */,
 				63C9A1A51E8845D400AB9144 /* TotalTimeButton.swift */,
 				63C9A1A71E8845F500AB9144 /* VibrateOnLapButton.swift */,
@@ -522,7 +522,7 @@
 				633966991E47549800D43896 /* TotalTimeLabel.swift in Sources */,
 				63A3F23B1E3C195400AA8A92 /* StopWatchService.swift in Sources */,
 				63C9A19E1E8844E200AB9144 /* VibrationNotificationsButton.swift in Sources */,
-				63C9A1A21E88455900AB9144 /* PreviousLapTimeSettingsButton.swift in Sources */,
+				63C9A1A21E88455900AB9144 /* PreviousLapTimeButton.swift in Sources */,
 				63C9A1AA1E88462F00AB9144 /* VibrateOnPauseButton.swift in Sources */,
 				63C9A19B1E88445A00AB9144 /* SettingsButton.swift in Sources */,
 				63C9A1A81E8845F500AB9144 /* VibrateOnLapButton.swift in Sources */,

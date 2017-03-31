@@ -17,7 +17,7 @@ class OpenSettingsButton: UIButton {
     
     init(hidden: Bool = false) {
         let defaultFrame = CGRect()
-        let buttonImage = UIImage(named: "ic_more_horiz")?.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
+//        let buttonImage = UIImage(named: "ic_more_horiz")?.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
 
         super.init(frame: defaultFrame)
         
@@ -26,7 +26,7 @@ class OpenSettingsButton: UIButton {
         self.tintColor = Constants.colorPalette["black"]
 //        self.setImage(buttonImage, for: UIControlState.normal)
         self.contentHorizontalAlignment = UIControlContentHorizontalAlignment.right
-        self.layer.borderWidth = 1.0
+//        self.layer.borderWidth = 1.0
         
         addTarget(self, action:#selector(onSettingsTap), for: .touchUpInside)
     }

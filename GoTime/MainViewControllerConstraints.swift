@@ -27,7 +27,7 @@ class MainViewControllerConstraints {
         totalTimeLabel.snp.makeConstraints { (make) -> Void in
             make.width.equalTo(totalTimeLabel.superview!).offset(-(defaultMargin * 2))
             make.height.equalTo(totalTimeLabel.superview!.frame.height * (1/6))
-            make.top.equalTo(totalTimeLabel.superview!).offset(defaultMargin * 3)
+            make.top.equalTo(totalTimeLabel.superview!).offset(defaultMargin * 4)
             make.left.equalTo(totalTimeLabel.superview!).offset(defaultMargin)
         }
     }
@@ -61,10 +61,10 @@ class MainViewControllerConstraints {
     
     class func positionOpenSettingsButton(openSettingsButton: OpenSettingsButton) {
         openSettingsButton.snp.makeConstraints { (make) -> Void in
-            make.width.equalTo(openSettingsButton.superview!.frame.width * (1/6))
-            make.height.equalTo(openSettingsButton.superview!.frame.width * (1/6))
-            make.top.equalTo(openSettingsButton.superview!).offset(defaultMargin)
-            make.right.equalTo(openSettingsButton.superview!).offset(-defaultMargin)
+            make.width.equalTo(openSettingsButton.superview!.frame.width * (1/10))
+            make.height.equalTo(openSettingsButton.superview!.frame.width * (1/10))
+            make.top.equalTo(openSettingsButton.superview!).offset(Double(defaultMargin) * 2)
+            make.right.equalTo(openSettingsButton.superview!).offset(Double(-defaultMargin))
         }
         
         openSettingsButton.layoutIfNeeded()
@@ -91,12 +91,83 @@ class MainViewControllerConstraints {
     }
     
     class func positionVoiceNotificationsButton(voiceNotificationsButton: VoiceNotificationsButton, openSettingsButton: OpenSettingsButton) {
-        
         voiceNotificationsButton.snp.makeConstraints { (make) -> Void in
             make.top.equalTo(openSettingsButton.snp.top)
             make.width.equalTo(openSettingsButton.frame.width / 5)
             make.height.equalTo(openSettingsButton.frame.height / 5)
             make.left.equalTo(openSettingsButton.snp.left)
+        }
+    }
+    
+    class func positionVibrationNotificationsButton(vibrationNotificationsButton: VibrationNotificationsButton, openSettingsButton: OpenSettingsButton) {
+        vibrationNotificationsButton.snp.makeConstraints { (make) -> Void in
+            make.top.equalTo(openSettingsButton.snp.top)
+            make.width.equalTo(openSettingsButton.frame.width / 5)
+            make.height.equalTo(openSettingsButton.frame.height / 5)
+            make.left.equalTo(openSettingsButton.snp.left).offset(openSettingsButton.frame.width * 0.4)
+        }
+    }
+    
+    class func positionThemeButton(themeButton: ThemeButton, openSettingsButton: OpenSettingsButton) {
+        themeButton.snp.makeConstraints { (make) -> Void in
+            make.top.equalTo(openSettingsButton.snp.top)
+            make.width.equalTo(openSettingsButton.frame.width / 5)
+            make.height.equalTo(openSettingsButton.frame.height / 5)
+            make.right.equalTo(openSettingsButton.snp.right)
+        }
+    }
+    
+    class func positionPreviousLapTimeButton(previousLapTimeButton: PreviousLapTimeButton, openSettingsButton: OpenSettingsButton) {
+        previousLapTimeButton.snp.makeConstraints { (make) -> Void in
+            make.top.equalTo(openSettingsButton.snp.top).offset(openSettingsButton.frame.height * 0.4)
+            make.width.equalTo(openSettingsButton.frame.width / 5)
+            make.height.equalTo(openSettingsButton.frame.height / 5)
+            make.left.equalTo(openSettingsButton.snp.left)
+        }
+    }
+    
+    class func positionAverageLapTimeButton(averageLapTimeButton: AverageLapTimeButton, openSettingsButton: OpenSettingsButton) {
+        averageLapTimeButton.snp.makeConstraints { (make) -> Void in
+            make.top.equalTo(openSettingsButton.snp.top).offset(openSettingsButton.frame.height * 0.4)
+            make.width.equalTo(openSettingsButton.frame.width / 5)
+            make.height.equalTo(openSettingsButton.frame.height / 5)
+            make.left.equalTo(openSettingsButton.snp.left).offset(openSettingsButton.frame.width * 0.4)
+        }
+    }
+    
+    class func positionTotalTimeButton(totalTimeButton: TotalTimeButton, openSettingsButton: OpenSettingsButton) {
+        totalTimeButton.snp.makeConstraints { (make) -> Void in
+            make.top.equalTo(openSettingsButton.snp.top).offset(openSettingsButton.frame.height * 0.4)
+            make.width.equalTo(openSettingsButton.frame.width / 5)
+            make.height.equalTo(openSettingsButton.frame.height / 5)
+            make.right.equalTo(openSettingsButton.snp.right)
+        }
+    }
+    
+    class func positionVibrateOnLapButton(vibrateOnLapButton: VibrateOnLapButton, openSettingsButton: OpenSettingsButton) {
+        vibrateOnLapButton.snp.makeConstraints { (make) -> Void in
+            make.bottom.equalTo(openSettingsButton.snp.bottom)
+            make.width.equalTo(openSettingsButton.frame.width / 5)
+            make.height.equalTo(openSettingsButton.frame.height / 5)
+            make.left.equalTo(openSettingsButton.snp.left)
+        }
+    }
+    
+    class func positionVibrateOnPauseButton(vibrateOnPauseButton: VibrateOnPauseButton, openSettingsButton: OpenSettingsButton) {
+        vibrateOnPauseButton.snp.makeConstraints { (make) -> Void in
+            make.bottom.equalTo(openSettingsButton.snp.bottom)
+            make.width.equalTo(openSettingsButton.frame.width / 5)
+            make.height.equalTo(openSettingsButton.frame.height / 5)
+            make.left.equalTo(openSettingsButton.snp.left).offset(openSettingsButton.frame.width * 0.4)
+        }
+    }
+    
+    class func positionVibrateOnClearButton(vibrateOnClearButton: VibrateOnClearButton, openSettingsButton: OpenSettingsButton) {
+        vibrateOnClearButton.snp.makeConstraints { (make) -> Void in
+            make.bottom.equalTo(openSettingsButton.snp.bottom)
+            make.width.equalTo(openSettingsButton.frame.width / 5)
+            make.height.equalTo(openSettingsButton.frame.height / 5)
+            make.right.equalTo(openSettingsButton.snp.right)
         }
     }
 }
