@@ -61,8 +61,10 @@ class SettingsButton: UIButton {
 //        })
 //    }
     
-    func animateButtonFromOrigin(duration: Double = 3.0) {
-        self.initialMiddlePoint = self.frame.origin
+    func animateButtonFromOrigin(duration: Double = 0.3) {
+        if self.initialMiddlePoint == nil {
+            self.initialMiddlePoint = self.frame.origin
+        }
         
         let anim = CAKeyframeAnimation(keyPath: "position")
         let path = UIBezierPath()
@@ -86,9 +88,9 @@ class SettingsButton: UIButton {
             make.height.equalTo(newButtonSize)
             make.width.equalTo(newButtonSize)
         }
-        self.layoutIfNeeded()
         
-        print(self.layer.frame)
+        print("Frame after remaking constraints", self.frame)
+//        print(self.layer.frame)
     }
     
     func constructMoveToPointFromSuperview() -> CGPoint {
@@ -99,8 +101,37 @@ class SettingsButton: UIButton {
     }
     
     func animateButtonToOrigin(duration: Double = 0.3) {
-        UIView.animate(withDuration: duration, animations: {
-            self.transform = CGAffineTransform.identity
-        })
+        let currentMiddlePoint = self.frame.origin
+        let anim = CAKeyframeAnimation(keyPath: "position")
+        let path = UIBezierPath()
+        
+        path.move(to: currentMiddlePoint)
+        
+        path.addQuadCurve(to: initialMiddlePoint, controlPoint: CGPoint(x: 0, y: 0))
+        
+        anim.path = path.cgPath
+        anim.duration = duration
+        anim.calculationMode = kCAAnimationCubicPaced
+        
+        self.layer.add(anim, forKey: "testing animating")
+        
+        let newButtonSize = self.superview!.frame.width * (1/10) / 5
+
+        self.snp.remakeConstraints { (make) -> Void in
+//            print("Middle Point X ", initialMiddlePoint.x, " Middle Point Y ", initialMiddlePoint.y)
+            make.top.equalTo(initialMiddlePoint.y)
+            make.left.equalTo(initialMiddlePoint.x)
+//            make.right.equalTo(100)
+            make.height.equalTo(newButtonSize)
+            make.width.equalTo(newButtonSize)
+        }
+        
+        self.superview!.layoutIfNeeded()
+
+        self.layoutIfNeeded()
+        
+        print("Frame after remaking constraints", self.frame)
+//        self.frame.origin = initialMiddlePoint
+//        print(initialMiddlePoint, self.layer.frame, self.bounds, self.frame.origin)
     }
 }

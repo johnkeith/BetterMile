@@ -285,9 +285,12 @@ extension MainViewController: OpenSettingsButtonDelegate {
 
 extension MainViewController: SettingsOverlayDelegate {
     func onSettingsOverlayHide() {
-        for button in settingsButtonCollection {
-            button.animateButtonToOrigin()
-        }
+//        for button in settingsButtonCollection {
+//            button.animateButtonToOrigin()
+//        }
+        voiceNotificationsButton.animateButtonToOrigin()
+        previousLapTimeButton.animateButtonToOrigin()
+        averageLapTimeButton.animateButtonToOrigin()
     }
 }
 
