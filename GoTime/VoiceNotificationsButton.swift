@@ -11,7 +11,7 @@ import UIKit
 class VoiceNotificationsButton: SettingsButton {
     override var xMultiple: Double {
         get {
-            return 1/5
+            return 1/8
         }
         set {}
     }

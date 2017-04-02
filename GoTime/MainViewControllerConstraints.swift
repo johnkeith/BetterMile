@@ -95,7 +95,7 @@ class MainViewControllerConstraints {
         voiceNotificationsButton.snp.makeConstraints { (make) -> Void in
             make.top.equalTo(openSettingsButton.snp.top)
             make.width.equalTo(openSettingsButton.frame.width / 5)
-            make.height.equalTo(openSettingsButton.frame.height / 5)
+            make.height.equalTo(openSettingsButton.frame.width / 5)
             make.left.equalTo(openSettingsButton.snp.left)
         }
     }
@@ -104,7 +104,7 @@ class MainViewControllerConstraints {
         vibrationNotificationsButton.snp.makeConstraints { (make) -> Void in
             make.top.equalTo(openSettingsButton.snp.top)
             make.width.equalTo(openSettingsButton.frame.width / 5)
-            make.height.equalTo(openSettingsButton.frame.height / 5)
+            make.height.equalTo(openSettingsButton.frame.width / 5)
             make.left.equalTo(openSettingsButton.snp.left).offset(openSettingsButton.frame.width * 0.4)
         }
     }
@@ -113,7 +113,7 @@ class MainViewControllerConstraints {
         themeButton.snp.makeConstraints { (make) -> Void in
             make.top.equalTo(openSettingsButton.snp.top)
             make.width.equalTo(openSettingsButton.frame.width / 5)
-            make.height.equalTo(openSettingsButton.frame.height / 5)
+            make.height.equalTo(openSettingsButton.frame.width / 5)
             make.right.equalTo(openSettingsButton.snp.right)
         }
     }
@@ -122,7 +122,7 @@ class MainViewControllerConstraints {
         previousLapTimeButton.snp.makeConstraints { (make) -> Void in
             make.top.equalTo(openSettingsButton.snp.top).offset(openSettingsButton.frame.height * 0.4)
             make.width.equalTo(openSettingsButton.frame.width / 5)
-            make.height.equalTo(openSettingsButton.frame.height / 5)
+            make.height.equalTo(openSettingsButton.frame.width / 5)
             make.left.equalTo(openSettingsButton.snp.left)
         }
     }
@@ -131,7 +131,7 @@ class MainViewControllerConstraints {
         averageLapTimeButton.snp.makeConstraints { (make) -> Void in
             make.top.equalTo(openSettingsButton.snp.top).offset(openSettingsButton.frame.height * 0.4)
             make.width.equalTo(openSettingsButton.frame.width / 5)
-            make.height.equalTo(openSettingsButton.frame.height / 5)
+            make.height.equalTo(openSettingsButton.frame.width / 5)
             make.left.equalTo(openSettingsButton.snp.left).offset(openSettingsButton.frame.width * 0.4)
         }
     }
@@ -140,7 +140,7 @@ class MainViewControllerConstraints {
         totalTimeButton.snp.makeConstraints { (make) -> Void in
             make.top.equalTo(openSettingsButton.snp.top).offset(openSettingsButton.frame.height * 0.4)
             make.width.equalTo(openSettingsButton.frame.width / 5)
-            make.height.equalTo(openSettingsButton.frame.height / 5)
+            make.height.equalTo(openSettingsButton.frame.width / 5)
             make.right.equalTo(openSettingsButton.snp.right)
         }
     }
@@ -149,7 +149,7 @@ class MainViewControllerConstraints {
         vibrateOnLapButton.snp.makeConstraints { (make) -> Void in
             make.bottom.equalTo(openSettingsButton.snp.bottom)
             make.width.equalTo(openSettingsButton.frame.width / 5)
-            make.height.equalTo(openSettingsButton.frame.height / 5)
+            make.height.equalTo(openSettingsButton.frame.width / 5)
             make.left.equalTo(openSettingsButton.snp.left)
         }
     }
@@ -158,7 +158,7 @@ class MainViewControllerConstraints {
         vibrateOnPauseButton.snp.makeConstraints { (make) -> Void in
             make.bottom.equalTo(openSettingsButton.snp.bottom)
             make.width.equalTo(openSettingsButton.frame.width / 5)
-            make.height.equalTo(openSettingsButton.frame.height / 5)
+            make.height.equalTo(openSettingsButton.frame.width / 5)
             make.left.equalTo(openSettingsButton.snp.left).offset(openSettingsButton.frame.width * 0.4)
         }
     }
@@ -167,8 +167,22 @@ class MainViewControllerConstraints {
         vibrateOnClearButton.snp.makeConstraints { (make) -> Void in
             make.bottom.equalTo(openSettingsButton.snp.bottom)
             make.width.equalTo(openSettingsButton.frame.width / 5)
-            make.height.equalTo(openSettingsButton.frame.height / 5)
+            make.height.equalTo(openSettingsButton.frame.width / 5)
             make.right.equalTo(openSettingsButton.snp.right)
+        }
+    }
+    
+    class func positionAnySettingsButtonBasedOnMultiplers(button: SettingsButton, xMultiple: Double, yMultiple: Double) {
+        let x = Double(button.superview!.frame.width) * xMultiple
+        let y = Double(button.superview!.frame.width) * yMultiple
+        let initialWidth = button.frame.width
+        let initialHeight = button.frame.height
+        
+        button.snp.updateConstraints { (make) -> Void in
+            make.left.equalTo(x)
+            make.top.equalTo(y)
+            make.width.equalTo(initialWidth * 3)
+            make.height.equalTo(initialHeight * 3)
         }
     }
 }

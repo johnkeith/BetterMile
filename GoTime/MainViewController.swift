@@ -278,6 +278,8 @@ extension MainViewController: OpenSettingsButtonDelegate {
 //            button.animateButtonFromOrigin()
 //        }
         voiceNotificationsButton.animateButtonFromOrigin()
+        previousLapTimeButton.animateButtonFromOrigin()
+        averageLapTimeButton.animateButtonFromOrigin()
     }
 }
 

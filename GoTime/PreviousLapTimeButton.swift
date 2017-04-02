@@ -9,5 +9,17 @@
 import UIKit
 
 class PreviousLapTimeButton: SettingsButton {
+    override var xMultiple: Double {
+        get {
+            return 1/4
+        }
+        set {}
+    }
     
+    override var yMultiple: Double {
+        get {
+            return 3/10
+        }
+        set {}
+    }
 }
