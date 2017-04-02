@@ -274,9 +274,10 @@ extension MainViewController: OpenSettingsButtonDelegate {
     func onSettingsTap(sender: OpenSettingsButton) {
         settingsOverlay.show()
         
-        for button in settingsButtonCollection {
-            button.animateButtonFromOrigin()
-        }
+//        for button in settingsButtonCollection {
+//            button.animateButtonFromOrigin()
+//        }
+        voiceNotificationsButton.animateButtonFromOrigin()
     }
 }
 
