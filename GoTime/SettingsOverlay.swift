@@ -22,7 +22,15 @@ class SettingsOverlay: UIView {
         super.init(frame: Constants.defaultFrame)
         
         self.isHidden = hidden
-        self.backgroundColor = Constants.colorPalette["gray"]
+        self.backgroundColor = UIColor.clear
+        
+        let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.light)
+        let blurEffectView = UIVisualEffectView(effect: blurEffect)
+        //always fill the view
+        blurEffectView.frame = self.bounds
+        blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+
+        self.addSubview(blurEffectView)
         
         singleTapRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.hide))
     }

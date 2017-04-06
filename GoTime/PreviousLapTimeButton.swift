@@ -9,17 +9,14 @@
 import UIKit
 
 class PreviousLapTimeButton: SettingsButton {
-    override var xMultiple: Double {
-        get {
-            return 1/4
-        }
-        set {}
+    init() {
+        super.init()
+        
+        self.xMultiple = 1/5
+        self.yMultiple = 3/10
     }
     
-    override var yMultiple: Double {
-        get {
-            return 3/10
-        }
-        set {}
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 }

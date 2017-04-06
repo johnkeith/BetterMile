@@ -14,24 +14,21 @@ class SettingsButton: UIButton {
         case left
     }
     
-    // will need to have a method to animate
-    // will need subclasses to define the where and when
-    // will need method to toggle certain setting
-    // will need subclasses to define which setting to toggle
-    // need to store origin point before animation, then access the origin when moving back
-    // All we will need a x mutlipler and y multipler floats and a direction
-    
     lazy var xMultiple = 1.0
     lazy var yMultiple = 1.0
     lazy var arcDirection = ArcDirections.right
+    lazy var titleText = "OFF"
     
-    var initialMiddlePoint: CGPoint! // smelly!
+    var initialMiddlePoint: CGPoint! // TODO: Smelly!
     
     init(hidden: Bool = false) {
         super.init(frame: Constants.defaultFrame)
         
         self.isHidden = hidden
         self.backgroundColor = Constants.colorPalette["black"]
+        self.setTitle(titleText, for: UIControlState.normal)
+        
+        hideTitle()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -44,9 +41,7 @@ class SettingsButton: UIButton {
         self.layer.cornerRadius = self.bounds.size.height / 2.0
     }
     
-
-    
-    func animateButtonFromOrigin(duration: Double = 6) {
+    func animateButtonFromOrigin(duration: Double = 0.3) {
         if self.initialMiddlePoint == nil {
             self.initialMiddlePoint = self.frame.origin
         }
@@ -54,6 +49,7 @@ class SettingsButton: UIButton {
         let anim = CAKeyframeAnimation(keyPath: "position")
         let path = UIBezierPath()
         let moveToPoint = self.constructMoveToPointFromSuperview()
+        let newButtonSize = self.superview!.frame.width * (1/6)
         
         path.move(to: initialMiddlePoint)
         
@@ -63,32 +59,16 @@ class SettingsButton: UIButton {
         anim.duration = duration
         anim.calculationMode = kCAAnimationCubicPaced
         
-        self.layer.add(anim, forKey: "testing animating")
-        
-        let newButtonSize = self.superview!.frame.width * (1/6)
-        
         self.snp.remakeConstraints { (make) -> Void in
-            make.top.equalTo(moveToPoint.y - (newButtonSize / 2))
-            make.left.equalTo(moveToPoint.x - (newButtonSize / 2))
+            make.top.equalTo(moveToPoint.y)
+            make.left.equalTo(moveToPoint.x)
             make.height.equalTo(newButtonSize)
             make.width.equalTo(newButtonSize)
         }
         
-//        let animation = CABasicAnimation(keyPath: "transform.scale")
-//        animation.fromValue = 1
-//        animation.toValue = 2
-//        animation.duration = duration
+        self.setTitleColor(Constants.colorPalette["white"], for: UIControlState.normal)
         
-        self.layoutIfNeeded()
-        
-//        self.layer.add(animation, forKey: "scaling")
-    }
-    
-    func constructMoveToPointFromSuperview() -> CGPoint {
-        let x = Double(self.superview!.frame.width) * xMultiple
-        let y = Double(self.superview!.frame.height) * yMultiple
-        
-        return CGPoint(x: x, y: y)
+        self.layer.add(anim, forKey: "testing animating")
     }
     
     func animateButtonToOrigin(duration: Double = 0.3) {
@@ -115,6 +95,17 @@ class SettingsButton: UIButton {
             make.width.equalTo(newButtonSize)
         }
         
-        // TRY CONVIENCE INITIALIZERS FOR COMPONENTS
+        hideTitle()
+    }
+    
+    private func constructMoveToPointFromSuperview() -> CGPoint {
+        let x = Double(self.superview!.frame.width) * xMultiple
+        let y = Double(self.superview!.frame.height) * yMultiple
+        
+        return CGPoint(x: x, y: y)
+    }
+    
+    private func hideTitle() {
+        self.setTitleColor(UIColor.clear, for: UIControlState.normal)
     }
 }

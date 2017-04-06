@@ -9,17 +9,14 @@
 import UIKit
 
 class VoiceNotificationsButton: SettingsButton {
-    override var xMultiple: Double {
-        get {
-            return 1/8
-        }
-        set {}
+    init() {
+        super.init()
+        
+        self.xMultiple = 1/15
+        self.yMultiple = 1/5
     }
     
-    override var yMultiple: Double {
-        get {
-            return 1/5
-        }
-        set {}
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 }
