@@ -18,7 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         window = UIWindow(frame: UIScreen.main.bounds)
         
-        let mainController = MainViewController()
+        let mainController = MainPageViewController()
         
         self.window?.rootViewController = mainController
         self.window?.makeKeyAndVisible()

@@ -352,5 +352,114 @@
             </Locations>
          </BreakpointContent>
       </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "GoTime/MainPageViewController.swift"
+            timestampString = "513388025.681036"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "14"
+            endingLineNumber = "14"
+            landmarkName = "orderedViewControllers"
+            landmarkType = "24">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "GoTime/MainPageViewController.swift"
+            timestampString = "513388028.585919"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "12"
+            endingLineNumber = "12"
+            landmarkName = "MainPageViewController"
+            landmarkType = "3">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "GoTime.MainPageViewController.orderedViewControllers.getter : Swift.Array&lt;__ObjC.UIViewController&gt;"
+                  moduleName = "GoTime"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/jkeith/Dev/Github/GoTime/GoTime/MainPageViewController.swift"
+                  timestampString = "513388029.119347"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "12"
+                  endingLineNumber = "12"
+                  offsetFromSymbolStart = "206">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "GoTime.MainPageViewController.orderedViewControllers.setter : Swift.Array&lt;__ObjC.UIViewController&gt;"
+                  moduleName = "GoTime"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/jkeith/Dev/Github/GoTime/GoTime/MainPageViewController.swift"
+                  timestampString = "513388029.120989"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "12"
+                  endingLineNumber = "12"
+                  offsetFromSymbolStart = "75">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "GoTime.MainPageViewController.init () -&gt; GoTime.MainPageViewController"
+                  moduleName = "GoTime"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/jkeith/Dev/Github/GoTime/GoTime/MainPageViewController.swift"
+                  timestampString = "513388029.122559"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "12"
+                  endingLineNumber = "12"
+                  offsetFromSymbolStart = "24">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "GoTime.MainPageViewController.init (coder : __ObjC.NSCoder) -&gt; Swift.Optional&lt;GoTime.MainPageViewController&gt;"
+                  moduleName = "GoTime"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/jkeith/Dev/Github/GoTime/GoTime/MainPageViewController.swift"
+                  timestampString = "513388029.124069"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "12"
+                  endingLineNumber = "12"
+                  offsetFromSymbolStart = "31">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "GoTime.MainPageViewController.(orderedViewControllers.getter : Swift.Array&lt;__ObjC.UIViewController&gt;).(closure #1)"
+                  moduleName = "GoTime"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/jkeith/Dev/Github/GoTime/GoTime/MainPageViewController.swift"
+                  timestampString = "513388029.12544"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "13"
+                  endingLineNumber = "13"
+                  offsetFromSymbolStart = "4">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
    </Breakpoints>
 </Bucket>
