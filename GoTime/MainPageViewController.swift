@@ -48,7 +48,7 @@ class MainPageViewController: UIPageViewController {
     
     func configurePageControl() {
         // The total number of pages that are available is based on how many available colors we have.
-        pageControl = UIPageControl(frame: CGRect(x: 0,y: UIScreen.main.bounds.maxY - 50, width: UIScreen.main.bounds.width, height: 50))
+        pageControl = UIPageControl(frame: CGRect(x: 0,y: UIScreen.main.bounds.maxY - 40, width: UIScreen.main.bounds.width, height: 40))
         self.pageControl.numberOfPages = orderedViewControllers.count
         self.pageControl.currentPage = 1
         self.pageControl.tintColor = UIColor.black
@@ -61,7 +61,6 @@ class MainPageViewController: UIPageViewController {
 
 extension MainPageViewController: StopWatchServiceDelegate {
     func stopWatchStarted() {
-        print("stop watch started")
         attachDoubleTapRecognizer()
         attachLongPressRecognizer()
     }
@@ -89,14 +88,12 @@ extension MainPageViewController {
     }
     
     func viewDoubleTapped() {
-        print("viewDoubleTapped")
         stopWatchService.timerRunning ? stopWatchService.lap() : stopWatchService.restart()
         
         refreshLapTableData()
     }
     
     func attachDoubleTapRecognizer() {
-        print("double tap attached")
         doubleTapRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.viewDoubleTapped))
         doubleTapRecognizer.numberOfTapsRequired = 2
         

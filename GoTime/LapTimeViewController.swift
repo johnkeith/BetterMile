@@ -13,19 +13,25 @@ class LapTimeViewController: UIViewController {
     var stopWatchService: StopWatchService
     var lapTimeTable: LapTimeTable
     var fadeOverlayView: FadeOverlayView
+    var bottomDividerLabel: DividerLabel
+    var topDividerLabel: DividerLabel
     
     init(stopWatchService: StopWatchService,
          lapTimeTable: LapTimeTable = LapTimeTable(hidden: false),
-        fadeOverlayView: FadeOverlayView = FadeOverlayView()) {
+        fadeOverlayView: FadeOverlayView = FadeOverlayView(),
+        bottomDividerLabel: DividerLabel = DividerLabel(hidden: false),
+        topDividerLabel: DividerLabel = DividerLabel(hidden: false)) {
         self.stopWatchService = stopWatchService
         self.lapTimeTable = lapTimeTable
         self.fadeOverlayView = fadeOverlayView
+        self.bottomDividerLabel = bottomDividerLabel
+        self.topDividerLabel = topDividerLabel
     
         super.init(nibName: nil, bundle: nil)
         
         self.stopWatchService.delegates.append(self)
         
-        addSubviews([lapTimeTable, fadeOverlayView])
+        addSubviews([lapTimeTable, fadeOverlayView, bottomDividerLabel, topDividerLabel])
         addConstraints()
     }
     
@@ -41,6 +47,8 @@ class LapTimeViewController: UIViewController {
     func addConstraints() {
         LapTimeViewControllerConstraints.positionLapTimeTable(lapTimeTable: lapTimeTable)
         LapTimeViewControllerConstraints.positionFadeOverlayView(fadeOverlayView: fadeOverlayView, lapTimeTable: lapTimeTable)
+        LapTimeViewControllerConstraints.positionBottomDividerLabel(dividerLabel: bottomDividerLabel)
+        LapTimeViewControllerConstraints.positionTopDividerLabel(dividerLabel: topDividerLabel)
     }
 }
 

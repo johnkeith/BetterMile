@@ -21,7 +21,7 @@ class RunningViewController: UIViewController {
     init(stopWatchService: StopWatchService,
          timeToTextService: TimeToTextService = TimeToTextService(),
          startButton: StartButton = StartButton(),
-         totalTimeLabel: TotalTimeLabel = TotalTimeLabel(),
+         totalTimeLabel: TotalTimeLabel = TotalTimeLabel(hidden: true),
          dividerLabel: DividerLabel = DividerLabel(),
          timerHelpTextLabel: TimerHelpTextLabel = TimerHelpTextLabel()) {
         

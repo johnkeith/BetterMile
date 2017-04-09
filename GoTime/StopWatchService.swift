@@ -83,7 +83,6 @@ class StopWatchService: NSObject {
     }
     
     func stop() {
-        print("stopping")
         if(timer != nil) {
             timer.invalidate()
         }
@@ -144,7 +143,6 @@ class StopWatchService: NSObject {
     // THAT SAID, THIS DOES WORK, WHICH IS COOL, AND SINCE NOTHING NEEDS TO BE DEALLOCED IN THIS SMALL APP, IT IS OKAY
     func delegateToMultiple(_ fn: ((StopWatchServiceDelegate) -> ())) {
         for _d in self.delegates {
-            print(self.delegates)
             fn(_d)
         }
     }

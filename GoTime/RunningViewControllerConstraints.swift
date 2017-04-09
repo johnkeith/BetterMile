@@ -27,9 +27,9 @@ class RunningViewControllerConstraints {
     class func positionTotalTimeLabel(totalTimeLabel: TotalTimeLabel) {
         totalTimeLabel.snp.makeConstraints { (make) -> Void in
             make.width.equalTo(totalTimeLabel.superview!).offset(-(defaultMargin * 2))
-            make.height.equalTo(totalTimeLabel.superview!.frame.height * (1/6))
-            make.top.equalTo(totalTimeLabel.superview!).offset(defaultMargin * 4)
-            make.left.equalTo(totalTimeLabel.superview!).offset(defaultMargin)
+            make.height.equalTo(totalTimeLabel.superview!.frame.height / 6)
+            make.centerX.equalTo(totalTimeLabel.superview!)
+            make.centerY.equalTo(totalTimeLabel.superview!).offset(-(defaultMargin * 2))
         }
     }
     
@@ -46,7 +46,8 @@ class RunningViewControllerConstraints {
         timerHelpTextLabel.snp.makeConstraints { (make) -> Void in
             make.width.equalTo(timerHelpTextLabel.superview!).offset(-(defaultMargin * 2))
             make.height.equalTo(timerHelpTextLabel.superview!.frame.height / 5)
-            make.center.equalTo(timerHelpTextLabel.superview!)
+            make.top.equalTo(timerHelpTextLabel.superview!).offset(defaultMargin * 3)
+            make.left.equalTo(timerHelpTextLabel.superview!).offset(defaultMargin)
         }
     }
 }
