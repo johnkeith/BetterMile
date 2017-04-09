@@ -233,6 +233,10 @@ extension MainViewController: StartButtonDelegate {
 }
 
 extension MainViewController: StopWatchServiceDelegate {
+    func stopWatchStarted() {
+    
+    }
+    
     func stopWatchIntervalElapsed(totalTimeElapsed: TimeInterval) {
         totalTimeLabel.text = timeToTextService.timeAsSingleString(inputTime: totalTimeElapsed)
         

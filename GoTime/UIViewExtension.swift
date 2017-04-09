@@ -24,3 +24,15 @@ extension UIView: GTComponent {
     }
 }
 
+protocol GTController: class {
+    func addSubviews(_ viewsToAdd: [UIView])
+}
+
+extension UIViewController: GTController {
+    func addSubviews(_ viewsToAdd: [UIView]) {
+        for _view in viewsToAdd {
+            self.view.addSubview(_view)
+        }
+    }
+}
+

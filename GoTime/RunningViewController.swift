@@ -33,6 +33,12 @@ class RunningViewController: UIViewController {
         self.timerHelpTextLabel = timerHelpTextLabel
         
         super.init(nibName: nil, bundle: nil)
+        
+        startButton.delegate = self
+        stopWatchService.delegates.append(self)
+        
+        addSubviews([startButton, totalTimeLabel, dividerLabel, timerHelpTextLabel])
+        addConstraints()
     }
     
     required init?(coder: NSCoder) {
@@ -42,20 +48,8 @@ class RunningViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.view.backgroundColor = UIColor.white
+        self.view.backgroundColor = Constants.colorPalette["white"]
         self.view.isUserInteractionEnabled = true
-
-        startButton.delegate = self
-        stopWatchService.delegate = self
-        
-        addSubviews()
-        addConstraints()
-    }
-    
-    func addSubviews() {
-        for _view in [startButton, totalTimeLabel, dividerLabel, timerHelpTextLabel] as [UIView] {
-            self.view.addSubview(_view)
-        }
     }
     
     func addConstraints() {
@@ -74,29 +68,22 @@ extension RunningViewController: StartButtonDelegate {
         dividerLabel.show()
         timerHelpTextLabel.showBriefly()
         
-//        attachDoubleTapRecognizer()
-//        attachLongPressRecognizer()
-        
         stopWatchService.start()
     }
 }
 
 extension RunningViewController: StopWatchServiceDelegate {
+    func stopWatchStarted() {
+        
+    }
+    
     func stopWatchIntervalElapsed(totalTimeElapsed: TimeInterval) {
         totalTimeLabel.text = timeToTextService.timeAsSingleString(inputTime: totalTimeElapsed)
-        
-//        DispatchQueue.main.async {
-//            self.lapTimeTable.setLapData(lapData: self.stopWatchService.lapTimes.reversed())
-//        }
     }
     
     func stopWatchStopped() {
-//        removeViewRecognizers()
-        
         totalTimeLabel.hide()
         dividerLabel.hide()
-        
-//        lapTimeTable.clearLapData()
         
         startButton.show()
     }
@@ -112,6 +99,7 @@ extension RunningViewController: StopWatchServiceDelegate {
     // TODO: UNTESTED; also, right place for this?
     func stopWatchLapStored() {
         AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
+        
         timerHelpTextLabel.hide()
     }
 }

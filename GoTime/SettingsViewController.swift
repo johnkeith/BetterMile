@@ -11,6 +11,6 @@ import UIKit
 // TODO: UNTESTED
 class SettingsViewController: UIViewController {
     override func viewDidLoad() {
-        self.view.backgroundColor = UIColor.white
+        self.view.backgroundColor = Constants.colorPalette["white"]
     }
 }

@@ -12,6 +12,8 @@ import UIKit
 class MainPageViewController: UIPageViewController {
     var stopWatchService: StopWatchService
     var pageControl = UIPageControl()
+    var doubleTapRecognizer: UITapGestureRecognizer! // TODO: SMELLY
+    var longPressRecognizer: UILongPressGestureRecognizer! // TODO: SMELLY
     
     lazy var orderedViewControllers: [UIViewController] = {
         return [LapTimeViewController(stopWatchService: self.stopWatchService),
@@ -34,6 +36,7 @@ class MainPageViewController: UIPageViewController {
 
         self.delegate = self
         self.dataSource = self
+        self.stopWatchService.delegates.append(self)
         
         configurePageControl()
     
@@ -53,6 +56,79 @@ class MainPageViewController: UIPageViewController {
         self.pageControl.currentPageIndicatorTintColor = UIColor.black
         
         self.view.addSubview(pageControl)
+    }
+}
+
+extension MainPageViewController: StopWatchServiceDelegate {
+    func stopWatchStarted() {
+        print("stop watch started")
+        attachDoubleTapRecognizer()
+        attachLongPressRecognizer()
+    }
+    
+    func stopWatchIntervalElapsed(totalTimeElapsed: TimeInterval) {}
+    
+    func stopWatchStopped() {
+        removeViewRecognizers()
+    }
+    
+    func stopWatchPaused() {}
+    func stopWatchRestarted() {}
+    func stopWatchLapStored() {}
+}
+
+extension MainPageViewController {
+    func refreshLapTableData() {
+        DispatchQueue.main.async {
+            // TODO: UNTESTED (the reversing)
+//            self.lapTimeTable.setLapData(lapData: self.stopWatchService.lapTimes.reversed())
+            let lapTimeViewController = self.orderedViewControllers[0] as! LapTimeViewController
+            
+            lapTimeViewController.lapTimeTable.setLapData(lapData: self.stopWatchService.lapTimes.reversed())
+        }
+    }
+    
+    func viewDoubleTapped() {
+        print("viewDoubleTapped")
+        stopWatchService.timerRunning ? stopWatchService.lap() : stopWatchService.restart()
+        
+        refreshLapTableData()
+    }
+    
+    func attachDoubleTapRecognizer() {
+        print("double tap attached")
+        doubleTapRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.viewDoubleTapped))
+        doubleTapRecognizer.numberOfTapsRequired = 2
+        
+        self.view.addGestureRecognizer(doubleTapRecognizer)
+    }
+    
+    func viewLongPressed(sender: UILongPressGestureRecognizer) {
+        if(sender.state == UIGestureRecognizerState.ended) {
+            if(stopWatchService.timerRunning) {
+                stopWatchService.pause()
+                refreshLapTableData()
+            } else {
+                stopWatchService.stop()
+            }
+        }
+    }
+    
+    func attachLongPressRecognizer() {
+        longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(self.viewLongPressed))
+        longPressRecognizer.minimumPressDuration = 0.6
+        
+        self.view.addGestureRecognizer(longPressRecognizer)
+    }
+    
+    func removeViewRecognizers() {
+        if(doubleTapRecognizer != nil) {
+            self.view.removeGestureRecognizer(doubleTapRecognizer)
+        }
+        
+        if(longPressRecognizer != nil) {
+            self.view.removeGestureRecognizer(longPressRecognizer)
+        }
     }
 }
 

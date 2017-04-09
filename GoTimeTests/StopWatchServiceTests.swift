@@ -20,6 +20,7 @@ class StopWatchServiceTests: XCTestCase {
         var pauseWasCalled = false
         var restartWasCalled = false
         var lapWasCalled = false
+        var timesLapWasCalled = 0
         
         init(service: StopWatchService) {
             stopWatchService = service
@@ -27,12 +28,17 @@ class StopWatchServiceTests: XCTestCase {
             super.init()
             
             stopWatchService.delegate = self;
+            stopWatchService.delegates = [self, self]
         }
         
         func stopWatchIntervalElapsed(totalTimeElapsed: TimeInterval) {
             intervalElapsedWasCalled = true
             currentTimePassed = totalTimeElapsed
             numberOfIntervalsElapsed = numberOfIntervalsElapsed + 1
+        }
+        
+        func stopWatchStarted() {
+            
         }
         
         func stopWatchStopped() {
@@ -49,6 +55,7 @@ class StopWatchServiceTests: XCTestCase {
         
         func stopWatchLapStored() {
             lapWasCalled = true
+            timesLapWasCalled += 1
         }
     }
 
@@ -66,6 +73,8 @@ class StopWatchServiceTests: XCTestCase {
     
     override func tearDown() {
         super.tearDown()
+        
+        fakeDelegate.timesLapWasCalled = 0
     }
     
     func waitForTimer(until: Date?) {
@@ -188,5 +197,13 @@ class StopWatchServiceTests: XCTestCase {
         
         XCTAssertEqual(result, 3)
         XCTAssertTrue(fakeDelegate.lapWasCalled)
+    }
+    
+    func testDelegateToMultiple() {
+        service.start()
+        
+        service.lap()
+
+        XCTAssertEqual(fakeDelegate.timesLapWasCalled, 3)
     }
 }
