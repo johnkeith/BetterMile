@@ -11,6 +11,7 @@
 		631C6A361E999F4200390478 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 631C6A351E999F4200390478 /* SettingsViewController.swift */; };
 		631C6A381E999FE500390478 /* RunningViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 631C6A371E999FE500390478 /* RunningViewController.swift */; };
 		631C6A3A1E99A00800390478 /* LapTimeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 631C6A391E99A00800390478 /* LapTimeViewController.swift */; };
+		631C6A3C1E99C4DD00390478 /* RunningViewControllerConstraints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 631C6A3B1E99C4DD00390478 /* RunningViewControllerConstraints.swift */; };
 		633966991E47549800D43896 /* TotalTimeLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633966981E47549800D43896 /* TotalTimeLabel.swift */; };
 		6339669B1E4754EC00D43896 /* TotalTimeLabelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6339669A1E4754EC00D43896 /* TotalTimeLabelTests.swift */; };
 		634CACDF1E4BD4AE0064FD5E /* LapTimeTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634CACDE1E4BD4AE0064FD5E /* LapTimeTable.swift */; };
@@ -85,6 +86,7 @@
 		631C6A351E999F4200390478 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		631C6A371E999FE500390478 /* RunningViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RunningViewController.swift; sourceTree = "<group>"; };
 		631C6A391E99A00800390478 /* LapTimeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LapTimeViewController.swift; sourceTree = "<group>"; };
+		631C6A3B1E99C4DD00390478 /* RunningViewControllerConstraints.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RunningViewControllerConstraints.swift; sourceTree = "<group>"; };
 		633966981E47549800D43896 /* TotalTimeLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TotalTimeLabel.swift; sourceTree = "<group>"; };
 		6339669A1E4754EC00D43896 /* TotalTimeLabelTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TotalTimeLabelTests.swift; sourceTree = "<group>"; };
 		634CACDE1E4BD4AE0064FD5E /* LapTimeTable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LapTimeTable.swift; sourceTree = "<group>"; };
@@ -280,6 +282,7 @@
 			isa = PBXGroup;
 			children = (
 				63A3F2261E35355500AA8A92 /* MainViewControllerConstraints.swift */,
+				631C6A3B1E99C4DD00390478 /* RunningViewControllerConstraints.swift */,
 			);
 			name = Constraints;
 			sourceTree = "<group>";
@@ -551,6 +554,7 @@
 				63C9A19B1E88445A00AB9144 /* SettingsButton.swift in Sources */,
 				63C9A1A81E8845F500AB9144 /* VibrateOnLapButton.swift in Sources */,
 				63CB14061E67AD2900F7BC14 /* LapTimeTableCell.swift in Sources */,
+				631C6A3C1E99C4DD00390478 /* RunningViewControllerConstraints.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -8,6 +8,7 @@
 
 import UIKit
 
+// TODO: UNTESTED
 class SettingsViewController: UIViewController {
     override func viewDidLoad() {
         self.view.backgroundColor = UIColor.white

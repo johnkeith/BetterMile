@@ -8,16 +8,20 @@
 
 import UIKit
 
+// TODO: UNTESTED
 class MainPageViewController: UIPageViewController {
+    var stopWatchService: StopWatchService
     var pageControl = UIPageControl()
     
     lazy var orderedViewControllers: [UIViewController] = {
-        return [LapTimeViewController(),
-                RunningViewController(),
+        return [LapTimeViewController(stopWatchService: self.stopWatchService),
+                RunningViewController(stopWatchService: self.stopWatchService),
                 SettingsViewController()]
     }()
     
-    init() {
+    init(stopWatchService: StopWatchService = StopWatchService()) {
+        self.stopWatchService = stopWatchService
+
         super.init(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
     }
     
