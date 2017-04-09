@@ -12,6 +12,8 @@ class AnimationService {
     func animateFadeInView(viewToFadeIn: UIView, duration: Double = 0.3) {
         UIView.animate(withDuration: duration, animations: {
             viewToFadeIn.alpha = 1.0
+        }, completion: { finished in
+            viewToFadeIn.isHidden = false
         })
     }
     

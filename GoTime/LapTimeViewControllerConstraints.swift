@@ -55,4 +55,12 @@ class LapTimeViewControllerConstraints {
             make.bottom.equalTo(dividerLabel.superview!).offset(-(defaultMargin * 2))
         }
     }
+    
+    class func positionLapTimeTableEmptyLabel(lapTimeTableEmptyLabel: LapTimeTableEmptyLabel, lapTimeTable: LapTimeTable) {
+        lapTimeTableEmptyLabel.snp.makeConstraints { (make) in
+            make.width.equalTo(lapTimeTableEmptyLabel.superview!).offset(-(defaultMargin * 2))
+            make.height.equalTo(lapTimeTableEmptyLabel.superview!.frame.height / 5)
+            make.center.equalTo(lapTimeTable.snp.center)
+        }
+    }
 }

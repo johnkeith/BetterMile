@@ -34,6 +34,7 @@ class MainPageViewController: UIPageViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        self.view.backgroundColor = Constants.colorPalette["white"]
         self.delegate = self
         self.dataSource = self
         self.stopWatchService.delegates.append(self)

@@ -15,23 +15,27 @@ class LapTimeViewController: UIViewController {
     var fadeOverlayView: FadeOverlayView
     var bottomDividerLabel: DividerLabel
     var topDividerLabel: DividerLabel
+    var lapTimeTableEmptyLabel: LapTimeTableEmptyLabel
     
     init(stopWatchService: StopWatchService,
          lapTimeTable: LapTimeTable = LapTimeTable(hidden: false),
-        fadeOverlayView: FadeOverlayView = FadeOverlayView(),
-        bottomDividerLabel: DividerLabel = DividerLabel(hidden: false),
-        topDividerLabel: DividerLabel = DividerLabel(hidden: false)) {
+         fadeOverlayView: FadeOverlayView = FadeOverlayView(),
+         bottomDividerLabel: DividerLabel = DividerLabel(hidden: false),
+         topDividerLabel: DividerLabel = DividerLabel(hidden: false),
+         lapTimeTableEmptyLabel: LapTimeTableEmptyLabel = LapTimeTableEmptyLabel()) {
+        
         self.stopWatchService = stopWatchService
         self.lapTimeTable = lapTimeTable
         self.fadeOverlayView = fadeOverlayView
         self.bottomDividerLabel = bottomDividerLabel
         self.topDividerLabel = topDividerLabel
+        self.lapTimeTableEmptyLabel = lapTimeTableEmptyLabel
     
         super.init(nibName: nil, bundle: nil)
         
         self.stopWatchService.delegates.append(self)
         
-        addSubviews([lapTimeTable, fadeOverlayView, bottomDividerLabel, topDividerLabel])
+        addSubviews([lapTimeTable, fadeOverlayView, bottomDividerLabel, topDividerLabel, lapTimeTableEmptyLabel])
         addConstraints()
     }
     
@@ -49,11 +53,14 @@ class LapTimeViewController: UIViewController {
         LapTimeViewControllerConstraints.positionFadeOverlayView(fadeOverlayView: fadeOverlayView, lapTimeTable: lapTimeTable)
         LapTimeViewControllerConstraints.positionBottomDividerLabel(dividerLabel: bottomDividerLabel)
         LapTimeViewControllerConstraints.positionTopDividerLabel(dividerLabel: topDividerLabel)
+        LapTimeViewControllerConstraints.positionLapTimeTableEmptyLabel(lapTimeTableEmptyLabel: lapTimeTableEmptyLabel, lapTimeTable: lapTimeTable)
     }
 }
 
 extension LapTimeViewController: StopWatchServiceDelegate {
-    func stopWatchStarted() {}
+    func stopWatchStarted() {
+        lapTimeTableEmptyLabel.fadeOut()
+    }
     
     func stopWatchIntervalElapsed(totalTimeElapsed: TimeInterval) {
         DispatchQueue.main.async {
@@ -63,6 +70,8 @@ extension LapTimeViewController: StopWatchServiceDelegate {
     
     func stopWatchStopped() {
         lapTimeTable.clearLapData()
+        
+        lapTimeTableEmptyLabel.fadeIn()
     }
     
     func stopWatchPaused() {}
