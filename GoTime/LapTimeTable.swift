@@ -19,13 +19,13 @@ class LapTimeTable: UITableView {
         super.init(frame: defaultFrame, style: .plain)
 
         self.isHidden = hidden
-        self.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+//        self.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
         self.dataSource = self
         
         self.rowHeight = 60
         self.separatorStyle = .none
         self.showsVerticalScrollIndicator = false
-        self.contentInset = UIEdgeInsetsMake(0.0, 0.0, 204.0, 0.0)
+        self.contentInset = UIEdgeInsetsMake(0.0, 0.0, Constants.tableBottomInset, 0.0)
         
         self.register(LapTimeTableCell.self, forCellReuseIdentifier: "lapTimeTableCell")
     }

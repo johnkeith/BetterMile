@@ -26,4 +26,6 @@ struct Constants {
     
     static let defaultFrame: CGRect = CGRect()
     static let defaultMargin: Int = 20
+    
+    static let tableBottomInset: CGFloat = 204.0
 }
