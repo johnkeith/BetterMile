@@ -8,6 +8,7 @@
 
 import UIKit
 
+// TODO: UNTESTED
 class SettingsTableCell: UITableViewCell {
     let label = UILabel(frame: CGRect())
     let toggleSwitch = UISwitch(frame: CGRect())
@@ -20,7 +21,8 @@ class SettingsTableCell: UITableViewCell {
         self.contentView.addSubview(label)
         self.contentView.addSubview(toggleSwitch)
         
-        addConstraints()
+        let currentFontSize = label.font.pointSize
+        label.font = UIFont.systemFont(ofSize: currentFontSize, weight: UIFontWeightThin)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -31,11 +33,17 @@ class SettingsTableCell: UITableViewCell {
         label.text = displayName
     }
     
-    func addConstraints() {
-//        label.snp.makeConstraints { (make) in
-//            make.height.equalTo(self.frame.size.height)
-//            make.width.equalTo(self.frame.size.width - self.toggleSwitch.frame.size.width)
-//        }
+    func addConstraints(leftInset: CGFloat) {
+        label.snp.makeConstraints { (make) in
+            make.height.equalTo(self.frame.size.height)
+            make.width.equalTo(self.frame.size.width - self.toggleSwitch.frame.size.width)
+            make.left.equalTo(leftInset)
+        }
+        
+        toggleSwitch.snp.makeConstraints { (make) in
+            make.top.equalTo(toggleSwitch.superview!).offset((self.frame.size.height - toggleSwitch.frame.size.height) / 2)
+            make.right.equalTo(toggleSwitch.superview!).offset(-leftInset / 2)
+        }
     }
 }
 

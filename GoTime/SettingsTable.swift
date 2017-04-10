@@ -8,6 +8,7 @@
 
 import UIKit
 
+// TODO: UNTESTED
 class SettingsTable: UITableView {
     var settingsService: SettingsService
     
@@ -47,6 +48,7 @@ extension SettingsTable: UITableViewDataSource {
         let toggleFn = settingsService.mapOfSettingsForTable[indexPath.row].toggleFn
         
         cell.setContent(displayName: displayName, toggleFn: toggleFn)
+        cell.addConstraints(leftInset: self.separatorInset.left)
         
         return cell
     }

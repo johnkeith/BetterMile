@@ -18,7 +18,7 @@ class SettingsViewControllerConstraints {
     
     class func positionSettingsTable(settingsTable: SettingsTable) {
         settingsTable.snp.makeConstraints { (make) in
-            make.top.equalTo(settingsTable.superview!)
+            make.top.equalTo(settingsTable.superview!).offset(defaultMargin * 2)
             make.width.equalTo(settingsTable.superview!)
             make.height.equalTo(settingsTable.superview!)
             make.left.equalTo(settingsTable.superview!)
