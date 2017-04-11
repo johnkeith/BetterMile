@@ -10,21 +10,23 @@ import Foundation
 
 // TODO: UNTESTED
 class SettingsService {
-    let storedSettings = UserDefaults.standard
-    var mapOfSettingsForTable: [(displayName: String, toggleFn: () -> ())] = []
+    let storedSettings = Constants.storedSettings
+    let voiceNotificationsKey = "voiceNotifications"
+    let vibrationNotificationsKey = "vibrationNotificationsKey"
+    
+    var mapOfSettingsForTable: [(displayName: String, key: String, toggleFn: () -> ())] = []
     
     init() {
         mapOfSettingsForTable = [
-            (displayName: "Voice Notifications", toggleFn: toggleVoiceNotifications),
-            (displayName: "Vibration Notifications", toggleFn: toggleVibrationNotifications)
+            (displayName: "Voice Notifications", key: voiceNotificationsKey, toggleFn: toggleVoiceNotifications),
+            (displayName: "Vibration Notifications", key: vibrationNotificationsKey, toggleFn: toggleVibrationNotifications)
         ]
     }
     
     func toggleVoiceNotifications() {
-        let key = "voiceNotifications"
-        let current = self.storedSettings.bool(forKey: key)
+        let current = self.storedSettings.bool(forKey: voiceNotificationsKey)
         
-        self.storedSettings.set(!current, forKey: key)
+        self.storedSettings.set(!current, forKey: voiceNotificationsKey)
     }
     
     func toggleVibrationNotifications() {

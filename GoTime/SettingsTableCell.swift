@@ -33,6 +33,13 @@ class SettingsTableCell: UITableViewCell {
         label.text = displayName
     }
     
+    func setToggleState(key: String) {
+        let storedSettings = Constants.storedSettings
+        let state = storedSettings.bool(forKey: key)
+        
+        toggleSwitch.setOn(state, animated: false)
+    }
+    
     func addConstraints(leftInset: CGFloat) {
         label.snp.makeConstraints { (make) in
             make.height.equalTo(self.frame.size.height)
