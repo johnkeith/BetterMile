@@ -9,13 +9,15 @@
 import UIKit
 
 class TotalTimeLabel: UILabel {
+    var memoizedText = "00:00.00"
+    
     init(hidden: Bool = false) {
         let defaultFrame = CGRect()
         super.init(frame: defaultFrame)
 
         self.isHidden = hidden
         
-        self.text = "00:00.00"
+        self.text = memoizedText
         
         self.font = Constants.responsiveDigitFont
         self.adjustsFontSizeToFitWidth = true
@@ -29,7 +31,9 @@ class TotalTimeLabel: UILabel {
     }
     
     func setText(time: String) {
-        self.text = time
+        memoizedText = time
+        
+        self.text = memoizedText
     }
 }
 
