@@ -78,7 +78,10 @@ extension RunningViewController: StopWatchServiceDelegate {
     }
     
     func stopWatchIntervalElapsed(totalTimeElapsed: TimeInterval) {
-        totalTimeLabel.text = timeToTextService.timeAsSingleString(inputTime: totalTimeElapsed)
+//        totalTimeLabel.text = timeToTextService.timeAsSingleString(inputTime: totalTimeElapsed)
+        DispatchQueue.main.async {
+            self.totalTimeLabel.setText(time: self.timeToTextService.timeAsSingleString(inputTime: totalTimeElapsed))
+        }
     }
     
     func stopWatchStopped() {

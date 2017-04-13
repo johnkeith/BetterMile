@@ -81,10 +81,10 @@ extension MainPageViewController {
     func refreshLapTableData() {
         DispatchQueue.main.async {
             // TODO: UNTESTED (the reversing)
-//            self.lapTimeTable.setLapData(lapData: self.stopWatchService.lapTimes.reversed())
             let lapTimeViewController = self.orderedViewControllers[0] as! LapTimeViewController
             
             lapTimeViewController.lapTimeTable.setLapData(lapData: self.stopWatchService.lapTimes.reversed())
+            lapTimeViewController.lapTimeTable.reloadData()
         }
     }
     

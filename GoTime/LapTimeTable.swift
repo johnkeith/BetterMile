@@ -35,8 +35,14 @@ class LapTimeTable: UITableView {
     }
     
     func setLapData(lapData: [Double]) {
-        self.lapData = lapData
-        self.reloadData()
+        self.lapData = lapData        
+    }
+    
+//  TODO: UNTESTED
+    func reloadCurrentLapRow() {
+        let indexPath = IndexPath(row: 0, section: 0)
+        
+        self.reloadRows(at: [indexPath], with: .none)
     }
     
     func clearLapData() {

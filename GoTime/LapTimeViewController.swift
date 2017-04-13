@@ -60,11 +60,17 @@ class LapTimeViewController: UIViewController {
 extension LapTimeViewController: StopWatchServiceDelegate {
     func stopWatchStarted() {
         lapTimeTableEmptyLabel.fadeOut()
+        
+        DispatchQueue.main.async {
+            self.lapTimeTable.setLapData(lapData: self.stopWatchService.lapTimes.reversed())
+            self.lapTimeTable.reloadData()
+        }
     }
     
     func stopWatchIntervalElapsed(totalTimeElapsed: TimeInterval) {
         DispatchQueue.main.async {
             self.lapTimeTable.setLapData(lapData: self.stopWatchService.lapTimes.reversed())
+            self.lapTimeTable.reloadCurrentLapRow()
         }
     }
     
