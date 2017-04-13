@@ -14,12 +14,12 @@ class SettingsService {
     let voiceNotificationsKey = "voiceNotifications"
     let vibrationNotificationsKey = "vibrationNotificationsKey"
     
-    var mapOfSettingsForTable: [(displayName: String, key: String, toggleFn: () -> ())] = []
+    var mapOfSettingsForTable: [(displayName: String, userDefaultsKey: String, toggleFn: () -> ())] = []
     
     init() {
         mapOfSettingsForTable = [
-            (displayName: "Voice Notifications", key: voiceNotificationsKey, toggleFn: toggleVoiceNotifications),
-            (displayName: "Vibration Notifications", key: vibrationNotificationsKey, toggleFn: toggleVibrationNotifications)
+            (displayName: "Voice Notifications", userDefaultsKey: voiceNotificationsKey, toggleFn: toggleVoiceNotifications),
+            (displayName: "Vibration Notifications", userDefaultsKey: vibrationNotificationsKey, toggleFn: toggleVibrationNotifications)
         ]
     }
     

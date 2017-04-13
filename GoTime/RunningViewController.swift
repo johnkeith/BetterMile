@@ -73,12 +73,9 @@ extension RunningViewController: StartButtonDelegate {
 }
 
 extension RunningViewController: StopWatchServiceDelegate {
-    func stopWatchStarted() {
-        
-    }
+    func stopWatchStarted() {}
     
     func stopWatchIntervalElapsed(totalTimeElapsed: TimeInterval) {
-//        totalTimeLabel.text = timeToTextService.timeAsSingleString(inputTime: totalTimeElapsed)
         DispatchQueue.main.async {
             self.totalTimeLabel.setText(time: self.timeToTextService.timeAsSingleString(inputTime: totalTimeElapsed))
         }
@@ -91,13 +88,9 @@ extension RunningViewController: StopWatchServiceDelegate {
         startButton.show()
     }
     
-    func stopWatchPaused() {
-        
-    }
+    func stopWatchPaused() {}
     
-    func stopWatchRestarted() {
-        
-    }
+    func stopWatchRestarted() {}
     
     // TODO: UNTESTED; also, right place for this?
     func stopWatchLapStored() {

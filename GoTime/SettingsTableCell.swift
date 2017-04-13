@@ -10,8 +10,10 @@ import UIKit
 
 // TODO: UNTESTED
 class SettingsTableCell: UITableViewCell {
+    let storedSettings = Constants.storedSettings
     let label = UILabel(frame: CGRect())
     let toggleSwitch = UISwitch(frame: CGRect())
+    var userDefaultsKey: String?
     
     override init(style: UITableViewCellStyle = .default, reuseIdentifier: String? = "SettingsTableCell") {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -23,6 +25,8 @@ class SettingsTableCell: UITableViewCell {
         
         let currentFontSize = label.font.pointSize
         label.font = UIFont.systemFont(ofSize: currentFontSize, weight: UIFontWeightThin)
+        
+        toggleSwitch.addTarget(self, action:#selector(saveToggleState), for: .touchUpInside)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -33,11 +37,14 @@ class SettingsTableCell: UITableViewCell {
         label.text = displayName
     }
     
-    func setToggleState(key: String) {
-        let storedSettings = Constants.storedSettings
-        let state = storedSettings.bool(forKey: key)
+    func setToggleState() {
+        let state = self.storedSettings.bool(forKey: self.userDefaultsKey!)
         
-        toggleSwitch.setOn(state, animated: false)
+        self.toggleSwitch.setOn(state, animated: false)
+    }
+    
+    func saveToggleState() {
+        self.storedSettings.set(self.toggleSwitch.isOn, forKey: self.userDefaultsKey!)
     }
     
     func addConstraints(leftInset: CGFloat) {

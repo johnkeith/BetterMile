@@ -46,10 +46,11 @@ extension SettingsTable: UITableViewDataSource {
         
         let displayName = settingsService.mapOfSettingsForTable[indexPath.row].displayName
         let toggleFn = settingsService.mapOfSettingsForTable[indexPath.row].toggleFn
-        let key = settingsService.mapOfSettingsForTable[indexPath.row].key
+        let userDefaultsKey = settingsService.mapOfSettingsForTable[indexPath.row].userDefaultsKey
         
+        cell.userDefaultsKey = userDefaultsKey
         cell.setContent(displayName: displayName, toggleFn: toggleFn)
-        cell.setToggleState(key: key)
+        cell.setToggleState()
         cell.addConstraints(leftInset: self.separatorInset.left)
         
         return cell

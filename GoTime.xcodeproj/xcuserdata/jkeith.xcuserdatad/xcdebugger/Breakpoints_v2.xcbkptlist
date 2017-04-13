@@ -468,11 +468,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GoTime/RunningViewController.swift"
-            timestampString = "513657812.037184"
+            timestampString = "513740906.867979"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "104"
-            endingLineNumber = "104"
+            startingLineNumber = "97"
+            endingLineNumber = "97"
             landmarkName = "stopWatchLapStored()"
             landmarkType = "7">
          </BreakpointContent>
