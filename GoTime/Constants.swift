@@ -30,4 +30,6 @@ struct Constants {
     static let tableBottomInset: CGFloat = 204.0
     
     static let storedSettings = UserDefaults.standard
+    
+    static let notificationOfSettingsToggle = "com.goTime.notificationOfSettingsToggle"
 }

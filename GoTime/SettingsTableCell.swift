@@ -28,6 +28,8 @@ class SettingsTableCell: UITableViewCell {
         label.font = UIFont.systemFont(ofSize: currentFontSize, weight: UIFontWeightThin)
         
         toggleSwitch.addTarget(self, action:#selector(saveToggleState), for: .touchUpInside)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.handleNotificationOfSave), name: Notification.Name(rawValue: Constants.notificationOfSettingsToggle), object: nil)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -42,12 +44,39 @@ class SettingsTableCell: UITableViewCell {
         let state = self.storedSettings.bool(forKey: self.userDefaultsKey!)
         
         self.toggleSwitch.setOn(state, animated: false)
-        
-        delegate!.toggleStateWasSet(userDefaultsKey: userDefaultsKey!) // SMELLY!
     }
     
     func saveToggleState() {
         self.storedSettings.set(self.toggleSwitch.isOn, forKey: self.userDefaultsKey!)
+        
+        if [SettingsService.voiceNotificationsKey, SettingsService.vibrationNotificationsKey].contains(self.userDefaultsKey!) {
+            broadcastSettingWasSaved()
+        }
+    }
+    
+    func broadcastSettingWasSaved() {
+        NotificationCenter.default.post(name: Notification.Name(rawValue: Constants.notificationOfSettingsToggle),
+            object: nil,
+            userInfo: ["toggledUserDefaultsKey":userDefaultsKey!,"toggleState":self.toggleSwitch.isOn])
+    }
+    
+    func handleNotificationOfSave(notification: Notification) {
+        let toggledUserDefaultsKey = notification.userInfo?["toggledUserDefaultsKey"] as! String
+        let toggleState = notification.userInfo?["toggleState"] as! Bool
+        
+        if toggledUserDefaultsKey == SettingsService.voiceNotificationsKey {
+            if SettingsService.voiceNotificationOptionKeys.contains(userDefaultsKey!) {
+                self.toggleSwitch.setOn(toggleState, animated: true)
+                self.storedSettings.set(toggleState, forKey: self.userDefaultsKey!)
+            }
+        }
+        
+        if toggledUserDefaultsKey == SettingsService.vibrationNotificationsKey {
+            if SettingsService.vibrationNotificationOptionKeys.contains(userDefaultsKey!) {
+                self.toggleSwitch.setOn(toggleState, animated: true)
+                self.storedSettings.set(toggleState, forKey: self.userDefaultsKey!)
+            }
+        }
     }
     
     func addConstraints(leftInset: CGFloat) {

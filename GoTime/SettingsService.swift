@@ -14,11 +14,14 @@ class SettingsService {
     static let previousLapTimeKey = "previousLapTimeVoiceNotification"
     static let averageLapTimeKey = "averageLapTimeVoiceNotification"
     static let totalTimeKey = "totalTimeVoiceNotification"
+    static let voiceNotificationOptionKeys = [previousLapTimeKey, averageLapTimeKey, totalTimeKey]
     
     static let vibrationNotificationsKey = "vibrationNotifications"
     static let vibrateOnLapKey = "vibrateOnLapNotification"
     static let vibrateOnPauseKey = "vibrateOnPauseNotification"
     static let vibrateOnClearKey = "vibrateOnClearNotification"
+    static let vibrationNotificationOptionKeys = [vibrateOnLapKey, vibrateOnPauseKey, vibrateOnClearKey]
+    
     
     var mapOfSettingsForTable: [(displayName: String, userDefaultsKey: String)] = []
     
