@@ -11,6 +11,7 @@ import UIKit
 // TODO: UNTESTED
 class SettingsTableCell: UITableViewCell {
     let storedSettings = Constants.storedSettings
+    
     let label = UILabel(frame: CGRect())
     let toggleSwitch = UISwitch(frame: CGRect())
     var userDefaultsKey: String?
@@ -33,7 +34,7 @@ class SettingsTableCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setContent(displayName: String, toggleFn: () -> ()) {
+    func setContent(displayName: String) {
         label.text = displayName
     }
     
@@ -41,6 +42,8 @@ class SettingsTableCell: UITableViewCell {
         let state = self.storedSettings.bool(forKey: self.userDefaultsKey!)
         
         self.toggleSwitch.setOn(state, animated: false)
+        
+        delegate!.toggleStateWasSet(userDefaultsKey: userDefaultsKey!) // SMELLY!
     }
     
     func saveToggleState() {

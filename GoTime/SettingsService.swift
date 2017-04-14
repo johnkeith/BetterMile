@@ -10,26 +10,28 @@ import Foundation
 
 // TODO: UNTESTED
 class SettingsService {
-    let storedSettings = Constants.storedSettings
-    let voiceNotificationsKey = "voiceNotifications"
-    let vibrationNotificationsKey = "vibrationNotificationsKey"
+    static let voiceNotificationsKey = "voiceNotifications"
+    static let previousLapTimeKey = "previousLapTimeVoiceNotification"
+    static let averageLapTimeKey = "averageLapTimeVoiceNotification"
+    static let totalTimeKey = "totalTimeVoiceNotification"
     
-    var mapOfSettingsForTable: [(displayName: String, userDefaultsKey: String, toggleFn: () -> ())] = []
+    static let vibrationNotificationsKey = "vibrationNotifications"
+    static let vibrateOnLapKey = "vibrateOnLapNotification"
+    static let vibrateOnPauseKey = "vibrateOnPauseNotification"
+    static let vibrateOnClearKey = "vibrateOnClearNotification"
+    
+    var mapOfSettingsForTable: [(displayName: String, userDefaultsKey: String)] = []
     
     init() {
         mapOfSettingsForTable = [
-            (displayName: "Voice Notifications", userDefaultsKey: voiceNotificationsKey, toggleFn: toggleVoiceNotifications),
-            (displayName: "Vibration Notifications", userDefaultsKey: vibrationNotificationsKey, toggleFn: toggleVibrationNotifications)
+            (displayName: "Voice Notifications", userDefaultsKey: type(of: self).voiceNotificationsKey),
+            (displayName: "Previous Lap Time", userDefaultsKey: type(of: self).previousLapTimeKey),
+            (displayName: "Average Lap Time", userDefaultsKey: type(of: self).averageLapTimeKey),
+            (displayName: "Total Time", userDefaultsKey: type(of: self).totalTimeKey),
+            (displayName: "Vibration Notifications", userDefaultsKey: type(of: self).vibrationNotificationsKey),
+            (displayName: "Vibrate on Lap", userDefaultsKey: type(of: self).vibrateOnLapKey),
+            (displayName: "Vibrate on Pause", userDefaultsKey: type(of: self).vibrateOnPauseKey),
+            (displayName: "Vibrate on Clear", userDefaultsKey: type(of: self).vibrateOnClearKey)
         ]
-    }
-    
-    func toggleVoiceNotifications() {
-        let current = self.storedSettings.bool(forKey: voiceNotificationsKey)
-        
-        self.storedSettings.set(!current, forKey: voiceNotificationsKey)
-    }
-    
-    func toggleVibrationNotifications() {
-        
     }
 }

@@ -19,8 +19,6 @@ class SettingsTable: UITableView {
         
         self.dataSource = self
         
-//        self.rowHeight = 60
-//        self.separatorStyle = .none
         self.showsVerticalScrollIndicator = false
         self.contentInset = UIEdgeInsetsMake(0.0, 0.0, Constants.tableBottomInset, 0.0)
         
@@ -45,11 +43,10 @@ extension SettingsTable: UITableViewDataSource {
         let cell = self.dequeueReusableCell(withIdentifier: "settingsTableCell") as! SettingsTableCell
         
         let displayName = settingsService.mapOfSettingsForTable[indexPath.row].displayName
-        let toggleFn = settingsService.mapOfSettingsForTable[indexPath.row].toggleFn
         let userDefaultsKey = settingsService.mapOfSettingsForTable[indexPath.row].userDefaultsKey
         
         cell.userDefaultsKey = userDefaultsKey
-        cell.setContent(displayName: displayName, toggleFn: toggleFn)
+        cell.setContent(displayName: displayName)
         cell.setToggleState()
         cell.addConstraints(leftInset: self.separatorInset.left)
         
