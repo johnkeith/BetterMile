@@ -12,6 +12,7 @@ import UIKit
 class MainPageViewController: UIPageViewController {
     var stopWatchService: StopWatchService
     var timeToTextService: TimeToTextService
+    var speechService: SpeechService
     
     var pageControl = UIPageControl()
     var doubleTapRecognizer: UITapGestureRecognizer! // TODO: SMELLY
@@ -24,9 +25,11 @@ class MainPageViewController: UIPageViewController {
     }()
     
     init(stopWatchService: StopWatchService = StopWatchService(),
-         timeToTextService: TimeToTextService = TimeToTextService()) {
+         timeToTextService: TimeToTextService = TimeToTextService(),
+         speechService: SpeechService = SpeechService()) {
         self.stopWatchService = stopWatchService
         self.timeToTextService = timeToTextService
+        self.speechService = speechService
 
         super.init(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
     }
@@ -78,20 +81,27 @@ extension MainPageViewController: StopWatchServiceDelegate {
     
     func stopWatchPaused() {}
     func stopWatchRestarted() {}
-    func stopWatchLapStored(lapTime: Double, lapNumber: Int) {
+    func stopWatchLapStored(lapTime: Double, lapNumber: Int, totalTime: Double) {
         let timeTuple = timeToTextService.timeAsMultipleStrings(inputTime: lapTime)
+        let averageLapTime = stopWatchService.calculateAverageLapTime()
+        let averageLapTimeTuple = timeToTextService.timeAsMultipleStrings(inputTime: averageLapTime)
+        let totalTimeTuple = timeToTextService.timeAsMultipleStrings(inputTime: totalTime)
         
         let shouldSpeakPreviousLap = Constants.storedSettings.bool(forKey: SettingsService.previousLapTimeKey)
         let shouldSpeakAverageLap = Constants.storedSettings.bool(forKey: SettingsService.averageLapTimeKey)
         let shouldSpeakTotalTime = Constants.storedSettings.bool(forKey: SettingsService.totalTimeKey)
         
         if shouldSpeakPreviousLap {
-//            ...
+            speechService.speakPreviousLapTime(timeTuple: timeTuple, lapNumber: lapNumber)
         }
         
-//        use TimeToTextService to get the tuple with timeAsMultipleStrings
-//        check and see what to speak from the UserDefaults
-//        use the SpeechService to call the appropriate funcs
+        if shouldSpeakAverageLap {
+            speechService.speakAverageLapTime(timeTuple: averageLapTimeTuple)
+        }
+        
+        if shouldSpeakTotalTime {
+            speechService.speakTotalTime(timeTuple: totalTimeTuple)
+        }
     }
 }
 

@@ -23,9 +23,9 @@ class SpeechService: NSObject, AVSpeechSynthesizerDelegate {
         deactivateAudio()
     }
     
-    func speakPreviousLapTime(timeTuple: (minutes: String, seconds: String, fraction: String)) {
-//        SPEAK LAP NUMBER?
-        let sentancePrefix = "Previous lap time was"
+    func speakPreviousLapTime(timeTuple: (minutes: String, seconds: String, fraction: String), lapNumber: Int) {
+        let lapNumberOrdinalized = "\(lapNumber)\(Constants.ordinalSuffixForNumber(number: lapNumber))"
+        let sentancePrefix = "\(lapNumberOrdinalized) lap time was"
         
         speakSentanceAboutTime(timeTuple: timeTuple, sentancePrefix: sentancePrefix)
     }
@@ -49,6 +49,7 @@ class SpeechService: NSObject, AVSpeechSynthesizerDelegate {
         
         var sentanceToSpeak = sentancePrefix
         
+//        TODO - NOT WORKING
         if minutesInt! > 0 {
             sentanceToSpeak += " \(minutesInt!) minute"
         }

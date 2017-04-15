@@ -93,7 +93,7 @@ extension RunningViewController: StopWatchServiceDelegate {
     func stopWatchRestarted() {}
     
     // TODO: UNTESTED; also, right place for this?
-    func stopWatchLapStored() {
+    func stopWatchLapStored(lapTime: Double, lapNumber: Int, totalTime: Double) {
         AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
         
         timerHelpTextLabel.hide()

@@ -17,7 +17,7 @@ protocol StopWatchServiceDelegate: class {
     
     func stopWatchRestarted()
     
-    func stopWatchLapStored(lapTime: Double, lapNumber: Int)
+    func stopWatchLapStored(lapTime: Double, lapNumber: Int, totalTime: Double)
     
     func stopWatchStarted()
 }
@@ -76,6 +76,13 @@ class StopWatchService: NSObject {
         return _lapTimes.map{$0}.reduce(0, +)
     }
     
+//    TODO: UNTESTED
+    func calculateAverageLapTime() -> Double {
+        let totalLapTime = calculateTotalLapsTime(_lapTimes: self.lapTimes)
+        
+        return totalLapTime / Double(lapTimes.count - 1)
+    }
+    
     func calculateTimeBetweenPointAndNow(initialTime: TimeInterval) -> TimeInterval {
         let currentTime = NSDate.timeIntervalSinceReferenceDate
         
@@ -132,9 +139,13 @@ class StopWatchService: NSObject {
 
         start()
     
-        delegate?.stopWatchLapStored(lapTime: lapTimes.last!, lapNumber: lapTimes.count)
+        let currentTotalTime = calculateTotalLapsTime(_lapTimes: lapTimes)
+        let lapNumber = lapTimes.count - 1
+        let lapTime = lapTimes[lapTimes.count - 2]
         
-        delegateToMultiple({ x in x.stopWatchLapStored(lapTime: lapTimes.last!, lapNumber: lapTimes.count) })
+        delegate?.stopWatchLapStored(lapTime: lapTime, lapNumber: lapNumber, totalTime: currentTotalTime)
+        
+        delegateToMultiple({ x in x.stopWatchLapStored(lapTime: lapTime, lapNumber: lapNumber, totalTime: currentTotalTime) })
     }
     
     // TODO: IMPROVE. THIS HOLDS STRONG REFERENCES
