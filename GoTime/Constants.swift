@@ -8,6 +8,7 @@
 
 import UIKit
 
+// TODO: UNTESTED
 struct Constants {
     static let colorPalette: [String: UIColor] = [
         "blue-background": UIColor(red:0.01, green:0.53, blue:0.82, alpha:1.0),
@@ -32,4 +33,18 @@ struct Constants {
     static let storedSettings = UserDefaults.standard
     
     static let notificationOfSettingsToggle = "com.goTime.notificationOfSettingsToggle"
+    
+    // TODO: UNTESTED
+    static func ordinalSuffixForNumber(number: Int) -> String {
+        switch (number) {
+        case 1:
+            return "st"
+        case 2:
+            return "nd"
+        case 3:
+            return "rd"
+        default:
+            return "th"
+        }
+    }
 }

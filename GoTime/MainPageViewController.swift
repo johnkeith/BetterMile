@@ -11,6 +11,8 @@ import UIKit
 // TODO: UNTESTED
 class MainPageViewController: UIPageViewController {
     var stopWatchService: StopWatchService
+    var timeToTextService: TimeToTextService
+    
     var pageControl = UIPageControl()
     var doubleTapRecognizer: UITapGestureRecognizer! // TODO: SMELLY
     var longPressRecognizer: UILongPressGestureRecognizer! // TODO: SMELLY
@@ -21,8 +23,10 @@ class MainPageViewController: UIPageViewController {
                 SettingsViewController()]
     }()
     
-    init(stopWatchService: StopWatchService = StopWatchService()) {
+    init(stopWatchService: StopWatchService = StopWatchService(),
+         timeToTextService: TimeToTextService = TimeToTextService()) {
         self.stopWatchService = stopWatchService
+        self.timeToTextService = timeToTextService
 
         super.init(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
     }
@@ -74,7 +78,21 @@ extension MainPageViewController: StopWatchServiceDelegate {
     
     func stopWatchPaused() {}
     func stopWatchRestarted() {}
-    func stopWatchLapStored() {}
+    func stopWatchLapStored(lapTime: Double, lapNumber: Int) {
+        let timeTuple = timeToTextService.timeAsMultipleStrings(inputTime: lapTime)
+        
+        let shouldSpeakPreviousLap = Constants.storedSettings.bool(forKey: SettingsService.previousLapTimeKey)
+        let shouldSpeakAverageLap = Constants.storedSettings.bool(forKey: SettingsService.averageLapTimeKey)
+        let shouldSpeakTotalTime = Constants.storedSettings.bool(forKey: SettingsService.totalTimeKey)
+        
+        if shouldSpeakPreviousLap {
+//            ...
+        }
+        
+//        use TimeToTextService to get the tuple with timeAsMultipleStrings
+//        check and see what to speak from the UserDefaults
+//        use the SpeechService to call the appropriate funcs
+    }
 }
 
 extension MainPageViewController {

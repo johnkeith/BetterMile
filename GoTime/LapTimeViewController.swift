@@ -82,5 +82,5 @@ extension LapTimeViewController: StopWatchServiceDelegate {
     
     func stopWatchPaused() {}
     func stopWatchRestarted() {}
-    func stopWatchLapStored() {}
+    func stopWatchLapStored(lapTime: Double, lapNumber: Int) {}
 }

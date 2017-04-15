@@ -69,6 +69,7 @@
 		63CB14061E67AD2900F7BC14 /* LapTimeTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63CB14051E67AD2900F7BC14 /* LapTimeTableCell.swift */; };
 		63CB140A1E6D0A6300F7BC14 /* TimerHelpTextLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63CB14091E6D0A6300F7BC14 /* TimerHelpTextLabel.swift */; };
 		63CB140C1E6E4E0A00F7BC14 /* AnimationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63CB140B1E6E4E0A00F7BC14 /* AnimationService.swift */; };
+		63E9BBE01EA07BFD0019FC35 /* SpeechService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63E9BBDF1EA07BFD0019FC35 /* SpeechService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -157,6 +158,7 @@
 		63CB14051E67AD2900F7BC14 /* LapTimeTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LapTimeTableCell.swift; sourceTree = "<group>"; };
 		63CB14091E6D0A6300F7BC14 /* TimerHelpTextLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimerHelpTextLabel.swift; sourceTree = "<group>"; };
 		63CB140B1E6E4E0A00F7BC14 /* AnimationService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimationService.swift; sourceTree = "<group>"; };
+		63E9BBDF1EA07BFD0019FC35 /* SpeechService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpeechService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -347,6 +349,7 @@
 				6386BF321E45FE9700BD2875 /* RunPersistanceService.swift */,
 				63CB140B1E6E4E0A00F7BC14 /* AnimationService.swift */,
 				63C65EB51E9AF93F006835E3 /* SettingsService.swift */,
+				63E9BBDF1EA07BFD0019FC35 /* SpeechService.swift */,
 			);
 			name = Services;
 			sourceTree = "<group>";
@@ -553,6 +556,7 @@
 				634CACE31E52A80B0064FD5E /* DividerLabel.swift in Sources */,
 				631C6A361E999F4200390478 /* SettingsViewController.swift in Sources */,
 				63C9A1A41E8845B400AB9144 /* AverageLapTimeButton.swift in Sources */,
+				63E9BBE01EA07BFD0019FC35 /* SpeechService.swift in Sources */,
 				63C65EBC1E9B1DA5006835E3 /* SettingsViewControllerConstraints.swift in Sources */,
 				63A3F1F71E34FE3800AA8A92 /* GoTime.xcdatamodeld in Sources */,
 				63C9A1901E83544000AB9144 /* FadeOverlayView.swift in Sources */,

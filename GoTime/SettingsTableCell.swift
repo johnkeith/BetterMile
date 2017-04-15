@@ -10,8 +10,6 @@ import UIKit
 
 // TODO: UNTESTED
 class SettingsTableCell: UITableViewCell {
-    let storedSettings = Constants.storedSettings
-    
     let label = UILabel(frame: CGRect())
     let toggleSwitch = UISwitch(frame: CGRect())
     var userDefaultsKey: String?
@@ -41,13 +39,13 @@ class SettingsTableCell: UITableViewCell {
     }
     
     func setToggleState() {
-        let state = self.storedSettings.bool(forKey: self.userDefaultsKey!)
+        let state = Constants.storedSettings.bool(forKey: self.userDefaultsKey!)
         
         self.toggleSwitch.setOn(state, animated: false)
     }
     
     func saveToggleState() {
-        self.storedSettings.set(self.toggleSwitch.isOn, forKey: self.userDefaultsKey!)
+        Constants.storedSettings.set(self.toggleSwitch.isOn, forKey: self.userDefaultsKey!)
         
         if [SettingsService.voiceNotificationsKey, SettingsService.vibrationNotificationsKey].contains(self.userDefaultsKey!) {
             broadcastSettingWasSaved()
@@ -67,14 +65,14 @@ class SettingsTableCell: UITableViewCell {
         if toggledUserDefaultsKey == SettingsService.voiceNotificationsKey {
             if SettingsService.voiceNotificationOptionKeys.contains(userDefaultsKey!) {
                 self.toggleSwitch.setOn(toggleState, animated: true)
-                self.storedSettings.set(toggleState, forKey: self.userDefaultsKey!)
+                Constants.storedSettings.set(toggleState, forKey: self.userDefaultsKey!)
             }
         }
         
         if toggledUserDefaultsKey == SettingsService.vibrationNotificationsKey {
             if SettingsService.vibrationNotificationOptionKeys.contains(userDefaultsKey!) {
                 self.toggleSwitch.setOn(toggleState, animated: true)
-                self.storedSettings.set(toggleState, forKey: self.userDefaultsKey!)
+                Constants.storedSettings.set(toggleState, forKey: self.userDefaultsKey!)
             }
         }
     }

@@ -17,7 +17,7 @@ protocol StopWatchServiceDelegate: class {
     
     func stopWatchRestarted()
     
-    func stopWatchLapStored()
+    func stopWatchLapStored(lapTime: Double, lapNumber: Int)
     
     func stopWatchStarted()
 }
@@ -132,9 +132,9 @@ class StopWatchService: NSObject {
 
         start()
     
-        delegate?.stopWatchLapStored()
+        delegate?.stopWatchLapStored(lapTime: lapTimes.last!, lapNumber: lapTimes.count)
         
-        delegateToMultiple({ x in x.stopWatchLapStored() })
+        delegateToMultiple({ x in x.stopWatchLapStored(lapTime: lapTimes.last!, lapNumber: lapTimes.count) })
     }
     
     // TODO: IMPROVE. THIS HOLDS STRONG REFERENCES
