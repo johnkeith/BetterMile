@@ -58,7 +58,7 @@ class LapTimeTableCell: UITableViewCell {
         
         line.snp.makeConstraints { (make) -> Void in
             make.width.equalTo(line.superview!)
-            make.height.equalTo(2)
+            make.height.equalTo(1)
         }
     }
 }

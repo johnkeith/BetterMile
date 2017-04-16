@@ -28,6 +28,7 @@ class SettingsTableCell: UITableViewCell {
         toggleSwitch.addTarget(self, action:#selector(saveToggleState), for: .touchUpInside)
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.handleNotificationOfSave), name: Notification.Name(rawValue: Constants.notificationOfSettingsToggle), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.handleNotificationOfSubToggleFlipped), name: Notification.Name(rawValue: Constants.notificationOfSubSettingsToggle), object: nil)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -49,6 +50,8 @@ class SettingsTableCell: UITableViewCell {
         
         if [SettingsService.voiceNotificationsKey, SettingsService.vibrationNotificationsKey].contains(self.userDefaultsKey!) {
             broadcastSettingWasSaved()
+        } else if SettingsService.voiceNotificationOptionKeys.contains(self.userDefaultsKey!) {
+            broadcastSubToggleFlipped()
         }
     }
     
@@ -72,6 +75,26 @@ class SettingsTableCell: UITableViewCell {
             if SettingsService.vibrationNotificationOptionKeys.contains(userDefaultsKey!) {
                 setToggleSwitchAndUserDefaults(toggleState: toggleState)
             }
+        }
+    }
+    
+    func broadcastSubToggleFlipped() {
+        NotificationCenter.default.post(name: Notification.Name(rawValue: Constants.notificationOfSubSettingsToggle),
+            object: nil,
+            userInfo: ["toggledUserDefaultsKey":userDefaultsKey!])
+    }
+    
+    func handleNotificationOfSubToggleFlipped(notification: Notification) {
+        let toggledUserDefaultsKey = notification.userInfo?["toggledUserDefaultsKey"] as! String
+        
+        if userDefaultsKey! == SettingsService.voiceNotificationsKey &&
+            SettingsService.voiceNotificationOptionKeys.contains(toggledUserDefaultsKey) {
+            setToggleSwitchAndUserDefaults(toggleState: true)
+        }
+        
+        if userDefaultsKey! == SettingsService.vibrationNotificationsKey &&
+            SettingsService.vibrationNotificationOptionKeys.contains(toggledUserDefaultsKey) {
+            setToggleSwitchAndUserDefaults(toggleState: true)
         }
     }
     

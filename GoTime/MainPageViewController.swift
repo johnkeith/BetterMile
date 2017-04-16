@@ -20,7 +20,7 @@ class MainPageViewController: UIPageViewController {
     
     lazy var orderedViewControllers: [UIViewController] = {
         return [LapTimeViewController(stopWatchService: self.stopWatchService),
-                RunningViewController(stopWatchService: self.stopWatchService),
+                DashboardViewController(stopWatchService: self.stopWatchService),
                 SettingsViewController()]
     }()
     

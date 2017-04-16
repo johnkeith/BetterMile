@@ -36,7 +36,7 @@ class RunningViewControllerConstraints {
     class func positionDividerLabel(dividerLabel: DividerLabel, totalTimeLabel: TotalTimeLabel) {
         dividerLabel.snp.makeConstraints { (make) -> Void in
             make.width.equalTo(dividerLabel.superview!).offset(-(defaultMargin * 2))
-            make.height.equalTo(2)
+            make.height.equalTo(1)
             make.top.equalTo(totalTimeLabel.snp.bottom).offset(defaultMargin / 2)
             make.left.equalTo(dividerLabel.superview!).offset(defaultMargin)
         }

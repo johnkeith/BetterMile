@@ -23,7 +23,7 @@ struct Constants {
     ]
     
     static let responsiveDefaultFont: UIFont = UIFont.systemFont(ofSize: 999, weight: UIFontWeightThin)
-    static let responsiveDigitFont: UIFont = UIFont.monospacedDigitSystemFont(ofSize: 999, weight: UIFontWeightLight)
+    static let responsiveDigitFont: UIFont = UIFont.monospacedDigitSystemFont(ofSize: 999, weight: UIFontWeightThin)
     
     static let defaultFrame: CGRect = CGRect()
     static let defaultMargin: Int = 20
@@ -33,6 +33,7 @@ struct Constants {
     static let storedSettings = UserDefaults.standard
     
     static let notificationOfSettingsToggle = "com.goTime.notificationOfSettingsToggle"
+    static let notificationOfSubSettingsToggle = "com.goTime.notificationOfSubSettingsToggle"
     
     // TODO: UNTESTED
     static func ordinalSuffixForNumber(number: Int) -> String {

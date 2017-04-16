@@ -1,5 +1,5 @@
 //
-//  RunningViewController.swift
+//  DashboardViewController.swift
 //  GoTime
 //
 //  Created by John Keith on 4/8/17.
@@ -10,7 +10,7 @@ import UIKit
 import AudioToolbox
 
 // TODO: UNTESTED
-class RunningViewController: UIViewController {
+class DashboardViewController: UIViewController {
     var stopWatchService: StopWatchService
     var timeToTextService: TimeToTextService
     var startButton: StartButton
@@ -60,7 +60,7 @@ class RunningViewController: UIViewController {
     }
 }
 
-extension RunningViewController: StartButtonDelegate {
+extension DashboardViewController: StartButtonDelegate {
     func onStartTap(sender: StartButton) {
         sender.hide()
         
@@ -72,7 +72,7 @@ extension RunningViewController: StartButtonDelegate {
     }
 }
 
-extension RunningViewController: StopWatchServiceDelegate {
+extension DashboardViewController: StopWatchServiceDelegate {
     func stopWatchStarted() {}
     
     func stopWatchIntervalElapsed(totalTimeElapsed: TimeInterval) {
