@@ -64,17 +64,21 @@ class SettingsTableCell: UITableViewCell {
         
         if toggledUserDefaultsKey == SettingsService.voiceNotificationsKey {
             if SettingsService.voiceNotificationOptionKeys.contains(userDefaultsKey!) {
-                self.toggleSwitch.setOn(toggleState, animated: true)
-                Constants.storedSettings.set(toggleState, forKey: self.userDefaultsKey!)
+                setToggleSwitchAndUserDefaults(toggleState: toggleState)
             }
         }
         
         if toggledUserDefaultsKey == SettingsService.vibrationNotificationsKey {
             if SettingsService.vibrationNotificationOptionKeys.contains(userDefaultsKey!) {
-                self.toggleSwitch.setOn(toggleState, animated: true)
-                Constants.storedSettings.set(toggleState, forKey: self.userDefaultsKey!)
+                setToggleSwitchAndUserDefaults(toggleState: toggleState)
             }
         }
+    }
+    
+    func setToggleSwitchAndUserDefaults(toggleState: Bool) {
+        self.toggleSwitch.setOn(toggleState, animated: true)
+        self.toggleSwitch.isEnabled = toggleState
+        Constants.storedSettings.set(toggleState, forKey: self.userDefaultsKey!)
     }
     
     func addConstraints(leftInset: CGFloat) {
