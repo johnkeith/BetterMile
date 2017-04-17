@@ -71,6 +71,7 @@
 		63CB140C1E6E4E0A00F7BC14 /* AnimationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63CB140B1E6E4E0A00F7BC14 /* AnimationService.swift */; };
 		63E9BBE01EA07BFD0019FC35 /* SpeechService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63E9BBDF1EA07BFD0019FC35 /* SpeechService.swift */; };
 		63E9BBE21EA301090019FC35 /* DashboardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63E9BBE11EA301090019FC35 /* DashboardCell.swift */; };
+		63E9BBE41EA38EFB0019FC35 /* NavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63E9BBE31EA38EFB0019FC35 /* NavigationBar.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -161,6 +162,7 @@
 		63CB140B1E6E4E0A00F7BC14 /* AnimationService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimationService.swift; sourceTree = "<group>"; };
 		63E9BBDF1EA07BFD0019FC35 /* SpeechService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpeechService.swift; sourceTree = "<group>"; };
 		63E9BBE11EA301090019FC35 /* DashboardCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DashboardCell.swift; sourceTree = "<group>"; };
+		63E9BBE31EA38EFB0019FC35 /* NavigationBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationBar.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -284,6 +286,7 @@
 				63C65EB71E9B14F4006835E3 /* SettingsTable.swift */,
 				63C65EB91E9B197D006835E3 /* SettingsTableCell.swift */,
 				63E9BBE11EA301090019FC35 /* DashboardCell.swift */,
+				63E9BBE31EA38EFB0019FC35 /* NavigationBar.swift */,
 			);
 			name = Components;
 			sourceTree = "<group>";
@@ -575,6 +578,7 @@
 				63C9A1841E7D752500AB9144 /* OpenSettingsButton.swift in Sources */,
 				631C6A381E999FE500390478 /* DashboardViewController.swift in Sources */,
 				63A3F22A1E35355500AA8A92 /* MainViewController.swift in Sources */,
+				63E9BBE41EA38EFB0019FC35 /* NavigationBar.swift in Sources */,
 				63E9BBE21EA301090019FC35 /* DashboardCell.swift in Sources */,
 				63A3F22C1E35355500AA8A92 /* StartButton.swift in Sources */,
 				6386BF2F1E440EE500BD2875 /* CoreDataService.swift in Sources */,

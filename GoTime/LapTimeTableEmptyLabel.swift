@@ -23,10 +23,7 @@ class LapTimeTableEmptyLabel: UILabel {
         
         self.text = "No lap times to display"
         
-        self.font = Constants.responsiveDefaultFont
-        self.adjustsFontSizeToFitWidth = true
-        self.numberOfLines = 1
-        self.baselineAdjustment = .alignCenters
+        self.font = Constants.defaultSmallFont
         self.textAlignment = .center
     }
     

@@ -50,7 +50,8 @@ class SettingsTableCell: UITableViewCell {
         
         if [SettingsService.voiceNotificationsKey, SettingsService.vibrationNotificationsKey].contains(self.userDefaultsKey!) {
             broadcastSettingWasSaved()
-        } else if SettingsService.voiceNotificationOptionKeys.contains(self.userDefaultsKey!) {
+        } else if SettingsService.voiceNotificationOptionKeys.contains(self.userDefaultsKey!) ||
+            SettingsService.vibrationNotificationOptionKeys.contains(self.userDefaultsKey!) {
             broadcastSubToggleFlipped()
         }
     }
@@ -100,7 +101,6 @@ class SettingsTableCell: UITableViewCell {
     
     func setToggleSwitchAndUserDefaults(toggleState: Bool) {
         self.toggleSwitch.setOn(toggleState, animated: true)
-        self.toggleSwitch.isEnabled = toggleState
         Constants.storedSettings.set(toggleState, forKey: self.userDefaultsKey!)
     }
     
