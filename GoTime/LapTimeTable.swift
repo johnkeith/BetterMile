@@ -25,7 +25,6 @@ class LapTimeTable: UITableView {
         self.rowHeight = 60
         self.separatorStyle = .none
         self.showsVerticalScrollIndicator = false
-        self.contentInset = UIEdgeInsetsMake(0.0, 0.0, Constants.tableBottomInset, 0.0)
         
         self.register(LapTimeTableCell.self, forCellReuseIdentifier: "lapTimeTableCell")
     }
@@ -38,7 +37,7 @@ class LapTimeTable: UITableView {
         self.lapData = lapData        
     }
     
-//  TODO: UNTESTED
+//  TODO: UNTESTED - TODO: FIX - showing errors sometimes
     func reloadCurrentLapRow() {
         let indexPath = IndexPath(row: 0, section: 0)
         

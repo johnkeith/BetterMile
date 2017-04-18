@@ -30,6 +30,7 @@ struct Constants {
     static let defaultMargin: Int = 20
     
     static let tableBottomInset: CGFloat = 204.0
+    static let lapTimeTableCellHeight: CGFloat = 60.0
     
     static let storedSettings = UserDefaults.standard
     

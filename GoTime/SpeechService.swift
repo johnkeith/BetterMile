@@ -16,6 +16,8 @@ class SpeechService: NSObject, AVSpeechSynthesizerDelegate {
     override init() {
         super.init()
         
+        synth.delegate = self
+        
         setAudioDefaults()
     }
     
