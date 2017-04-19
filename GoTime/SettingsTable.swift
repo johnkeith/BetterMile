@@ -19,8 +19,9 @@ class SettingsTable: UITableView {
         
         self.dataSource = self
         
+        self.separatorStyle = .none
         self.showsVerticalScrollIndicator = false
-        self.contentInset = UIEdgeInsetsMake(0.0, 0.0, Constants.tableBottomInset, 0.0)
+        self.rowHeight = Constants.lapTimeTableCellHeight
         
         self.register(SettingsTableCell.self, forCellReuseIdentifier: "settingsTableCell")
     }

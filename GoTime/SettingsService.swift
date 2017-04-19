@@ -22,6 +22,10 @@ class SettingsService {
     static let vibrateOnClearKey = "vibrateOnClearNotification"
     static let vibrationNotificationOptionKeys = [vibrateOnLapKey, vibrateOnPauseKey, vibrateOnClearKey]
     
+    static let showLapNumber = "showLapNumber"
+    static let showCurrentLapTime = "showCurrentLapTime"
+    static let showAverageLapTime = "showAverageLapTime"
+    static let showBestLapTime = "showBestLapTime"
     
     var mapOfSettingsForTable: [(displayName: String, userDefaultsKey: String)] = []
     
@@ -34,7 +38,11 @@ class SettingsService {
             (displayName: "Vibration Notifications", userDefaultsKey: type(of: self).vibrationNotificationsKey),
             (displayName: "Vibrate on Lap", userDefaultsKey: type(of: self).vibrateOnLapKey),
             (displayName: "Vibrate on Pause", userDefaultsKey: type(of: self).vibrateOnPauseKey),
-            (displayName: "Vibrate on Clear", userDefaultsKey: type(of: self).vibrateOnClearKey)
+            (displayName: "Vibrate on Clear", userDefaultsKey: type(of: self).vibrateOnClearKey),
+            (displayName: "Show Lap Number", userDefaultsKey: type(of: self).showLapNumber),
+            (displayName: "Show Current Lap Time", userDefaultsKey: type(of: self).showCurrentLapTime),
+            (displayName: "Show Average Lap Time", userDefaultsKey: type(of: self).showAverageLapTime),
+            (displayName: "Show Best Lap Time", userDefaultsKey: type(of: self).showBestLapTime)
         ]
     }
 }
