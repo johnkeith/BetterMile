@@ -25,6 +25,14 @@ class SpeechService: NSObject, AVSpeechSynthesizerDelegate {
         deactivateAudio()
     }
     
+    func speakTimerPaused() {
+        textToSpeech(text: "Paused")
+    }
+    
+    func speakTimerCleared() {
+        textToSpeech(text: "Cleared")
+    }
+    
     func speakPreviousLapTime(timeTuple: (minutes: String, seconds: String, fraction: String), lapNumber: Int) {
         let lapNumberOrdinalized = "\(lapNumber)\(Constants.ordinalSuffixForNumber(number: lapNumber))"
         let sentancePrefix = "\(lapNumberOrdinalized) lap time was"

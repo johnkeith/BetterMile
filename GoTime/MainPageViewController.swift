@@ -76,10 +76,19 @@ extension MainPageViewController: StopWatchServiceDelegate {
     func stopWatchIntervalElapsed(totalTimeElapsed: TimeInterval) {}
     
     func stopWatchStopped() {
+        if Constants.storedSettings.bool(forKey: SettingsService.timerClearedKey) {
+            speechService.speakTimerCleared()
+        }
+        
         removeViewRecognizers()
     }
     
-    func stopWatchPaused() {}
+    func stopWatchPaused() {
+        if Constants.storedSettings.bool(forKey: SettingsService.timerPausedKey) {
+            speechService.speakTimerPaused()
+        }
+    }
+    
     func stopWatchRestarted() {}
     func stopWatchLapStored(lapTime: Double, lapNumber: Int, totalTime: Double) {
         let timeTuple = timeToTextService.timeAsMultipleStrings(inputTime: lapTime)

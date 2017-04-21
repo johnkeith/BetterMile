@@ -14,7 +14,10 @@ class SettingsService {
     static let previousLapTimeKey = "previousLapTimeVoiceNotification"
     static let averageLapTimeKey = "averageLapTimeVoiceNotification"
     static let totalTimeKey = "totalTimeVoiceNotification"
-    static let voiceNotificationOptionKeys = [previousLapTimeKey, averageLapTimeKey, totalTimeKey]
+    static let timerPausedKey = "timerPauseNotification"
+    static let timerClearedKey = "timerClearedNotification"
+    
+    static let voiceNotificationOptionKeys = [previousLapTimeKey, averageLapTimeKey, totalTimeKey, timerPausedKey, timerClearedKey]
     
     static let vibrationNotificationsKey = "vibrationNotifications"
     static let vibrateOnLapKey = "vibrateOnLapNotification"
@@ -38,6 +41,8 @@ class SettingsService {
             (displayName: "Previous Lap Time", userDefaultsKey: type(of: self).previousLapTimeKey, shouldIndent: true),
             (displayName: "Average Lap Time", userDefaultsKey: type(of: self).averageLapTimeKey, shouldIndent: true),
             (displayName: "Total Time", userDefaultsKey: type(of: self).totalTimeKey, shouldIndent: true),
+            (displayName: "Timer Paused", userDefaultsKey: type(of: self).timerPausedKey, shouldIndent: true),
+            (displayName: "Timer Cleared", userDefaultsKey: type(of: self).timerClearedKey, shouldIndent: true),
             (displayName: "Vibration Notifications", userDefaultsKey: type(of: self).vibrationNotificationsKey, shouldIndent: false),
             (displayName: "Vibrate on Lap", userDefaultsKey: type(of: self).vibrateOnLapKey, shouldIndent: true),
             (displayName: "Vibrate on Pause", userDefaultsKey: type(of: self).vibrateOnPauseKey, shouldIndent: true),
