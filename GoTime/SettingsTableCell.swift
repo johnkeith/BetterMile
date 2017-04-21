@@ -14,7 +14,20 @@ class SettingsTableCell: UITableViewCell {
     let toggleSwitch = UISwitch(frame: CGRect())
     let line = UILabel(frame: CGRect())
     
-    var userDefaultsKey: String?
+    var userDefaultsKey: String? {
+        didSet {
+            if self.userDefaultsKey != nil {
+                self.toggleSwitch.isHidden = false
+                self.backgroundColor = Constants.colorPalette["white"]
+                self.label.textColor = Constants.colorPalette["black"]
+            } else {
+                self.toggleSwitch.isHidden = true
+                self.backgroundColor = Constants.colorPalette["black"]
+                self.label.textColor = Constants.colorPalette["white"]
+            }
+        }
+    }
+    var shouldIndent = false
     
     override init(style: UITableViewCellStyle = .default, reuseIdentifier: String? = "SettingsTableCell") {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -29,6 +42,7 @@ class SettingsTableCell: UITableViewCell {
         let currentFontSize = label.font.pointSize
         label.font = UIFont.systemFont(ofSize: currentFontSize, weight: UIFontWeightThin)
         
+        toggleSwitch.isHidden = true
         toggleSwitch.addTarget(self, action:#selector(saveToggleState), for: .touchUpInside)
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.handleNotificationOfSave), name: Notification.Name(rawValue: Constants.notificationOfSettingsToggle), object: nil)
@@ -48,9 +62,10 @@ class SettingsTableCell: UITableViewCell {
     }
     
     func setToggleState() {
-        let state = Constants.storedSettings.bool(forKey: self.userDefaultsKey!)
-        
-        self.toggleSwitch.setOn(state, animated: false)
+        if userDefaultsKey != nil {
+            let state = Constants.storedSettings.bool(forKey: self.userDefaultsKey!)
+            self.toggleSwitch.setOn(state, animated: false)
+        }
     }
     
     func saveToggleState() {
@@ -74,15 +89,17 @@ class SettingsTableCell: UITableViewCell {
         let toggledUserDefaultsKey = notification.userInfo?["toggledUserDefaultsKey"] as! String
         let toggleState = notification.userInfo?["toggleState"] as! Bool
         
-        if toggledUserDefaultsKey == SettingsService.voiceNotificationsKey {
-            if SettingsService.voiceNotificationOptionKeys.contains(userDefaultsKey!) {
-                setToggleSwitchAndUserDefaults(toggleState: toggleState)
+        if userDefaultsKey != nil {
+            if toggledUserDefaultsKey == SettingsService.voiceNotificationsKey {
+                if SettingsService.voiceNotificationOptionKeys.contains(userDefaultsKey!) {
+                    setToggleSwitchAndUserDefaults(toggleState: toggleState)
+                }
             }
-        }
-        
-        if toggledUserDefaultsKey == SettingsService.vibrationNotificationsKey {
-            if SettingsService.vibrationNotificationOptionKeys.contains(userDefaultsKey!) {
-                setToggleSwitchAndUserDefaults(toggleState: toggleState)
+            
+            if toggledUserDefaultsKey == SettingsService.vibrationNotificationsKey {
+                if SettingsService.vibrationNotificationOptionKeys.contains(userDefaultsKey!) {
+                    setToggleSwitchAndUserDefaults(toggleState: toggleState)
+                }
             }
         }
     }
@@ -96,14 +113,22 @@ class SettingsTableCell: UITableViewCell {
     func handleNotificationOfSubToggleFlipped(notification: Notification) {
         let toggledUserDefaultsKey = notification.userInfo?["toggledUserDefaultsKey"] as! String
         
-        if userDefaultsKey! == SettingsService.voiceNotificationsKey &&
-            SettingsService.voiceNotificationOptionKeys.contains(toggledUserDefaultsKey) {
-            setToggleSwitchAndUserDefaults(toggleState: true)
-        }
-        
-        if userDefaultsKey! == SettingsService.vibrationNotificationsKey &&
-            SettingsService.vibrationNotificationOptionKeys.contains(toggledUserDefaultsKey) {
-            setToggleSwitchAndUserDefaults(toggleState: true)
+        if userDefaultsKey != nil {
+            if userDefaultsKey! == SettingsService.voiceNotificationsKey {
+                if SettingsService.voiceNotificationOptionKeys.contains(toggledUserDefaultsKey) {
+                    setToggleSwitchAndUserDefaults(toggleState: true)
+                }
+                
+                toggleVoiceNotificationsKeyIfAllSubsToggled()
+            }
+            
+            if userDefaultsKey! == SettingsService.vibrationNotificationsKey {
+                if SettingsService.vibrationNotificationOptionKeys.contains(toggledUserDefaultsKey) {
+                    setToggleSwitchAndUserDefaults(toggleState: true)
+                }
+                
+                toggleVibrationNotificationsKeyIfAllSubsToggled()
+            }
         }
     }
     
@@ -112,21 +137,60 @@ class SettingsTableCell: UITableViewCell {
         Constants.storedSettings.set(toggleState, forKey: self.userDefaultsKey!)
     }
     
-    func addConstraints(leftInset: CGFloat) {
-        label.snp.makeConstraints { (make) in
-//            make.height.equalTo(self.frame.size.height)
-//            make.width.equalTo(self.frame.size.width - self.toggleSwitch.frame.size.width)
+    func toggleVoiceNotificationsKeyIfAllSubsToggled() {
+        var allSubsToggled = true
+        
+        SettingsService.voiceNotificationOptionKeys.forEach { key in
+            if Constants.storedSettings.bool(forKey: key) {
+                allSubsToggled = false
+            }
         }
         
-        toggleSwitch.snp.makeConstraints { (make) in
-//            make.top.equalTo(toggleSwitch.superview!).offset((self.frame.size.height - toggleSwitch.frame.size.height) / 2)
-            
-            make.right.equalTo(toggleSwitch.superview!).offset(-leftInset / 2)
+        if allSubsToggled {
+            setToggleSwitchAndUserDefaults(toggleState: false)
+        }
+    }
+    
+    func toggleVibrationNotificationsKeyIfAllSubsToggled() {
+        var allSubsToggled = true
+        
+        SettingsService.vibrationNotificationOptionKeys.forEach { key in
+            if Constants.storedSettings.bool(forKey: key) {
+                allSubsToggled = false
+            }
         }
         
-        line.snp.makeConstraints { (make) -> Void in
+        if allSubsToggled {
+            setToggleSwitchAndUserDefaults(toggleState: false)
+        }
+    }
+    
+    func addConstraints() {
+        var indent: Int {
+            if self.shouldIndent {
+                return Constants.defaultMargin * 2
+            } else {
+                return Constants.defaultMargin / 2
+            }
+        }
+        
+        label.snp.remakeConstraints { (make) in
+            make.centerY.equalTo(label.superview!)
+            make.left.equalTo(label.superview!).offset(indent)
+        }
+        
+        toggleSwitch.snp.remakeConstraints { (make) in
+            make.centerY.equalTo(toggleSwitch.superview!)
+            make.right.equalTo(toggleSwitch.superview!).offset(-(toggleSwitch.frame.width / 12))
+        }
+        
+        line.snp.remakeConstraints { (make) -> Void in
             make.width.equalTo(line.superview!)
             make.height.equalTo(1)
+            
+            if self.shouldIndent {
+                make.left.equalTo(line.superview!).offset(indent)
+            }
         }
     }
 }

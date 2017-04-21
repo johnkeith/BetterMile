@@ -52,7 +52,8 @@ class LapTimeTableCell: UITableViewCell {
     func addLabelAndLineConstraints(label: UILabel, line: UILabel) {
         // TODO: FIX - there must be a better place for this
         label.snp.makeConstraints { (make) -> Void in
-            make.width.equalTo(label.superview!)
+            make.width.equalTo(label.superview!).offset(-Constants.defaultMargin)
+            make.left.equalTo(label.superview!).offset(Constants.defaultMargin / 2)
             make.height.equalTo(Constants.lapTimeTableCellHeight)
         }
         

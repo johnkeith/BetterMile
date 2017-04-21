@@ -516,11 +516,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GoTime/SettingsTableCell.swift"
-            timestampString = "514260263.135889"
+            timestampString = "514413932.401851"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "91"
-            endingLineNumber = "91"
+            startingLineNumber = "108"
+            endingLineNumber = "108"
             landmarkName = "broadcastSubToggleFlipped()"
             landmarkType = "7">
          </BreakpointContent>
@@ -532,11 +532,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GoTime/SettingsTableCell.swift"
-            timestampString = "514260263.135889"
+            timestampString = "514413932.401851"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "77"
-            endingLineNumber = "77"
+            startingLineNumber = "104"
+            endingLineNumber = "104"
             landmarkName = "handleNotificationOfSave(notification:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -546,14 +546,31 @@
          <BreakpointContent
             shouldBeEnabled = "No"
             ignoreCount = "0"
+            condition = "shouldIndent == true"
             continueAfterRunningActions = "No"
-            filePath = "GoTime/SettingsTableCell.swift"
-            timestampString = "514260263.135889"
+            filePath = "GoTime/SettingsTable.swift"
+            timestampString = "514412472.536771"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "106"
-            endingLineNumber = "106"
-            landmarkName = "handleNotificationOfSubToggleFlipped(notification:)"
+            startingLineNumber = "54"
+            endingLineNumber = "54"
+            landmarkName = "tableView(_:cellForRowAt:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "GoTime/SettingsTable.swift"
+            timestampString = "514412472.536771"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "53"
+            endingLineNumber = "53"
+            landmarkName = "tableView(_:cellForRowAt:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -564,12 +581,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GoTime/SettingsTableCell.swift"
-            timestampString = "514260263.135889"
+            timestampString = "514413932.401851"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "101"
-            endingLineNumber = "101"
-            landmarkName = "handleNotificationOfSubToggleFlipped(notification:)"
+            startingLineNumber = "144"
+            endingLineNumber = "144"
+            landmarkName = "toggleVoiceNotificationsKeyIfAllSubsToggled()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -580,12 +597,28 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GoTime/SettingsTableCell.swift"
-            timestampString = "514260263.135889"
+            timestampString = "514413932.401851"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "104"
-            endingLineNumber = "104"
-            landmarkName = "handleNotificationOfSubToggleFlipped(notification:)"
+            startingLineNumber = "144"
+            endingLineNumber = "144"
+            landmarkName = "toggleVoiceNotificationsKeyIfAllSubsToggled()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "GoTime/SettingsTableCell.swift"
+            timestampString = "514413932.401851"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "150"
+            endingLineNumber = "150"
+            landmarkName = "toggleVoiceNotificationsKeyIfAllSubsToggled()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

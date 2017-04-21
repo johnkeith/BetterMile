@@ -27,22 +27,28 @@ class SettingsService {
     static let showAverageLapTime = "showAverageLapTime"
     static let showBestLapTime = "showBestLapTime"
     
-    var mapOfSettingsForTable: [(displayName: String, userDefaultsKey: String)] = []
+    static let useDarkMode = "useDarkMode"
+    
+    var mapOfSettingsForTable: [(displayName: String, userDefaultsKey: String?, shouldIndent: Bool)] = []
     
     init() {
         mapOfSettingsForTable = [
-            (displayName: "Voice Notifications", userDefaultsKey: type(of: self).voiceNotificationsKey),
-            (displayName: "Previous Lap Time", userDefaultsKey: type(of: self).previousLapTimeKey),
-            (displayName: "Average Lap Time", userDefaultsKey: type(of: self).averageLapTimeKey),
-            (displayName: "Total Time", userDefaultsKey: type(of: self).totalTimeKey),
-            (displayName: "Vibration Notifications", userDefaultsKey: type(of: self).vibrationNotificationsKey),
-            (displayName: "Vibrate on Lap", userDefaultsKey: type(of: self).vibrateOnLapKey),
-            (displayName: "Vibrate on Pause", userDefaultsKey: type(of: self).vibrateOnPauseKey),
-            (displayName: "Vibrate on Clear", userDefaultsKey: type(of: self).vibrateOnClearKey),
-            (displayName: "Show Lap Number", userDefaultsKey: type(of: self).showLapNumber),
-            (displayName: "Show Current Lap Time", userDefaultsKey: type(of: self).showCurrentLapTime),
-            (displayName: "Show Average Lap Time", userDefaultsKey: type(of: self).showAverageLapTime),
-            (displayName: "Show Best Lap Time", userDefaultsKey: type(of: self).showBestLapTime)
+            (displayName: "Notification Settings", userDefaultsKey: nil, shouldIndent: false),
+            (displayName: "Voice Notifications", userDefaultsKey: type(of: self).voiceNotificationsKey, shouldIndent: false),
+            (displayName: "Previous Lap Time", userDefaultsKey: type(of: self).previousLapTimeKey, shouldIndent: true),
+            (displayName: "Average Lap Time", userDefaultsKey: type(of: self).averageLapTimeKey, shouldIndent: true),
+            (displayName: "Total Time", userDefaultsKey: type(of: self).totalTimeKey, shouldIndent: true),
+            (displayName: "Vibration Notifications", userDefaultsKey: type(of: self).vibrationNotificationsKey, shouldIndent: false),
+            (displayName: "Vibrate on Lap", userDefaultsKey: type(of: self).vibrateOnLapKey, shouldIndent: true),
+            (displayName: "Vibrate on Pause", userDefaultsKey: type(of: self).vibrateOnPauseKey, shouldIndent: true),
+            (displayName: "Vibrate on Clear", userDefaultsKey: type(of: self).vibrateOnClearKey, shouldIndent: true),
+            (displayName: "Dashboard Settings", userDefaultsKey: nil, shouldIndent: false),
+            (displayName: "Show Lap Number", userDefaultsKey: type(of: self).showLapNumber, shouldIndent: false),
+            (displayName: "Show Current Lap Time", userDefaultsKey: type(of: self).showCurrentLapTime, shouldIndent: false),
+            (displayName: "Show Average Lap Time", userDefaultsKey: type(of: self).showAverageLapTime, shouldIndent: false),
+            (displayName: "Show Best Lap Time", userDefaultsKey: type(of: self).showBestLapTime, shouldIndent: false),
+            (displayName: "Color Settings", userDefaultsKey: nil, shouldIndent: false),
+            (displayName: "Dark Mode", userDefaultsKey: type(of: self).useDarkMode, shouldIndent: false)
         ]
     }
 }

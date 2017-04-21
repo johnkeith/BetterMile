@@ -308,8 +308,8 @@
 			isa = PBXGroup;
 			children = (
 				63A3F2261E35355500AA8A92 /* MainViewControllerConstraints.swift */,
-				631C6A3B1E99C4DD00390478 /* RunningViewControllerConstraints.swift */,
 				63C65EB11E9A6F55006835E3 /* LapTimeViewControllerConstraints.swift */,
+				631C6A3B1E99C4DD00390478 /* RunningViewControllerConstraints.swift */,
 				63C65EBB1E9B1DA5006835E3 /* SettingsViewControllerConstraints.swift */,
 			);
 			name = Constraints;

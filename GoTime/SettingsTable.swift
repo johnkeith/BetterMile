@@ -18,10 +18,10 @@ class SettingsTable: UITableView {
         super.init(frame: Constants.defaultFrame, style: .plain)
         
         self.dataSource = self
+        self.delegate = self
         
         self.separatorStyle = .none
         self.showsVerticalScrollIndicator = false
-        self.rowHeight = Constants.lapTimeTableCellHeight
         
         self.register(SettingsTableCell.self, forCellReuseIdentifier: "settingsTableCell")
     }
@@ -45,12 +45,28 @@ extension SettingsTable: UITableViewDataSource {
         
         let displayName = settingsService.mapOfSettingsForTable[indexPath.row].displayName
         let userDefaultsKey = settingsService.mapOfSettingsForTable[indexPath.row].userDefaultsKey
+        let shouldIndent = settingsService.mapOfSettingsForTable[indexPath.row].shouldIndent
         
         cell.userDefaultsKey = userDefaultsKey
+        cell.shouldIndent = shouldIndent
         cell.setContent(displayName: displayName)
         cell.setToggleState()
-        cell.addConstraints(leftInset: self.separatorInset.left)
+        cell.addConstraints()
         
         return cell
+    }
+}
+
+extension SettingsTable: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if settingsService.mapOfSettingsForTable[indexPath.row].userDefaultsKey == nil {
+            return Constants.lapTimeTableCellHeight / 2
+        } else {
+            return Constants.lapTimeTableCellHeight
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat{
+        return Constants.lapTimeTableCellHeight
     }
 }
