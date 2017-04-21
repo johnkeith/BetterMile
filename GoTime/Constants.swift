@@ -34,6 +34,8 @@ struct Constants {
     
     static let storedSettings = UserDefaults.standard
     
+    static let timeBetweenVibrations = 0.8
+    
     static let notificationOfSettingsToggle = "com.goTime.notificationOfSettingsToggle"
     static let notificationOfSubSettingsToggle = "com.goTime.notificationOfSubSettingsToggle"
     

@@ -82,20 +82,39 @@ extension DashboardViewController: StopWatchServiceDelegate {
     }
     
     func stopWatchStopped() {
+        if Constants.storedSettings.bool(forKey: SettingsService.vibrateOnClearKey) {
+            AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
+        }
+        
         totalTimeLabel.hide()
         dividerLabel.hide()
         
         startButton.show()
     }
     
-    func stopWatchPaused() {}
+    func stopWatchPaused() {
+        if Constants.storedSettings.bool(forKey: SettingsService.vibrateOnPauseKey) {
+            AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
+        }
+    }
     
     func stopWatchRestarted() {}
     
     // TODO: UNTESTED; also, right place for this?
     func stopWatchLapStored(lapTime: Double, lapNumber: Int, totalTime: Double) {
-        AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
+        if Constants.storedSettings.bool(forKey: SettingsService.vibrateOnLapKey) {
+            AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
+        }
         
         timerHelpTextLabel.hide()
     }
+
+//    can call with scheduleVibration { () in self.scheduleVibration }
+//    func scheduleVibration(_ fn: @escaping () -> Void = {}) {
+//        DispatchQueue.main.asyncAfter(deadline: .now() + Constants.timeBetweenVibrations) {
+//            AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
+//            
+//            fn()
+//        }
+//    }
 }
