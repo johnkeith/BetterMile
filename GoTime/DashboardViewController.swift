@@ -53,10 +53,10 @@ class DashboardViewController: UIViewController {
     }
     
     func addConstraints() {
-        RunningViewControllerConstraints.positionStartButton(startButton: startButton)
-        RunningViewControllerConstraints.positionTotalTimeLabel(totalTimeLabel: totalTimeLabel)
-        RunningViewControllerConstraints.positionDividerLabel(dividerLabel: dividerLabel, totalTimeLabel: totalTimeLabel)
-        RunningViewControllerConstraints.positionTimerHelpTextLabel(timerHelpTextLabel: timerHelpTextLabel)
+        DashboardViewControllerConstraints.positionStartButton(startButton: startButton)
+        DashboardViewControllerConstraints.positionTotalTimeLabel(totalTimeLabel: totalTimeLabel)
+        DashboardViewControllerConstraints.positionDividerLabel(dividerLabel: dividerLabel, totalTimeLabel: totalTimeLabel)
+        DashboardViewControllerConstraints.positionTimerHelpTextLabel(timerHelpTextLabel: timerHelpTextLabel)
     }
 }
 
@@ -108,13 +108,4 @@ extension DashboardViewController: StopWatchServiceDelegate {
         
         timerHelpTextLabel.hide()
     }
-
-//    can call with scheduleVibration { () in self.scheduleVibration }
-//    func scheduleVibration(_ fn: @escaping () -> Void = {}) {
-//        DispatchQueue.main.asyncAfter(deadline: .now() + Constants.timeBetweenVibrations) {
-//            AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
-//            
-//            fn()
-//        }
-//    }
 }

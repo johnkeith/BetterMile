@@ -1,5 +1,5 @@
 //
-//  RunningViewControllerConstraints.swift
+//  DashboardViewControllerConstraints.swift
 //  GoTime
 //
 //  Created by John Keith on 4/8/17.
@@ -9,8 +9,8 @@
 import UIKit
 import SnapKit
 
-class RunningViewControllerConstraints {
-    static let sharedInstance = RunningViewControllerConstraints()
+class DashboardViewControllerConstraints {
+    static let sharedInstance = DashboardViewControllerConstraints()
     
     private init() {}
     
