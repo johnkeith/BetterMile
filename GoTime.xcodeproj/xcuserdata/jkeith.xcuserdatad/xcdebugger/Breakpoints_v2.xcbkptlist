@@ -629,11 +629,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GoTime/DashboardViewController.swift"
-            timestampString = "514494689.981054"
+            timestampString = "514942751.042102"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "97"
-            endingLineNumber = "97"
+            startingLineNumber = "125"
+            endingLineNumber = "125"
             landmarkName = "stopWatchPaused()"
             landmarkType = "7">
          </BreakpointContent>

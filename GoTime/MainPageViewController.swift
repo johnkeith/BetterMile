@@ -19,8 +19,7 @@ class MainPageViewController: UIPageViewController {
     var longPressRecognizer: UILongPressGestureRecognizer! // TODO: SMELLY
     
     lazy var orderedViewControllers: [UIViewController] = {
-        return [LapTimeViewController(stopWatchService: self.stopWatchService),
-                DashboardViewController(stopWatchService: self.stopWatchService),
+        return [DashboardViewController(stopWatchService: self.stopWatchService),
                 SettingsViewController()]
     }()
     
@@ -48,7 +47,7 @@ class MainPageViewController: UIPageViewController {
         
         configurePageControl()
     
-        setViewControllers([orderedViewControllers[1]],
+        setViewControllers([orderedViewControllers[0]],
                            direction: .forward,
                            animated: true,
                            completion: nil)
@@ -58,7 +57,7 @@ class MainPageViewController: UIPageViewController {
         // The total number of pages that are available is based on how many available colors we have.
         pageControl = UIPageControl(frame: CGRect(x: 0,y: UIScreen.main.bounds.maxY - 40, width: UIScreen.main.bounds.width, height: 40))
         self.pageControl.numberOfPages = orderedViewControllers.count
-        self.pageControl.currentPage = 1
+        self.pageControl.currentPage = 0
         self.pageControl.tintColor = UIColor.black
         self.pageControl.pageIndicatorTintColor = UIColor.gray
         self.pageControl.currentPageIndicatorTintColor = UIColor.black
@@ -118,10 +117,10 @@ extension MainPageViewController {
     func refreshLapTableData() {
         DispatchQueue.main.async {
             // TODO: UNTESTED (the reversing)
-            let lapTimeViewController = self.orderedViewControllers[0] as! LapTimeViewController
+            let ctrl = self.orderedViewControllers[0] as! DashboardViewController
             
-            lapTimeViewController.lapTimeTable.setLapData(lapData: self.stopWatchService.lapTimes.reversed())
-            lapTimeViewController.lapTimeTable.reloadData()
+            ctrl.lapTimeTable.setLapData(lapData: self.stopWatchService.lapTimes.reversed())
+            ctrl.lapTimeTable.reloadData()
         }
     }
     

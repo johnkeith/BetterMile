@@ -50,7 +50,7 @@ class StopWatchService: NSObject {
             repeats: true
         )
         
-//        RunLoop.main.add(timer, forMode: .commonModes)
+        RunLoop.main.add(timer, forMode: .commonModes)
 
         timerRunning = true
         

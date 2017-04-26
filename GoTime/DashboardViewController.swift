@@ -15,29 +15,40 @@ class DashboardViewController: UIViewController {
     var timeToTextService: TimeToTextService
     var startButton: StartButton
     var totalTimeLabel: TotalTimeLabel
-    var dividerLabel: DividerLabel
     var timerHelpTextLabel: TimerHelpTextLabel
+    var lapTimeTable: LapTimeTable
+    var fadeOverlayView: FadeOverlayView
+    var bottomDividerLabel: DividerLabel
+    var topDividerLabel: DividerLabel
     
     init(stopWatchService: StopWatchService,
          timeToTextService: TimeToTextService = TimeToTextService(),
          startButton: StartButton = StartButton(),
          totalTimeLabel: TotalTimeLabel = TotalTimeLabel(hidden: true),
-         dividerLabel: DividerLabel = DividerLabel(),
-         timerHelpTextLabel: TimerHelpTextLabel = TimerHelpTextLabel()) {
+         timerHelpTextLabel: TimerHelpTextLabel = TimerHelpTextLabel(),
+         lapTimeTable: LapTimeTable = LapTimeTable(hidden: true),
+         fadeOverlayView: FadeOverlayView = FadeOverlayView(),
+         bottomDividerLabel: DividerLabel = DividerLabel(hidden: true),
+         topDividerLabel: DividerLabel = DividerLabel(hidden: true)) {
         
         self.stopWatchService = stopWatchService
         self.timeToTextService = timeToTextService
         self.startButton = startButton
         self.totalTimeLabel = totalTimeLabel
-        self.dividerLabel = dividerLabel
         self.timerHelpTextLabel = timerHelpTextLabel
+        self.lapTimeTable = lapTimeTable
+        self.fadeOverlayView = fadeOverlayView
+        self.bottomDividerLabel = bottomDividerLabel
+        self.topDividerLabel = topDividerLabel
         
         super.init(nibName: nil, bundle: nil)
         
         startButton.delegate = self
         stopWatchService.delegates.append(self)
         
-        addSubviews([startButton, totalTimeLabel, dividerLabel, timerHelpTextLabel])
+        addSubviews([startButton, totalTimeLabel,
+                     lapTimeTable, fadeOverlayView, timerHelpTextLabel,
+                     bottomDividerLabel, topDividerLabel])
         addConstraints()
     }
     
@@ -55,8 +66,11 @@ class DashboardViewController: UIViewController {
     func addConstraints() {
         DashboardViewControllerConstraints.positionStartButton(startButton: startButton)
         DashboardViewControllerConstraints.positionTotalTimeLabel(totalTimeLabel: totalTimeLabel)
-        DashboardViewControllerConstraints.positionDividerLabel(dividerLabel: dividerLabel, totalTimeLabel: totalTimeLabel)
         DashboardViewControllerConstraints.positionTimerHelpTextLabel(timerHelpTextLabel: timerHelpTextLabel)
+        DashboardViewControllerConstraints.positionLapTimeTable(lapTimeTable: lapTimeTable, totalTimeLabel: totalTimeLabel)
+        DashboardViewControllerConstraints.positionFadeOverlayView(fadeOverlayView: fadeOverlayView, lapTimeTable: lapTimeTable)
+        DashboardViewControllerConstraints.positionBottomDividerLabel(dividerLabel: bottomDividerLabel, lapTimeTable: lapTimeTable)
+        DashboardViewControllerConstraints.positionTopDividerLabel(dividerLabel: topDividerLabel, lapTimeTable: lapTimeTable)
     }
 }
 
@@ -65,7 +79,10 @@ extension DashboardViewController: StartButtonDelegate {
         sender.hide()
         
         totalTimeLabel.show()
-        dividerLabel.show()
+        lapTimeTable.show()
+        topDividerLabel.show()
+        bottomDividerLabel.show()
+        
         timerHelpTextLabel.showBriefly()
         
         stopWatchService.start()
@@ -73,11 +90,18 @@ extension DashboardViewController: StartButtonDelegate {
 }
 
 extension DashboardViewController: StopWatchServiceDelegate {
-    func stopWatchStarted() {}
+    func stopWatchStarted() {
+        DispatchQueue.main.async {
+            self.lapTimeTable.setLapData(lapData: self.stopWatchService.lapTimes.reversed())
+            self.lapTimeTable.reloadData()
+        }
+    }
     
     func stopWatchIntervalElapsed(totalTimeElapsed: TimeInterval) {
         DispatchQueue.main.async {
             self.totalTimeLabel.setText(time: self.timeToTextService.timeAsSingleString(inputTime: totalTimeElapsed))
+            self.lapTimeTable.setLapData(lapData: self.stopWatchService.lapTimes.reversed())
+            self.lapTimeTable.reloadCurrentLapRow()
         }
     }
     
@@ -87,9 +111,13 @@ extension DashboardViewController: StopWatchServiceDelegate {
         }
         
         totalTimeLabel.hide()
-        dividerLabel.hide()
+        lapTimeTable.hide()
+        bottomDividerLabel.hide()
+        topDividerLabel.hide()
         
         startButton.show()
+        
+        lapTimeTable.clearLapData()        
     }
     
     func stopWatchPaused() {
