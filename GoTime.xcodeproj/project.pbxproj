@@ -33,8 +33,6 @@
 		63A3F2121E34FE3900AA8A92 /* GoTimeUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A3F2111E34FE3900AA8A92 /* GoTimeUITests.swift */; };
 		63A3F2211E35151600AA8A92 /* SnapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63A3F2201E35151600AA8A92 /* SnapKit.framework */; };
 		63A3F2291E35355500AA8A92 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A3F2241E35355500AA8A92 /* Constants.swift */; };
-		63A3F22A1E35355500AA8A92 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A3F2251E35355500AA8A92 /* MainViewController.swift */; };
-		63A3F22B1E35355500AA8A92 /* MainViewControllerConstraints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A3F2261E35355500AA8A92 /* MainViewControllerConstraints.swift */; };
 		63A3F22C1E35355500AA8A92 /* StartButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A3F2271E35355500AA8A92 /* StartButton.swift */; };
 		63A3F2351E37082100AA8A92 /* MainViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A3F2341E37082100AA8A92 /* MainViewControllerTests.swift */; };
 		63A3F2381E3AED5D00AA8A92 /* StartButtonTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A3F2371E3AED5D00AA8A92 /* StartButtonTests.swift */; };
@@ -55,17 +53,7 @@
 		63C9A1881E7E242B00AB9144 /* SettingsOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C9A1871E7E242B00AB9144 /* SettingsOverlay.swift */; };
 		63C9A18C1E80C13A00AB9144 /* SettingsOverlayTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C9A18B1E80C13A00AB9144 /* SettingsOverlayTests.swift */; };
 		63C9A1901E83544000AB9144 /* FadeOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C9A18F1E83544000AB9144 /* FadeOverlayView.swift */; };
-		63C9A1941E87F8D900AB9144 /* VoiceNotificationsButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C9A1931E87F8D900AB9144 /* VoiceNotificationsButton.swift */; };
 		63C9A1991E883DA300AB9144 /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C9A1981E883DA300AB9144 /* UIViewExtension.swift */; };
-		63C9A19B1E88445A00AB9144 /* SettingsButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C9A19A1E88445A00AB9144 /* SettingsButton.swift */; };
-		63C9A19E1E8844E200AB9144 /* VibrationNotificationsButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C9A19D1E8844E200AB9144 /* VibrationNotificationsButton.swift */; };
-		63C9A1A01E88451800AB9144 /* ThemeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C9A19F1E88451800AB9144 /* ThemeButton.swift */; };
-		63C9A1A21E88455900AB9144 /* PreviousLapTimeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C9A1A11E88455900AB9144 /* PreviousLapTimeButton.swift */; };
-		63C9A1A41E8845B400AB9144 /* AverageLapTimeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C9A1A31E8845B400AB9144 /* AverageLapTimeButton.swift */; };
-		63C9A1A61E8845D400AB9144 /* TotalTimeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C9A1A51E8845D400AB9144 /* TotalTimeButton.swift */; };
-		63C9A1A81E8845F500AB9144 /* VibrateOnLapButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C9A1A71E8845F500AB9144 /* VibrateOnLapButton.swift */; };
-		63C9A1AA1E88462F00AB9144 /* VibrateOnPauseButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C9A1A91E88462F00AB9144 /* VibrateOnPauseButton.swift */; };
-		63C9A1AC1E88465100AB9144 /* VibrateOnClearButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C9A1AB1E88465100AB9144 /* VibrateOnClearButton.swift */; };
 		63CB14061E67AD2900F7BC14 /* LapTimeTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63CB14051E67AD2900F7BC14 /* LapTimeTableCell.swift */; };
 		63CB140A1E6D0A6300F7BC14 /* TimerHelpTextLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63CB14091E6D0A6300F7BC14 /* TimerHelpTextLabel.swift */; };
 		63CB140C1E6E4E0A00F7BC14 /* AnimationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63CB140B1E6E4E0A00F7BC14 /* AnimationService.swift */; };
@@ -122,8 +110,6 @@
 		63A3F2131E34FE3900AA8A92 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		63A3F2201E35151600AA8A92 /* SnapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SnapKit.framework; path = Carthage/Build/iOS/SnapKit.framework; sourceTree = "<group>"; };
 		63A3F2241E35355500AA8A92 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
-		63A3F2251E35355500AA8A92 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
-		63A3F2261E35355500AA8A92 /* MainViewControllerConstraints.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewControllerConstraints.swift; sourceTree = "<group>"; };
 		63A3F2271E35355500AA8A92 /* StartButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartButton.swift; sourceTree = "<group>"; };
 		63A3F2341E37082100AA8A92 /* MainViewControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewControllerTests.swift; sourceTree = "<group>"; };
 		63A3F2371E3AED5D00AA8A92 /* StartButtonTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartButtonTests.swift; sourceTree = "<group>"; };
@@ -144,17 +130,7 @@
 		63C9A1871E7E242B00AB9144 /* SettingsOverlay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsOverlay.swift; sourceTree = "<group>"; };
 		63C9A18B1E80C13A00AB9144 /* SettingsOverlayTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsOverlayTests.swift; sourceTree = "<group>"; };
 		63C9A18F1E83544000AB9144 /* FadeOverlayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FadeOverlayView.swift; sourceTree = "<group>"; };
-		63C9A1931E87F8D900AB9144 /* VoiceNotificationsButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VoiceNotificationsButton.swift; sourceTree = "<group>"; };
 		63C9A1981E883DA300AB9144 /* UIViewExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewExtension.swift; sourceTree = "<group>"; };
-		63C9A19A1E88445A00AB9144 /* SettingsButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsButton.swift; sourceTree = "<group>"; };
-		63C9A19D1E8844E200AB9144 /* VibrationNotificationsButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VibrationNotificationsButton.swift; sourceTree = "<group>"; };
-		63C9A19F1E88451800AB9144 /* ThemeButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeButton.swift; sourceTree = "<group>"; };
-		63C9A1A11E88455900AB9144 /* PreviousLapTimeButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreviousLapTimeButton.swift; sourceTree = "<group>"; };
-		63C9A1A31E8845B400AB9144 /* AverageLapTimeButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AverageLapTimeButton.swift; sourceTree = "<group>"; };
-		63C9A1A51E8845D400AB9144 /* TotalTimeButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TotalTimeButton.swift; sourceTree = "<group>"; };
-		63C9A1A71E8845F500AB9144 /* VibrateOnLapButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VibrateOnLapButton.swift; sourceTree = "<group>"; };
-		63C9A1A91E88462F00AB9144 /* VibrateOnPauseButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VibrateOnPauseButton.swift; sourceTree = "<group>"; };
-		63C9A1AB1E88465100AB9144 /* VibrateOnClearButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VibrateOnClearButton.swift; sourceTree = "<group>"; };
 		63CB14051E67AD2900F7BC14 /* LapTimeTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LapTimeTableCell.swift; sourceTree = "<group>"; };
 		63CB14091E6D0A6300F7BC14 /* TimerHelpTextLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimerHelpTextLabel.swift; sourceTree = "<group>"; };
 		63CB140B1E6E4E0A00F7BC14 /* AnimationService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimationService.swift; sourceTree = "<group>"; };
@@ -267,7 +243,6 @@
 		63A3F22E1E35356200AA8A92 /* Components */ = {
 			isa = PBXGroup;
 			children = (
-				63C9A1AD1E8DD97300AB9144 /* SettingsButtons */,
 				63A3F2271E35355500AA8A92 /* StartButton.swift */,
 				633966981E47549800D43896 /* TotalTimeLabel.swift */,
 				634CACE21E52A80B0064FD5E /* DividerLabel.swift */,
@@ -277,7 +252,6 @@
 				63C9A1831E7D752500AB9144 /* OpenSettingsButton.swift */,
 				63C9A1871E7E242B00AB9144 /* SettingsOverlay.swift */,
 				63C9A18F1E83544000AB9144 /* FadeOverlayView.swift */,
-				63C9A19A1E88445A00AB9144 /* SettingsButton.swift */,
 				63C65EB31E9AA88B006835E3 /* LapTimeTableEmptyLabel.swift */,
 				63C65EB71E9B14F4006835E3 /* SettingsTable.swift */,
 				63C65EB91E9B197D006835E3 /* SettingsTableCell.swift */,
@@ -289,7 +263,6 @@
 			isa = PBXGroup;
 			children = (
 				63A3F2301E35358400AA8A92 /* Constraints */,
-				63A3F2251E35355500AA8A92 /* MainViewController.swift */,
 				631C6A331E99986B00390478 /* MainPageViewController.swift */,
 				631C6A391E99A00800390478 /* LapTimeViewController.swift */,
 				631C6A371E999FE500390478 /* DashboardViewController.swift */,
@@ -301,7 +274,6 @@
 		63A3F2301E35358400AA8A92 /* Constraints */ = {
 			isa = PBXGroup;
 			children = (
-				63A3F2261E35355500AA8A92 /* MainViewControllerConstraints.swift */,
 				63C65EB11E9A6F55006835E3 /* LapTimeViewControllerConstraints.swift */,
 				631C6A3B1E99C4DD00390478 /* DashboardViewControllerConstraints.swift */,
 				63C65EBB1E9B1DA5006835E3 /* SettingsViewControllerConstraints.swift */,
@@ -372,22 +344,6 @@
 				63C9A1981E883DA300AB9144 /* UIViewExtension.swift */,
 			);
 			name = Extensions;
-			sourceTree = "<group>";
-		};
-		63C9A1AD1E8DD97300AB9144 /* SettingsButtons */ = {
-			isa = PBXGroup;
-			children = (
-				63C9A1931E87F8D900AB9144 /* VoiceNotificationsButton.swift */,
-				63C9A19D1E8844E200AB9144 /* VibrationNotificationsButton.swift */,
-				63C9A19F1E88451800AB9144 /* ThemeButton.swift */,
-				63C9A1A11E88455900AB9144 /* PreviousLapTimeButton.swift */,
-				63C9A1A31E8845B400AB9144 /* AverageLapTimeButton.swift */,
-				63C9A1A51E8845D400AB9144 /* TotalTimeButton.swift */,
-				63C9A1A71E8845F500AB9144 /* VibrateOnLapButton.swift */,
-				63C9A1A91E88462F00AB9144 /* VibrateOnPauseButton.swift */,
-				63C9A1AB1E88465100AB9144 /* VibrateOnClearButton.swift */,
-			);
-			name = SettingsButtons;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -545,8 +501,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				63A3F22B1E35355500AA8A92 /* MainViewControllerConstraints.swift in Sources */,
-				63C9A1941E87F8D900AB9144 /* VoiceNotificationsButton.swift in Sources */,
 				631C6A341E99986B00390478 /* MainPageViewController.swift in Sources */,
 				63C9A1991E883DA300AB9144 /* UIViewExtension.swift in Sources */,
 				63C65EB21E9A6F55006835E3 /* LapTimeViewControllerConstraints.swift in Sources */,
@@ -555,23 +509,18 @@
 				63C65EB41E9AA88B006835E3 /* LapTimeTableEmptyLabel.swift in Sources */,
 				634CACE31E52A80B0064FD5E /* DividerLabel.swift in Sources */,
 				631C6A361E999F4200390478 /* SettingsViewController.swift in Sources */,
-				63C9A1A41E8845B400AB9144 /* AverageLapTimeButton.swift in Sources */,
 				63E9BBE01EA07BFD0019FC35 /* SpeechService.swift in Sources */,
 				63C65EBC1E9B1DA5006835E3 /* SettingsViewControllerConstraints.swift in Sources */,
 				63A3F1F71E34FE3800AA8A92 /* GoTime.xcdatamodeld in Sources */,
 				63C9A1901E83544000AB9144 /* FadeOverlayView.swift in Sources */,
-				63C9A1A61E8845D400AB9144 /* TotalTimeButton.swift in Sources */,
 				6386BF211E3EC1FC00BD2875 /* TimeToTextService.swift in Sources */,
 				63A3F1EF1E34FE3800AA8A92 /* AppDelegate.swift in Sources */,
 				63C9A1881E7E242B00AB9144 /* SettingsOverlay.swift in Sources */,
 				631C6A3A1E99A00800390478 /* LapTimeViewController.swift in Sources */,
 				63C65EB61E9AF93F006835E3 /* SettingsService.swift in Sources */,
-				63C9A1A01E88451800AB9144 /* ThemeButton.swift in Sources */,
-				63C9A1AC1E88465100AB9144 /* VibrateOnClearButton.swift in Sources */,
 				63A3F2291E35355500AA8A92 /* Constants.swift in Sources */,
 				63C9A1841E7D752500AB9144 /* OpenSettingsButton.swift in Sources */,
 				631C6A381E999FE500390478 /* DashboardViewController.swift in Sources */,
-				63A3F22A1E35355500AA8A92 /* MainViewController.swift in Sources */,
 				63A3F22C1E35355500AA8A92 /* StartButton.swift in Sources */,
 				6386BF2F1E440EE500BD2875 /* CoreDataService.swift in Sources */,
 				63C65EBA1E9B197D006835E3 /* SettingsTableCell.swift in Sources */,
@@ -579,12 +528,7 @@
 				63CB140A1E6D0A6300F7BC14 /* TimerHelpTextLabel.swift in Sources */,
 				633966991E47549800D43896 /* TotalTimeLabel.swift in Sources */,
 				63A3F23B1E3C195400AA8A92 /* StopWatchService.swift in Sources */,
-				63C9A19E1E8844E200AB9144 /* VibrationNotificationsButton.swift in Sources */,
-				63C9A1A21E88455900AB9144 /* PreviousLapTimeButton.swift in Sources */,
 				63C65EB81E9B14F4006835E3 /* SettingsTable.swift in Sources */,
-				63C9A1AA1E88462F00AB9144 /* VibrateOnPauseButton.swift in Sources */,
-				63C9A19B1E88445A00AB9144 /* SettingsButton.swift in Sources */,
-				63C9A1A81E8845F500AB9144 /* VibrateOnLapButton.swift in Sources */,
 				63CB14061E67AD2900F7BC14 /* LapTimeTableCell.swift in Sources */,
 				631C6A3C1E99C4DD00390478 /* DashboardViewControllerConstraints.swift in Sources */,
 			);

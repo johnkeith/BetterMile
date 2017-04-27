@@ -16,14 +16,18 @@ class SettingsTableCell: UITableViewCell {
     
     var userDefaultsKey: String? {
         didSet {
+            let useDarkMode = Constants.storedSettings.bool(forKey: SettingsService.useDarkModeKey)
+            
+            print(self.userDefaultsKey, useDarkMode)
+            
             if self.userDefaultsKey != nil {
                 self.toggleSwitch.isHidden = false
-                self.backgroundColor = Constants.colorPalette["white"]
-                self.label.textColor = Constants.colorPalette["black"]
+                
+                setColoration(darkModeEnabled: useDarkMode)
             } else {
                 self.toggleSwitch.isHidden = true
-                self.backgroundColor = Constants.colorPalette["black"]
-                self.label.textColor = Constants.colorPalette["white"]
+                
+                setColoration(darkModeEnabled: !useDarkMode)
             }
         }
     }
@@ -33,7 +37,6 @@ class SettingsTableCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         self.selectionStyle = UITableViewCellSelectionStyle.none
-        self.setLineAttributes(line: line)
         
         self.contentView.addSubview(label)
         self.contentView.addSubview(toggleSwitch)
@@ -45,8 +48,11 @@ class SettingsTableCell: UITableViewCell {
         toggleSwitch.isHidden = true
         toggleSwitch.addTarget(self, action:#selector(saveToggleState), for: .touchUpInside)
         
+        setColoration()
+        
         NotificationCenter.default.addObserver(self, selector: #selector(self.handleNotificationOfSave), name: Notification.Name(rawValue: Constants.notificationOfSettingsToggle), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.handleNotificationOfSubToggleFlipped), name: Notification.Name(rawValue: Constants.notificationOfSubSettingsToggle), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.handleNotificationOfDarkModeFlipped), name: Notification.Name(rawValue: Constants.notificationOfDarkModeToggle), object: nil)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -57,10 +63,20 @@ class SettingsTableCell: UITableViewCell {
         label.text = displayName
     }
     
-    func setLineAttributes(line: UILabel) {
-        line.backgroundColor = Constants.colorPalette["black"]
+    func setColoration(darkModeEnabled: Bool = Constants.storedSettings.bool(forKey: SettingsService.useDarkModeKey)) {
+        if darkModeEnabled {
+            self.backgroundColor = Constants.colorPalette["black"]
+            self.label.textColor = Constants.colorPalette["white"]
+            self.line.backgroundColor = Constants.colorPalette["white"]
+            toggleSwitch.onTintColor = Constants.colorPalette["white"]
+        } else {
+            self.backgroundColor = Constants.colorPalette["white"]
+            self.label.textColor = Constants.colorPalette["black"]
+            self.line.backgroundColor = Constants.colorPalette["black"]
+            toggleSwitch.onTintColor = Constants.colorPalette["black"]
+        }
     }
-    
+
     func setToggleState() {
         if userDefaultsKey != nil {
             let state = Constants.storedSettings.bool(forKey: self.userDefaultsKey!)
@@ -76,6 +92,8 @@ class SettingsTableCell: UITableViewCell {
         } else if SettingsService.voiceNotificationOptionKeys.contains(self.userDefaultsKey!) ||
             SettingsService.vibrationNotificationOptionKeys.contains(self.userDefaultsKey!) {
             broadcastSubToggleFlipped()
+        } else if SettingsService.useDarkModeKey == self.userDefaultsKey! {
+            broadcastDarkModeFlipped()
         }
     }
     
@@ -106,8 +124,8 @@ class SettingsTableCell: UITableViewCell {
     
     func broadcastSubToggleFlipped() {
         NotificationCenter.default.post(name: Notification.Name(rawValue: Constants.notificationOfSubSettingsToggle),
-            object: nil,
-            userInfo: ["toggledUserDefaultsKey":userDefaultsKey!])
+                                        object: nil,
+                                        userInfo: ["toggledUserDefaultsKey":userDefaultsKey!])
     }
     
     func handleNotificationOfSubToggleFlipped(notification: Notification) {
@@ -129,6 +147,22 @@ class SettingsTableCell: UITableViewCell {
                 
                 toggleVibrationNotificationsKeyIfAllSubsToggled()
             }
+        }
+    }
+    
+    func broadcastDarkModeFlipped() {
+        NotificationCenter.default.post(name: Notification.Name(rawValue: Constants.notificationOfDarkModeToggle),
+                                        object: nil,
+                                        userInfo: ["value":toggleSwitch.isOn])
+    }
+    
+    func handleNotificationOfDarkModeFlipped(notification: Notification) {
+        let value = notification.userInfo?["value"] as! Bool
+        
+        if self.userDefaultsKey != nil {
+            setColoration(darkModeEnabled: value)
+        } else {
+            setColoration(darkModeEnabled: !value)
         }
     }
     

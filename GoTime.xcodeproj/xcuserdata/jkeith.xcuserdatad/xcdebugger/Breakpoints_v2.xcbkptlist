@@ -516,11 +516,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GoTime/SettingsTableCell.swift"
-            timestampString = "514413932.401851"
+            timestampString = "514950655.624435"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "108"
-            endingLineNumber = "108"
+            startingLineNumber = "126"
+            endingLineNumber = "126"
             landmarkName = "broadcastSubToggleFlipped()"
             landmarkType = "7">
          </BreakpointContent>
@@ -532,11 +532,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GoTime/SettingsTableCell.swift"
-            timestampString = "514413932.401851"
+            timestampString = "514950655.624435"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "104"
-            endingLineNumber = "104"
+            startingLineNumber = "122"
+            endingLineNumber = "122"
             landmarkName = "handleNotificationOfSave(notification:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -581,11 +581,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GoTime/SettingsTableCell.swift"
-            timestampString = "514413932.401851"
+            timestampString = "514950655.624435"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "144"
-            endingLineNumber = "144"
+            startingLineNumber = "178"
+            endingLineNumber = "178"
             landmarkName = "toggleVoiceNotificationsKeyIfAllSubsToggled()"
             landmarkType = "7">
          </BreakpointContent>
@@ -597,11 +597,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GoTime/SettingsTableCell.swift"
-            timestampString = "514413932.401851"
+            timestampString = "514950655.624435"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "144"
-            endingLineNumber = "144"
+            startingLineNumber = "178"
+            endingLineNumber = "178"
             landmarkName = "toggleVoiceNotificationsKeyIfAllSubsToggled()"
             landmarkType = "7">
          </BreakpointContent>
@@ -613,11 +613,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GoTime/SettingsTableCell.swift"
-            timestampString = "514413932.401851"
+            timestampString = "514950655.624435"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "150"
-            endingLineNumber = "150"
+            startingLineNumber = "184"
+            endingLineNumber = "184"
             landmarkName = "toggleVoiceNotificationsKeyIfAllSubsToggled()"
             landmarkType = "7">
          </BreakpointContent>
