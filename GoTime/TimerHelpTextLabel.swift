@@ -28,6 +28,10 @@ class TimerHelpTextLabel: UILabel {
         self.numberOfLines = 2
         self.baselineAdjustment = .alignCenters
         self.textAlignment = .center
+        
+        setColoration()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.handleNotificationOfDarkModeFlipped), name: Notification.Name(rawValue: Constants.notificationOfDarkModeToggle), object: nil)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -40,5 +44,21 @@ class TimerHelpTextLabel: UILabel {
         DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) {
             self.animationService.animateFadeOutView(viewToFadeOut: self, duration: 2.0)
         }
+    }
+    
+    func setColoration(darkModeEnabled: Bool = Constants.storedSettings.bool(forKey: SettingsService.useDarkModeKey)) {
+        if darkModeEnabled {
+            self.textColor = Constants.colorPalette["white"]
+        } else {
+            self.textColor = Constants.colorPalette["black"]
+        }
+    }
+}
+
+extension TimerHelpTextLabel: RespondsToThemeChange {
+    func handleNotificationOfDarkModeFlipped(notification: Notification) {
+        let value = notification.userInfo?["value"] as! Bool
+        
+        setColoration(darkModeEnabled: value)
     }
 }

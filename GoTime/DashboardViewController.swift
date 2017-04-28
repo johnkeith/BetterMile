@@ -46,10 +46,13 @@ class DashboardViewController: UIViewController {
         startButton.delegate = self
         stopWatchService.delegates.append(self)
         
-        addSubviews([startButton, totalTimeLabel,
-                     lapTimeTable, fadeOverlayView, timerHelpTextLabel,
-                     bottomDividerLabel, topDividerLabel])
+        setColoration()
+        
+        addSubviews([totalTimeLabel, lapTimeTable, fadeOverlayView, timerHelpTextLabel,
+                     bottomDividerLabel, topDividerLabel, startButton])
         addConstraints()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.handleNotificationOfDarkModeFlipped), name: Notification.Name(rawValue: Constants.notificationOfDarkModeToggle), object: nil)
     }
     
     required init?(coder: NSCoder) {
@@ -59,7 +62,6 @@ class DashboardViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.view.backgroundColor = Constants.colorPalette["white"]
         self.view.isUserInteractionEnabled = true
     }
     
@@ -135,5 +137,23 @@ extension DashboardViewController: StopWatchServiceDelegate {
         }
         
         timerHelpTextLabel.hide()
+    }
+}
+
+extension DashboardViewController: RespondsToThemeChange {
+    func handleNotificationOfDarkModeFlipped(notification: Notification) {
+        let value = notification.userInfo?["value"] as! Bool
+        
+        setColoration(darkModeEnabled: value)
+    }
+    
+    func setColoration(darkModeEnabled: Bool = Constants.storedSettings.bool(forKey: SettingsService.useDarkModeKey)) {
+        if darkModeEnabled {
+            self.view.backgroundColor = Constants.colorPalette["black"]
+            UIApplication.shared.statusBarStyle = .lightContent
+        } else {
+            self.view.backgroundColor = Constants.colorPalette["white"]
+            UIApplication.shared.statusBarStyle = .default
+        }
     }
 }

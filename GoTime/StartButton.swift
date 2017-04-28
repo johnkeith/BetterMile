@@ -39,7 +39,6 @@ class StartButton: UIButton {
     
     func sharedInit() { // UNTESTED        
         setTitle("START", for: UIControlState.normal)
-        setTitleColor(Constants.colorPalette["black"], for: UIControlState.normal)
         
         titleLabel?.font = Constants.responsiveDefaultFont
         titleLabel?.adjustsFontSizeToFitWidth = true
@@ -48,9 +47,29 @@ class StartButton: UIButton {
         titleLabel?.textAlignment = .center
         
         addTarget(self, action:#selector(onStartTap), for: .touchUpInside)
+        
+        setColoration()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.handleNotificationOfDarkModeFlipped), name: Notification.Name(rawValue: Constants.notificationOfDarkModeToggle), object: nil)
     }
     
     func onStartTap(sender: StartButton) {
         delegate.onStartTap(sender: sender)
+    }
+}
+
+extension StartButton: RespondsToThemeChange {
+    func handleNotificationOfDarkModeFlipped(notification: Notification) {
+        let value = notification.userInfo?["value"] as! Bool
+        
+        setColoration(darkModeEnabled: value)
+    }
+    
+    func setColoration(darkModeEnabled: Bool = Constants.storedSettings.bool(forKey: SettingsService.useDarkModeKey)) {
+        if darkModeEnabled {
+            setTitleColor(Constants.colorPalette["white"], for: UIControlState.normal)
+        } else {
+            setTitleColor(Constants.colorPalette["black"], for: UIControlState.normal)
+        }
     }
 }

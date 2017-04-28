@@ -14,10 +14,29 @@ class DividerLabel: UILabel {
         super.init(frame: defaultFrame)
         
         self.isHidden = hidden
-        self.backgroundColor = Constants.colorPalette["black"]
+
+        setColoration()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.handleNotificationOfDarkModeFlipped), name: Notification.Name(rawValue: Constants.notificationOfDarkModeToggle), object: nil)
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) is not supported")
+    }
+}
+
+extension DividerLabel: RespondsToThemeChange {
+    func handleNotificationOfDarkModeFlipped(notification: Notification) {
+        let value = notification.userInfo?["value"] as! Bool
+        
+        setColoration(darkModeEnabled: value)
+    }
+    
+    func setColoration(darkModeEnabled: Bool = Constants.storedSettings.bool(forKey: SettingsService.useDarkModeKey)) {
+        if darkModeEnabled {
+            self.backgroundColor = Constants.colorPalette["white"]
+        } else {
+            self.backgroundColor = Constants.colorPalette["black"]
+        }
     }
 }

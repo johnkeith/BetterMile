@@ -18,12 +18,15 @@ class LapTimeTableCell: UITableViewCell {
         self.selectionStyle = UITableViewCellSelectionStyle.none
         
         self.setLabelAttributes(label: label)
-        self.setLineAttributes(line: line)
         
         self.contentView.addSubview(label)
         self.contentView.addSubview(line)
         
         self.addLabelAndLineConstraints(label: label, line: line)
+        
+        setColoration()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.handleNotificationOfDarkModeFlipped), name: Notification.Name(rawValue: Constants.notificationOfDarkModeToggle), object: nil)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -44,11 +47,6 @@ class LapTimeTableCell: UITableViewCell {
     }
     
     // TODO: UNTESTED
-    func setLineAttributes(line: UILabel) {
-        line.backgroundColor = Constants.colorPalette["black"]
-    }
-    
-    // TODO: UNTESTED
     func addLabelAndLineConstraints(label: UILabel, line: UILabel) {
         // TODO: FIX - there must be a better place for this
         label.snp.makeConstraints { (make) -> Void in
@@ -60,6 +58,26 @@ class LapTimeTableCell: UITableViewCell {
         line.snp.makeConstraints { (make) -> Void in
             make.width.equalTo(line.superview!)
             make.height.equalTo(1)
+        }
+    }
+}
+
+extension LapTimeTableCell: RespondsToThemeChange {
+    func handleNotificationOfDarkModeFlipped(notification: Notification) {
+        let value = notification.userInfo?["value"] as! Bool
+        
+        setColoration(darkModeEnabled: value)
+    }
+    
+    func setColoration(darkModeEnabled: Bool = Constants.storedSettings.bool(forKey: SettingsService.useDarkModeKey)) {
+        if darkModeEnabled {
+            self.label.textColor = Constants.colorPalette["white"]
+            self.backgroundColor = Constants.colorPalette["black"]
+            self.line.backgroundColor = Constants.colorPalette["white"]
+        } else {
+            self.label.textColor = Constants.colorPalette["black"]
+            self.backgroundColor = Constants.colorPalette["white"]
+            self.line.backgroundColor = Constants.colorPalette["black"]
         }
     }
 }

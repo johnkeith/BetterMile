@@ -24,6 +24,10 @@ class SettingsTable: UITableView {
         self.showsVerticalScrollIndicator = false
         
         self.register(SettingsTableCell.self, forCellReuseIdentifier: "settingsTableCell")
+        
+        setColoration()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.handleNotificationOfDarkModeFlipped), name: Notification.Name(rawValue: Constants.notificationOfDarkModeToggle), object: nil)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -68,5 +72,21 @@ extension SettingsTable: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat{
         return Constants.lapTimeTableCellHeight
+    }
+}
+
+extension SettingsTable: RespondsToThemeChange {
+    func handleNotificationOfDarkModeFlipped(notification: Notification) {
+        let value = notification.userInfo?["value"] as! Bool
+        
+        setColoration(darkModeEnabled: value)
+    }
+    
+    func setColoration(darkModeEnabled: Bool = Constants.storedSettings.bool(forKey: SettingsService.useDarkModeKey)) {
+        if darkModeEnabled {
+            self.backgroundColor = Constants.colorPalette["black"]
+        } else {
+            self.backgroundColor = Constants.colorPalette["white"]
+        }
     }
 }

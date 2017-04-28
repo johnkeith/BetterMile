@@ -8,8 +8,14 @@
 
 import UIKit
 
+protocol RespondsToThemeChange {
+    func handleNotificationOfDarkModeFlipped(notification: Notification)
+    
+    func setColoration(darkModeEnabled: Bool)
+}
+
 // TODO: UNTESTED
-class SettingsTableCell: UITableViewCell {
+class SettingsTableCell: UITableViewCell, RespondsToThemeChange {
     let label = UILabel(frame: CGRect())
     let toggleSwitch = UISwitch(frame: CGRect())
     let line = UILabel(frame: CGRect())
@@ -17,8 +23,6 @@ class SettingsTableCell: UITableViewCell {
     var userDefaultsKey: String? {
         didSet {
             let useDarkMode = Constants.storedSettings.bool(forKey: SettingsService.useDarkModeKey)
-            
-            print(self.userDefaultsKey, useDarkMode)
             
             if self.userDefaultsKey != nil {
                 self.toggleSwitch.isHidden = false

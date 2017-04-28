@@ -8,7 +8,7 @@
 
 import UIKit
 
-// TODO: UNTESTED
+// TODO: UNTESTED - REMOVE?
 class LapTimeTableEmptyLabel: UILabel {
     var animationService: AnimationService
     

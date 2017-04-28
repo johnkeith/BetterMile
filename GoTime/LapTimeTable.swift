@@ -26,7 +26,11 @@ class LapTimeTable: UITableView {
         self.separatorStyle = .none
         self.showsVerticalScrollIndicator = false
         
+        setColoration()
+        
         self.register(LapTimeTableCell.self, forCellReuseIdentifier: "lapTimeTableCell")
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.handleNotificationOfDarkModeFlipped), name: Notification.Name(rawValue: Constants.notificationOfDarkModeToggle), object: nil)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -70,6 +74,22 @@ extension LapTimeTable: UITableViewDataSource {
         cell.setContent(labelText: content)
         
         return cell
+    }
+}
+
+extension LapTimeTable: RespondsToThemeChange {
+    func handleNotificationOfDarkModeFlipped(notification: Notification) {
+        let value = notification.userInfo?["value"] as! Bool
+        
+        setColoration(darkModeEnabled: value)
+    }
+    
+    func setColoration(darkModeEnabled: Bool = Constants.storedSettings.bool(forKey: SettingsService.useDarkModeKey)) {
+        if darkModeEnabled {
+            self.backgroundColor = Constants.colorPalette["black"]
+        } else {
+            self.backgroundColor = Constants.colorPalette["white"]
+        }
     }
 }
 

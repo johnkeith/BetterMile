@@ -12,6 +12,7 @@ protocol OpenSettingsButtonDelegate: class {
     func onSettingsTap(sender: OpenSettingsButton)
 }
 
+// TODO: REMOVE?
 class OpenSettingsButton: UIButton {
     var delegate: OpenSettingsButtonDelegate!
     

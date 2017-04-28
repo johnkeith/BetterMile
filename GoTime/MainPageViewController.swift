@@ -31,6 +31,8 @@ class MainPageViewController: UIPageViewController {
         self.speechService = speechService
 
         super.init(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.handleNotificationOfDarkModeFlipped), name: Notification.Name(rawValue: Constants.notificationOfDarkModeToggle), object: nil)
     }
     
     required init?(coder: NSCoder) {
@@ -39,18 +41,20 @@ class MainPageViewController: UIPageViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        self.view.backgroundColor = Constants.colorPalette["white"]
+        
         self.delegate = self
         self.dataSource = self
         self.stopWatchService.delegates.append(self)
         
         configurePageControl()
+        setColoration()
     
         setViewControllers([orderedViewControllers[0]],
                            direction: .forward,
                            animated: true,
                            completion: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.handleNotificationOfDarkModeFlipped), name: Notification.Name(rawValue: Constants.notificationOfDarkModeToggle), object: nil)
     }
     
     func configurePageControl() {
@@ -58,11 +62,30 @@ class MainPageViewController: UIPageViewController {
         pageControl = UIPageControl(frame: CGRect(x: 0,y: UIScreen.main.bounds.maxY - 40, width: UIScreen.main.bounds.width, height: 40))
         self.pageControl.numberOfPages = orderedViewControllers.count
         self.pageControl.currentPage = 0
-        self.pageControl.tintColor = UIColor.black
-        self.pageControl.pageIndicatorTintColor = UIColor.gray
-        self.pageControl.currentPageIndicatorTintColor = UIColor.black
         
         self.view.addSubview(pageControl)
+    }
+}
+
+extension MainPageViewController: RespondsToThemeChange {
+    func handleNotificationOfDarkModeFlipped(notification: Notification) {
+        let value = notification.userInfo?["value"] as! Bool
+        
+        setColoration(darkModeEnabled: value)
+    }
+    
+    func setColoration(darkModeEnabled: Bool = Constants.storedSettings.bool(forKey: SettingsService.useDarkModeKey)) {
+        if darkModeEnabled {
+            self.view.backgroundColor = Constants.colorPalette["black"]
+            self.pageControl.tintColor = UIColor.white
+            self.pageControl.pageIndicatorTintColor = UIColor.gray
+            self.pageControl.currentPageIndicatorTintColor = UIColor.white
+        } else {
+            self.view.backgroundColor = Constants.colorPalette["white"]
+            self.pageControl.tintColor = UIColor.black
+            self.pageControl.pageIndicatorTintColor = UIColor.gray
+            self.pageControl.currentPageIndicatorTintColor = UIColor.black
+        }
     }
 }
 

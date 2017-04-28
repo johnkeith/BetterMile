@@ -24,6 +24,10 @@ class TotalTimeLabel: UILabel {
         self.numberOfLines = 1
         self.baselineAdjustment = .alignCenters
         self.textAlignment = .center
+        
+        setColoration()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.handleNotificationOfDarkModeFlipped), name: Notification.Name(rawValue: Constants.notificationOfDarkModeToggle), object: nil)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -34,6 +38,22 @@ class TotalTimeLabel: UILabel {
         memoizedText = time
         
         self.text = memoizedText
+    }
+}
+
+extension TotalTimeLabel: RespondsToThemeChange {
+    func handleNotificationOfDarkModeFlipped(notification: Notification) {
+        let value = notification.userInfo?["value"] as! Bool
+        
+        setColoration(darkModeEnabled: value)
+    }
+    
+    func setColoration(darkModeEnabled: Bool = Constants.storedSettings.bool(forKey: SettingsService.useDarkModeKey)) {
+        if darkModeEnabled {
+            self.textColor = Constants.colorPalette["white"]
+        } else {
+            self.textColor = Constants.colorPalette["black"]
+        }
     }
 }
 

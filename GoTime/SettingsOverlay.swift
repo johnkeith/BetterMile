@@ -12,7 +12,7 @@ protocol SettingsOverlayDelegate: class  {
     func onSettingsOverlayHide()
 }
 
-// TODO: UNTESTED
+// TODO: UNTESTED - REMOVE?
 class SettingsOverlay: UIView {
     var delegate: SettingsOverlayDelegate!
     

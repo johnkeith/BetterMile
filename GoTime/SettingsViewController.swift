@@ -27,9 +27,13 @@ class SettingsViewController: UIViewController {
         
         super.init(nibName: nil, bundle: nil)
         
+        setColoration()
+        
         self.addSubviews([settingsTable, bottomDividerLabel, topDividerLabel])
         
         addConstraints()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.handleNotificationOfDarkModeFlipped), name: Notification.Name(rawValue: Constants.notificationOfDarkModeToggle), object: nil)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -40,5 +44,21 @@ class SettingsViewController: UIViewController {
         SettingsViewControllerConstraints.positionSettingsTable(settingsTable: settingsTable)
         SettingsViewControllerConstraints.positionBottomDividerLabel(dividerLabel: bottomDividerLabel)
         SettingsViewControllerConstraints.positionTopDividerLabel(dividerLabel: topDividerLabel)
+    }
+}
+
+extension SettingsViewController: RespondsToThemeChange {
+    func handleNotificationOfDarkModeFlipped(notification: Notification) {
+        let value = notification.userInfo?["value"] as! Bool
+        
+        setColoration(darkModeEnabled: value)
+    }
+    
+    func setColoration(darkModeEnabled: Bool = Constants.storedSettings.bool(forKey: SettingsService.useDarkModeKey)) {
+        if darkModeEnabled {
+            self.view.backgroundColor = Constants.colorPalette["black"]
+        } else {
+            self.view.backgroundColor = Constants.colorPalette["white"]
+        }
     }
 }
