@@ -30,7 +30,6 @@ class DashboardViewControllerConstraints {
             make.height.equalTo(totalTimeLabel.superview!.frame.height / 6)
             make.centerX.equalTo(totalTimeLabel.superview!)
             make.top.equalTo(totalTimeLabel.superview!).offset(defaultMargin * 2)
-//            make.centerY.equalTo(totalTimeLabel.superview!).offset(-defaultMargin * 2)
         }
     }
 
@@ -38,14 +37,10 @@ class DashboardViewControllerConstraints {
         timerHelpTextLabel.snp.makeConstraints { (make) -> Void in
             make.width.equalTo(timerHelpTextLabel.superview!).offset(-(defaultMargin * 2))
             make.height.equalTo(timerHelpTextLabel.superview!.frame.height / 5)
-//            make.top.equalTo(timerHelpTextLabel.superview!).offset(defaultMargin * 3)
             make.centerY.equalTo(timerHelpTextLabel.superview!)
-//            make.left.equalTo(timerHelpTextLabel.superview!).offset(defaultMargin)
             make.centerX.equalTo(timerHelpTextLabel.superview!)
         }
     }
-    
-//  Lap Time Table Constraints
     
     class func positionLapTimeTable(lapTimeTable: LapTimeTable, totalTimeLabel: TotalTimeLabel) {
         lapTimeTable.snp.makeConstraints { (make) -> Void in
