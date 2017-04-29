@@ -52,6 +52,11 @@ class LapTimeTable: UITableView {
         self.lapData.removeAll()
         self.reloadData()
     }
+    
+//  TODO: UNTESTED
+    func setRowHeightBySuperview(_superview: UIView) {
+        self.rowHeight = _superview.frame.height / 9
+    }
 }
 
 extension LapTimeTable: UITableViewDataSource {
@@ -72,6 +77,7 @@ extension LapTimeTable: UITableViewDataSource {
         let cell = self.dequeueReusableCell(withIdentifier: "lapTimeTableCell") as! LapTimeTableCell
         
         cell.setContent(labelText: content)
+        cell.addLabelAndLineConstraints(rowHeight: self.rowHeight)
         
         return cell
     }

@@ -52,6 +52,8 @@ class DashboardViewController: UIViewController {
                      bottomDividerLabel, topDividerLabel, startButton])
         addConstraints()
         
+        lapTimeTable.setRowHeightBySuperview(_superview: self.view)
+        
         NotificationCenter.default.addObserver(self, selector: #selector(self.handleNotificationOfDarkModeFlipped), name: Notification.Name(rawValue: Constants.notificationOfDarkModeToggle), object: nil)
     }
     

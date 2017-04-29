@@ -21,9 +21,7 @@ class LapTimeTableCell: UITableViewCell {
         
         self.contentView.addSubview(label)
         self.contentView.addSubview(line)
-        
-        self.addLabelAndLineConstraints(label: label, line: line)
-        
+                
         setColoration()
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.handleNotificationOfDarkModeFlipped), name: Notification.Name(rawValue: Constants.notificationOfDarkModeToggle), object: nil)
@@ -47,15 +45,15 @@ class LapTimeTableCell: UITableViewCell {
     }
     
     // TODO: UNTESTED
-    func addLabelAndLineConstraints(label: UILabel, line: UILabel) {
+    func addLabelAndLineConstraints(rowHeight: CGFloat) {
         // TODO: FIX - there must be a better place for this
-        label.snp.makeConstraints { (make) -> Void in
+        self.label.snp.makeConstraints { (make) -> Void in
             make.width.equalTo(label.superview!).offset(-Constants.defaultMargin)
             make.left.equalTo(label.superview!).offset(Constants.defaultMargin / 2)
-            make.height.equalTo(Constants.lapTimeTableCellHeight)
+            make.height.equalTo(rowHeight)
         }
         
-        line.snp.makeConstraints { (make) -> Void in
+        self.line.snp.makeConstraints { (make) -> Void in
             make.width.equalTo(line.superview!)
             make.height.equalTo(1)
         }

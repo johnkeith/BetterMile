@@ -17,9 +17,7 @@ class MainPageViewController: UIPageViewController {
     var pageControl = UIPageControl()
     var doubleTapRecognizer: UITapGestureRecognizer! // TODO: SMELLY
     var longPressRecognizer: UILongPressGestureRecognizer! // TODO: SMELLY
-    
-    var lapTimeTableRefreshEnqueued = false
-    
+        
     lazy var orderedViewControllers: [UIViewController] = {
         return [DashboardViewController(stopWatchService: self.stopWatchService),
                 SettingsViewController()]
@@ -140,18 +138,10 @@ extension MainPageViewController: StopWatchServiceDelegate {
 
 extension MainPageViewController {
     func refreshLapTableData() {
-        if self.lapTimeTableRefreshEnqueued == false {
-            self.lapTimeTableRefreshEnqueued = true
-            
-            DispatchQueue.main.async {
-                // TODO: UNTESTED (the reversing)
-                let ctrl = self.orderedViewControllers[0] as! DashboardViewController
-                
-                ctrl.lapTimeTable.setLapData(lapData: self.stopWatchService.lapTimes.reversed())
-                ctrl.lapTimeTable.reloadData()
-                self.lapTimeTableRefreshEnqueued = false
-            }
-        }
+        let ctrl = self.orderedViewControllers[0] as! DashboardViewController
+        
+        ctrl.lapTimeTable.setLapData(lapData: self.stopWatchService.lapTimes.reversed())
+        ctrl.lapTimeTable.reloadData()
     }
     
     func viewDoubleTapped() {
