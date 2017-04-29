@@ -57,7 +57,7 @@ class DashboardViewControllerConstraints {
         
         lapTimeTable.layoutIfNeeded()
         
-        lapTimeTable.contentInset = UIEdgeInsetsMake(0.0, 0.0, lapTimeTable.frame.height - Constants.lapTimeTableCellHeight, 0.0)
+        lapTimeTable.contentInset = UIEdgeInsetsMake(0.0, 0.0, lapTimeTable.frame.height - lapTimeTable.superview!.frame.height / 9, 0.0)
     }
     
     class func positionFadeOverlayView(fadeOverlayView: FadeOverlayView, lapTimeTable: LapTimeTable) {
