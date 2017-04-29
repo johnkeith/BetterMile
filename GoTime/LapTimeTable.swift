@@ -69,17 +69,48 @@ extension LapTimeTable: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let time = timeToTextService.timeAsSingleString(inputTime: lapData[indexPath.row])
+        let index = indexPath.row
+        let time = timeToTextService.timeAsSingleString(inputTime: lapData[index])
         let lapNumber = lapData.count - indexPath.row
-        let content = "\(lapNumber > 9 ? "" : "0")\(lapNumber) - \(time)"
-// TODO: WHY DOES THIS NOT WORK, BUT REMOVING THE FOR MAKES IT WORK?
-//        let cell = self.dequeueReusableCell(withIdentifier: "lapTimeTableCell", for: indexPath) as! LapTimeTableCell
+        
+        var content = "\(lapNumber > 9 ? "" : "0")\(lapNumber) - \(time)"
+        
+        if lapData.count > 2 {
+            content = addEmojiToCell(content, at: index, checkForSlowest: true)
+        } else if lapData.count == 2 {
+            content = addEmojiToCell(content, at: index)
+        }
+        
         let cell = self.dequeueReusableCell(withIdentifier: "lapTimeTableCell") as! LapTimeTableCell
         
         cell.setContent(labelText: content)
         cell.addLabelAndLineConstraints(rowHeight: self.rowHeight)
         
         return cell
+    }
+    
+    func addEmojiToCell(_ content: String, at index: Int, checkForSlowest: Bool = false) -> String {
+        var result = content
+        
+        if checkForSlowest && isSlowestLap(index){
+            result = "🐢 \(result)"
+        } else if isFastestLap(index) {
+            result = "💪 \(result)"
+        }
+        
+        return result
+    }
+    
+    func isSlowestLap(_ index: Int) -> Bool {
+        let slowestLapIndex = StopWatchService.findSlowestLapIndex(self.lapData)
+        
+        return slowestLapIndex == index
+    }
+    
+    func isFastestLap(_ index: Int) -> Bool {
+        let fastestLapIndex = StopWatchService.findFastestLapIndex(self.lapData)
+        
+        return fastestLapIndex == index
     }
 }
 

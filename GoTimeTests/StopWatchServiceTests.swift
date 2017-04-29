@@ -206,4 +206,44 @@ class StopWatchServiceTests: XCTestCase {
 
         XCTAssertEqual(fakeDelegate.timesLapWasCalled, 3)
     }
+    
+    func testFindFastestLap() {
+        let result = StopWatchService.findFastestLapIndex(service.lapTimes)
+        
+        XCTAssertNil(result)
+        
+        service.start()
+        
+        service.lap()
+        
+        let secondResult = StopWatchService.findFastestLapIndex(service.lapTimes)
+        
+        XCTAssertEqual(secondResult, 0)
+        
+        let testLapTimes = [1.0,2.0,3.0]
+        
+        let thirdResult = StopWatchService.findFastestLapIndex(testLapTimes)
+        
+        XCTAssertEqual(thirdResult, 0)
+    }
+    
+    func testFindSlowestLap() {
+        let result = StopWatchService.findSlowestLapIndex(service.lapTimes)
+        
+        XCTAssertNil(result)
+        
+        service.start()
+        
+        service.lap()
+        
+        let secondResult = StopWatchService.findSlowestLapIndex(service.lapTimes)
+        
+        XCTAssertEqual(secondResult, 0)
+        
+        let testLapTimes = [1.0,2.0,3.0]
+        
+        let thirdResult = StopWatchService.findSlowestLapIndex(testLapTimes)
+        
+        XCTAssertEqual(thirdResult, 2)
+    }
 }

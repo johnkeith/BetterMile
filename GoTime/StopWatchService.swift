@@ -158,3 +158,26 @@ class StopWatchService: NSObject {
         }
     }
 }
+
+// MARK: CLASS FUNCTIONS
+extension StopWatchService {
+    class func findFastestLapIndex(_ laps: [Double]) -> Int? {
+        let min = laps.min()
+        
+        if (min != nil) {
+            return laps.index(of: min!)
+        } else {
+            return nil
+        }
+    }
+    
+    class func findSlowestLapIndex(_ laps: [Double]) -> Int? {
+        let max = laps.max()
+        
+        if (max != nil) {
+            return laps.index(of: max!)
+        } else {
+            return nil
+        }
+    }
+}
