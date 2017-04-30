@@ -65,7 +65,7 @@ extension StartButton: RespondsToThemeChange {
         setColoration(darkModeEnabled: value)
     }
     
-    func setColoration(darkModeEnabled: Bool = Constants.storedSettings.bool(forKey: SettingsService.useDarkModeKey)) {
+    func setColoration(darkModeEnabled: Bool = Constants.storedSettings.bool(forKey: SettingsService.useDarkModeKey), animationDuration: Double = 0.0) {
         if darkModeEnabled {
             setTitleColor(Constants.colorPalette["white"], for: UIControlState.normal)
         } else {

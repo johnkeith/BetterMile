@@ -72,16 +72,7 @@ extension LapTimeTable: UITableViewDataSource {
         let index = indexPath.row
         let time = timeToTextService.timeAsSingleString(inputTime: lapData[index])
         let lapNumber = lapData.count - indexPath.row
-        
-        var content = "\(lapNumber > 9 ? "" : "0")\(lapNumber) - \(time)"
-        
-        if index > 0 {
-            if lapData.count > 2 {
-                content = addEmojiToCell(content, at: index, checkForSlowest: true)
-            } else if lapData.count == 2 {
-                content = addEmojiToCell(content, at: index)
-            }
-        }
+        let content = "\(lapNumber > 9 ? "" : "0")\(lapNumber) - \(time)"
         
         let cell = self.dequeueReusableCell(withIdentifier: "lapTimeTableCell") as! LapTimeTableCell
         
@@ -89,41 +80,6 @@ extension LapTimeTable: UITableViewDataSource {
         cell.addLabelAndLineConstraints(rowHeight: self.rowHeight)
         
         return cell
-    }
-    
-    func addEmojiToCell(_ content: String, at index: Int, checkForSlowest: Bool = false) -> String {
-        var result = content
-        
-        if checkForSlowest && isSlowestLap(index){
-            result = "🐢 \(result)"
-        } else if isFastestLap(index) {
-            result = "👟 \(result)"
-        }
-        
-        return result
-    }
-    
-    func isSlowestLap(_ index: Int) -> Bool {
-        let lapsMinusFirst = Array(self.lapData.dropFirst())
-        let slowestLapIndex = StopWatchService.findSlowestLapIndex(lapsMinusFirst)
-        
-        if slowestLapIndex != nil {
-            return slowestLapIndex! + 1 == index
-        } else {
-            return false
-        }
-        
-    }
-    
-    func isFastestLap(_ index: Int) -> Bool {
-        let lapsMinusFirst = Array(self.lapData.dropFirst())
-        let fastestLapIndex = StopWatchService.findFastestLapIndex(lapsMinusFirst)
-        
-        if fastestLapIndex != nil {
-            return fastestLapIndex! + 1 == index
-        } else {
-            return false
-        }
     }
 }
 
@@ -134,7 +90,7 @@ extension LapTimeTable: RespondsToThemeChange {
         setColoration(darkModeEnabled: value)
     }
     
-    func setColoration(darkModeEnabled: Bool = Constants.storedSettings.bool(forKey: SettingsService.useDarkModeKey)) {
+    func setColoration(darkModeEnabled: Bool = Constants.storedSettings.bool(forKey: SettingsService.useDarkModeKey), animationDuration: Double = 0.0) {
         if darkModeEnabled {
             self.backgroundColor = Constants.colorPalette["black"]
         } else {

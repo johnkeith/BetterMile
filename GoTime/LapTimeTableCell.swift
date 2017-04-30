@@ -48,8 +48,8 @@ class LapTimeTableCell: UITableViewCell {
     func addLabelAndLineConstraints(rowHeight: CGFloat) {
         // TODO: FIX - there must be a better place for this
         self.label.snp.makeConstraints { (make) -> Void in
-            make.width.equalTo(label.superview!).offset(-Constants.defaultMargin)
-            make.left.equalTo(label.superview!).offset(Constants.defaultMargin / 2)
+            make.width.equalTo(label.superview!)
+            make.left.equalTo(label.superview!)
             make.height.equalTo(rowHeight)
         }
         
@@ -67,7 +67,7 @@ extension LapTimeTableCell: RespondsToThemeChange {
         setColoration(darkModeEnabled: value)
     }
     
-    func setColoration(darkModeEnabled: Bool = Constants.storedSettings.bool(forKey: SettingsService.useDarkModeKey)) {
+    func setColoration(darkModeEnabled: Bool = Constants.storedSettings.bool(forKey: SettingsService.useDarkModeKey), animationDuration: Double = 0.0) {
         if darkModeEnabled {
             self.label.textColor = Constants.colorPalette["white"]
             self.backgroundColor = Constants.colorPalette["black"]

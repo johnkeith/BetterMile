@@ -11,7 +11,7 @@ import UIKit
 protocol RespondsToThemeChange {
     func handleNotificationOfDarkModeFlipped(notification: Notification)
     
-    func setColoration(darkModeEnabled: Bool)
+    func setColoration(darkModeEnabled: Bool, animationDuration: Double)
 }
 
 // TODO: UNTESTED
@@ -67,18 +67,20 @@ class SettingsTableCell: UITableViewCell, RespondsToThemeChange {
         label.text = displayName
     }
     
-    func setColoration(darkModeEnabled: Bool = Constants.storedSettings.bool(forKey: SettingsService.useDarkModeKey)) {
-        if darkModeEnabled {
-            self.backgroundColor = Constants.colorPalette["black"]
-            self.label.textColor = Constants.colorPalette["white"]
-            self.line.backgroundColor = Constants.colorPalette["white"]
-            toggleSwitch.onTintColor = Constants.colorPalette["white"]
-        } else {
-            self.backgroundColor = Constants.colorPalette["white"]
-            self.label.textColor = Constants.colorPalette["black"]
-            self.line.backgroundColor = Constants.colorPalette["black"]
-            toggleSwitch.onTintColor = Constants.colorPalette["black"]
-        }
+    func setColoration(darkModeEnabled: Bool = Constants.storedSettings.bool(forKey: SettingsService.useDarkModeKey), animationDuration: Double = 0.0) {
+        UIView.animate(withDuration: animationDuration, animations: {
+            if darkModeEnabled {
+                self.backgroundColor = Constants.colorPalette["black"]
+                self.label.textColor = Constants.colorPalette["white"]
+                self.line.backgroundColor = Constants.colorPalette["white"]
+                self.toggleSwitch.onTintColor = Constants.colorPalette["white"]
+            } else {
+                self.backgroundColor = Constants.colorPalette["white"]
+                self.label.textColor = Constants.colorPalette["black"]
+                self.line.backgroundColor = Constants.colorPalette["black"]
+                self.toggleSwitch.onTintColor = Constants.colorPalette["black"]
+            }
+        })
     }
 
     func setToggleState() {
@@ -155,18 +157,19 @@ class SettingsTableCell: UITableViewCell, RespondsToThemeChange {
     }
     
     func broadcastDarkModeFlipped() {
-        NotificationCenter.default.post(name: Notification.Name(rawValue: Constants.notificationOfDarkModeToggle),
-                                        object: nil,
-                                        userInfo: ["value":toggleSwitch.isOn])
+        //      Waiting a few moments to handle for switch animation
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+            NotificationCenter.default.post(name: Notification.Name(rawValue: Constants.notificationOfDarkModeToggle), object: nil, userInfo: ["value":self.toggleSwitch.isOn])
+        }
     }
     
     func handleNotificationOfDarkModeFlipped(notification: Notification) {
         let value = notification.userInfo?["value"] as! Bool
         
         if self.userDefaultsKey != nil {
-            setColoration(darkModeEnabled: value)
+            self.setColoration(darkModeEnabled: value, animationDuration: 0.2)
         } else {
-            setColoration(darkModeEnabled: !value)
+            self.setColoration(darkModeEnabled: !value, animationDuration: 0.2)
         }
     }
     

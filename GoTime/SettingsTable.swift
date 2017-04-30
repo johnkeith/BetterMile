@@ -82,7 +82,7 @@ extension SettingsTable: RespondsToThemeChange {
         setColoration(darkModeEnabled: value)
     }
     
-    func setColoration(darkModeEnabled: Bool = Constants.storedSettings.bool(forKey: SettingsService.useDarkModeKey)) {
+    func setColoration(darkModeEnabled: Bool = Constants.storedSettings.bool(forKey: SettingsService.useDarkModeKey), animationDuration: Double = 0.0) {
         if darkModeEnabled {
             self.backgroundColor = Constants.colorPalette["black"]
         } else {

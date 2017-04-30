@@ -48,7 +48,7 @@ extension TotalTimeLabel: RespondsToThemeChange {
         setColoration(darkModeEnabled: value)
     }
     
-    func setColoration(darkModeEnabled: Bool = Constants.storedSettings.bool(forKey: SettingsService.useDarkModeKey)) {
+    func setColoration(darkModeEnabled: Bool = Constants.storedSettings.bool(forKey: SettingsService.useDarkModeKey), animationDuration: Double = 0.0) {
         if darkModeEnabled {
             self.textColor = Constants.colorPalette["white"]
         } else {

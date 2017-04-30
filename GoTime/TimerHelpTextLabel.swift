@@ -45,14 +45,6 @@ class TimerHelpTextLabel: UILabel {
             self.animationService.animateFadeOutView(viewToFadeOut: self, duration: 2.0)
         }
     }
-    
-    func setColoration(darkModeEnabled: Bool = Constants.storedSettings.bool(forKey: SettingsService.useDarkModeKey)) {
-        if darkModeEnabled {
-            self.textColor = Constants.colorPalette["white"]
-        } else {
-            self.textColor = Constants.colorPalette["black"]
-        }
-    }
 }
 
 extension TimerHelpTextLabel: RespondsToThemeChange {
@@ -60,5 +52,13 @@ extension TimerHelpTextLabel: RespondsToThemeChange {
         let value = notification.userInfo?["value"] as! Bool
         
         setColoration(darkModeEnabled: value)
+    }
+    
+    func setColoration(darkModeEnabled: Bool = Constants.storedSettings.bool(forKey: SettingsService.useDarkModeKey), animationDuration: Double = 0.0) {
+        if darkModeEnabled {
+            self.textColor = Constants.colorPalette["white"]
+        } else {
+            self.textColor = Constants.colorPalette["black"]
+        }
     }
 }
