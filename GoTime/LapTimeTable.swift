@@ -75,10 +75,12 @@ extension LapTimeTable: UITableViewDataSource {
         
         var content = "\(lapNumber > 9 ? "" : "0")\(lapNumber) - \(time)"
         
-        if lapData.count > 2 {
-            content = addEmojiToCell(content, at: index, checkForSlowest: true)
-        } else if lapData.count == 2 {
-            content = addEmojiToCell(content, at: index)
+        if index > 0 {
+            if lapData.count > 2 {
+                content = addEmojiToCell(content, at: index, checkForSlowest: true)
+            } else if lapData.count == 2 {
+                content = addEmojiToCell(content, at: index)
+            }
         }
         
         let cell = self.dequeueReusableCell(withIdentifier: "lapTimeTableCell") as! LapTimeTableCell
@@ -95,22 +97,33 @@ extension LapTimeTable: UITableViewDataSource {
         if checkForSlowest && isSlowestLap(index){
             result = "🐢 \(result)"
         } else if isFastestLap(index) {
-            result = "💪 \(result)"
+            result = "👟 \(result)"
         }
         
         return result
     }
     
     func isSlowestLap(_ index: Int) -> Bool {
-        let slowestLapIndex = StopWatchService.findSlowestLapIndex(self.lapData)
+        let lapsMinusFirst = Array(self.lapData.dropFirst())
+        let slowestLapIndex = StopWatchService.findSlowestLapIndex(lapsMinusFirst)
         
-        return slowestLapIndex == index
+        if slowestLapIndex != nil {
+            return slowestLapIndex! + 1 == index
+        } else {
+            return false
+        }
+        
     }
     
     func isFastestLap(_ index: Int) -> Bool {
-        let fastestLapIndex = StopWatchService.findFastestLapIndex(self.lapData)
+        let lapsMinusFirst = Array(self.lapData.dropFirst())
+        let fastestLapIndex = StopWatchService.findFastestLapIndex(lapsMinusFirst)
         
-        return fastestLapIndex == index
+        if fastestLapIndex != nil {
+            return fastestLapIndex! + 1 == index
+        } else {
+            return false
+        }
     }
 }
 
