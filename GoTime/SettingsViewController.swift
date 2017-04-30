@@ -51,14 +51,16 @@ extension SettingsViewController: RespondsToThemeChange {
     func handleNotificationOfDarkModeFlipped(notification: Notification) {
         let value = notification.userInfo?["value"] as! Bool
         
-        setColoration(darkModeEnabled: value)
+        setColoration(darkModeEnabled: value, animationDuration: 0.2)
     }
     
     func setColoration(darkModeEnabled: Bool = Constants.storedSettings.bool(forKey: SettingsService.useDarkModeKey), animationDuration: Double = 0.0) {
-        if darkModeEnabled {
-            self.view.backgroundColor = Constants.colorPalette["black"]
-        } else {
-            self.view.backgroundColor = Constants.colorPalette["white"]
-        }
+        UIView.animate(withDuration: animationDuration, animations: {
+            if darkModeEnabled {
+                self.view.backgroundColor = Constants.colorPalette["black"]
+            } else {
+                self.view.backgroundColor = Constants.colorPalette["white"]
+            }
+        })
     }
 }
