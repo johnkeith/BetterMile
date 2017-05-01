@@ -25,6 +25,8 @@
 		6386BF311E44143100BD2875 /* CoreDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6386BF301E44143100BD2875 /* CoreDataService.swift */; };
 		6386BF331E45FE9700BD2875 /* RunPersistanceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6386BF321E45FE9700BD2875 /* RunPersistanceService.swift */; };
 		6386BF351E4602C600BD2875 /* RunPersistanceServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6386BF341E4602C600BD2875 /* RunPersistanceServiceTests.swift */; };
+		639C3E381EB67D1A0075002E /* RestartButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 639C3E371EB67D190075002E /* RestartButton.swift */; };
+		639C3E3A1EB6AED40075002E /* ClearButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 639C3E391EB6AED40075002E /* ClearButton.swift */; };
 		63A3F1EF1E34FE3800AA8A92 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A3F1EE1E34FE3800AA8A92 /* AppDelegate.swift */; };
 		63A3F1F71E34FE3800AA8A92 /* GoTime.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 63A3F1F51E34FE3800AA8A92 /* GoTime.xcdatamodeld */; };
 		63A3F1F91E34FE3800AA8A92 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 63A3F1F81E34FE3800AA8A92 /* Assets.xcassets */; };
@@ -92,6 +94,8 @@
 		6386BF301E44143100BD2875 /* CoreDataService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataService.swift; sourceTree = "<group>"; };
 		6386BF321E45FE9700BD2875 /* RunPersistanceService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RunPersistanceService.swift; sourceTree = "<group>"; };
 		6386BF341E4602C600BD2875 /* RunPersistanceServiceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RunPersistanceServiceTests.swift; sourceTree = "<group>"; };
+		639C3E371EB67D190075002E /* RestartButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestartButton.swift; sourceTree = "<group>"; };
+		639C3E391EB6AED40075002E /* ClearButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClearButton.swift; sourceTree = "<group>"; };
 		63A3F1EB1E34FE3800AA8A92 /* GoTime.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GoTime.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		63A3F1EE1E34FE3800AA8A92 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		63A3F1F61E34FE3800AA8A92 /* GoTime.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = GoTime.xcdatamodel; sourceTree = "<group>"; };
@@ -247,6 +251,8 @@
 				63C65EB31E9AA88B006835E3 /* LapTimeTableEmptyLabel.swift */,
 				63C65EB71E9B14F4006835E3 /* SettingsTable.swift */,
 				63C65EB91E9B197D006835E3 /* SettingsTableCell.swift */,
+				639C3E371EB67D190075002E /* RestartButton.swift */,
+				639C3E391EB6AED40075002E /* ClearButton.swift */,
 			);
 			name = Components;
 			sourceTree = "<group>";
@@ -496,8 +502,10 @@
 				63C65EB41E9AA88B006835E3 /* LapTimeTableEmptyLabel.swift in Sources */,
 				634CACE31E52A80B0064FD5E /* DividerLabel.swift in Sources */,
 				631C6A361E999F4200390478 /* SettingsViewController.swift in Sources */,
+				639C3E3A1EB6AED40075002E /* ClearButton.swift in Sources */,
 				63E9BBE01EA07BFD0019FC35 /* SpeechService.swift in Sources */,
 				63C65EBC1E9B1DA5006835E3 /* SettingsViewControllerConstraints.swift in Sources */,
+				639C3E381EB67D1A0075002E /* RestartButton.swift in Sources */,
 				63A3F1F71E34FE3800AA8A92 /* GoTime.xcdatamodeld in Sources */,
 				63C9A1901E83544000AB9144 /* FadeOverlayView.swift in Sources */,
 				6386BF211E3EC1FC00BD2875 /* TimeToTextService.swift in Sources */,

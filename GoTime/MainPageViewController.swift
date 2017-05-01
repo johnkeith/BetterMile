@@ -77,14 +77,14 @@ extension MainPageViewController: RespondsToThemeChange {
     func setColoration(darkModeEnabled: Bool = Constants.storedSettings.bool(forKey: SettingsService.useDarkModeKey), animationDuration: Double = 0.0) {
         if darkModeEnabled {
             self.view.backgroundColor = Constants.colorPalette["black"]
-            self.pageControl.tintColor = UIColor.white
-            self.pageControl.pageIndicatorTintColor = UIColor.gray
-            self.pageControl.currentPageIndicatorTintColor = UIColor.white
+            self.pageControl.tintColor = Constants.colorPalette["white"]
+            self.pageControl.pageIndicatorTintColor = Constants.colorPalette["gray"]
+            self.pageControl.currentPageIndicatorTintColor = Constants.colorPalette["white"]
         } else {
             self.view.backgroundColor = Constants.colorPalette["white"]
-            self.pageControl.tintColor = UIColor.black
-            self.pageControl.pageIndicatorTintColor = UIColor.gray
-            self.pageControl.currentPageIndicatorTintColor = UIColor.black
+            self.pageControl.tintColor = Constants.colorPalette["black"]
+            self.pageControl.pageIndicatorTintColor = Constants.colorPalette["gray"]
+            self.pageControl.currentPageIndicatorTintColor = Constants.colorPalette["black"]
         }
     }
 }
@@ -109,9 +109,13 @@ extension MainPageViewController: StopWatchServiceDelegate {
         if Constants.storedSettings.bool(forKey: SettingsService.timerPausedKey) {
             speechService.speakTimerPaused()
         }
+        
+//        unregister long press
     }
     
-    func stopWatchRestarted() {}
+    func stopWatchRestarted() {
+//        attach long press
+    }
     func stopWatchLapStored(lapTime: Double, lapNumber: Int, totalTime: Double) {
         let timeTuple = timeToTextService.timeAsMultipleStrings(inputTime: lapTime)
         let averageLapTime = stopWatchService.calculateAverageLapTime()
@@ -159,12 +163,12 @@ extension MainPageViewController {
     
     func viewLongPressed(sender: UILongPressGestureRecognizer) {
         if(sender.state == UIGestureRecognizerState.ended) {
-            if(stopWatchService.timerRunning) {
-                stopWatchService.pause()
-                refreshLapTableData()
-            } else {
-                stopWatchService.stop()
-            }
+//            if(stopWatchService.timerRunning) {
+//                stopWatchService.pause()
+//                refreshLapTableData()
+//            } else {
+//                stopWatchService.stop()
+//            }
         }
     }
     

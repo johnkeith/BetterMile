@@ -25,6 +25,7 @@ class LapTimeTable: UITableView {
         self.rowHeight = 60
         self.separatorStyle = .none
         self.showsVerticalScrollIndicator = false
+        self.alwaysBounceVertical = false
         
         setColoration()
         
@@ -76,10 +77,57 @@ extension LapTimeTable: UITableViewDataSource {
         
         let cell = self.dequeueReusableCell(withIdentifier: "lapTimeTableCell") as! LapTimeTableCell
         
+        if index > 0 {
+            if lapData.count > 2 {
+                setCellTextColor(cell, at: index, checkForSlowest: true)
+            } else if lapData.count == 2 {
+                setCellTextColor(cell, at: index)
+            } else {
+                cell.setTextColorBasedOnSettings()
+            }
+        } else {
+            cell.setTextColorBasedOnSettings()
+        }
+        
         cell.setContent(labelText: content)
         cell.addLabelAndLineConstraints(rowHeight: self.rowHeight)
         
         return cell
+    }
+    
+    func setCellTextColor(_ cell: LapTimeTableCell, at index: Int, checkForSlowest: Bool = false) {
+        if checkForSlowest && isSlowestLap(index){
+            cell.backgroundColor = Constants.colorPalette["flat-red"]
+            cell.label.textColor = Constants.colorPalette["white"]
+        } else if isFastestLap(index) {
+            cell.backgroundColor = Constants.colorPalette["flat-green"]
+            cell.label.textColor = Constants.colorPalette["white"]
+        } else {
+            cell.setTextColorBasedOnSettings()
+        }
+    }
+    
+    func isSlowestLap(_ index: Int) -> Bool {
+        let lapsMinusFirst = Array(self.lapData.dropFirst())
+        let slowestLapIndex = StopWatchService.findSlowestLapIndex(lapsMinusFirst)
+        
+        if slowestLapIndex != nil {
+            return slowestLapIndex! + 1 == index
+        } else {
+            return false
+        }
+        
+    }
+    
+    func isFastestLap(_ index: Int) -> Bool {
+        let lapsMinusFirst = Array(self.lapData.dropFirst())
+        let fastestLapIndex = StopWatchService.findFastestLapIndex(lapsMinusFirst)
+        
+        if fastestLapIndex != nil {
+            return fastestLapIndex! + 1 == index
+        } else {
+            return false
+        }
     }
 }
 
@@ -88,6 +136,7 @@ extension LapTimeTable: RespondsToThemeChange {
         let value = notification.userInfo?["value"] as! Bool
         
         setColoration(darkModeEnabled: value)
+        self.reloadData()
     }
     
     func setColoration(darkModeEnabled: Bool = Constants.storedSettings.bool(forKey: SettingsService.useDarkModeKey), animationDuration: Double = 0.0) {
@@ -97,5 +146,7 @@ extension LapTimeTable: RespondsToThemeChange {
             self.backgroundColor = Constants.colorPalette["white"]
         }
     }
+    
+    
 }
 

@@ -51,6 +51,7 @@ class SettingsTableCell: UITableViewCell, RespondsToThemeChange {
         
         toggleSwitch.isHidden = true
         toggleSwitch.addTarget(self, action:#selector(saveToggleState), for: .touchUpInside)
+        toggleSwitch.onTintColor = Constants.colorPalette["flat-green"]
         
         setColoration()
         
@@ -73,12 +74,10 @@ class SettingsTableCell: UITableViewCell, RespondsToThemeChange {
                 self.backgroundColor = Constants.colorPalette["black"]
                 self.label.textColor = Constants.colorPalette["white"]
                 self.line.backgroundColor = Constants.colorPalette["white"]
-                self.toggleSwitch.onTintColor = Constants.colorPalette["white"]
             } else {
                 self.backgroundColor = Constants.colorPalette["white"]
                 self.label.textColor = Constants.colorPalette["black"]
                 self.line.backgroundColor = Constants.colorPalette["black"]
-                self.toggleSwitch.onTintColor = Constants.colorPalette["black"]
             }
         })
     }

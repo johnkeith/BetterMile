@@ -30,6 +30,7 @@ class DashboardViewControllerConstraints {
             make.height.equalTo(totalTimeLabel.superview!.frame.height / 6)
             make.centerX.equalTo(totalTimeLabel.superview!)
             make.top.equalTo(totalTimeLabel.superview!).offset(defaultMargin * 2)
+//            make.bottom.equalTo(totalTimeLabel.superview!.snp.centerY)
         }
     }
 

@@ -44,9 +44,11 @@ extension FadeOverlayView: RespondsToThemeChange {
         var secondColor: CGColor
         
         if darkModeEnabled {
+            self.isHidden = true
             firstColor = UIColor(white: 0, alpha: 0).cgColor
             secondColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.6).cgColor
         } else {
+            self.isHidden = true
             firstColor = UIColor(white: 1, alpha: 0).cgColor
             secondColor = UIColor(red: 1, green: 1, blue: 1, alpha: 0.6).cgColor
         }

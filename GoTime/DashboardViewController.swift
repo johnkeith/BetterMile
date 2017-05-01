@@ -20,6 +20,8 @@ class DashboardViewController: UIViewController {
     var fadeOverlayView: FadeOverlayView
     var bottomDividerLabel: DividerLabel
     var topDividerLabel: DividerLabel
+    var restartButton: RestartButton?
+    var clearButton: ClearButton?
     
     init(stopWatchService: StopWatchService,
          timeToTextService: TimeToTextService = TimeToTextService(),
@@ -128,6 +130,9 @@ extension DashboardViewController: StopWatchServiceDelegate {
         if Constants.storedSettings.bool(forKey: SettingsService.vibrateOnPauseKey) {
             AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
         }
+        
+//        create clear button
+//        create restart button
     }
     
     func stopWatchRestarted() {}

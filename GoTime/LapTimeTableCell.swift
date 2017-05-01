@@ -69,13 +69,21 @@ extension LapTimeTableCell: RespondsToThemeChange {
     
     func setColoration(darkModeEnabled: Bool = Constants.storedSettings.bool(forKey: SettingsService.useDarkModeKey), animationDuration: Double = 0.0) {
         if darkModeEnabled {
+            self.line.backgroundColor = Constants.colorPalette["white"]
+        } else {
+            self.line.backgroundColor = Constants.colorPalette["black"]
+        }
+        
+        setTextColorBasedOnSettings(darkModeEnabled: darkModeEnabled)
+    }
+    
+    func setTextColorBasedOnSettings(darkModeEnabled: Bool = Constants.storedSettings.bool(forKey: SettingsService.useDarkModeKey)) {
+        if darkModeEnabled {
             self.label.textColor = Constants.colorPalette["white"]
             self.backgroundColor = Constants.colorPalette["black"]
-            self.line.backgroundColor = Constants.colorPalette["white"]
         } else {
             self.label.textColor = Constants.colorPalette["black"]
             self.backgroundColor = Constants.colorPalette["white"]
-            self.line.backgroundColor = Constants.colorPalette["black"]
         }
     }
 }
