@@ -55,6 +55,7 @@
 		63CB14061E67AD2900F7BC14 /* LapTimeTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63CB14051E67AD2900F7BC14 /* LapTimeTableCell.swift */; };
 		63CB140A1E6D0A6300F7BC14 /* TimerHelpTextLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63CB14091E6D0A6300F7BC14 /* TimerHelpTextLabel.swift */; };
 		63CB140C1E6E4E0A00F7BC14 /* AnimationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63CB140B1E6E4E0A00F7BC14 /* AnimationService.swift */; };
+		63CC94EE1EB7FA1C00D5DB0E /* SingleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63CC94ED1EB7FA1C00D5DB0E /* SingleViewController.swift */; };
 		63E9BBE01EA07BFD0019FC35 /* SpeechService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63E9BBDF1EA07BFD0019FC35 /* SpeechService.swift */; };
 /* End PBXBuildFile section */
 
@@ -130,6 +131,7 @@
 		63CB14051E67AD2900F7BC14 /* LapTimeTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LapTimeTableCell.swift; sourceTree = "<group>"; };
 		63CB14091E6D0A6300F7BC14 /* TimerHelpTextLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimerHelpTextLabel.swift; sourceTree = "<group>"; };
 		63CB140B1E6E4E0A00F7BC14 /* AnimationService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimationService.swift; sourceTree = "<group>"; };
+		63CC94ED1EB7FA1C00D5DB0E /* SingleViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SingleViewController.swift; sourceTree = "<group>"; };
 		63E9BBDF1EA07BFD0019FC35 /* SpeechService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpeechService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -264,6 +266,7 @@
 				631C6A331E99986B00390478 /* MainPageViewController.swift */,
 				631C6A371E999FE500390478 /* DashboardViewController.swift */,
 				631C6A351E999F4200390478 /* SettingsViewController.swift */,
+				63CC94ED1EB7FA1C00D5DB0E /* SingleViewController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -501,6 +504,7 @@
 				63CB140C1E6E4E0A00F7BC14 /* AnimationService.swift in Sources */,
 				63C65EB41E9AA88B006835E3 /* LapTimeTableEmptyLabel.swift in Sources */,
 				634CACE31E52A80B0064FD5E /* DividerLabel.swift in Sources */,
+				63CC94EE1EB7FA1C00D5DB0E /* SingleViewController.swift in Sources */,
 				631C6A361E999F4200390478 /* SettingsViewController.swift in Sources */,
 				639C3E3A1EB6AED40075002E /* ClearButton.swift in Sources */,
 				63E9BBE01EA07BFD0019FC35 /* SpeechService.swift in Sources */,

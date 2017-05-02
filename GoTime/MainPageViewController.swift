@@ -163,12 +163,12 @@ extension MainPageViewController {
     
     func viewLongPressed(sender: UILongPressGestureRecognizer) {
         if(sender.state == UIGestureRecognizerState.ended) {
-//            if(stopWatchService.timerRunning) {
-//                stopWatchService.pause()
-//                refreshLapTableData()
-//            } else {
-//                stopWatchService.stop()
-//            }
+            if(stopWatchService.timerRunning) {
+                stopWatchService.pause()
+                refreshLapTableData()
+            } else {
+                stopWatchService.stop()
+            }
         }
     }
     
