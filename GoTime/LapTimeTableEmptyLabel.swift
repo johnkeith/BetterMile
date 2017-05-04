@@ -35,10 +35,10 @@ class LapTimeTableEmptyLabel: UILabel {
         self.alpha = 0
         self.isHidden = false
         
-        animationService.animateFadeInView(viewToFadeIn: self)
+        animationService.animateFadeInView(self)
     }
     
     func fadeOut() {
-        animationService.animateFadeOutView(viewToFadeOut: self)
+        animationService.animateFadeOutView(self)
     }
 }

@@ -42,7 +42,7 @@ class TimerHelpTextLabel: UILabel {
         show()
         
         DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) {
-            self.animationService.animateFadeOutView(viewToFadeOut: self, duration: 2.0)
+            self.animationService.animateFadeOutView(self, duration: 2.0)
         }
     }
 }
