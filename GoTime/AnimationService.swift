@@ -9,6 +9,11 @@
 import UIKit
 
 class AnimationService {
+    enum AnimationDirection {
+        case left
+        case right
+    }
+    
     func animateFadeInView(_ viewToFadeIn: UIView, duration: Double = 0.3) {
         UIView.animate(withDuration: duration, animations: {
             viewToFadeIn.alpha = 1.0
@@ -42,4 +47,43 @@ class AnimationService {
         }, completion: nil)
     }
 
+    func animateMoveVerticallyFromOffscreenBottom(_ view: UIView, duration: Double = 0.5) {
+        view.isHidden = false
+        
+        let position =  CGAffineTransform(translationX: 0, y: 1000)
+        
+        view.transform = position
+        
+        UIView.animate(withDuration: duration,
+                       delay: 0,
+                       usingSpringWithDamping: 1,
+                       initialSpringVelocity: 16.0,
+                       options: .allowUserInteraction,
+            animations: {
+                view.transform = .identity
+        })
+    }
+    
+    func animateMoveHorizontallyFromOffscreen(_ view: UIView, direction: AnimationDirection, duration: Double = 0.5) {
+        view.isHidden = false
+        
+        let position: CGAffineTransform
+        
+        if direction == AnimationDirection.left {
+            position = CGAffineTransform(translationX: -1000, y: 0)
+        } else {
+            position = CGAffineTransform(translationX: 1000, y: 0)
+        }
+        
+        view.transform = position
+        
+        UIView.animate(withDuration: duration,
+                       delay: 0,
+                       usingSpringWithDamping: 1,
+                       initialSpringVelocity: 16.0,
+                       options: .allowUserInteraction,
+                       animations: {
+                        view.transform = .identity
+        })
+    }
 }

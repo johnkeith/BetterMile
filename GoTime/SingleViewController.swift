@@ -113,7 +113,7 @@ class SingleViewController: UIViewController {
     func configVoiceNotificationsBtn() {
         let buttonImage = UIImage(named: "ic_volume_up_48pt")?.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
         
-        voiceNotificationsBtn.isHidden = false
+        voiceNotificationsBtn.isHidden = true
         voiceNotificationsBtn.tintColor = Constants.colorPalette["white"]
         voiceNotificationsBtn.backgroundColor = Constants.colorPalette["black"]
         voiceNotificationsBtn.setImage(buttonImage, for: UIControlState.normal)
@@ -137,10 +137,12 @@ class SingleViewController: UIViewController {
     func configPauseBtn() {
         let buttonImage = UIImage(named: "ic_pause_48pt")?.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
         
-        pauseBtn.isHidden = false
+        pauseBtn.isHidden = true
         pauseBtn.tintColor = Constants.colorPalette["white"]
         pauseBtn.backgroundColor = Constants.colorPalette["black"]
         pauseBtn.setImage(buttonImage, for: UIControlState.normal)
+        
+        pauseBtn.addTarget(self, action:#selector(onPauseTap), for: .touchDown)
         
         let width = pauseBtn.superview!.frame.width / 5
        
@@ -161,7 +163,7 @@ class SingleViewController: UIViewController {
     func configVibrationNotificationBtn() {
         let buttonImage = UIImage(named: "ic_vibration_48pt")?.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
         
-        vibrationNotificationBtn.isHidden = false
+        vibrationNotificationBtn.isHidden = true
         vibrationNotificationBtn.tintColor = Constants.colorPalette["white"]
         vibrationNotificationBtn.backgroundColor = Constants.colorPalette["black"]
         vibrationNotificationBtn.setImage(buttonImage, for: UIControlState.normal)
@@ -184,7 +186,7 @@ class SingleViewController: UIViewController {
     func configClearBtn() {
         let buttonImage = UIImage(named: "ic_clear_48pt")?.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
         
-        clearBtn.isHidden = false
+        clearBtn.isHidden = true
         clearBtn.tintColor = Constants.colorPalette["white"]
         clearBtn.backgroundColor = Constants.colorPalette["black"]
         clearBtn.setImage(buttonImage, for: UIControlState.normal)
@@ -208,10 +210,11 @@ class SingleViewController: UIViewController {
     func configRestartBtn() {
         let buttonImage = UIImage(named: "ic_play_arrow_48pt")?.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
         
-        restartBtn.isHidden = false
+        restartBtn.isHidden = true
         restartBtn.tintColor = Constants.colorPalette["white"]
         restartBtn.backgroundColor = Constants.colorPalette["black"]
         restartBtn.setImage(buttonImage, for: UIControlState.normal)
+        restartBtn.addTarget(self, action:#selector(onRestartTap), for: .touchDown)
         
         let width = restartBtn.superview!.frame.width / 5
         
@@ -232,7 +235,7 @@ class SingleViewController: UIViewController {
     func configLapTableBtn() {
         let buttonImage = UIImage(named: "ic_format_list_numbered_48pt")?.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
         
-        lapTableBtn.isHidden = false
+        lapTableBtn.isHidden = true
         lapTableBtn.tintColor = Constants.colorPalette["white"]
         lapTableBtn.backgroundColor = Constants.colorPalette["black"]
         lapTableBtn.setImage(buttonImage, for: UIControlState.normal)
@@ -255,19 +258,53 @@ class SingleViewController: UIViewController {
     
     func onStartTap() {
         print("start tapped")
-                
+        
+        
         animationSrv.animateFadeOutView(startBtn)
         animationSrv.animateWithSpring(lapLbl, fromAlphaZero: true)
         animationSrv.animateWithSpring(totalTimeLbl, duration: 0.8, fromAlphaZero: true)
         
         stopWatchSrv.start()
     }
+    
+    func onPauseTap() {
+        animationSrv.animateMoveHorizontallyFromOffscreen(clearBtn, direction: .left)
+        animationSrv.animateMoveHorizontallyFromOffscreen(lapTableBtn, direction: .right)
+        
+        stopWatchSrv.pause()
+        pauseBtn.hide()
+        restartBtn.show()
+    }
+    
+    func onRestartTap() {
+        stopWatchSrv.restart()
+        restartBtn.hide()
+        
+        pauseBtn.show()
+        
+        animationSrv.animateFadeOutView(clearBtn)
+        animationSrv.animateFadeOutView(lapTableBtn)
+    }
 }
+
+// MARK Animations
+extension SingleViewController {
+    func animateInButtons() {
+        animationSrv.animateMoveVerticallyFromOffscreenBottom(voiceNotificationsBtn)
+        animationSrv.animateMoveVerticallyFromOffscreenBottom(pauseBtn)
+        animationSrv.animateMoveVerticallyFromOffscreenBottom(vibrationNotificationBtn)
+    }
+}
+
 
 // MARK StopWatchServiceDelegate
 extension SingleViewController: StopWatchServiceDelegate {
     func stopWatchStarted() {
         attachDoubleTapRecognizer()
+        
+        if stopWatchSrv.lapTimes.count == 1 {
+            animateInButtons()
+        }
     }
     
     func stopWatchIntervalElapsed(totalTimeElapsed: TimeInterval) {

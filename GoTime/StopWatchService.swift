@@ -53,14 +53,12 @@ class StopWatchService: NSObject {
 //        RunLoop.main.add(timer, forMode: .commonModes)
 
         timerRunning = true
-        
+    
         if(!restart) {
             lapTimes.append(0.0)
+            delegate?.stopWatchStarted()
+            delegateToMultiple({ x in x.stopWatchStarted() })
         }
-        
-        delegate?.stopWatchStarted()
-        
-        delegateToMultiple({ x in x.stopWatchStarted() })
     }
     
     func timeIntervalElapsed() {
