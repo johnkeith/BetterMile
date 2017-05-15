@@ -35,13 +35,13 @@ class SpeechService: NSObject, AVSpeechSynthesizerDelegate {
     
     func speakPreviousLapTime(timeTuple: (minutes: String, seconds: String, fraction: String), lapNumber: Int) {
         let lapNumberOrdinalized = "\(lapNumber)\(Constants.ordinalSuffixForNumber(number: lapNumber))"
-        let sentancePrefix = "\(lapNumberOrdinalized) lap time was"
+        let sentancePrefix = "\(lapNumberOrdinalized) lap time"
         
         speakSentanceAboutTime(timeTuple: timeTuple, sentancePrefix: sentancePrefix)
     }
     
     func speakAverageLapTime(timeTuple: (minutes: String, seconds: String, fraction: String)) {
-        let sentancePrefix = "Average lap time is"
+        let sentancePrefix = "Average lap time"
         
         speakSentanceAboutTime(timeTuple: timeTuple, sentancePrefix: sentancePrefix)
     }

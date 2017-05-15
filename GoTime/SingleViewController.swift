@@ -27,13 +27,16 @@ class SingleViewController: UIViewController {
     var stopWatchSrv: StopWatchService
     var animationSrv: AnimationService
     var timeToTextSrv: TimeToTextService
+    var speechSrv: SpeechService
     
     init(stopWatchSrv: StopWatchService = StopWatchService(),
          animationSrv: AnimationService = AnimationService(),
-         timeToTextSrv: TimeToTextService = TimeToTextService()) {
+         timeToTextSrv: TimeToTextService = TimeToTextService(),
+         speechSrv: SpeechService = SpeechService()) {
         self.stopWatchSrv = stopWatchSrv
         self.animationSrv = animationSrv
         self.timeToTextSrv = timeToTextSrv
+        self.speechSrv = speechSrv
         
         super.init(nibName: nil, bundle: nil)
         
@@ -117,6 +120,7 @@ class SingleViewController: UIViewController {
         voiceNotificationsBtn.tintColor = Constants.colorPalette["white"]
         voiceNotificationsBtn.backgroundColor = Constants.colorPalette["black"]
         voiceNotificationsBtn.setImage(buttonImage, for: UIControlState.normal)
+        voiceNotificationsBtn.addTarget(self, action:#selector(onVoiceNotificationsTap), for: .touchDown)
         
         let width = voiceNotificationsBtn.superview!.frame.width / 5
         
@@ -167,8 +171,10 @@ class SingleViewController: UIViewController {
         vibrationNotificationBtn.tintColor = Constants.colorPalette["white"]
         vibrationNotificationBtn.backgroundColor = Constants.colorPalette["black"]
         vibrationNotificationBtn.setImage(buttonImage, for: UIControlState.normal)
+        vibrationNotificationBtn.addTarget(self, action:#selector(onVibrationNotificationsTap), for: .touchDown)
         
         let width = vibrationNotificationBtn.superview!.frame.width / 5
+        
         vibrationNotificationBtn.snp.makeConstraints { make in
             make.width.equalTo(width)
             make.height.equalTo(vibrationNotificationBtn.snp.width)
@@ -190,6 +196,7 @@ class SingleViewController: UIViewController {
         clearBtn.tintColor = Constants.colorPalette["white"]
         clearBtn.backgroundColor = Constants.colorPalette["black"]
         clearBtn.setImage(buttonImage, for: UIControlState.normal)
+        clearBtn.addTarget(self, action:#selector(onClearTap), for: .touchUpInside)
         
         let width = clearBtn.superview!.frame.width / 5
         
@@ -257,33 +264,57 @@ class SingleViewController: UIViewController {
     }
     
     func onStartTap() {
-        print("start tapped")
-        
+        stopWatchSrv.start()
         
         animationSrv.animateFadeOutView(startBtn)
         animationSrv.animateWithSpring(lapLbl, fromAlphaZero: true)
         animationSrv.animateWithSpring(totalTimeLbl, duration: 0.8, fromAlphaZero: true)
-        
-        stopWatchSrv.start()
     }
     
     func onPauseTap() {
-        animationSrv.animateMoveHorizontallyFromOffscreen(clearBtn, direction: .left)
-        animationSrv.animateMoveHorizontallyFromOffscreen(lapTableBtn, direction: .right)
-        
         stopWatchSrv.pause()
-        pauseBtn.hide()
-        restartBtn.show()
     }
     
     func onRestartTap() {
         stopWatchSrv.restart()
-        restartBtn.hide()
+    }
+    
+    func onClearTap() {
+        stopWatchSrv.stop()
+    }
+    
+    func onVoiceNotificationsTap() {
+        handleSettingsToggle(key: SettingsService.voiceNotificationsKey)
+    }
+    
+    func onVibrationNotificationsTap() {
+        handleSettingsToggle(key: SettingsService.vibrationNotificationsKey)
+    }
+    
+    func handleSettingsToggle(key: String) {
+        let currentValue = Constants.storedSettings.bool(forKey: key)
         
-        pauseBtn.show()
+        Constants.storedSettings.set(!currentValue, forKey: key)
+    }
+    
+    func notifyWithVibrationIfEnabled() {
+        if Constants.storedSettings.bool(forKey: SettingsService.vibrationNotificationsKey) {
+            AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
+        }
+    }
+    
+    func notifyWithVoiceIfEnabled(lapTime: Double, lapNumber: Int) {
+        let shouldSpeak = Constants.storedSettings.bool(forKey: SettingsService.voiceNotificationsKey)
         
-        animationSrv.animateFadeOutView(clearBtn)
-        animationSrv.animateFadeOutView(lapTableBtn)
+        if shouldSpeak {
+            let timeTuple = timeToTextSrv.timeAsMultipleStrings(inputTime: lapTime)
+            let averageLapTime = stopWatchSrv.calculateAverageLapTime()
+            let averageLapTimeTuple = timeToTextSrv.timeAsMultipleStrings(inputTime: averageLapTime)
+            
+            speechSrv.speakPreviousLapTime(timeTuple: timeTuple, lapNumber: lapNumber)
+            speechSrv.speakAverageLapTime(timeTuple: averageLapTimeTuple)
+        }
+        
     }
 }
 
@@ -314,23 +345,39 @@ extension SingleViewController: StopWatchServiceDelegate {
     }
     
     func stopWatchLapStored(lapTime: Double, lapNumber: Int, totalTime: Double) {
-        AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
-        
         DispatchQueue.main.async {
             self.lapLbl.text = "\(self.stopWatchSrv.lapTimes.count)"
         }
+        
+        notifyWithVoiceIfEnabled(lapTime: lapTime, lapNumber: lapNumber)
+        notifyWithVibrationIfEnabled()
     }
     
     func stopWatchStopped() {
-
+        animationSrv.animateFadeOutView(clearBtn)
+        animationSrv.animateFadeOutView(lapTableBtn)
+        animationSrv.animateFadeOutView(voiceNotificationsBtn)
+        animationSrv.animateFadeOutView(restartBtn)
+        animationSrv.animateFadeOutView(vibrationNotificationBtn)
+        animationSrv.animateFadeOutView(lapLbl)
+        animationSrv.animateFadeOutView(totalTimeLbl)
+        animationSrv.animateFadeInView(startBtn)
     }
     
     func stopWatchPaused() {
+        pauseBtn.hide()
+        restartBtn.show()
         
+        animationSrv.animateMoveHorizontallyFromOffscreen(clearBtn, direction: .left)
+        animationSrv.animateMoveHorizontallyFromOffscreen(lapTableBtn, direction: .right)
     }
     
     func stopWatchRestarted() {
-    
+        restartBtn.hide()
+        pauseBtn.show()
+        
+        animationSrv.animateFadeOutView(clearBtn)
+        animationSrv.animateFadeOutView(lapTableBtn)
     }
 }
 
