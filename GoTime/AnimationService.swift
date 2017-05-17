@@ -14,6 +14,10 @@ class AnimationService {
         case right
     }
     
+    func animate(_ fn: @escaping (() -> Void), duration: Double = 0.3) {
+        UIView.animate(withDuration: duration, animations: fn)
+    }
+    
     func animateFadeInView(_ viewToFadeIn: UIView, duration: Double = 0.3) {
         UIView.animate(withDuration: duration, animations: {
             viewToFadeIn.alpha = 1.0

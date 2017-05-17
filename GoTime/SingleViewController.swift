@@ -42,7 +42,7 @@ class SingleViewController: UIViewController {
         
         stopWatchSrv.delegate = self
         
-        view.backgroundColor = Constants.colorPalette["white"]
+        view.backgroundColor = Constants.colorPalette["_white"]
         
         addSubviews([startBtn, totalTimeLbl, lapLbl, voiceNotificationsBtn, pauseBtn, vibrationNotificationBtn, clearBtn, restartBtn, lapTableBtn])
 
@@ -88,6 +88,7 @@ class SingleViewController: UIViewController {
         totalTimeLbl.numberOfLines = 1
         totalTimeLbl.baselineAdjustment = .alignCenters
         totalTimeLbl.textAlignment = .center
+        totalTimeLbl.textColor = Constants.colorPalette["_white"]
         
         totalTimeLbl.snp.makeConstraints { make in
             make.width.equalTo(totalTimeLbl.superview!).offset(-Constants.defaultMargin)
@@ -101,6 +102,7 @@ class SingleViewController: UIViewController {
         lapLbl.isHidden = true
         lapLbl.text = "1"
         lapLbl.textAlignment = .center
+        lapLbl.textColor = Constants.colorPalette["_white"]
         
         lapLbl.snp.makeConstraints { make in
             make.width.equalTo(lapLbl.superview!)
@@ -117,9 +119,11 @@ class SingleViewController: UIViewController {
         let buttonImage = UIImage(named: "ic_volume_up_48pt")?.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
         
         voiceNotificationsBtn.isHidden = true
-        voiceNotificationsBtn.tintColor = Constants.colorPalette["white"]
-        voiceNotificationsBtn.backgroundColor = Constants.colorPalette["black"]
-        voiceNotificationsBtn.setImage(buttonImage, for: UIControlState.normal)
+        
+        setSettingsBtnColor(btn: voiceNotificationsBtn, enabled: Constants.storedSettings.bool(forKey: SettingsService.voiceNotificationsKey))
+        
+        voiceNotificationsBtn.setImage(buttonImage, for: .normal)
+        voiceNotificationsBtn.setImage(buttonImage, for: .highlighted)
         voiceNotificationsBtn.addTarget(self, action:#selector(onVoiceNotificationsTap), for: .touchDown)
         
         let width = voiceNotificationsBtn.superview!.frame.width / 5
@@ -131,8 +135,6 @@ class SingleViewController: UIViewController {
             make.right.equalTo(voiceNotificationsBtn.superview!).offset(-Constants.defaultMargin)
         }
         
-        voiceNotificationsBtn.layer.borderWidth = 2.0
-        
         voiceNotificationsBtn.layoutIfNeeded()
         
         voiceNotificationsBtn.layer.cornerRadius = voiceNotificationsBtn.frame.size.height / 2
@@ -142,9 +144,10 @@ class SingleViewController: UIViewController {
         let buttonImage = UIImage(named: "ic_pause_48pt")?.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
         
         pauseBtn.isHidden = true
-        pauseBtn.tintColor = Constants.colorPalette["white"]
-        pauseBtn.backgroundColor = Constants.colorPalette["black"]
-        pauseBtn.setImage(buttonImage, for: UIControlState.normal)
+        pauseBtn.tintColor = Constants.colorPalette["_white"]
+        pauseBtn.backgroundColor = Constants.colorPalette["_red"]
+        pauseBtn.setImage(buttonImage, for: .normal)
+        pauseBtn.setImage(buttonImage, for: .highlighted)
         
         pauseBtn.addTarget(self, action:#selector(onPauseTap), for: .touchDown)
         
@@ -157,8 +160,6 @@ class SingleViewController: UIViewController {
             make.centerX.equalTo(pauseBtn.superview!)
         }
         
-        pauseBtn.layer.borderWidth = 2.0
-        
         pauseBtn.layoutIfNeeded()
         
         pauseBtn.layer.cornerRadius = pauseBtn.frame.size.height / 2
@@ -168,9 +169,11 @@ class SingleViewController: UIViewController {
         let buttonImage = UIImage(named: "ic_vibration_48pt")?.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
         
         vibrationNotificationBtn.isHidden = true
-        vibrationNotificationBtn.tintColor = Constants.colorPalette["white"]
-        vibrationNotificationBtn.backgroundColor = Constants.colorPalette["black"]
-        vibrationNotificationBtn.setImage(buttonImage, for: UIControlState.normal)
+
+        setSettingsBtnColor(btn: vibrationNotificationBtn, enabled: Constants.storedSettings.bool(forKey: SettingsService.vibrationNotificationsKey))
+        
+        vibrationNotificationBtn.setImage(buttonImage, for: .normal)
+        vibrationNotificationBtn.setImage(buttonImage, for: .highlighted)
         vibrationNotificationBtn.addTarget(self, action:#selector(onVibrationNotificationsTap), for: .touchDown)
         
         let width = vibrationNotificationBtn.superview!.frame.width / 5
@@ -182,21 +185,30 @@ class SingleViewController: UIViewController {
             make.left.equalTo(vibrationNotificationBtn.superview!).offset(Constants.defaultMargin)
         }
         
-        vibrationNotificationBtn.layer.borderWidth = 2.0
-        
         vibrationNotificationBtn.layoutIfNeeded()
         
         vibrationNotificationBtn.layer.cornerRadius = vibrationNotificationBtn.frame.size.height / 2
+    }
+    
+    func setSettingsBtnColor(btn: UIButton, enabled: Bool) {
+        if enabled {
+            btn.tintColor = Constants.colorPalette["_white"]
+            btn.backgroundColor = Constants.colorPalette["_blue"]
+        } else {
+            btn.tintColor = Constants.colorPalette["_black"]
+            btn.backgroundColor = Constants.colorPalette["_white"]
+        }
     }
     
     func configClearBtn() {
         let buttonImage = UIImage(named: "ic_clear_48pt")?.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
         
         clearBtn.isHidden = true
-        clearBtn.tintColor = Constants.colorPalette["white"]
-        clearBtn.backgroundColor = Constants.colorPalette["black"]
-        clearBtn.setImage(buttonImage, for: UIControlState.normal)
-        clearBtn.addTarget(self, action:#selector(onClearTap), for: .touchUpInside)
+        clearBtn.tintColor = Constants.colorPalette["_white"]
+        clearBtn.backgroundColor = Constants.colorPalette["_red"]
+        clearBtn.setImage(buttonImage, for: .normal)
+        clearBtn.setImage(buttonImage, for: .highlighted)
+        clearBtn.addTarget(self, action:#selector(onClearTap), for: .touchDown)
         
         let width = clearBtn.superview!.frame.width / 5
         
@@ -207,8 +219,6 @@ class SingleViewController: UIViewController {
             make.left.equalTo(clearBtn.superview!).offset(width + CGFloat(Constants.defaultMargin / 2))
         }
         
-        clearBtn.layer.borderWidth = 2.0
-        
         clearBtn.layoutIfNeeded()
         
         clearBtn.layer.cornerRadius = clearBtn.frame.size.height / 2
@@ -218,9 +228,10 @@ class SingleViewController: UIViewController {
         let buttonImage = UIImage(named: "ic_play_arrow_48pt")?.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
         
         restartBtn.isHidden = true
-        restartBtn.tintColor = Constants.colorPalette["white"]
-        restartBtn.backgroundColor = Constants.colorPalette["black"]
-        restartBtn.setImage(buttonImage, for: UIControlState.normal)
+        restartBtn.tintColor = Constants.colorPalette["_white"]
+        restartBtn.backgroundColor = Constants.colorPalette["_green"]
+        restartBtn.setImage(buttonImage, for: .normal)
+        restartBtn.setImage(buttonImage, for: .highlighted)
         restartBtn.addTarget(self, action:#selector(onRestartTap), for: .touchDown)
         
         let width = restartBtn.superview!.frame.width / 5
@@ -232,8 +243,6 @@ class SingleViewController: UIViewController {
             make.centerX.equalTo(restartBtn.superview!)
         }
         
-        restartBtn.layer.borderWidth = 2.0
-        
         restartBtn.layoutIfNeeded()
         
         restartBtn.layer.cornerRadius = restartBtn.frame.size.height / 2
@@ -243,9 +252,10 @@ class SingleViewController: UIViewController {
         let buttonImage = UIImage(named: "ic_format_list_numbered_48pt")?.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
         
         lapTableBtn.isHidden = true
-        lapTableBtn.tintColor = Constants.colorPalette["white"]
-        lapTableBtn.backgroundColor = Constants.colorPalette["black"]
-        lapTableBtn.setImage(buttonImage, for: UIControlState.normal)
+        lapTableBtn.tintColor = Constants.colorPalette["_white"]
+        lapTableBtn.backgroundColor = Constants.colorPalette["_blue"]
+        lapTableBtn.setImage(buttonImage, for: .normal)
+        lapTableBtn.setImage(buttonImage, for: .highlighted)
         
         let width = lapTableBtn.superview!.frame.width / 5
         
@@ -256,8 +266,6 @@ class SingleViewController: UIViewController {
             make.right.equalTo(lapTableBtn.superview!).offset(-width - CGFloat(Constants.defaultMargin / 2))
         }
         
-        lapTableBtn.layer.borderWidth = 2.0
-        
         lapTableBtn.layoutIfNeeded()
         
         lapTableBtn.layer.cornerRadius = lapTableBtn.frame.size.height / 2
@@ -265,10 +273,14 @@ class SingleViewController: UIViewController {
     
     func onStartTap() {
         stopWatchSrv.start()
+        lapLbl.text = "\(self.stopWatchSrv.lapTimes.count)"
         
         animationSrv.animateFadeOutView(startBtn)
         animationSrv.animateWithSpring(lapLbl, fromAlphaZero: true)
         animationSrv.animateWithSpring(totalTimeLbl, duration: 0.8, fromAlphaZero: true)
+        
+        animationSrv.animate({ self.view.backgroundColor = Constants.colorPalette["_black"] })
+        UIApplication.shared.statusBarStyle = .lightContent
     }
     
     func onPauseTap() {
@@ -281,20 +293,34 @@ class SingleViewController: UIViewController {
     
     func onClearTap() {
         stopWatchSrv.stop()
+        
+        animationSrv.animate({ self.view.backgroundColor = Constants.colorPalette["_white"] })
+        animationSrv.animateFadeOutView(clearBtn)
+        animationSrv.animateFadeOutView(lapTableBtn)
+        animationSrv.animateFadeOutView(voiceNotificationsBtn)
+        animationSrv.animateFadeOutView(restartBtn)
+        animationSrv.animateFadeOutView(vibrationNotificationBtn)
+        animationSrv.animateFadeOutView(lapLbl)
+        animationSrv.animateFadeOutView(totalTimeLbl)
+        animationSrv.animateFadeInView(startBtn)
+        
+        UIApplication.shared.statusBarStyle = .default
     }
     
     func onVoiceNotificationsTap() {
-        handleSettingsToggle(key: SettingsService.voiceNotificationsKey)
+        handleSettingsToggle(key: SettingsService.voiceNotificationsKey, btn: voiceNotificationsBtn)
     }
     
     func onVibrationNotificationsTap() {
-        handleSettingsToggle(key: SettingsService.vibrationNotificationsKey)
+        handleSettingsToggle(key: SettingsService.vibrationNotificationsKey, btn: vibrationNotificationBtn)
     }
     
-    func handleSettingsToggle(key: String) {
+    func handleSettingsToggle(key: String, btn: UIButton) {
         let currentValue = Constants.storedSettings.bool(forKey: key)
         
         Constants.storedSettings.set(!currentValue, forKey: key)
+        
+        setSettingsBtnColor(btn: btn, enabled: !currentValue)
     }
     
     func notifyWithVibrationIfEnabled() {
@@ -311,8 +337,7 @@ class SingleViewController: UIViewController {
             let averageLapTime = stopWatchSrv.calculateAverageLapTime()
             let averageLapTimeTuple = timeToTextSrv.timeAsMultipleStrings(inputTime: averageLapTime)
             
-            speechSrv.speakPreviousLapTime(timeTuple: timeTuple, lapNumber: lapNumber)
-            speechSrv.speakAverageLapTime(timeTuple: averageLapTimeTuple)
+            speechSrv.speakPreviousAndAverageLapTimes(previous: timeTuple, average: averageLapTimeTuple)
         }
         
     }
@@ -349,19 +374,13 @@ extension SingleViewController: StopWatchServiceDelegate {
             self.lapLbl.text = "\(self.stopWatchSrv.lapTimes.count)"
         }
         
-        notifyWithVoiceIfEnabled(lapTime: lapTime, lapNumber: lapNumber)
         notifyWithVibrationIfEnabled()
+        
+        notifyWithVoiceIfEnabled(lapTime: lapTime, lapNumber: lapNumber)
     }
     
     func stopWatchStopped() {
-        animationSrv.animateFadeOutView(clearBtn)
-        animationSrv.animateFadeOutView(lapTableBtn)
-        animationSrv.animateFadeOutView(voiceNotificationsBtn)
-        animationSrv.animateFadeOutView(restartBtn)
-        animationSrv.animateFadeOutView(vibrationNotificationBtn)
-        animationSrv.animateFadeOutView(lapLbl)
-        animationSrv.animateFadeOutView(totalTimeLbl)
-        animationSrv.animateFadeInView(startBtn)
+        
     }
     
     func stopWatchPaused() {

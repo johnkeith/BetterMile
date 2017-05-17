@@ -52,31 +52,48 @@ class SpeechService: NSObject, AVSpeechSynthesizerDelegate {
         speakSentanceAboutTime(timeTuple: timeTuple, sentancePrefix: sentancePrefix)
     }
     
+    // TODO: UNTESTED
+    func speakPreviousAndAverageLapTimes(previous: (minutes: String, seconds: String, fraction: String), average: (minutes: String, seconds: String, fraction: String)) {
+        let previousLapTime = convertTimeTupleToString(previous)
+        let averageLapTime = convertTimeTupleToString(average)
+        let sentanceToSpeak = "\(previousLapTime). Average \(averageLapTime)"
+        
+        textToSpeech(text: sentanceToSpeak)
+    }
+    
     private func speakSentanceAboutTime(timeTuple: (minutes: String, seconds: String, fraction: String), sentancePrefix: String) {
+        var sentanceToSpeak = sentancePrefix
+        sentanceToSpeak += convertTimeTupleToString(timeTuple)
+        
+        textToSpeech(text: sentanceToSpeak)
+    }
+    
+    private func convertTimeTupleToString(_ timeTuple: (minutes: String, seconds: String, fraction: String)) -> String {
+        
         let milliseconds = timeTuple.fraction
         let minutesInt = Int(timeTuple.minutes)
         let secondsInt = Int(timeTuple.seconds)
         
-        var sentanceToSpeak = sentancePrefix
+        var result: String = ""
         
-//        TODO - NOT WORKING
+        //        TODO - NOT WORKING
         if minutesInt! > 0 {
-            sentanceToSpeak += " \(minutesInt!) minute"
+            result += " \(minutesInt!) minute"
         }
         
         if minutesInt! > 1 {
-            sentanceToSpeak += "s"
+            result += "s"
         }
         
         if minutesInt! > 0 && secondsInt! > 0 {
-            sentanceToSpeak += " and"
+            result += " and"
         }
         
         if secondsInt! > 0 {
-            sentanceToSpeak += " \(secondsInt!) point \(milliseconds) seconds"
+            result += " \(secondsInt!) point \(milliseconds) seconds"
         }
         
-        textToSpeech(text: sentanceToSpeak)
+        return result
     }
     
     private func textToSpeech(text: String) {

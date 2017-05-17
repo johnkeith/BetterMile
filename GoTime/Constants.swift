@@ -22,7 +22,14 @@ struct Constants {
         "black": UIColor.black,
         "white": UIColor.white,
         "flat-green": UIColor(red:0.18, green:0.80, blue:0.44, alpha:1.0),
-        "flat-red": UIColor(red:0.91, green:0.30, blue:0.24, alpha:1.0)
+        "flat-red": UIColor(red:0.91, green:0.30, blue:0.24, alpha:1.0),
+        "_green": UIColor(red:0.40, green:0.75, blue:0.65, alpha:1.0),
+        "_blue": UIColor(red:0.38, green:0.67, blue:0.90, alpha:1.0),
+        "_red": UIColor(red:0.90, green:0.38, blue:0.55, alpha:1.0),
+//        "_white": UIColor(red:1.00, green:1.00, blue:1.00, alpha:1.0),
+        "_white": UIColor.white,
+//        "_black": UIColor(red:0.14, green:0.14, blue:0.14, alpha:1.0),
+        "_black": UIColor.black
     ]
     
     static let responsiveDefaultFont: UIFont = UIFont.systemFont(ofSize: 999, weight: UIFontWeightThin)

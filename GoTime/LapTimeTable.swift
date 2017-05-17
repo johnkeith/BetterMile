@@ -97,10 +97,10 @@ extension LapTimeTable: UITableViewDataSource {
     
     func setCellTextColor(_ cell: LapTimeTableCell, at index: Int, checkForSlowest: Bool = false) {
         if checkForSlowest && isSlowestLap(index){
-            cell.backgroundColor = Constants.colorPalette["flat-red"]
+            cell.backgroundColor = Constants.colorPalette["_red"]
             cell.label.textColor = Constants.colorPalette["white"]
         } else if isFastestLap(index) {
-            cell.backgroundColor = Constants.colorPalette["flat-green"]
+            cell.backgroundColor = Constants.colorPalette["_green"]
             cell.label.textColor = Constants.colorPalette["white"]
         } else {
             cell.setTextColorBasedOnSettings()
