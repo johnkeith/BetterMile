@@ -11,6 +11,7 @@
 		631C6A361E999F4200390478 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 631C6A351E999F4200390478 /* SettingsViewController.swift */; };
 		631C6A381E999FE500390478 /* DashboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 631C6A371E999FE500390478 /* DashboardViewController.swift */; };
 		631C6A3C1E99C4DD00390478 /* DashboardViewControllerConstraints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 631C6A3B1E99C4DD00390478 /* DashboardViewControllerConstraints.swift */; };
+		632271B51ED7B9C100244ED3 /* LapTableController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632271B41ED7B9C100244ED3 /* LapTableController.swift */; };
 		633966991E47549800D43896 /* TotalTimeLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633966981E47549800D43896 /* TotalTimeLabel.swift */; };
 		6339669B1E4754EC00D43896 /* TotalTimeLabelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6339669A1E4754EC00D43896 /* TotalTimeLabelTests.swift */; };
 		634CACDF1E4BD4AE0064FD5E /* LapTimeTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634CACDE1E4BD4AE0064FD5E /* LapTimeTable.swift */; };
@@ -81,6 +82,7 @@
 		631C6A351E999F4200390478 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		631C6A371E999FE500390478 /* DashboardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DashboardViewController.swift; sourceTree = "<group>"; };
 		631C6A3B1E99C4DD00390478 /* DashboardViewControllerConstraints.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DashboardViewControllerConstraints.swift; sourceTree = "<group>"; };
+		632271B41ED7B9C100244ED3 /* LapTableController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LapTableController.swift; sourceTree = "<group>"; };
 		633966981E47549800D43896 /* TotalTimeLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TotalTimeLabel.swift; sourceTree = "<group>"; };
 		6339669A1E4754EC00D43896 /* TotalTimeLabelTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TotalTimeLabelTests.swift; sourceTree = "<group>"; };
 		634CACDE1E4BD4AE0064FD5E /* LapTimeTable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LapTimeTable.swift; sourceTree = "<group>"; };
@@ -267,6 +269,7 @@
 				631C6A371E999FE500390478 /* DashboardViewController.swift */,
 				631C6A351E999F4200390478 /* SettingsViewController.swift */,
 				63CC94ED1EB7FA1C00D5DB0E /* SingleViewController.swift */,
+				632271B41ED7B9C100244ED3 /* LapTableController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -526,6 +529,7 @@
 				63CB140A1E6D0A6300F7BC14 /* TimerHelpTextLabel.swift in Sources */,
 				633966991E47549800D43896 /* TotalTimeLabel.swift in Sources */,
 				63A3F23B1E3C195400AA8A92 /* StopWatchService.swift in Sources */,
+				632271B51ED7B9C100244ED3 /* LapTableController.swift in Sources */,
 				63C65EB81E9B14F4006835E3 /* SettingsTable.swift in Sources */,
 				63CB14061E67AD2900F7BC14 /* LapTimeTableCell.swift in Sources */,
 				631C6A3C1E99C4DD00390478 /* DashboardViewControllerConstraints.swift in Sources */,

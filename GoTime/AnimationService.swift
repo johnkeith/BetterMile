@@ -18,16 +18,16 @@ class AnimationService {
         UIView.animate(withDuration: duration, animations: fn)
     }
     
-    func animateFadeInView(_ viewToFadeIn: UIView, duration: Double = 0.3) {
-        UIView.animate(withDuration: duration, animations: {
+    func animateFadeInView(_ viewToFadeIn: UIView, duration: Double = 0.3, delay: Double = 0.0) {
+        UIView.animate(withDuration: duration, delay: delay, animations: {
             viewToFadeIn.alpha = 1.0
         }, completion: { finished in
             viewToFadeIn.isHidden = false
         })
     }
     
-    func animateFadeOutView(_ viewToFadeOut: UIView, duration: Double = 0.3) {
-        UIView.animate(withDuration: duration, animations: {
+    func animateFadeOutView(_ viewToFadeOut: UIView, duration: Double = 0.3, delay: Double = 0.0) {
+        UIView.animate(withDuration: duration, delay: delay, animations: {
             viewToFadeOut.alpha = 0.0
         }, completion: { finished in
             viewToFadeOut.isHidden = true

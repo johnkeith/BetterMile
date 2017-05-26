@@ -27,11 +27,9 @@ class LapTimeTable: UITableView {
         self.showsVerticalScrollIndicator = false
         self.alwaysBounceVertical = false
         
-        setColoration()
+        self.backgroundColor = Constants.colorPalette["black"]
         
         self.register(LapTimeTableCell.self, forCellReuseIdentifier: "lapTimeTableCell")
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(self.handleNotificationOfDarkModeFlipped), name: Notification.Name(rawValue: Constants.notificationOfDarkModeToggle), object: nil)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -76,18 +74,15 @@ extension LapTimeTable: UITableViewDataSource {
         let content = "\(lapNumber > 9 ? "" : "0")\(lapNumber) - \(time)"
         
         let cell = self.dequeueReusableCell(withIdentifier: "lapTimeTableCell") as! LapTimeTableCell
-        
-        if index > 0 {
-            if lapData.count > 2 {
-                setCellTextColor(cell, at: index, checkForSlowest: true)
-            } else if lapData.count == 2 {
-                setCellTextColor(cell, at: index)
-            } else {
-                cell.setTextColorBasedOnSettings()
-            }
-        } else {
-            cell.setTextColorBasedOnSettings()
-        }
+
+//        TODO - fix
+//        if index > 0 {
+//            if lapData.count > 2 {
+//                setCellTextColor(cell, at: index, checkForSlowest: true)
+//            } else if lapData.count == 2 {
+//                setCellTextColor(cell, at: index)
+//            }
+//        }
         
         cell.setContent(labelText: content)
         cell.addLabelAndLineConstraints(rowHeight: self.rowHeight)
@@ -102,8 +97,6 @@ extension LapTimeTable: UITableViewDataSource {
         } else if isFastestLap(index) {
             cell.backgroundColor = Constants.colorPalette["_green"]
             cell.label.textColor = Constants.colorPalette["white"]
-        } else {
-            cell.setTextColorBasedOnSettings()
         }
     }
     

@@ -45,7 +45,7 @@ class SingleViewController: UIViewController {
         view.backgroundColor = Constants.colorPalette["_white"]
         
         addSubviews([startBtn, totalTimeLbl, lapLbl, voiceNotificationsBtn, pauseBtn, vibrationNotificationBtn, clearBtn, restartBtn, lapTableBtn])
-
+        
         configStartBtn()
         configTotalTimeLbl()
         configLapLbl()
@@ -59,6 +59,12 @@ class SingleViewController: UIViewController {
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("config(coder:) has not been implemented")
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.navigationController?.setNavigationBarHidden(true, animated: animated)
     }
     
     func configStartBtn() {
@@ -92,8 +98,10 @@ class SingleViewController: UIViewController {
         
         totalTimeLbl.snp.makeConstraints { make in
             make.width.equalTo(totalTimeLbl.superview!).offset(-Constants.defaultMargin)
+            make.left.equalTo(totalTimeLbl.superview!).offset(Constants.defaultMargin / 2)
+            make.right.equalTo(totalTimeLbl.superview!).offset(-Constants.defaultMargin / 2)
             make.height.equalTo(totalTimeLbl.superview!.frame.height / 6)
-            make.centerX.equalTo(totalTimeLbl.superview!)
+//            make.centerX.equalTo(totalTimeLbl.superview!)
             make.top.equalTo(totalTimeLbl.superview!).offset(Constants.defaultMargin)
         }
     }
@@ -256,6 +264,7 @@ class SingleViewController: UIViewController {
         lapTableBtn.backgroundColor = Constants.colorPalette["_blue"]
         lapTableBtn.setImage(buttonImage, for: .normal)
         lapTableBtn.setImage(buttonImage, for: .highlighted)
+        lapTableBtn.addTarget(self, action:#selector(onLapTableTap), for: .touchDown)
         
         let width = lapTableBtn.superview!.frame.width / 5
         
@@ -291,20 +300,51 @@ class SingleViewController: UIViewController {
         stopWatchSrv.restart()
     }
     
+    func onLapTableTap() {
+        let lapTableController = LapTableController(lapTimes: stopWatchSrv.lapTimes.reversed())
+        self.navigationController?.pushViewController(lapTableController, animated: true)
+//        self.navigationController?.present(lapTableController, animated: true)
+        
+//        animateFadeOutBtnsAndLbls()
+        
+//        lapTable.setLapData(lapData: stopWatchSrv.lapTimes.reversed())
+//        lapTable.reloadData()
+        
+//        self.animationSrv.animateFadeInView(self.lapTable, duration: 0.0)
+//        self.animationSrv.animateFadeInView(self.hideLapTableBtn, duration: 0.0)
+//        self.animationSrv.animateFadeInView(self.lapTableHeaderLine, duration: 0.0)
+    }
+    
     func onClearTap() {
         stopWatchSrv.stop()
         
         animationSrv.animate({ self.view.backgroundColor = Constants.colorPalette["_white"] })
-        animationSrv.animateFadeOutView(clearBtn)
-        animationSrv.animateFadeOutView(lapTableBtn)
-        animationSrv.animateFadeOutView(voiceNotificationsBtn)
-        animationSrv.animateFadeOutView(restartBtn)
-        animationSrv.animateFadeOutView(vibrationNotificationBtn)
-        animationSrv.animateFadeOutView(lapLbl)
-        animationSrv.animateFadeOutView(totalTimeLbl)
+
+        animateFadeOutBtnsAndLbls()
+        
         animationSrv.animateFadeInView(startBtn)
         
         UIApplication.shared.statusBarStyle = .default
+    }
+    
+    func animateFadeOutBtnsAndLbls() {
+        animationSrv.animateFadeOutView(clearBtn, duration: 0.0)
+        animationSrv.animateFadeOutView(lapTableBtn, duration: 0.0)
+        animationSrv.animateFadeOutView(voiceNotificationsBtn, duration: 0.0)
+        animationSrv.animateFadeOutView(restartBtn, duration: 0.0)
+        animationSrv.animateFadeOutView(vibrationNotificationBtn, duration: 0.0)
+        animationSrv.animateFadeOutView(lapLbl, duration: 0.0)
+        animationSrv.animateFadeOutView(totalTimeLbl, duration: 0.0)
+    }
+    
+    func animateFadeInBtnsAndLbls() {
+        animationSrv.animateFadeInView(clearBtn, duration: 0.0)
+        animationSrv.animateFadeInView(lapTableBtn, duration: 0.0)
+        animationSrv.animateFadeInView(voiceNotificationsBtn, duration: 0.0)
+        animationSrv.animateFadeInView(restartBtn, duration: 0.0)
+        animationSrv.animateFadeInView(vibrationNotificationBtn, duration: 0.0)
+        animationSrv.animateFadeInView(lapLbl, duration: 0.0)
+        animationSrv.animateFadeInView(totalTimeLbl, duration: 0.0)
     }
     
     func onVoiceNotificationsTap() {
@@ -337,7 +377,7 @@ class SingleViewController: UIViewController {
             let averageLapTime = stopWatchSrv.calculateAverageLapTime()
             let averageLapTimeTuple = timeToTextSrv.timeAsMultipleStrings(inputTime: averageLapTime)
             
-            speechSrv.speakPreviousAndAverageLapTimes(previous: timeTuple, average: averageLapTimeTuple)
+            speechSrv.speakPreviousAndAverageLapTimes(previous: timeTuple, average: averageLapTimeTuple, lapNumber: lapNumber)
         }
         
     }

@@ -23,8 +23,6 @@ class LapTimeTableCell: UITableViewCell {
         self.contentView.addSubview(line)
                 
         setColoration()
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(self.handleNotificationOfDarkModeFlipped), name: Notification.Name(rawValue: Constants.notificationOfDarkModeToggle), object: nil)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -58,32 +56,10 @@ class LapTimeTableCell: UITableViewCell {
             make.height.equalTo(1)
         }
     }
-}
-
-extension LapTimeTableCell: RespondsToThemeChange {
-    func handleNotificationOfDarkModeFlipped(notification: Notification) {
-        let value = notification.userInfo?["value"] as! Bool
-        
-        setColoration(darkModeEnabled: value)
-    }
     
-    func setColoration(darkModeEnabled: Bool = Constants.storedSettings.bool(forKey: SettingsService.useDarkModeKey), animationDuration: Double = 0.0) {
-        if darkModeEnabled {
-            self.line.backgroundColor = Constants.colorPalette["white"]
-        } else {
-            self.line.backgroundColor = Constants.colorPalette["black"]
-        }
-        
-        setTextColorBasedOnSettings(darkModeEnabled: darkModeEnabled)
-    }
-    
-    func setTextColorBasedOnSettings(darkModeEnabled: Bool = Constants.storedSettings.bool(forKey: SettingsService.useDarkModeKey)) {
-        if darkModeEnabled {
-            self.label.textColor = Constants.colorPalette["white"]
-            self.backgroundColor = Constants.colorPalette["black"]
-        } else {
-            self.label.textColor = Constants.colorPalette["black"]
-            self.backgroundColor = Constants.colorPalette["white"]
-        }
+    func setColoration() {
+        self.line.backgroundColor = Constants.colorPalette["_white"]
+        self.label.textColor = Constants.colorPalette["_white"]
+        self.backgroundColor = Constants.colorPalette["_black"]
     }
 }

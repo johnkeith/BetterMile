@@ -53,10 +53,15 @@ class SpeechService: NSObject, AVSpeechSynthesizerDelegate {
     }
     
     // TODO: UNTESTED
-    func speakPreviousAndAverageLapTimes(previous: (minutes: String, seconds: String, fraction: String), average: (minutes: String, seconds: String, fraction: String)) {
+    func speakPreviousAndAverageLapTimes(previous: (minutes: String, seconds: String, fraction: String), average: (minutes: String, seconds: String, fraction: String), lapNumber: Int) {
+        let lapNumberOrdinalized = "\(lapNumber)\(Constants.ordinalSuffixForNumber(number: lapNumber))"
         let previousLapTime = convertTimeTupleToString(previous)
         let averageLapTime = convertTimeTupleToString(average)
-        let sentanceToSpeak = "\(previousLapTime). Average \(averageLapTime)"
+        var sentanceToSpeak = "\(lapNumberOrdinalized) lap \(previousLapTime)."
+        
+        if lapNumber > 1 {
+           sentanceToSpeak += "Average \(averageLapTime)."
+        }
         
         textToSpeech(text: sentanceToSpeak)
     }
