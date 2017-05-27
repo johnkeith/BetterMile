@@ -35,6 +35,15 @@ class LapTableController: UIViewController {
         self.navigationController?.setNavigationBarHidden(false, animated: animated)
         self.navigationController?.navigationBar.barStyle = .black
         self.navigationController?.navigationBar.tintColor = Constants.colorPalette["white"]
+//        self.navigationController?.navigationBar.titleTextAttributes = UIFont.preferredFont(forTextStyle: .headline)
+        self.navigationItem.title = "Lap Times"
+        
+        
+//        let backButton = UIBarButtonItem(title: "< Backzßß®", style: UIBarButtonItemStyle.plain, target: self, action: nil)
+        
+//        backButton.setTitleTextAttributes([NSFontAttributeName: UIFont.preferredFont(forTextStyle: .headline)], for: UIControlState.normal)
+        
+        self.navigationItem.backBarButtonItem?.setTitleTextAttributes([NSFontAttributeName: UIFont.preferredFont(forTextStyle: .headline)], for: UIControlState.normal)
     }
     
     func configLapTable() {

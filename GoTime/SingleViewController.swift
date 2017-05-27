@@ -20,6 +20,7 @@ class SingleViewController: UIViewController {
     let clearBtn = UIButton()
     let restartBtn = UIButton()
     let lapTableBtn = UIButton()
+    let helpText = TimerHelpTextLabel()
     
     var doubleTapRecognizer: UITapGestureRecognizer! // TODO: FIX
     
@@ -44,7 +45,7 @@ class SingleViewController: UIViewController {
         
         view.backgroundColor = Constants.colorPalette["_white"]
         
-        addSubviews([startBtn, totalTimeLbl, lapLbl, voiceNotificationsBtn, pauseBtn, vibrationNotificationBtn, clearBtn, restartBtn, lapTableBtn])
+        addSubviews([startBtn, totalTimeLbl, lapLbl, voiceNotificationsBtn, pauseBtn, vibrationNotificationBtn, clearBtn, restartBtn, lapTableBtn, helpText])
         
         configStartBtn()
         configTotalTimeLbl()
@@ -55,6 +56,7 @@ class SingleViewController: UIViewController {
         configClearBtn()
         configRestartBtn()
         configLapTableBtn()
+        configHelpText()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -103,6 +105,15 @@ class SingleViewController: UIViewController {
             make.height.equalTo(totalTimeLbl.superview!.frame.height / 6)
 //            make.centerX.equalTo(totalTimeLbl.superview!)
             make.top.equalTo(totalTimeLbl.superview!).offset(Constants.defaultMargin)
+        }
+    }
+    
+    func configHelpText() {
+        helpText.snp.makeConstraints { make in
+            make.width.equalTo(helpText.superview!).offset(-Constants.defaultMargin * 2)
+            make.centerX.equalTo(helpText.superview!)
+            make.top.equalTo(totalTimeLbl.snp.bottom).offset(Constants.defaultMargin)
+            make.height.equalTo(helpText.superview!.frame.height / 12)
         }
     }
     
@@ -280,6 +291,7 @@ class SingleViewController: UIViewController {
         lapTableBtn.layer.cornerRadius = lapTableBtn.frame.size.height / 2
     }
     
+
     func onStartTap() {
         stopWatchSrv.start()
         lapLbl.text = "\(self.stopWatchSrv.lapTimes.count)"
@@ -289,6 +301,7 @@ class SingleViewController: UIViewController {
         animationSrv.animateWithSpring(totalTimeLbl, duration: 0.8, fromAlphaZero: true)
         
         animationSrv.animate({ self.view.backgroundColor = Constants.colorPalette["_black"] })
+        helpText.showBriefly()
         UIApplication.shared.statusBarStyle = .lightContent
     }
     
@@ -303,16 +316,6 @@ class SingleViewController: UIViewController {
     func onLapTableTap() {
         let lapTableController = LapTableController(lapTimes: stopWatchSrv.lapTimes.reversed())
         self.navigationController?.pushViewController(lapTableController, animated: true)
-//        self.navigationController?.present(lapTableController, animated: true)
-        
-//        animateFadeOutBtnsAndLbls()
-        
-//        lapTable.setLapData(lapData: stopWatchSrv.lapTimes.reversed())
-//        lapTable.reloadData()
-        
-//        self.animationSrv.animateFadeInView(self.lapTable, duration: 0.0)
-//        self.animationSrv.animateFadeInView(self.hideLapTableBtn, duration: 0.0)
-//        self.animationSrv.animateFadeInView(self.lapTableHeaderLine, duration: 0.0)
     }
     
     func onClearTap() {
@@ -426,7 +429,7 @@ extension SingleViewController: StopWatchServiceDelegate {
     func stopWatchPaused() {
         pauseBtn.hide()
         restartBtn.show()
-        
+   
         animationSrv.animateMoveHorizontallyFromOffscreen(clearBtn, direction: .left)
         animationSrv.animateMoveHorizontallyFromOffscreen(lapTableBtn, direction: .right)
     }

@@ -58,7 +58,7 @@ class LapTimeTableCell: UITableViewCell {
     }
     
     func setColoration() {
-        self.line.backgroundColor = Constants.colorPalette["_white"]
+        self.line.backgroundColor = UIColor(red:0.14, green:0.14, blue:0.14, alpha:1.0)
         self.label.textColor = Constants.colorPalette["_white"]
         self.backgroundColor = Constants.colorPalette["_black"]
     }

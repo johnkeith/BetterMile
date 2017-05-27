@@ -18,6 +18,8 @@ class TimeToTextService {
     func timeAsMultipleStrings(inputTime: Double) -> (minutes: String, seconds: String, fraction: String) {
         var elapsedTime = inputTime
         
+//        fatal error: Double value cannot be converted to UInt64 because it is either infinite or NaN
+        // right here got an Inf. value for elapsedTime
         let minutes = UInt64(elapsedTime / 60.0)
         
         elapsedTime -= (TimeInterval(minutes) * 60)

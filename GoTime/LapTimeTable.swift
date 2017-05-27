@@ -76,13 +76,13 @@ extension LapTimeTable: UITableViewDataSource {
         let cell = self.dequeueReusableCell(withIdentifier: "lapTimeTableCell") as! LapTimeTableCell
 
 //        TODO - fix
-//        if index > 0 {
-//            if lapData.count > 2 {
-//                setCellTextColor(cell, at: index, checkForSlowest: true)
-//            } else if lapData.count == 2 {
-//                setCellTextColor(cell, at: index)
-//            }
-//        }
+        if index > 0 {
+            if lapData.count > 2 {
+                setCellTextColor(cell, at: index, checkForSlowest: true)
+            } else if lapData.count == 2 {
+                setCellTextColor(cell, at: index)
+            }
+        }
         
         cell.setContent(labelText: content)
         cell.addLabelAndLineConstraints(rowHeight: self.rowHeight)

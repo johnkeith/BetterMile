@@ -21,17 +21,14 @@ class TimerHelpTextLabel: UILabel {
         
         self.isHidden = hidden
         
-        self.text = "Double tap to lap\nHold to pause"
+        self.text = "Double Tap to Lap!"
         
         self.font = Constants.responsiveDefaultFont
         self.adjustsFontSizeToFitWidth = true
         self.numberOfLines = 2
         self.baselineAdjustment = .alignCenters
         self.textAlignment = .center
-        
-        setColoration()
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(self.handleNotificationOfDarkModeFlipped), name: Notification.Name(rawValue: Constants.notificationOfDarkModeToggle), object: nil)
+        self.textColor = Constants.colorPalette["_white"]
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -43,22 +40,6 @@ class TimerHelpTextLabel: UILabel {
         
         DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) {
             self.animationService.animateFadeOutView(self, duration: 2.0)
-        }
-    }
-}
-
-extension TimerHelpTextLabel: RespondsToThemeChange {
-    func handleNotificationOfDarkModeFlipped(notification: Notification) {
-        let value = notification.userInfo?["value"] as! Bool
-        
-        setColoration(darkModeEnabled: value)
-    }
-    
-    func setColoration(darkModeEnabled: Bool = Constants.storedSettings.bool(forKey: SettingsService.useDarkModeKey), animationDuration: Double = 0.0) {
-        if darkModeEnabled {
-            self.textColor = Constants.colorPalette["white"]
-        } else {
-            self.textColor = Constants.colorPalette["black"]
         }
     }
 }
