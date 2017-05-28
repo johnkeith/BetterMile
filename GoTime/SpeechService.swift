@@ -25,12 +25,16 @@ class SpeechService: NSObject, AVSpeechSynthesizerDelegate {
         deactivateAudio()
     }
     
+    func speakTimerStarted() {
+        textToSpeech(text: "Start")
+    }
+    
     func speakTimerPaused() {
-        textToSpeech(text: "Paused")
+        textToSpeech(text: "Pause")
     }
     
     func speakTimerCleared() {
-        textToSpeech(text: "Cleared")
+        textToSpeech(text: "Clear")
     }
     
     func speakPreviousLapTime(timeTuple: (minutes: String, seconds: String, fraction: String), lapNumber: Int) {

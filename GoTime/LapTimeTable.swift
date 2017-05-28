@@ -21,6 +21,7 @@ class LapTimeTable: UITableView {
         self.isHidden = hidden
 //        self.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
         self.dataSource = self
+        self.delegate = self
         
         self.rowHeight = 60
         self.separatorStyle = .none
@@ -74,29 +75,39 @@ extension LapTimeTable: UITableViewDataSource {
         let content = "\(lapNumber > 9 ? "" : "0")\(lapNumber) - \(time)"
         
         let cell = self.dequeueReusableCell(withIdentifier: "lapTimeTableCell") as! LapTimeTableCell
-
-//        TODO - fix
-        if index > 0 {
-            if lapData.count > 2 {
-                setCellTextColor(cell, at: index, checkForSlowest: true)
-            } else if lapData.count == 2 {
-                setCellTextColor(cell, at: index)
-            }
-        }
         
+        cell.backgroundColor = Constants.colorPalette["_black"]
         cell.setContent(labelText: content)
         cell.addLabelAndLineConstraints(rowHeight: self.rowHeight)
         
         return cell
     }
+}
+
+extension LapTimeTable: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        print(indexPath);
+        let index = indexPath.row
+        let _cell = cell as! LapTimeTableCell
+
+        if index > 0 {
+            if lapData.count > 2 {
+                setCellTextColor(_cell, at: index, checkForSlowest: true)
+            } else if lapData.count == 2 {
+                setCellTextColor(_cell, at: index)
+            }
+        } else {
+            _cell.backgroundColor = Constants.colorPalette["_black"]
+        }
+    }
     
     func setCellTextColor(_ cell: LapTimeTableCell, at index: Int, checkForSlowest: Bool = false) {
         if checkForSlowest && isSlowestLap(index){
             cell.backgroundColor = Constants.colorPalette["_red"]
-            cell.label.textColor = Constants.colorPalette["white"]
+            cell.label.textColor = Constants.colorPalette["_white"]
         } else if isFastestLap(index) {
             cell.backgroundColor = Constants.colorPalette["_green"]
-            cell.label.textColor = Constants.colorPalette["white"]
+            cell.label.textColor = Constants.colorPalette["_white"]
         }
     }
     

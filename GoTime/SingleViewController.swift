@@ -21,6 +21,9 @@ class SingleViewController: UIViewController {
     let restartBtn = UIButton()
     let lapTableBtn = UIButton()
     let helpText = TimerHelpTextLabel()
+//    all that is needed is to create the help button and the like button and link those to the correct spots
+    let helpBtn = UIButton()
+    
     
     var doubleTapRecognizer: UITapGestureRecognizer! // TODO: FIX
     
@@ -45,7 +48,7 @@ class SingleViewController: UIViewController {
         
         view.backgroundColor = Constants.colorPalette["_white"]
         
-        addSubviews([startBtn, totalTimeLbl, lapLbl, voiceNotificationsBtn, pauseBtn, vibrationNotificationBtn, clearBtn, restartBtn, lapTableBtn, helpText])
+        addSubviews([startBtn, totalTimeLbl, lapLbl, voiceNotificationsBtn, pauseBtn, vibrationNotificationBtn, clearBtn, restartBtn, lapTableBtn, helpText, helpBtn])
         
         configStartBtn()
         configTotalTimeLbl()
@@ -57,6 +60,7 @@ class SingleViewController: UIViewController {
         configRestartBtn()
         configLapTableBtn()
         configHelpText()
+        configHelpBtn()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -79,7 +83,7 @@ class SingleViewController: UIViewController {
         startBtn.titleLabel?.baselineAdjustment = .alignCenters
         startBtn.titleLabel?.textAlignment = .center
         
-        startBtn.addTarget(self, action:#selector(onStartTap), for: .touchUpInside)
+        startBtn.addTarget(self, action:#selector(onStartTap), for: .touchDown)
         
         startBtn.snp.makeConstraints { make in
             make.width.equalTo(startBtn.superview!).offset(-Constants.defaultMargin * 4)
@@ -268,7 +272,7 @@ class SingleViewController: UIViewController {
     }
     
     func configLapTableBtn() {
-        let buttonImage = UIImage(named: "ic_format_list_numbered_48pt")?.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
+        let buttonImage = UIImage(named: "ic_format_list_bulleted_48pt")?.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
         
         lapTableBtn.isHidden = true
         lapTableBtn.tintColor = Constants.colorPalette["_white"]
@@ -291,6 +295,30 @@ class SingleViewController: UIViewController {
         lapTableBtn.layer.cornerRadius = lapTableBtn.frame.size.height / 2
     }
     
+    func configHelpBtn() {
+        let buttonImage = UIImage(named: "ic_help_outline_48pt")?.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
+        
+        helpBtn.isHidden = true
+        helpBtn.tintColor = Constants.colorPalette["_black"]
+        helpBtn.backgroundColor = Constants.colorPalette["_white"]
+        helpBtn.setImage(buttonImage, for: .normal)
+        helpBtn.setImage(buttonImage, for: .highlighted)
+        helpBtn.addTarget(self, action:#selector(onHelpTap), for: .touchDown)
+        
+        let width = helpBtn.superview!.frame.width / 8
+
+        print(width)
+        helpBtn.snp.makeConstraints { make in
+            make.width.equalTo(width)
+            make.height.equalTo(helpBtn.snp.width)
+            make.top.equalTo(helpBtn.superview!).offset(Constants.defaultMargin)
+            make.right.equalTo(helpBtn.superview!).offset(-Constants.defaultMargin / 2)
+        }
+        
+        helpBtn.layoutIfNeeded()
+        
+        helpBtn.layer.cornerRadius = helpBtn.frame.size.height / 2
+    }
 
     func onStartTap() {
         stopWatchSrv.start()
@@ -328,6 +356,10 @@ class SingleViewController: UIViewController {
         animationSrv.animateFadeInView(startBtn)
         
         UIApplication.shared.statusBarStyle = .default
+    }
+    
+    func onHelpTap() {
+        print("tapped")
     }
     
     func animateFadeOutBtnsAndLbls() {
@@ -382,7 +414,30 @@ class SingleViewController: UIViewController {
             
             speechSrv.speakPreviousAndAverageLapTimes(previous: timeTuple, average: averageLapTimeTuple, lapNumber: lapNumber)
         }
+    }
+    
+    func notifyPaused() {
+        let shouldSpeak = Constants.storedSettings.bool(forKey: SettingsService.voiceNotificationsKey)
         
+        if shouldSpeak {
+            speechSrv.speakTimerPaused()
+        }
+    }
+    
+    func notifyStarted() {
+        let shouldSpeak = Constants.storedSettings.bool(forKey: SettingsService.voiceNotificationsKey)
+        
+        if shouldSpeak {
+            speechSrv.speakTimerStarted()
+        }
+    }
+    
+    func notifyTimerCleared() {
+        let shouldSpeak = Constants.storedSettings.bool(forKey: SettingsService.voiceNotificationsKey)
+        
+        if shouldSpeak {
+            speechSrv.speakTimerCleared()
+        }
     }
 }
 
@@ -404,6 +459,8 @@ extension SingleViewController: StopWatchServiceDelegate {
         if stopWatchSrv.lapTimes.count == 1 {
             animateInButtons()
         }
+        
+        notifyStarted()
     }
     
     func stopWatchIntervalElapsed(totalTimeElapsed: TimeInterval) {
@@ -423,7 +480,7 @@ extension SingleViewController: StopWatchServiceDelegate {
     }
     
     func stopWatchStopped() {
-        
+        notifyTimerCleared()
     }
     
     func stopWatchPaused() {
@@ -432,6 +489,8 @@ extension SingleViewController: StopWatchServiceDelegate {
    
         animationSrv.animateMoveHorizontallyFromOffscreen(clearBtn, direction: .left)
         animationSrv.animateMoveHorizontallyFromOffscreen(lapTableBtn, direction: .right)
+        
+        notifyPaused()
     }
     
     func stopWatchRestarted() {
@@ -440,6 +499,8 @@ extension SingleViewController: StopWatchServiceDelegate {
         
         animationSrv.animateFadeOutView(clearBtn)
         animationSrv.animateFadeOutView(lapTableBtn)
+        
+        notifyStarted()
     }
 }
 

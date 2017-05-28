@@ -21,7 +21,7 @@ class TimerHelpTextLabel: UILabel {
         
         self.isHidden = hidden
         
-        self.text = "Double Tap to Lap!"
+        self.text = "Double-tap to Lap!"
         
         self.font = Constants.responsiveDefaultFont
         self.adjustsFontSizeToFitWidth = true
