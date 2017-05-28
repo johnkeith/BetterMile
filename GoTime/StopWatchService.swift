@@ -84,7 +84,9 @@ class StopWatchService: NSObject {
         if(timer != nil) {
             timer.invalidate()
         }
-        
+
+        RunPersistanceService(_lapTimes: self.lapTimes).save()
+
         resetInitialState()
         
         delegate?.stopWatchStopped()
