@@ -21,7 +21,7 @@ class AnimationServiceTests: XCTestCase {
     }
     
     func testAnimateFadeInView() {
-        service.animateFadeInView(viewToFadeIn: view)
+        service.animateFadeInView(view)
         
         RunLoop.current.run(until: Date().addingTimeInterval(0.3))
         
@@ -29,7 +29,7 @@ class AnimationServiceTests: XCTestCase {
     }
     
     func testAnimateFadeOutView() {
-        service.animateFadeOutView(viewToFadeOut: view)
+        service.animateFadeOutView(view)
         
         RunLoop.current.run(until: Date().addingTimeInterval(0.3))
         

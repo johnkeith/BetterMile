@@ -8,6 +8,7 @@
 
 import UIKit
 import AudioToolbox
+import SnapKit
 
 class SingleViewController: UIViewController {
 //  NON-DI

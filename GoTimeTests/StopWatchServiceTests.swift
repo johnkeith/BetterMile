@@ -28,7 +28,6 @@ class StopWatchServiceTests: XCTestCase {
             super.init()
             
             stopWatchService.delegate = self;
-            stopWatchService.delegates = [self, self]
         }
         
         func stopWatchIntervalElapsed(totalTimeElapsed: TimeInterval) {
@@ -197,14 +196,6 @@ class StopWatchServiceTests: XCTestCase {
         
         XCTAssertEqual(result, 3)
         XCTAssertTrue(fakeDelegate.lapWasCalled)
-    }
-    
-    func testDelegateToMultiple() {
-        service.start()
-        
-        service.lap()
-
-        XCTAssertEqual(fakeDelegate.timesLapWasCalled, 3)
     }
     
     func testFindFastestLap() {

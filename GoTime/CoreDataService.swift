@@ -18,7 +18,7 @@ class CoreDataService {
         
         container.loadPersistentStores(completionHandler: { (storeDescription, error) in
             if let error = error {
-                NSLog("CoreData error \(error), \(error._userInfo)")
+                NSLog("CoreData error \(error), \(String(describing: error._userInfo))")
             }
         })
 
@@ -41,7 +41,7 @@ class CoreDataService {
                 try context.save()
             } catch {
                 let error = error as NSError
-                NSLog("CoreData error \(error), \(error._userInfo)")
+                NSLog("CoreData error \(error), \(String(describing: error._userInfo))")
             }
         }
     }

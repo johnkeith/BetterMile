@@ -135,22 +135,3 @@ extension LapTimeTable: UITableViewDelegate {
     }
 }
 
-extension LapTimeTable: RespondsToThemeChange {
-    func handleNotificationOfDarkModeFlipped(notification: Notification) {
-        let value = notification.userInfo?["value"] as! Bool
-        
-        setColoration(darkModeEnabled: value)
-        self.reloadData()
-    }
-    
-    func setColoration(darkModeEnabled: Bool = Constants.storedSettings.bool(forKey: SettingsService.useDarkModeKey), animationDuration: Double = 0.0) {
-        if darkModeEnabled {
-            self.backgroundColor = Constants.colorPalette["black"]
-        } else {
-            self.backgroundColor = Constants.colorPalette["white"]
-        }
-    }
-    
-    
-}
-
