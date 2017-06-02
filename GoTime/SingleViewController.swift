@@ -459,9 +459,8 @@ extension SingleViewController: StopWatchServiceDelegate {
         
         if stopWatchSrv.lapTimes.count == 1 {
             animateInButtons()
+            notifyStarted()
         }
-        
-        notifyStarted()
     }
     
     func stopWatchIntervalElapsed(totalTimeElapsed: TimeInterval) {
