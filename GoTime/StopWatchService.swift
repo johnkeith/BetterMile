@@ -168,9 +168,7 @@ class StopWatchService: NSObject {
         let currentTotalTime = calculateTotalLapsTime(_lapTimes: lapTimes)
         let lapNumber = lapTimes.count - 1
         let lapTime = lapTimes[lapTimes.count - 2]
-        
-        calculateStandardDeviation()
-        
+                
         delegate?.stopWatchLapStored(lapTime: lapTime, lapNumber: lapNumber, totalTime: currentTotalTime)
     }
 }
