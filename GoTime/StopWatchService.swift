@@ -8,6 +8,12 @@
 
 import UIKit
 
+enum LapQualities {
+    case good
+    case bad
+    case ugly
+}
+
 protocol StopWatchServiceDelegate: class {
     func stopWatchIntervalElapsed(totalTimeElapsed: TimeInterval)
     
@@ -67,11 +73,44 @@ class StopWatchService: NSObject {
         return _lapTimes.map{$0}.reduce(0, +)
     }
     
-//    TODO: UNTESTED
+//  This can only be used when calculating right after adding a 0 lap
+//  which would occur after hitting the lpa button
     func calculateAverageLapTime() -> Double {
         let totalLapTime = calculateTotalLapsTime(_lapTimes: self.lapTimes)
         
         return totalLapTime / Double(lapTimes.count - 1)
+    }
+    
+    func calculateStandardDeviation() -> Double {
+        let meanLapTime = calculateMeanLapTime()
+        
+        let sumOfLaps = self.lapTimes.reduce(0.0, { acc, time in
+            let s = (time - meanLapTime)
+            return acc + s * s
+        })
+        
+        let result = sumOfLaps / Double(lapTimes.count)
+
+        return result.squareRoot()
+    }
+    
+    func determineLapQuality(lapTime: Double) -> LapQualities {
+        let currentStandardDeviation = calculateStandardDeviation()
+        let currentAverageLapTime = calculateMeanLapTime()
+        
+        if (lapTime <= currentAverageLapTime) {
+            return LapQualities.good
+        } else if (lapTime <= currentStandardDeviation + currentAverageLapTime) {
+            return LapQualities.bad
+        } else {
+            return LapQualities.ugly
+        }
+    }
+    
+    func calculateMeanLapTime() -> Double {
+        let totalLapTime = calculateTotalLapsTime(_lapTimes: self.lapTimes)
+        
+        return totalLapTime / Double(lapTimes.count)
     }
     
     func calculateTimeBetweenPointAndNow(initialTime: TimeInterval) -> TimeInterval {
@@ -129,6 +168,8 @@ class StopWatchService: NSObject {
         let currentTotalTime = calculateTotalLapsTime(_lapTimes: lapTimes)
         let lapNumber = lapTimes.count - 1
         let lapTime = lapTimes[lapTimes.count - 2]
+        
+        calculateStandardDeviation()
         
         delegate?.stopWatchLapStored(lapTime: lapTime, lapNumber: lapNumber, totalTime: currentTotalTime)
     }

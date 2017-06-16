@@ -10,6 +10,8 @@ import XCTest
 @testable import GoTime
 
 class StopWatchServiceTests: XCTestCase {
+    let lapTimesMock = [2.0, 4.0, 4.0, 4.0, 5.0, 5.0, 7.0, 9.0]
+    
     class FakeDelegate: NSObject, StopWatchServiceDelegate {
         var stopWatchService: StopWatchService
 
@@ -236,5 +238,45 @@ class StopWatchServiceTests: XCTestCase {
         let thirdResult = StopWatchService.findSlowestLapIndex(testLapTimes)
         
         XCTAssertEqual(thirdResult, 2)
+    }
+    
+    func testCalculateAverageLapTime() {
+        service.lapTimes = [0.0, 4.0, 6.0]
+        
+        let result = service.calculateAverageLapTime()
+        
+        XCTAssertEqual(5.0, result)
+    }
+    
+    func testCalculateStandardDeviation() {
+        service.lapTimes = lapTimesMock
+        
+        let result = service.calculateStandardDeviation()
+        
+        XCTAssertEqual(2, result)
+    }
+    
+    func testDetermineLapQualityWhenGood() {
+        service.lapTimes = lapTimesMock
+        
+        let result = service.determineLapQuality(lapTime: 5.0)
+        
+        XCTAssertEqual(LapQualities.good, result)
+    }
+    
+    func testDetermineLapQualityWhenBad() {
+        service.lapTimes = lapTimesMock
+        
+        let result = service.determineLapQuality(lapTime: 7.0)
+        
+        XCTAssertEqual(LapQualities.bad, result)
+    }
+    
+    func testDetermineLapQualityWhenUgly() {
+        service.lapTimes = lapTimesMock
+        
+        let result = service.determineLapQuality(lapTime: 10.0)
+        
+        XCTAssertEqual(LapQualities.ugly, result)
     }
 }
