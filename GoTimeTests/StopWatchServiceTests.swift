@@ -241,11 +241,15 @@ class StopWatchServiceTests: XCTestCase {
     }
     
     func testCalculateAverageLapTime() {
-        service.lapTimes = [0.0, 4.0, 6.0]
+        service.lapTimes = [0.0, 10.0, 8.0]
         
-        let result = service.calculateAverageLapTime()
+        let result = service.calculateAverageLapTime(_lapTimes: service.lapTimes)
         
-        XCTAssertEqual(5.0, result)
+        XCTAssertEqual(6.0, result)
+        
+        let secondResult = service.calculateAverageLapTime(_lapTimes: service.completedLapTimes())
+        
+        XCTAssertEqual(9.0, secondResult)
     }
     
     func testCalculateStandardDeviation() {

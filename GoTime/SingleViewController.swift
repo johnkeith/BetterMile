@@ -410,7 +410,7 @@ class SingleViewController: UIViewController {
         
         if shouldSpeak {
             let timeTuple = timeToTextSrv.timeAsMultipleStrings(inputTime: lapTime)
-            let averageLapTime = stopWatchSrv.calculateAverageLapTime()
+            let averageLapTime = stopWatchSrv.calculateAverageLapTime(_lapTimes: stopWatchSrv.completedLapTimes())
             let averageLapTimeTuple = timeToTextSrv.timeAsMultipleStrings(inputTime: averageLapTime)
             
             speechSrv.speakPreviousAndAverageLapTimes(previous: timeTuple, average: averageLapTimeTuple, lapNumber: lapNumber)

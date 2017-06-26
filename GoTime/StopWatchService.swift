@@ -73,16 +73,18 @@ class StopWatchService: NSObject {
         return _lapTimes.map{$0}.reduce(0, +)
     }
     
-//  This can only be used when calculating right after adding a 0 lap
-//  which would occur after hitting the lpa button
-    func calculateAverageLapTime() -> Double {
-        let totalLapTime = calculateTotalLapsTime(_lapTimes: self.lapTimes)
+    func completedLapTimes() -> [Double] {
+        return Array(self.lapTimes[1..<self.lapTimes.count])
+    }
+    
+    func calculateAverageLapTime(_lapTimes: [Double]) -> Double {
+        let totalLapTime = calculateTotalLapsTime(_lapTimes: _lapTimes)
         
-        return totalLapTime / Double(lapTimes.count - 1)
+        return totalLapTime / Double(_lapTimes.count)
     }
     
     func calculateStandardDeviation() -> Double {
-        let meanLapTime = calculateMeanLapTime()
+        let meanLapTime = calculateAverageLapTime(_lapTimes: self.lapTimes)
         
         let sumOfLaps = self.lapTimes.reduce(0.0, { acc, time in
             let s = (time - meanLapTime)
@@ -96,7 +98,7 @@ class StopWatchService: NSObject {
     
     func determineLapQuality(lapTime: Double) -> LapQualities {
         let currentStandardDeviation = calculateStandardDeviation()
-        let currentAverageLapTime = calculateMeanLapTime()
+        let currentAverageLapTime = calculateAverageLapTime(_lapTimes: self.lapTimes)
         
         if (lapTime <= currentAverageLapTime) {
             return LapQualities.good
@@ -105,12 +107,6 @@ class StopWatchService: NSObject {
         } else {
             return LapQualities.ugly
         }
-    }
-    
-    func calculateMeanLapTime() -> Double {
-        let totalLapTime = calculateTotalLapsTime(_lapTimes: self.lapTimes)
-        
-        return totalLapTime / Double(lapTimes.count)
     }
     
     func calculateTimeBetweenPointAndNow(initialTime: TimeInterval) -> TimeInterval {
