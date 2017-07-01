@@ -109,6 +109,23 @@ class StopWatchService: NSObject {
         }
     }
     
+    func calculateLapDeviationPercentage(lapTime: Double) -> Double {
+        let currentStandardDeviation = calculateStandardDeviation()
+        let currentAverageLapTime = calculateAverageLapTime(_lapTimes: self.lapTimes)
+        
+        let startOfDeviationRange = currentAverageLapTime - currentStandardDeviation
+        let endOfDeviationRange = currentAverageLapTime + currentStandardDeviation
+
+        // starts at 0 being good, 1 being no good
+        if (lapTime <= startOfDeviationRange) {
+            return 0.0
+        } else if ((startOfDeviationRange...endOfDeviationRange).contains(lapTime)) {
+            return (lapTime - startOfDeviationRange) / (endOfDeviationRange - startOfDeviationRange)
+        } else { // lapTime >= endOfDeviationRange
+            return 1.0
+        }
+    }
+    
     func calculateTimeBetweenPointAndNow(initialTime: TimeInterval) -> TimeInterval {
         let currentTime = NSDate.timeIntervalSinceReferenceDate
         

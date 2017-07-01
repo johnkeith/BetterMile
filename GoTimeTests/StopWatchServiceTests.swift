@@ -283,4 +283,12 @@ class StopWatchServiceTests: XCTestCase {
         
         XCTAssertEqual(LapQualities.ugly, result)
     }
+    
+    func testCalculateLapDeviationPercentage() {
+        service.lapTimes = lapTimesMock
+        
+        let result = service.calculateLapDeviationPercentage(lapTime: 5.34)
+        
+        XCTAssertEqual(result, 0.585)
+    }
 }
