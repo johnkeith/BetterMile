@@ -291,4 +291,16 @@ class StopWatchServiceTests: XCTestCase {
         
         XCTAssertEqual(result, 0.585)
     }
+    
+    func testColorOfLapTime() {
+        service.lapTimes = lapTimesMock
+        
+        let result = service.colorOfLapTime(lapTime: 3.45)
+        let resultAsCIColor = CIColor(color: result)
+                
+        XCTAssertEqual(String.init(describing: resultAsCIColor.red), String.init(describing: 0.45625))
+        XCTAssertEqual(String.init(describing: resultAsCIColor.green), String.init(describing: 0.708375))
+        XCTAssertEqual(String.init(describing: resultAsCIColor.blue), String.init(describing: 0.63875))
+        
+    }
 }

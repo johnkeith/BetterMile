@@ -126,6 +126,18 @@ class StopWatchService: NSObject {
         }
     }
     
+    func colorOfLapTime(lapTime: Double) -> UIColor {
+        let percent = CGFloat(calculateLapDeviationPercentage(lapTime: lapTime))
+        let baseGreen = CIColor(color: Constants.colorPalette["_green"]!)
+        let baseRed = CIColor(color: Constants.colorPalette["_red"]!)
+        
+        let resultRed = baseGreen.red + percent * (baseRed.red - baseGreen.red);
+        let resultGreen = baseGreen.green + percent * (baseRed.green - baseGreen.green);
+        let resultBlue = baseGreen.blue + percent * (baseRed.blue - baseGreen.blue);
+        
+        return UIColor(red: resultRed, green: resultGreen, blue: resultBlue, alpha: 1.0)
+    }
+    
     func calculateTimeBetweenPointAndNow(initialTime: TimeInterval) -> TimeInterval {
         let currentTime = NSDate.timeIntervalSinceReferenceDate
         
