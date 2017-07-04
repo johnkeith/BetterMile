@@ -43,6 +43,8 @@ class LapTableController: UIViewController {
         
 //        backButton.setTitleTextAttributes([NSFontAttributeName: UIFont.preferredFont(forTextStyle: .headline)], for: UIControlState.normal)
         
+
+        
         self.navigationItem.backBarButtonItem?.setTitleTextAttributes([NSFontAttributeName: UIFont.preferredFont(forTextStyle: .headline)], for: UIControlState.normal)
     }
     

@@ -90,18 +90,36 @@ extension LapTimeTable: UITableViewDelegate {
         let index = indexPath.row
         let _cell = cell as! LapTimeTableCell
 
-        if index > 0 {
-            if lapData.count > 2 {
-                setCellTextColor(_cell, at: index, checkForSlowest: true)
-            } else if lapData.count == 2 {
-                setCellTextColor(_cell, at: index)
-            }
+        if self.lapData.count > 1 {
+            setCellTextColor(_cell, at: index)
+//        if index > 0 {
+//            if lapData.count > 2 {
+//                setCellTextColor(_cell, at: index, checkForSlowest: true)
+//            } else if lapData.count == 2 {
+//                setCellTextColor(_cell, at: index)
+//            }
         } else {
-            _cell.backgroundColor = Constants.colorPalette["_black"]
+            _cell.backgroundColor = Constants.colorPalette["_green"]
         }
     }
     
-    func setCellTextColor(_ cell: LapTimeTableCell, at index: Int, checkForSlowest: Bool = false) {
+    func setCellTextColor(_ cell: LapTimeTableCell, at index: Int) {
+        let lap = self.lapData[index]
+        let quality = StopWatchService.determineLapQuality(lap: lap, laps: self.lapData)
+        
+        if quality == LapQualities.good {
+            cell.backgroundColor = Constants.colorPalette["_green"]
+            cell.label.textColor = Constants.colorPalette["_white"]
+        } else if quality == LapQualities.bad {
+            cell.backgroundColor = Constants.colorPalette["_yellow"]
+            cell.label.textColor = Constants.colorPalette["_white"]
+        } else {
+            cell.backgroundColor = Constants.colorPalette["_red"]
+            cell.label.textColor = Constants.colorPalette["_white"]
+        }
+    }
+    
+    func oldSetCellTextColor(_ cell: LapTimeTableCell, at index: Int, checkForSlowest: Bool = false) {
         if checkForSlowest && isSlowestLap(index){
             cell.backgroundColor = Constants.colorPalette["_red"]
             cell.label.textColor = Constants.colorPalette["_white"]
