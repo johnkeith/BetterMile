@@ -20,7 +20,7 @@ class LapTableController: UIViewController {
         lapTable.setRowHeightBySuperview(_superview: self.view)
         
         self.view.addSubview(lapTable)
-        self.view.backgroundColor = Constants.colorPalette["black"]
+        self.view.backgroundColor = Constants.colorPalette["_black"]
         
         configLapTable()
     }

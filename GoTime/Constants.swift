@@ -30,7 +30,8 @@ struct Constants {
 //        "_white": UIColor(red:1.00, green:1.00, blue:1.00, alpha:1.0),
         "_white": UIColor.white,
 //        "_black": UIColor(red:0.14, green:0.14, blue:0.14, alpha:1.0),
-        "_black": UIColor.black
+//        "_black": UIColor.black
+        "_black": UIColor(red:0.17, green:0.24, blue:0.31, alpha:1.0)
     ]
     
     static let responsiveDefaultFont: UIFont = UIFont.systemFont(ofSize: 999, weight: UIFontWeightThin)

@@ -221,7 +221,7 @@ class SingleViewController: UIViewController {
         } else {
             btn.tintColor = Constants.colorPalette["_black"]
             btn.backgroundColor = Constants.colorPalette["_white"]
-        }
+        }        
     }
     
     func configClearBtn() {
@@ -276,8 +276,8 @@ class SingleViewController: UIViewController {
         let buttonImage = UIImage(named: "ic_format_list_bulleted_48pt")?.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
         
         lapTableBtn.isHidden = true
-        lapTableBtn.tintColor = Constants.colorPalette["_white"]
-        lapTableBtn.backgroundColor = Constants.colorPalette["_blue"]
+        lapTableBtn.tintColor = Constants.colorPalette["_black"]
+        lapTableBtn.backgroundColor = Constants.colorPalette["_white"]
         lapTableBtn.setImage(buttonImage, for: .normal)
         lapTableBtn.setImage(buttonImage, for: .highlighted)
         lapTableBtn.addTarget(self, action:#selector(onLapTableTap), for: .touchDown)
