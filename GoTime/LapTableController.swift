@@ -31,21 +31,17 @@ class LapTableController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+                
         self.navigationController?.setNavigationBarHidden(false, animated: animated)
-        self.navigationController?.navigationBar.barStyle = .black
-        self.navigationController?.navigationBar.tintColor = Constants.colorPalette["white"]
-//        self.navigationController?.navigationBar.titleTextAttributes = UIFont.preferredFont(forTextStyle: .headline)
+        self.navigationController?.navigationBar.barStyle = .blackTranslucent
+        self.navigationController?.navigationBar.isTranslucent = true
+//        self.navigationController?.navigationBar.backgroundColor = Constants.colorPalette["_black"]
+//        self.navigationController?.navigationBar.barTintColor = Constants.colorPalette["_black"]
+        self.navigationController?.navigationBar.backgroundColor = Constants.colorPalette["_black"]
+        self.navigationController?.view.backgroundColor = Constants.colorPalette["_black"]
+        self.navigationController?.navigationBar.tintColor = Constants.colorPalette["_white"]
         self.navigationItem.title = "Lap Times"
-        
-        
-//        let backButton = UIBarButtonItem(title: "< Backzßß®", style: UIBarButtonItemStyle.plain, target: self, action: nil)
-        
-//        backButton.setTitleTextAttributes([NSFontAttributeName: UIFont.preferredFont(forTextStyle: .headline)], for: UIControlState.normal)
-        
-
-        
-        self.navigationItem.backBarButtonItem?.setTitleTextAttributes([NSFontAttributeName: UIFont.preferredFont(forTextStyle: .headline)], for: UIControlState.normal)
+        self.navigationController?.navigationBar.backItem?.title = ""
     }
     
     func configLapTable() {

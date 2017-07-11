@@ -136,6 +136,9 @@ class SingleViewController: UIViewController {
         
         lapLbl.layoutIfNeeded()
         
+//        lapLbl.layer.borderColor = Constants.colorPalette["_white"]?.cgColor
+//        lapLbl.layer.borderWidth = 4
+        
         lapLbl.font = UIFont.systemFont(ofSize: lapLbl.frame.size.height, weight: UIFontWeightThin)
     }
     

@@ -28,7 +28,7 @@ class LapTimeTable: UITableView {
         self.showsVerticalScrollIndicator = false
         self.alwaysBounceVertical = false
         
-        self.backgroundColor = Constants.colorPalette["black"]
+        self.backgroundColor = Constants.colorPalette["_black"]
         
         self.register(LapTimeTableCell.self, forCellReuseIdentifier: "lapTimeTableCell")
     }
