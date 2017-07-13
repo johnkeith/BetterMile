@@ -71,7 +71,7 @@ class StopWatchService: NSObject {
     }
     
     func completedLapTimes() -> [Double] {
-        return Array(self.lapTimes[1..<self.lapTimes.count])
+        return Array(self.lapTimes[0..<self.lapTimes.count - 1])
     }
     
     func calculateLapDeviationPercentage(lapTime: Double) -> Double {
