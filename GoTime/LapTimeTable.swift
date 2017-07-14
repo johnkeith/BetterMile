@@ -86,7 +86,6 @@ extension LapTimeTable: UITableViewDataSource {
 
 extension LapTimeTable: UITableViewDelegate {
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        print(indexPath);
         let index = indexPath.row
         let _cell = cell as! LapTimeTableCell
 

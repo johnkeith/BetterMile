@@ -311,7 +311,6 @@ class SingleViewController: UIViewController {
         
         let width = helpBtn.superview!.frame.width / 8
 
-        print(width)
         helpBtn.snp.makeConstraints { make in
             make.width.equalTo(width)
             make.height.equalTo(helpBtn.snp.width)
