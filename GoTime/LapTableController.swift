@@ -33,9 +33,8 @@ class LapTableController: UIViewController {
         super.viewWillAppear(animated)
                 
         self.navigationController?.setNavigationBarHidden(false, animated: animated)
-        self.navigationController?.navigationBar.barStyle = .blackTranslucent
+        self.navigationController?.navigationBar.barStyle = .black
         self.navigationController?.navigationBar.isTranslucent = true
-//        self.navigationController?.navigationBar.backgroundColor = Constants.colorPalette["_black"]
 //        self.navigationController?.navigationBar.barTintColor = Constants.colorPalette["_black"]
         self.navigationController?.navigationBar.backgroundColor = Constants.colorPalette["_black"]
         self.navigationController?.view.backgroundColor = Constants.colorPalette["_black"]

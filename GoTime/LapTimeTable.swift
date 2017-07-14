@@ -111,7 +111,7 @@ extension LapTimeTable: UITableViewDelegate {
             cell.backgroundColor = Constants.colorPalette["_green"]
             cell.label.textColor = Constants.colorPalette["_white"]
         } else if quality == LapQualities.bad {
-            cell.backgroundColor = Constants.colorPalette["_yellow"]
+            cell.backgroundColor = Constants.colorPalette["_black"]
             cell.label.textColor = Constants.colorPalette["_white"]
         } else {
             cell.backgroundColor = Constants.colorPalette["_red"]

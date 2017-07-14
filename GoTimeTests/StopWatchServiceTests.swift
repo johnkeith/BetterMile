@@ -242,7 +242,7 @@ class StopWatchServiceTests: XCTestCase {
     }
     
     func testCalculateAverageLapTime() {
-        service.lapTimes = [0.0, 10.0, 8.0]
+        service.lapTimes = [10.0, 8.0, 0.0]
         
         let result = klass.calculateAverageLapTime(laps: service.lapTimes)
         
