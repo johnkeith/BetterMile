@@ -12,7 +12,7 @@ import SnapKit
 
 class SingleViewController: UIViewController {
 //  NON-DI
-    let startBtn = UIButton()
+    let startBtn = StartButton()
     let totalTimeLbl = UILabel()
     let lapLbl = UILabel()
     let voiceNotificationsBtn = UIButton()
@@ -47,7 +47,7 @@ class SingleViewController: UIViewController {
         
         stopWatchSrv.delegate = self
         
-        view.backgroundColor = Constants.colorPalette["_white"]
+        view.backgroundColor = Constants.colorPalette["_black"]
         
         addSubviews([startBtn, totalTimeLbl, lapLbl, voiceNotificationsBtn, pauseBtn, vibrationNotificationBtn, clearBtn, restartBtn, lapTableBtn, helpText, helpBtn])
         
@@ -75,15 +75,6 @@ class SingleViewController: UIViewController {
     }
     
     func configStartBtn() {
-        startBtn.isHidden = false
-        startBtn.setTitle("START", for: UIControlState.normal)
-        startBtn.setTitleColor(Constants.colorPalette["black"], for: UIControlState.normal)
-        startBtn.titleLabel?.font = Constants.responsiveDefaultFont
-        startBtn.titleLabel?.adjustsFontSizeToFitWidth = true
-        startBtn.titleLabel?.numberOfLines = 1
-        startBtn.titleLabel?.baselineAdjustment = .alignCenters
-        startBtn.titleLabel?.textAlignment = .center
-        
         startBtn.addTarget(self, action:#selector(onStartTap), for: .touchDown)
         
         startBtn.snp.makeConstraints { make in
@@ -352,7 +343,7 @@ class SingleViewController: UIViewController {
     func onClearTap() {
         stopWatchSrv.stop()
         
-        animationSrv.animate({ self.view.backgroundColor = Constants.colorPalette["_white"] })
+        animationSrv.animate({ self.view.backgroundColor = Constants.colorPalette["_black"] })
 
         animateFadeOutBtnsAndLbls()
         

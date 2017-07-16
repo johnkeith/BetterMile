@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		632271B51ED7B9C100244ED3 /* LapTableController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632271B41ED7B9C100244ED3 /* LapTableController.swift */; };
+		632E32AA1F1A6104000683B8 /* StartButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632E32A91F1A6104000683B8 /* StartButton.swift */; };
 		634CACDF1E4BD4AE0064FD5E /* LapTimeTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634CACDE1E4BD4AE0064FD5E /* LapTimeTable.swift */; };
 		634CACF01E5C69210064FD5E /* LapTimeTableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634CACEF1E5C69210064FD5E /* LapTimeTableTests.swift */; };
 		6369A9011E9C70A400DC3B35 /* TODOLIST.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 6369A9001E9C70A400DC3B35 /* TODOLIST.rtf */; };
@@ -60,6 +61,7 @@
 
 /* Begin PBXFileReference section */
 		632271B41ED7B9C100244ED3 /* LapTableController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LapTableController.swift; sourceTree = "<group>"; };
+		632E32A91F1A6104000683B8 /* StartButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartButton.swift; sourceTree = "<group>"; };
 		634CACDE1E4BD4AE0064FD5E /* LapTimeTable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LapTimeTable.swift; sourceTree = "<group>"; };
 		634CACEF1E5C69210064FD5E /* LapTimeTableTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LapTimeTableTests.swift; sourceTree = "<group>"; };
 		6369A9001E9C70A400DC3B35 /* TODOLIST.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = TODOLIST.rtf; sourceTree = "<group>"; };
@@ -208,6 +210,7 @@
 				634CACDE1E4BD4AE0064FD5E /* LapTimeTable.swift */,
 				63CB14051E67AD2900F7BC14 /* LapTimeTableCell.swift */,
 				63CB14091E6D0A6300F7BC14 /* TimerHelpTextLabel.swift */,
+				632E32A91F1A6104000683B8 /* StartButton.swift */,
 			);
 			name = Components;
 			sourceTree = "<group>";
@@ -442,6 +445,7 @@
 				63CB140C1E6E4E0A00F7BC14 /* AnimationService.swift in Sources */,
 				63CC94EE1EB7FA1C00D5DB0E /* SingleViewController.swift in Sources */,
 				63E9BBE01EA07BFD0019FC35 /* SpeechService.swift in Sources */,
+				632E32AA1F1A6104000683B8 /* StartButton.swift in Sources */,
 				63A3F1F71E34FE3800AA8A92 /* GoTime.xcdatamodeld in Sources */,
 				6386BF211E3EC1FC00BD2875 /* TimeToTextService.swift in Sources */,
 				63A3F1EF1E34FE3800AA8A92 /* AppDelegate.swift in Sources */,
