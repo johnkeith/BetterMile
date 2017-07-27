@@ -42,13 +42,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GoTime/StartButton.swift"
-            timestampString = "521939613.418017"
+            timestampString = "521953221.817495"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "32"
-            endingLineNumber = "32"
-            landmarkName = "StartButton"
-            landmarkType = "3">
+            endingLineNumber = "32">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -212,7 +210,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GoTime/TimerHelpTextLabel.swift"
-            timestampString = "510546125.309249"
+            timestampString = "522814629.762121"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "20"
@@ -607,12 +605,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GoTime/SingleViewController.swift"
-            timestampString = "521939613.418352"
+            timestampString = "522814629.762315"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "419"
-            endingLineNumber = "419"
-            landmarkName = "notifyTimerCleared()"
+            startingLineNumber = "421"
+            endingLineNumber = "421"
+            landmarkName = "notifyPaused()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -623,12 +621,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GoTime/SingleViewController.swift"
-            timestampString = "521939613.418717"
+            timestampString = "522814629.762582"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "406"
-            endingLineNumber = "406"
-            landmarkName = "notifyPaused()"
+            startingLineNumber = "408"
+            endingLineNumber = "408"
+            landmarkName = "notifyWithVoiceIfEnabled(lapTime:lapNumber:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

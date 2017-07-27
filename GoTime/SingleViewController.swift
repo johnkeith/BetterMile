@@ -72,6 +72,8 @@ class SingleViewController: UIViewController {
         super.viewWillAppear(animated)
         
         self.navigationController?.setNavigationBarHidden(true, animated: animated)
+        
+        UIApplication.shared.statusBarStyle = .default
     }
     
     func configStartBtn() {
@@ -92,7 +94,7 @@ class SingleViewController: UIViewController {
         totalTimeLbl.numberOfLines = 1
         totalTimeLbl.baselineAdjustment = .alignCenters
         totalTimeLbl.textAlignment = .center
-        totalTimeLbl.textColor = Constants.colorPalette["_white"]
+        totalTimeLbl.textColor = Constants.colorPalette["_black"]
         
         totalTimeLbl.snp.makeConstraints { make in
             make.width.equalTo(totalTimeLbl.superview!).offset(-Constants.defaultMargin)
@@ -117,7 +119,7 @@ class SingleViewController: UIViewController {
         lapLbl.isHidden = true
         lapLbl.text = "1"
         lapLbl.textAlignment = .center
-        lapLbl.textColor = Constants.colorPalette["_white"]
+        lapLbl.textColor = Constants.colorPalette["_black"]
         
         lapLbl.snp.makeConstraints { make in
             make.width.equalTo(lapLbl.superview!)
@@ -322,9 +324,9 @@ class SingleViewController: UIViewController {
         animationSrv.animateWithSpring(lapLbl, fromAlphaZero: true)
         animationSrv.animateWithSpring(totalTimeLbl, duration: 0.8, fromAlphaZero: true)
         
-        animationSrv.animate({ self.view.backgroundColor = Constants.colorPalette["_black"] })
+        animationSrv.animate({ self.view.backgroundColor = Constants.colorPalette["_white"] })
         helpText.showBriefly()
-        UIApplication.shared.statusBarStyle = .lightContent
+        UIApplication.shared.statusBarStyle = .default
     }
     
     func onPauseTap() {
@@ -349,7 +351,7 @@ class SingleViewController: UIViewController {
         
         animationSrv.animateFadeInView(startBtn)
         
-        UIApplication.shared.statusBarStyle = .default
+        UIApplication.shared.statusBarStyle = .lightContent
     }
     
     func onHelpTap() {

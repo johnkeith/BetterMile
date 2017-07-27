@@ -41,6 +41,8 @@ class LapTableController: UIViewController {
         self.navigationController?.navigationBar.tintColor = Constants.colorPalette["_white"]
         self.navigationItem.title = "Lap Times"
         self.navigationController?.navigationBar.backItem?.title = ""
+        
+        UIApplication.shared.statusBarStyle = .lightContent
     }
     
     func configLapTable() {
