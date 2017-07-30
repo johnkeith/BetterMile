@@ -97,11 +97,9 @@ class SingleViewController: UIViewController {
         totalTimeLbl.textColor = Constants.colorPalette["_black"]
         
         totalTimeLbl.snp.makeConstraints { make in
-            make.width.equalTo(totalTimeLbl.superview!).offset(-Constants.defaultMargin)
-            make.left.equalTo(totalTimeLbl.superview!).offset(Constants.defaultMargin / 2)
-            make.right.equalTo(totalTimeLbl.superview!).offset(-Constants.defaultMargin / 2)
+            make.width.equalTo(totalTimeLbl.superview!).offset(-Constants.defaultMargin / 2)
             make.height.equalTo(totalTimeLbl.superview!.frame.height / 6)
-//            make.centerX.equalTo(totalTimeLbl.superview!)
+            make.centerX.equalTo(totalTimeLbl.superview!)
             make.top.equalTo(totalTimeLbl.superview!).offset(Constants.defaultMargin)
         }
     }
@@ -164,8 +162,8 @@ class SingleViewController: UIViewController {
         let buttonImage = UIImage(named: "ic_pause_48pt")?.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
         
         pauseBtn.isHidden = true
-        pauseBtn.tintColor = Constants.colorPalette["_white"]
-        pauseBtn.backgroundColor = Constants.colorPalette["_red"]
+        pauseBtn.tintColor = Constants.colorPalette["_black"]
+        pauseBtn.backgroundColor = Constants.colorPalette["_white"]
         pauseBtn.setImage(buttonImage, for: .normal)
         pauseBtn.setImage(buttonImage, for: .highlighted)
         
@@ -212,20 +210,20 @@ class SingleViewController: UIViewController {
     
     func setSettingsBtnColor(btn: UIButton, enabled: Bool) {
         if enabled {
-            btn.tintColor = Constants.colorPalette["_white"]
-            btn.backgroundColor = Constants.colorPalette["_blue"]
-        } else {
             btn.tintColor = Constants.colorPalette["_black"]
             btn.backgroundColor = Constants.colorPalette["_white"]
-        }        
+        } else {
+            btn.tintColor = Constants.colorPalette["gray"]
+            btn.backgroundColor = Constants.colorPalette["_white"]
+        }
     }
     
     func configClearBtn() {
         let buttonImage = UIImage(named: "ic_clear_48pt")?.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
         
         clearBtn.isHidden = true
-        clearBtn.tintColor = Constants.colorPalette["_white"]
-        clearBtn.backgroundColor = Constants.colorPalette["_red"]
+        clearBtn.tintColor = Constants.colorPalette["_black"]
+        clearBtn.backgroundColor = Constants.colorPalette["_white"]
         clearBtn.setImage(buttonImage, for: .normal)
         clearBtn.setImage(buttonImage, for: .highlighted)
         clearBtn.addTarget(self, action:#selector(onClearTap), for: .touchDown)
@@ -248,8 +246,8 @@ class SingleViewController: UIViewController {
         let buttonImage = UIImage(named: "ic_play_arrow_48pt")?.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
         
         restartBtn.isHidden = true
-        restartBtn.tintColor = Constants.colorPalette["_white"]
-        restartBtn.backgroundColor = Constants.colorPalette["_green"]
+        restartBtn.tintColor = Constants.colorPalette["_black"]
+        restartBtn.backgroundColor = Constants.colorPalette["_white"]
         restartBtn.setImage(buttonImage, for: .normal)
         restartBtn.setImage(buttonImage, for: .highlighted)
         restartBtn.addTarget(self, action:#selector(onRestartTap), for: .touchDown)
