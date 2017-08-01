@@ -24,8 +24,9 @@ class SingleViewController: UIViewController {
     let helpText = TimerHelpTextLabel()
 //    all that is needed is to create the help button and the like button and link those to the correct spots
     let helpBtn = UIButton()
+    let likeBtn = LikeButton()
     
-    
+    var initialLoad = true
     var doubleTapRecognizer: UITapGestureRecognizer! // TODO: FIX
     
 //  DI
@@ -49,7 +50,7 @@ class SingleViewController: UIViewController {
         
         view.backgroundColor = Constants.colorPalette["_black"]
         
-        addSubviews([startBtn, totalTimeLbl, lapLbl, voiceNotificationsBtn, pauseBtn, vibrationNotificationBtn, clearBtn, restartBtn, lapTableBtn, helpText, helpBtn])
+        addSubviews([startBtn, totalTimeLbl, lapLbl, voiceNotificationsBtn, pauseBtn, vibrationNotificationBtn, clearBtn, restartBtn, lapTableBtn, helpText, helpBtn, likeBtn])
         
         configStartBtn()
         configTotalTimeLbl()
@@ -62,6 +63,7 @@ class SingleViewController: UIViewController {
         configLapTableBtn()
         configHelpText()
         configHelpBtn()
+        configLikeBtn()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -73,7 +75,12 @@ class SingleViewController: UIViewController {
         
         self.navigationController?.setNavigationBarHidden(true, animated: animated)
         
-        UIApplication.shared.statusBarStyle = .default
+        if !initialLoad {
+            UIApplication.shared.statusBarStyle = .default
+        } else {
+            initialLoad = false
+            UIApplication.shared.statusBarStyle = .lightContent
+        }
     }
     
     func configStartBtn() {
@@ -293,9 +300,9 @@ class SingleViewController: UIViewController {
     func configHelpBtn() {
         let buttonImage = UIImage(named: "ic_help_outline_48pt")?.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
         
-        helpBtn.isHidden = true
-        helpBtn.tintColor = Constants.colorPalette["_black"]
-        helpBtn.backgroundColor = Constants.colorPalette["_white"]
+        helpBtn.isHidden = false
+        helpBtn.tintColor = Constants.colorPalette["_white"]
+        helpBtn.backgroundColor = Constants.colorPalette["_black"]
         helpBtn.setImage(buttonImage, for: .normal)
         helpBtn.setImage(buttonImage, for: .highlighted)
         helpBtn.addTarget(self, action:#selector(onHelpTap), for: .touchDown)
@@ -305,13 +312,27 @@ class SingleViewController: UIViewController {
         helpBtn.snp.makeConstraints { make in
             make.width.equalTo(width)
             make.height.equalTo(helpBtn.snp.width)
-            make.top.equalTo(helpBtn.superview!).offset(Constants.defaultMargin)
-            make.right.equalTo(helpBtn.superview!).offset(-Constants.defaultMargin / 2)
+            make.centerY.equalTo(helpBtn.superview!).offset(helpBtn.superview!.frame.height / 4)
+            make.centerX.equalTo(helpBtn.superview!).offset(-Constants.defaultMargin * 2)
         }
         
         helpBtn.layoutIfNeeded()
         
         helpBtn.layer.cornerRadius = helpBtn.frame.size.height / 2
+    }
+    
+    func configLikeBtn() {
+        let width = likeBtn.superview!.frame.width / 8
+        
+        likeBtn.snp.makeConstraints { make in
+            make.width.equalTo(width)
+            make.height.equalTo(likeBtn.snp.width)
+            make.centerY.equalTo(likeBtn.superview!).offset(likeBtn.superview!.frame.height / 4)
+            make.centerX.equalTo(likeBtn.superview!).offset(Constants.defaultMargin * 2)
+        }
+        
+        likeBtn.layoutIfNeeded()
+        likeBtn.layer.cornerRadius = likeBtn.frame.size.height / 2
     }
 
     func onStartTap() {
@@ -319,6 +340,8 @@ class SingleViewController: UIViewController {
         lapLbl.text = "\(self.stopWatchSrv.lapTimes.count)"
         
         animationSrv.animateFadeOutView(startBtn)
+        helpBtn.alpha = 0
+        likeBtn.alpha = 0
         animationSrv.animateWithSpring(lapLbl, fromAlphaZero: true)
         animationSrv.animateWithSpring(totalTimeLbl, duration: 0.8, fromAlphaZero: true)
         
@@ -348,6 +371,8 @@ class SingleViewController: UIViewController {
         animateFadeOutBtnsAndLbls()
         
         animationSrv.animateFadeInView(startBtn)
+        animationSrv.animateFadeInView(helpBtn, delay: 0.3)
+        animationSrv.animateFadeInView(likeBtn, delay: 0.3)
         
         UIApplication.shared.statusBarStyle = .lightContent
     }

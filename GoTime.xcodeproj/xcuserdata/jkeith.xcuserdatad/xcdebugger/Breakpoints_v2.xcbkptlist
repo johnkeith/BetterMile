@@ -42,7 +42,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GoTime/StartButton.swift"
-            timestampString = "521953221.817495"
+            timestampString = "523244925.149883"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "32"
@@ -72,7 +72,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GoTime/StopWatchService.swift"
-            timestampString = "523110418.895093"
+            timestampString = "523149433.793767"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "33"
@@ -460,7 +460,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GoTime/StopWatchService.swift"
-            timestampString = "523110418.895284"
+            timestampString = "523149433.793995"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "157"
@@ -605,13 +605,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GoTime/SingleViewController.swift"
-            timestampString = "523110418.895395"
+            timestampString = "523244925.150178"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "419"
-            endingLineNumber = "419"
-            landmarkName = "notifyPaused()"
-            landmarkType = "7">
+            startingLineNumber = "471"
+            endingLineNumber = "471"
+            landmarkName = "unknown"
+            landmarkType = "0">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -621,12 +621,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GoTime/SingleViewController.swift"
-            timestampString = "523110418.895673"
+            timestampString = "523244925.150736"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "406"
-            endingLineNumber = "406"
-            landmarkName = "notifyWithVoiceIfEnabled(lapTime:lapNumber:)"
+            startingLineNumber = "458"
+            endingLineNumber = "458"
+            landmarkName = "notifyTimerCleared()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
