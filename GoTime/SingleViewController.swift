@@ -483,7 +483,7 @@ extension SingleViewController: StopWatchServiceDelegate {
     
     func stopWatchIntervalElapsed(totalTimeElapsed: TimeInterval) {
         DispatchQueue.main.async {
-            self.totalTimeLbl.text = self.timeToTextSrv.timeAsSingleString(inputTime: totalTimeElapsed)
+            self.totalTimeLbl.text = self.timeToTextSrv.timeAsSingleString(inputTime: totalTimeElapsed)            
         }
     }
     
