@@ -27,6 +27,10 @@ class SingleViewController: UIViewController {
     let likeBtn = LikeButton()
     
     var initialLoad = true
+    
+    let voiceDisabledSlash = UILabel()
+    let vibrationDisabledSlash = UILabel()
+    
     var doubleTapRecognizer: UITapGestureRecognizer! // TODO: FIX
     
 //  DI
@@ -50,7 +54,7 @@ class SingleViewController: UIViewController {
         
         view.backgroundColor = Constants.colorPalette["_black"]
         
-        addSubviews([startBtn, totalTimeLbl, lapLbl, voiceNotificationsBtn, pauseBtn, vibrationNotificationBtn, clearBtn, restartBtn, lapTableBtn, helpText, helpBtn, likeBtn])
+        addSubviews([startBtn, totalTimeLbl, lapLbl, voiceNotificationsBtn, pauseBtn, vibrationNotificationBtn, clearBtn, restartBtn, lapTableBtn, helpText, helpBtn, voiceDisabledSlash, vibrationDisabledSlash, likeBtn])
         
         configStartBtn()
         configTotalTimeLbl()
@@ -145,7 +149,7 @@ class SingleViewController: UIViewController {
         
         voiceNotificationsBtn.isHidden = true
         
-        setSettingsBtnColor(btn: voiceNotificationsBtn, enabled: Constants.storedSettings.bool(forKey: SettingsService.voiceNotificationsKey))
+        setSettingsBtnColor(btn: voiceNotificationsBtn, enabled: Constants.storedSettings.bool(forKey: SettingsService.voiceNotificationsKey), which: 0)
         
         voiceNotificationsBtn.setImage(buttonImage, for: .normal)
         voiceNotificationsBtn.setImage(buttonImage, for: .highlighted)
@@ -169,8 +173,8 @@ class SingleViewController: UIViewController {
         let buttonImage = UIImage(named: "ic_pause_48pt")?.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
         
         pauseBtn.isHidden = true
-        pauseBtn.tintColor = Constants.colorPalette["_black"]
-        pauseBtn.backgroundColor = Constants.colorPalette["_white"]
+        pauseBtn.tintColor = Constants.colorPalette["_white"]
+        pauseBtn.backgroundColor = Constants.colorPalette["_red"]
         pauseBtn.setImage(buttonImage, for: .normal)
         pauseBtn.setImage(buttonImage, for: .highlighted)
         
@@ -195,7 +199,7 @@ class SingleViewController: UIViewController {
         
         vibrationNotificationBtn.isHidden = true
 
-        setSettingsBtnColor(btn: vibrationNotificationBtn, enabled: Constants.storedSettings.bool(forKey: SettingsService.vibrationNotificationsKey))
+        setSettingsBtnColor(btn: vibrationNotificationBtn, enabled: Constants.storedSettings.bool(forKey: SettingsService.vibrationNotificationsKey), which: 1)
         
         vibrationNotificationBtn.setImage(buttonImage, for: .normal)
         vibrationNotificationBtn.setImage(buttonImage, for: .highlighted)
@@ -215,22 +219,48 @@ class SingleViewController: UIViewController {
         vibrationNotificationBtn.layer.cornerRadius = vibrationNotificationBtn.frame.size.height / 2
     }
     
-    func setSettingsBtnColor(btn: UIButton, enabled: Bool) {
-        if enabled {
-            btn.tintColor = Constants.colorPalette["_black"]
-            btn.backgroundColor = Constants.colorPalette["_white"]
-        } else {
-            btn.tintColor = Constants.colorPalette["gray"]
-            btn.backgroundColor = Constants.colorPalette["_white"]
+    func setSettingsBtnColor(btn: UIButton, enabled: Bool, which: Int) {
+        btn.tintColor = Constants.colorPalette["_black"]
+        btn.backgroundColor = Constants.colorPalette["_white"]
+        
+        voiceDisabledSlash.backgroundColor = Constants.colorPalette["_black"]
+        vibrationDisabledSlash.backgroundColor = Constants.colorPalette["_black"]
+        
+//        zero is voice
+//        1 is vibration
+        if enabled && which == 0 {
+            voiceDisabledSlash.snp.removeConstraints()
+        } else if enabled && which == 1 {
+            
+        } else if !enabled && which == 0 {
+            voiceNotificationsBtn.layer.borderWidth = 1
+            voiceNotificationsBtn.layer.borderColor = UIColor.black.cgColor
+            voiceDisabledSlash.snp.makeConstraints { make in
+                make.width.equalTo(voiceNotificationsBtn.frame.width)
+                make.height.equalTo(voiceNotificationsBtn.frame.width / 10)
+                make.left.equalTo(voiceNotificationsBtn)
+                make.top.equalTo(voiceNotificationsBtn).offset(voiceNotificationsBtn.frame.width / 2)
+            }
+            
+            voiceDisabledSlash.transform = CGAffineTransform(rotationAngle: -0.90)
+        } else if !enabled && which == 1 {
+            
         }
+//        if enabled {
+//            btn.tintColor = Constants.colorPalette["_black"]
+//            btn.backgroundColor = Constants.colorPalette["_white"]
+//        } else {
+//            btn.tintColor = Constants.colorPalette["gray"]
+//            btn.backgroundColor = Constants.colorPalette["_white"]
+//        }
     }
     
     func configClearBtn() {
         let buttonImage = UIImage(named: "ic_clear_48pt")?.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
         
         clearBtn.isHidden = true
-        clearBtn.tintColor = Constants.colorPalette["_black"]
-        clearBtn.backgroundColor = Constants.colorPalette["_white"]
+        clearBtn.tintColor = Constants.colorPalette["_white"]
+        clearBtn.backgroundColor = Constants.colorPalette["_red"]
         clearBtn.setImage(buttonImage, for: .normal)
         clearBtn.setImage(buttonImage, for: .highlighted)
         clearBtn.addTarget(self, action:#selector(onClearTap), for: .touchDown)
@@ -253,8 +283,8 @@ class SingleViewController: UIViewController {
         let buttonImage = UIImage(named: "ic_play_arrow_48pt")?.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
         
         restartBtn.isHidden = true
-        restartBtn.tintColor = Constants.colorPalette["_black"]
-        restartBtn.backgroundColor = Constants.colorPalette["_white"]
+        restartBtn.tintColor = Constants.colorPalette["_white"]
+        restartBtn.backgroundColor = Constants.colorPalette["_green"]
         restartBtn.setImage(buttonImage, for: .normal)
         restartBtn.setImage(buttonImage, for: .highlighted)
         restartBtn.addTarget(self, action:#selector(onRestartTap), for: .touchDown)
@@ -277,8 +307,8 @@ class SingleViewController: UIViewController {
         let buttonImage = UIImage(named: "ic_format_list_bulleted_48pt")?.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
         
         lapTableBtn.isHidden = true
-        lapTableBtn.tintColor = Constants.colorPalette["_black"]
-        lapTableBtn.backgroundColor = Constants.colorPalette["_white"]
+        lapTableBtn.tintColor = Constants.colorPalette["_white"]
+        lapTableBtn.backgroundColor = Constants.colorPalette["_blue"]
         lapTableBtn.setImage(buttonImage, for: .normal)
         lapTableBtn.setImage(buttonImage, for: .highlighted)
         lapTableBtn.addTarget(self, action:#selector(onLapTableTap), for: .touchDown)
@@ -402,19 +432,19 @@ class SingleViewController: UIViewController {
     }
     
     func onVoiceNotificationsTap() {
-        handleSettingsToggle(key: SettingsService.voiceNotificationsKey, btn: voiceNotificationsBtn)
+        handleSettingsToggle(key: SettingsService.voiceNotificationsKey, btn: voiceNotificationsBtn, which: 0)
     }
     
     func onVibrationNotificationsTap() {
-        handleSettingsToggle(key: SettingsService.vibrationNotificationsKey, btn: vibrationNotificationBtn)
+        handleSettingsToggle(key: SettingsService.vibrationNotificationsKey, btn: vibrationNotificationBtn, which: 1)
     }
     
-    func handleSettingsToggle(key: String, btn: UIButton) {
+    func handleSettingsToggle(key: String, btn: UIButton, which: Int) {
         let currentValue = Constants.storedSettings.bool(forKey: key)
         
         Constants.storedSettings.set(!currentValue, forKey: key)
         
-        setSettingsBtnColor(btn: btn, enabled: !currentValue)
+        setSettingsBtnColor(btn: btn, enabled: !currentValue, which: which)
     }
     
     func notifyWithVibrationIfEnabled() {
