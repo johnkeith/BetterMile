@@ -12,6 +12,8 @@
 		634CACDF1E4BD4AE0064FD5E /* LapTimeTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634CACDE1E4BD4AE0064FD5E /* LapTimeTable.swift */; };
 		634CACF01E5C69210064FD5E /* LapTimeTableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634CACEF1E5C69210064FD5E /* LapTimeTableTests.swift */; };
 		6369A9011E9C70A400DC3B35 /* TODOLIST.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 6369A9001E9C70A400DC3B35 /* TODOLIST.rtf */; };
+		63805AB11F36972C007CBBF2 /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63805AB01F36972C007CBBF2 /* UIColorExtension.swift */; };
+		63805AB31F36AE56007CBBF2 /* Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 63805AB21F36AE56007CBBF2 /* Storyboard.storyboard */; };
 		6386BF211E3EC1FC00BD2875 /* TimeToTextService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6386BF201E3EC1FC00BD2875 /* TimeToTextService.swift */; };
 		6386BF231E3ED67E00BD2875 /* TImeToTextServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6386BF221E3ED67E00BD2875 /* TImeToTextServiceTests.swift */; };
 		6386BF281E421A1300BD2875 /* DataModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6386BF271E421A1300BD2875 /* DataModelTests.swift */; };
@@ -66,6 +68,8 @@
 		634CACDE1E4BD4AE0064FD5E /* LapTimeTable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LapTimeTable.swift; sourceTree = "<group>"; };
 		634CACEF1E5C69210064FD5E /* LapTimeTableTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LapTimeTableTests.swift; sourceTree = "<group>"; };
 		6369A9001E9C70A400DC3B35 /* TODOLIST.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = TODOLIST.rtf; sourceTree = "<group>"; };
+		63805AB01F36972C007CBBF2 /* UIColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
+		63805AB21F36AE56007CBBF2 /* Storyboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Storyboard.storyboard; sourceTree = "<group>"; };
 		6386BF201E3EC1FC00BD2875 /* TimeToTextService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeToTextService.swift; sourceTree = "<group>"; };
 		6386BF221E3ED67E00BD2875 /* TImeToTextServiceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TImeToTextServiceTests.swift; sourceTree = "<group>"; };
 		6386BF271E421A1300BD2875 /* DataModelTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataModelTests.swift; sourceTree = "<group>"; };
@@ -173,6 +177,7 @@
 				63A3F1FD1E34FE3800AA8A92 /* Info.plist */,
 				63A3F1F51E34FE3800AA8A92 /* GoTime.xcdatamodeld */,
 				6369A9001E9C70A400DC3B35 /* TODOLIST.rtf */,
+				63805AB21F36AE56007CBBF2 /* Storyboard.storyboard */,
 			);
 			path = GoTime;
 			sourceTree = "<group>";
@@ -283,6 +288,7 @@
 			isa = PBXGroup;
 			children = (
 				63C9A1981E883DA300AB9144 /* UIViewExtension.swift */,
+				63805AB01F36972C007CBBF2 /* UIColorExtension.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -399,6 +405,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6369A9011E9C70A400DC3B35 /* TODOLIST.rtf in Resources */,
+				63805AB31F36AE56007CBBF2 /* Storyboard.storyboard in Resources */,
 				63A3F1FC1E34FE3800AA8A92 /* LaunchScreen.storyboard in Resources */,
 				63A3F1F91E34FE3800AA8A92 /* Assets.xcassets in Resources */,
 			);
@@ -446,6 +453,7 @@
 				6386BF331E45FE9700BD2875 /* RunPersistanceService.swift in Sources */,
 				63B3DFE81EDB314E007B6991 /* SettingsService.swift in Sources */,
 				63CB140C1E6E4E0A00F7BC14 /* AnimationService.swift in Sources */,
+				63805AB11F36972C007CBBF2 /* UIColorExtension.swift in Sources */,
 				63CC94EE1EB7FA1C00D5DB0E /* SingleViewController.swift in Sources */,
 				63E9BBE01EA07BFD0019FC35 /* SpeechService.swift in Sources */,
 				632E32AA1F1A6104000683B8 /* StartButton.swift in Sources */,

@@ -28,7 +28,7 @@ class TimerHelpTextLabel: UILabel {
         self.numberOfLines = 2
         self.baselineAdjustment = .alignCenters
         self.textAlignment = .center
-        self.textColor = Constants.colorPalette["_black"]
+        self.textColor = Constants.colorPalette["FG"]
     }
     
     required init?(coder aDecoder: NSCoder) {

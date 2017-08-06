@@ -20,7 +20,7 @@ class StartButton:UIButton {
     
     private func setTitleLabelAttrs() {
         setTitle("START", for: UIControlState.normal)
-        setTitleColor(Constants.colorPalette["_whtie"], for: UIControlState.normal)
+        setTitleColor(Constants.colorPalette["FG"], for: UIControlState.normal)
     
         titleLabel?.font = Constants.responsiveDefaultFont
         titleLabel?.adjustsFontSizeToFitWidth = true

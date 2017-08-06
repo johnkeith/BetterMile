@@ -27,13 +27,17 @@ struct Constants {
         "_blue": UIColor(red:0.38, green:0.67, blue:0.90, alpha:1.0),
         "_red": UIColor(red:0.90, green:0.38, blue:0.55, alpha:1.0),
         "_white": UIColor.white,
-        "_black": UIColor(red:0.09, green:0.09, blue:0.09, alpha:1.00)
+        "_black": UIColor(red:0.09, green:0.09, blue:0.09, alpha:1.00),
+        "FG": UIColor(red:0.40, green:0.98, blue:0.20, alpha:1.0),
+        "BG": UIColor(red:0.58, green:0.01, blue:0.79, alpha:1.0),
+        "BTNBG": UIColor(hex: "8425a6")
     ]
     
-    static let responsiveDefaultFont: UIFont = UIFont.systemFont(ofSize: 999, weight: UIFontWeightThin)
+    static let responsiveDefaultFontWeight = UIFontWeightThin
+    static let responsiveDefaultFont: UIFont = UIFont.systemFont(ofSize: 999, weight: responsiveDefaultFontWeight)
     static let responsiveBoldDigitFont: UIFont = UIFont.monospacedDigitSystemFont(ofSize: 999, weight: UIFontWeightBold)
     static let responsiveFancyFont = UIFont.italicSystemFont(ofSize: 999)
-    static let responsiveDigitFont: UIFont = UIFont.monospacedDigitSystemFont(ofSize: 999, weight: UIFontWeightThin)
+    static let responsiveDigitFont: UIFont = UIFont.monospacedDigitSystemFont(ofSize: 999, weight: UIFontWeightRegular)
     static let defaultSmallFont: UIFont = UIFont.systemFont(ofSize: 18, weight: UIFontWeightThin)
     
     static let defaultFrame: CGRect = CGRect()

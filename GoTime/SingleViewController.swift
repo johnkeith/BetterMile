@@ -12,6 +12,7 @@ import SnapKit
 
 class SingleViewController: UIViewController {
 //  NON-DI
+    let shadowOpacity = Float(0.15)
     let startBtn = StartButton()
     let totalTimeLbl = UILabel()
     let lapLbl = UILabel()
@@ -25,14 +26,19 @@ class SingleViewController: UIViewController {
 //    all that is needed is to create the help button and the like button and link those to the correct spots
     let helpBtn = UIButton()
     let likeBtn = LikeButton()
+    let circle = UILabel()
     
-    var initialLoad = true
+//    var initialLoad = true
     
     let voiceDisabledSlash = UILabel()
     let vibrationDisabledSlash = UILabel()
     
     var doubleTapRecognizer: UITapGestureRecognizer! // TODO: FIX
     
+    var fgClr: UIColor
+    var bgClr: UIColor
+    var btnFgClr: UIColor
+    var btnBgClr: UIColor
 //  DI
     var stopWatchSrv: StopWatchService
     var animationSrv: AnimationService
@@ -48,13 +54,18 @@ class SingleViewController: UIViewController {
         self.timeToTextSrv = timeToTextSrv
         self.speechSrv = speechSrv
         
+        fgClr = Constants.colorPalette["FG"]!
+        bgClr = Constants.colorPalette["BG"]!
+        btnFgClr = fgClr
+        btnBgClr = bgClr // Constants.colorPalette["BTNBG"]!
+        
         super.init(nibName: nil, bundle: nil)
         
         stopWatchSrv.delegate = self
         
-        view.backgroundColor = Constants.colorPalette["_black"]
+        view.backgroundColor = bgClr
         
-        addSubviews([startBtn, totalTimeLbl, lapLbl, voiceNotificationsBtn, pauseBtn, vibrationNotificationBtn, clearBtn, restartBtn, lapTableBtn, helpText, helpBtn, voiceDisabledSlash, vibrationDisabledSlash, likeBtn])
+        addSubviews([startBtn, totalTimeLbl, lapLbl, voiceNotificationsBtn, pauseBtn, vibrationNotificationBtn, clearBtn, restartBtn, lapTableBtn, helpText, helpBtn, voiceDisabledSlash, vibrationDisabledSlash, likeBtn, circle])
         
         configStartBtn()
         configTotalTimeLbl()
@@ -66,8 +77,12 @@ class SingleViewController: UIViewController {
         configRestartBtn()
         configLapTableBtn()
         configHelpText()
-        configHelpBtn()
-        configLikeBtn()
+//        configHelpBtn()
+//        configLikeBtn()
+        configVoiceDisabledSlash()
+        configVibrationDisabledSlash()
+        
+//        configCircle()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -79,12 +94,27 @@ class SingleViewController: UIViewController {
         
         self.navigationController?.setNavigationBarHidden(true, animated: animated)
         
-        if !initialLoad {
-            UIApplication.shared.statusBarStyle = .default
-        } else {
-            initialLoad = false
+//        if !initialLoad {
             UIApplication.shared.statusBarStyle = .lightContent
+//        } else {
+//            initialLoad = false
+//            UIApplication.shared.statusBarStyle = .lightContent
+//        }
+    }
+    
+    func configCircle() {
+        let width = circle.superview!.frame.width - CGFloat(Constants.defaultMargin * 2)
+        
+        circle.snp.makeConstraints { make in
+            make.width.equalTo(width)
+            make.height.equalTo(width)
+            make.center.equalTo(circle.superview!)
         }
+        
+        circle.layer.borderColor = fgClr.cgColor
+        circle.layer.borderWidth = 6
+        
+        circle.layer.cornerRadius = width / 2
     }
     
     func configStartBtn() {
@@ -105,7 +135,7 @@ class SingleViewController: UIViewController {
         totalTimeLbl.numberOfLines = 1
         totalTimeLbl.baselineAdjustment = .alignCenters
         totalTimeLbl.textAlignment = .center
-        totalTimeLbl.textColor = Constants.colorPalette["_black"]
+        totalTimeLbl.textColor = fgClr
         
         totalTimeLbl.snp.makeConstraints { make in
             make.width.equalTo(totalTimeLbl.superview!).offset(-Constants.defaultMargin / 2)
@@ -126,22 +156,30 @@ class SingleViewController: UIViewController {
     
     func configLapLbl() {
         lapLbl.isHidden = true
-        lapLbl.text = "1"
+        lapLbl.text = "01"
         lapLbl.textAlignment = .center
-        lapLbl.textColor = Constants.colorPalette["_black"]
+        lapLbl.textColor = fgClr
+//        lapLbl.layer.borderColor = fgClr.cgColor
+//        lapLbl.layer.borderWidth = 5
+        lapLbl.baselineAdjustment = .alignCenters
+        
+        let width = lapLbl.superview!.frame.width / 5
         
         lapLbl.snp.makeConstraints { make in
-            make.width.equalTo(lapLbl.superview!)
+            make.width.equalTo(lapLbl.superview!).offset(-Constants.defaultMargin * 2)
             make.height.equalTo(lapLbl.superview!.frame.height / 3)
+//            make.centerX.equalTo(lapLbl.superview!)
+//            make.centerY.equalTo(lapLbl.superview!).offset(-CGFloat(Constants.defaultMargin))
             make.center.equalTo(lapLbl.superview!)
         }
         
         lapLbl.layoutIfNeeded()
+            
+//        lapLbl.font = UIFont.monospacedDigitSystemFont(ofSize: lapLbl.frame.size.height, weight: Constants.responsiveDefaultFontWeight)
         
-//        lapLbl.layer.borderColor = Constants.colorPalette["_white"]?.cgColor
-//        lapLbl.layer.borderWidth = 4
-        
-        lapLbl.font = UIFont.systemFont(ofSize: lapLbl.frame.size.height, weight: UIFontWeightThin)
+        lapLbl.adjustsFontSizeToFitWidth = true
+        lapLbl.numberOfLines = 1
+        lapLbl.font = Constants.responsiveDigitFont
     }
     
     func configVoiceNotificationsBtn() {
@@ -173,8 +211,9 @@ class SingleViewController: UIViewController {
         let buttonImage = UIImage(named: "ic_pause_48pt")?.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
         
         pauseBtn.isHidden = true
-        pauseBtn.tintColor = Constants.colorPalette["_white"]
-        pauseBtn.backgroundColor = Constants.colorPalette["_red"]
+        pauseBtn.tintColor = btnFgClr
+        pauseBtn.backgroundColor = btnBgClr
+        pauseBtn.layer.shadowOpacity = shadowOpacity
         pauseBtn.setImage(buttonImage, for: .normal)
         pauseBtn.setImage(buttonImage, for: .highlighted)
         
@@ -219,33 +258,48 @@ class SingleViewController: UIViewController {
         vibrationNotificationBtn.layer.cornerRadius = vibrationNotificationBtn.frame.size.height / 2
     }
     
-    func setSettingsBtnColor(btn: UIButton, enabled: Bool, which: Int) {
-        btn.tintColor = Constants.colorPalette["_black"]
-        btn.backgroundColor = Constants.colorPalette["_white"]
+    func configVoiceDisabledSlash() {
+        voiceDisabledSlash.isHidden = true
+        voiceDisabledSlash.backgroundColor = btnFgClr
         
-        voiceDisabledSlash.backgroundColor = Constants.colorPalette["_black"]
-        vibrationDisabledSlash.backgroundColor = Constants.colorPalette["_black"]
-        
-//        zero is voice
-//        1 is vibration
-        if enabled && which == 0 {
-            voiceDisabledSlash.snp.removeConstraints()
-        } else if enabled && which == 1 {
-            
-        } else if !enabled && which == 0 {
-            voiceNotificationsBtn.layer.borderWidth = 1
-            voiceNotificationsBtn.layer.borderColor = UIColor.black.cgColor
-            voiceDisabledSlash.snp.makeConstraints { make in
-                make.width.equalTo(voiceNotificationsBtn.frame.width)
-                make.height.equalTo(voiceNotificationsBtn.frame.width / 10)
-                make.left.equalTo(voiceNotificationsBtn)
-                make.top.equalTo(voiceNotificationsBtn).offset(voiceNotificationsBtn.frame.width / 2)
-            }
-            
-            voiceDisabledSlash.transform = CGAffineTransform(rotationAngle: -0.90)
-        } else if !enabled && which == 1 {
-            
+        voiceDisabledSlash.snp.makeConstraints { make in
+            make.width.equalTo(voiceNotificationsBtn.frame.width * 0.85)
+            make.height.equalTo(voiceNotificationsBtn.frame.width / 10)
+            make.center.equalTo(voiceNotificationsBtn)
         }
+        
+        voiceDisabledSlash.transform = CGAffineTransform(rotationAngle: 0.90)
+    }
+    
+    func configVibrationDisabledSlash() {
+        vibrationDisabledSlash.isHidden = true
+        vibrationDisabledSlash.backgroundColor = btnFgClr
+        
+        vibrationDisabledSlash.snp.makeConstraints { make in
+            make.width.equalTo(vibrationNotificationBtn.frame.width * 0.85)
+            make.height.equalTo(vibrationNotificationBtn.frame.width / 10)
+            make.center.equalTo(vibrationNotificationBtn)
+        }
+        
+        vibrationDisabledSlash.transform = CGAffineTransform(rotationAngle: 0.90)
+    }
+    
+    func setSettingsBtnColor(btn: UIButton, enabled: Bool, which: Int) {
+        btn.tintColor = btnFgClr
+        btn.backgroundColor = btnBgClr
+        btn.layer.shadowOpacity = shadowOpacity
+        
+//        if enabled && which == 0 {
+//            voiceDisabledSlash.isHidden = true
+//        } else if enabled && which == 1 {
+//            vibrationDisabledSlash.isHidden = true
+//        } else if !enabled && which == 0 {
+//            voiceDisabledSlash.isHidden = false
+//        } else if !enabled && which == 1 {
+//            vibrationNotificationBtn.isHidden = false
+//        }
+        
+        //        TODO
 //        if enabled {
 //            btn.tintColor = Constants.colorPalette["_black"]
 //            btn.backgroundColor = Constants.colorPalette["_white"]
@@ -259,8 +313,8 @@ class SingleViewController: UIViewController {
         let buttonImage = UIImage(named: "ic_clear_48pt")?.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
         
         clearBtn.isHidden = true
-        clearBtn.tintColor = Constants.colorPalette["_white"]
-        clearBtn.backgroundColor = Constants.colorPalette["_red"]
+        clearBtn.tintColor = btnFgClr
+        clearBtn.backgroundColor = btnBgClr
         clearBtn.setImage(buttonImage, for: .normal)
         clearBtn.setImage(buttonImage, for: .highlighted)
         clearBtn.addTarget(self, action:#selector(onClearTap), for: .touchDown)
@@ -283,8 +337,8 @@ class SingleViewController: UIViewController {
         let buttonImage = UIImage(named: "ic_play_arrow_48pt")?.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
         
         restartBtn.isHidden = true
-        restartBtn.tintColor = Constants.colorPalette["_white"]
-        restartBtn.backgroundColor = Constants.colorPalette["_green"]
+        restartBtn.tintColor = btnFgClr
+        restartBtn.backgroundColor = btnBgClr
         restartBtn.setImage(buttonImage, for: .normal)
         restartBtn.setImage(buttonImage, for: .highlighted)
         restartBtn.addTarget(self, action:#selector(onRestartTap), for: .touchDown)
@@ -307,8 +361,8 @@ class SingleViewController: UIViewController {
         let buttonImage = UIImage(named: "ic_format_list_bulleted_48pt")?.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
         
         lapTableBtn.isHidden = true
-        lapTableBtn.tintColor = Constants.colorPalette["_white"]
-        lapTableBtn.backgroundColor = Constants.colorPalette["_blue"]
+        lapTableBtn.tintColor = btnFgClr
+        lapTableBtn.backgroundColor = btnBgClr
         lapTableBtn.setImage(buttonImage, for: .normal)
         lapTableBtn.setImage(buttonImage, for: .highlighted)
         lapTableBtn.addTarget(self, action:#selector(onLapTableTap), for: .touchDown)
@@ -331,8 +385,8 @@ class SingleViewController: UIViewController {
         let buttonImage = UIImage(named: "ic_help_outline_48pt")?.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
         
         helpBtn.isHidden = false
-        helpBtn.tintColor = Constants.colorPalette["_white"]
-        helpBtn.backgroundColor = Constants.colorPalette["_black"]
+        helpBtn.tintColor = btnFgClr
+        helpBtn.backgroundColor = btnBgClr
         helpBtn.setImage(buttonImage, for: .normal)
         helpBtn.setImage(buttonImage, for: .highlighted)
         helpBtn.addTarget(self, action:#selector(onHelpTap), for: .touchDown)
@@ -364,10 +418,16 @@ class SingleViewController: UIViewController {
         likeBtn.layoutIfNeeded()
         likeBtn.layer.cornerRadius = likeBtn.frame.size.height / 2
     }
+    
+    func setLapLblText(lapCount: Int) {
+        let shouldPad = lapCount < 10
+        let padding = shouldPad ? "0" : ""
+        lapLbl.text = "\(padding)\(lapCount)"
+    }
 
     func onStartTap() {
         stopWatchSrv.start()
-        lapLbl.text = "\(self.stopWatchSrv.lapTimes.count)"
+        setLapLblText(lapCount: self.stopWatchSrv.lapTimes.count)
         
         animationSrv.animateFadeOutView(startBtn)
         helpBtn.alpha = 0
@@ -375,9 +435,8 @@ class SingleViewController: UIViewController {
         animationSrv.animateWithSpring(lapLbl, fromAlphaZero: true)
         animationSrv.animateWithSpring(totalTimeLbl, duration: 0.8, fromAlphaZero: true)
         
-        animationSrv.animate({ self.view.backgroundColor = Constants.colorPalette["_white"] })
+//        animationSrv.animate({ self.view.backgroundColor = Constants.colorPalette["_white"] })
         helpText.showBriefly()
-        UIApplication.shared.statusBarStyle = .default
     }
     
     func onPauseTap() {
@@ -396,15 +455,14 @@ class SingleViewController: UIViewController {
     func onClearTap() {
         stopWatchSrv.stop()
         
-        animationSrv.animate({ self.view.backgroundColor = Constants.colorPalette["_black"] })
-
+//        animationSrv.animate({ self.view.backgroundColor = Constants.colorPalette["_black"] })
+        
         animateFadeOutBtnsAndLbls()
         
         animationSrv.animateFadeInView(startBtn)
         animationSrv.animateFadeInView(helpBtn, delay: 0.3)
         animationSrv.animateFadeInView(likeBtn, delay: 0.3)
         
-        UIApplication.shared.statusBarStyle = .lightContent
     }
     
     func onHelpTap() {
@@ -513,13 +571,13 @@ extension SingleViewController: StopWatchServiceDelegate {
     
     func stopWatchIntervalElapsed(totalTimeElapsed: TimeInterval) {
         DispatchQueue.main.async {
-            self.totalTimeLbl.text = self.timeToTextSrv.timeAsSingleString(inputTime: totalTimeElapsed)            
+            self.totalTimeLbl.text = "Total: \(self.timeToTextSrv.timeAsSingleString(inputTime: totalTimeElapsed))"
         }
     }
     
     func stopWatchLapStored(lapTime: Double, lapNumber: Int, totalTime: Double) {
         DispatchQueue.main.async {
-            self.lapLbl.text = "\(self.stopWatchSrv.lapTimes.count)"
+            self.setLapLblText(lapCount: self.stopWatchSrv.lapTimes.count)
         }
         
         notifyWithVibrationIfEnabled()
