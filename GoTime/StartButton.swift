@@ -22,7 +22,7 @@ class StartButton:UIButton {
         setTitle("START", for: UIControlState.normal)
         setTitleColor(Constants.colorPalette["FG"], for: UIControlState.normal)
     
-        titleLabel?.font = Constants.responsiveDefaultFont
+        titleLabel?.font = Constants.responsiveDigitFont
         titleLabel?.adjustsFontSizeToFitWidth = true
         titleLabel?.numberOfLines = 1
         titleLabel?.baselineAdjustment = .alignCenters

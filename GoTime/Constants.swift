@@ -28,8 +28,18 @@ struct Constants {
         "_red": UIColor(red:0.90, green:0.38, blue:0.55, alpha:1.0),
         "_white": UIColor.white,
         "_black": UIColor(red:0.09, green:0.09, blue:0.09, alpha:1.00),
-        "FG": UIColor(red:0.40, green:0.98, blue:0.20, alpha:1.0),
-        "BG": UIColor(red:0.58, green:0.01, blue:0.79, alpha:1.0),
+//        "FG": UIColor(red:0.40, green:0.98, blue:0.20, alpha:1.0), // purple
+//        "BG": UIColor(red:0.58, green:0.01, blue:0.79, alpha:1.0), // lime
+//        "FG": UIColor(hex: "c6f054"), // yellow
+//        "BG": UIColor(hex: "360ca8"), // blue
+//        "BGDRK": UIColor(hex: "26006e"), dark blue
+        "FG": UIColor(hex: "FFFAFF"),
+        "BG": UIColor(hex: "FC5130"),
+        "BGDRK": UIColor(hex: "303036"),
+//        "FG": UIColor.white,
+//        "BG": UIColor(red:0.09, green:0.09, blue:0.09, alpha:1.00),
+//        "BGDRK": UIColor.white,
+        "RED": UIColor(hex: "b40069"), // for the lap table
         "BTNBG": UIColor(hex: "8425a6")
     ]
     
