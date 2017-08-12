@@ -605,11 +605,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GoTime/SingleViewController.swift"
-            timestampString = "524023553.953188"
+            timestampString = "524193129.13368"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "544"
-            endingLineNumber = "544"
+            startingLineNumber = "506"
+            endingLineNumber = "506"
             landmarkName = "notifyWithVoiceIfEnabled(lapTime:lapNumber:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -621,11 +621,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GoTime/SingleViewController.swift"
-            timestampString = "524023553.953888"
+            timestampString = "524193129.134161"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "531"
-            endingLineNumber = "531"
+            startingLineNumber = "493"
+            endingLineNumber = "493"
             landmarkName = "notifyWithVibrationIfEnabled()"
             landmarkType = "7">
          </BreakpointContent>

@@ -22,10 +22,10 @@ struct Constants {
         "white": UIColor.white,
         "flat-green": UIColor(red:0.18, green:0.80, blue:0.44, alpha:1.0),
         "flat-red": UIColor(red:0.91, green:0.30, blue:0.24, alpha:1.0),
-        "_green": UIColor(red:0.40, green:0.75, blue:0.65, alpha:1.0),
+//        "_green": UIColor(red:0.40, green:0.75, blue:0.65, alpha:1.0), PROD GREEN
         "_yellow": UIColor(red:1.00, green:0.58, blue:0.42, alpha:1.0),
         "_blue": UIColor(red:0.38, green:0.67, blue:0.90, alpha:1.0),
-        "_red": UIColor(red:0.90, green:0.38, blue:0.55, alpha:1.0),
+//        "_red": UIColor(red:0.90, green:0.38, blue:0.55, alpha:1.0), PROD RED
         "_white": UIColor.white,
         "_black": UIColor(red:0.09, green:0.09, blue:0.09, alpha:1.00),
 //        "FG": UIColor(red:0.40, green:0.98, blue:0.20, alpha:1.0), // purple
@@ -36,6 +36,8 @@ struct Constants {
         "FG": UIColor(hex: "FFFAFF"),
         "BG": UIColor(hex: "FC5130"),
         "BGDRK": UIColor(hex: "303036"),
+        "_green": UIColor(hex: "378E82"),
+        "_red": UIColor(hex: "FC5130"),
 //        "FG": UIColor.white,
 //        "BG": UIColor(red:0.09, green:0.09, blue:0.09, alpha:1.00),
 //        "BGDRK": UIColor.white,

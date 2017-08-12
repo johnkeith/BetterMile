@@ -29,11 +29,6 @@ class SingleViewController: UIViewController {
     let likeBtn = LikeButton()
     let circle = UILabel()
     
-//    var initialLoad = true
-    
-    let voiceDisabledSlash = UILabel()
-    let vibrationDisabledSlash = UILabel()
-    
     var doubleTapRecognizer: UITapGestureRecognizer! // TODO: FIX
     
     var fgClr: UIColor
@@ -66,7 +61,7 @@ class SingleViewController: UIViewController {
         
         view.backgroundColor = bgClr
         
-        addSubviews([startBtn, totalTimeLbl, lapLbl, voiceNotificationsBtn, pauseBtn, vibrationNotificationBtn, clearBtn, restartBtn, lapTableBtn, helpText, helpBtn, voiceDisabledSlash, vibrationDisabledSlash, likeBtn, circle, lapTimeLbl])
+        addSubviews([startBtn, totalTimeLbl, lapLbl, voiceNotificationsBtn, pauseBtn, vibrationNotificationBtn, clearBtn, restartBtn, lapTableBtn, helpText, helpBtn, likeBtn, circle, lapTimeLbl])
         
         configStartBtn()
         configTotalTimeLbl()
@@ -80,8 +75,6 @@ class SingleViewController: UIViewController {
         configHelpText()
 //        configHelpBtn()
 //        configLikeBtn()
-        configVoiceDisabledSlash()
-        configVibrationDisabledSlash()
         
 //        configCircle()
         configLapTimeLbl()
@@ -165,6 +158,10 @@ class SingleViewController: UIViewController {
 //            make.left.equalTo(lapTimeLbl.superview!).offset(Constants.defaultMargin)
             make.top.equalTo(totalTimeLbl.snp.bottom)
         }
+        
+        lapTimeLbl.layoutIfNeeded()
+        
+        print("LAP TIME LBL HEIGHT", lapTimeLbl.frame.height)
     }
     
     func configHelpText() {
@@ -213,12 +210,12 @@ class SingleViewController: UIViewController {
         voiceNotificationsBtn.setImage(buttonImage, for: .highlighted)
         voiceNotificationsBtn.addTarget(self, action:#selector(onVoiceNotificationsTap), for: .touchDown)
         
-        let width = voiceNotificationsBtn.superview!.frame.width / 5
+        let width = voiceNotificationsBtn.superview!.frame.height / 10
         
         voiceNotificationsBtn.snp.makeConstraints { make in
             make.width.equalTo(width)
             make.height.equalTo(voiceNotificationsBtn.snp.width)
-            make.bottom.equalTo(voiceNotificationsBtn.superview!).offset(-Constants.defaultMargin / 2)
+            make.bottom.equalTo(voiceNotificationsBtn.superview!).offset(-Constants.defaultMargin)
             make.right.equalTo(voiceNotificationsBtn.superview!).offset(-Constants.defaultMargin)
         }
         
@@ -239,16 +236,18 @@ class SingleViewController: UIViewController {
         
         pauseBtn.addTarget(self, action:#selector(onPauseTap), for: .touchDown)
         
-        let width = pauseBtn.superview!.frame.width / 5
+        let width = pauseBtn.superview!.frame.height / 10
        
         pauseBtn.snp.makeConstraints { make in
             make.width.equalTo(width)
             make.height.equalTo(pauseBtn.snp.width)
-            make.bottom.equalTo(pauseBtn.superview!).offset(-Constants.defaultMargin / 2)
+            make.bottom.equalTo(pauseBtn.superview!).offset(-Constants.defaultMargin)
             make.centerX.equalTo(pauseBtn.superview!)
         }
         
         pauseBtn.layoutIfNeeded()
+        
+        print("PAUSE BTN HEIGHT", pauseBtn.frame.height)
         
         pauseBtn.layer.cornerRadius = pauseBtn.frame.size.height / 2
     }
@@ -264,12 +263,12 @@ class SingleViewController: UIViewController {
         vibrationNotificationBtn.setImage(buttonImage, for: .highlighted)
         vibrationNotificationBtn.addTarget(self, action:#selector(onVibrationNotificationsTap), for: .touchDown)
         
-        let width = vibrationNotificationBtn.superview!.frame.width / 5
+        let width = vibrationNotificationBtn.superview!.frame.height / 10
         
         vibrationNotificationBtn.snp.makeConstraints { make in
             make.width.equalTo(width)
             make.height.equalTo(vibrationNotificationBtn.snp.width)
-            make.bottom.equalTo(vibrationNotificationBtn.superview!).offset(-Constants.defaultMargin / 2)
+            make.bottom.equalTo(vibrationNotificationBtn.superview!).offset(-Constants.defaultMargin)
             make.left.equalTo(vibrationNotificationBtn.superview!).offset(Constants.defaultMargin)
         }
         
@@ -278,48 +277,11 @@ class SingleViewController: UIViewController {
         vibrationNotificationBtn.layer.cornerRadius = vibrationNotificationBtn.frame.size.height / 2
     }
     
-    func configVoiceDisabledSlash() {
-        voiceDisabledSlash.isHidden = true
-        voiceDisabledSlash.backgroundColor = btnFgClr
-        
-        voiceDisabledSlash.snp.makeConstraints { make in
-            make.width.equalTo(voiceNotificationsBtn.frame.width * 0.85)
-            make.height.equalTo(voiceNotificationsBtn.frame.width / 10)
-            make.center.equalTo(voiceNotificationsBtn)
-        }
-        
-        voiceDisabledSlash.transform = CGAffineTransform(rotationAngle: 0.90)
-    }
-    
-    func configVibrationDisabledSlash() {
-        vibrationDisabledSlash.isHidden = true
-        vibrationDisabledSlash.backgroundColor = btnFgClr
-        
-        vibrationDisabledSlash.snp.makeConstraints { make in
-            make.width.equalTo(vibrationNotificationBtn.frame.width * 0.85)
-            make.height.equalTo(vibrationNotificationBtn.frame.width / 10)
-            make.center.equalTo(vibrationNotificationBtn)
-        }
-        
-        vibrationDisabledSlash.transform = CGAffineTransform(rotationAngle: 0.90)
-    }
-    
     func setSettingsBtnColor(btn: UIButton, enabled: Bool, which: Int) {
         btn.tintColor = btnFgClr
         btn.backgroundColor = btnBgClr
         btn.layer.shadowOpacity = shadowOpacity
         
-//        if enabled && which == 0 {
-//            voiceDisabledSlash.isHidden = true
-//        } else if enabled && which == 1 {
-//            vibrationDisabledSlash.isHidden = true
-//        } else if !enabled && which == 0 {
-//            voiceDisabledSlash.isHidden = false
-//        } else if !enabled && which == 1 {
-//            vibrationNotificationBtn.isHidden = false
-//        }
-        
-        //        TODO
         if !enabled {
             btn.tintColor = Constants.colorPalette["BGDRK"]
         }
@@ -336,13 +298,13 @@ class SingleViewController: UIViewController {
         clearBtn.layer.shadowOpacity = shadowOpacity
         clearBtn.addTarget(self, action:#selector(onClearTap), for: .touchDown)
         
-        let width = clearBtn.superview!.frame.width / 5
+        let width = clearBtn.superview!.frame.height / 10
         
         clearBtn.snp.makeConstraints { make in
             make.width.equalTo(width)
             make.height.equalTo(clearBtn.snp.width)
             make.bottom.equalTo(clearBtn.superview!).offset(-width - CGFloat(Constants.defaultMargin / 2))
-            make.left.equalTo(clearBtn.superview!).offset(width + CGFloat(Constants.defaultMargin / 2))
+            make.left.equalTo(clearBtn.superview!).offset(width + CGFloat(Constants.defaultMargin))
         }
         
         clearBtn.layoutIfNeeded()
@@ -361,12 +323,12 @@ class SingleViewController: UIViewController {
         restartBtn.layer.shadowOpacity = shadowOpacity
         restartBtn.addTarget(self, action:#selector(onRestartTap), for: .touchDown)
         
-        let width = restartBtn.superview!.frame.width / 5
+        let width = restartBtn.superview!.frame.height / 10
         
         restartBtn.snp.makeConstraints { make in
             make.width.equalTo(width)
             make.height.equalTo(restartBtn.snp.width)
-            make.bottom.equalTo(restartBtn.superview!).offset(-Constants.defaultMargin / 2)
+            make.bottom.equalTo(restartBtn.superview!).offset(-Constants.defaultMargin)
             make.centerX.equalTo(restartBtn.superview!)
         }
         
@@ -386,13 +348,13 @@ class SingleViewController: UIViewController {
         lapTableBtn.setImage(buttonImage, for: .highlighted)
         lapTableBtn.addTarget(self, action:#selector(onLapTableTap), for: .touchDown)
         
-        let width = lapTableBtn.superview!.frame.width / 5
+        let width = lapTableBtn.superview!.frame.height / 10
         
         lapTableBtn.snp.makeConstraints { make in
             make.width.equalTo(width)
             make.height.equalTo(lapTableBtn.snp.width)
             make.bottom.equalTo(lapTableBtn.superview!).offset(-width - CGFloat(Constants.defaultMargin / 2))
-            make.right.equalTo(lapTableBtn.superview!).offset(-width - CGFloat(Constants.defaultMargin / 2))
+            make.right.equalTo(lapTableBtn.superview!).offset(-width - CGFloat(Constants.defaultMargin))
         }
         
         lapTableBtn.layoutIfNeeded()
