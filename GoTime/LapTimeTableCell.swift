@@ -33,6 +33,12 @@ class LapTimeTableCell: UITableViewCell {
         label.text = labelText
     }
     
+    func setLineVisibility(index: Int) {
+        if index == 0 {
+            line.isHidden = true
+        }
+    }
+    
     // TODO: UNTESTED
     func setLabelAttributes(label: UILabel) {
         label.font = Constants.responsiveDigitFont

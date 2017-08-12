@@ -78,6 +78,7 @@ extension LapTimeTable: UITableViewDataSource {
         
         cell.backgroundColor = Constants.colorPalette["_black"]
         cell.setContent(labelText: content)
+        cell.setLineVisibility(index: index)
         cell.addLabelAndLineConstraints(rowHeight: self.rowHeight)
         
         return cell
