@@ -135,7 +135,8 @@ class SpeechService: NSObject, AVSpeechSynthesizerDelegate {
     
     private func setAudioDefaults() {
         do {
-            try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback, with: [AVAudioSessionCategoryOptions.duckOthers, AVAudioSessionCategoryOptions.interruptSpokenAudioAndMixWithOthers])
+            try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback, with: [AVAudioSessionCategoryOptions.duckOthers, AVAudioSessionCategoryOptions.interruptSpokenAudioAndMixWithOthers,
+                AVAudioSessionCategoryOptions.defaultToSpeaker])
         } catch {
             print("there was an error setting audio defaults")
         }

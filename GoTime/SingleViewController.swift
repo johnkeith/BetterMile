@@ -12,7 +12,8 @@ import SnapKit
 
 class SingleViewController: UIViewController {
 //  NON-DI
-    let shadowOpacity = Float(0.15)
+//    let shadowOpacity = Float(0.15)
+    let shadowOpacity = Float(0.0)
     let startBtn = StartButton()
     let totalTimeLbl = UILabel()
     let lapTimeLbl = UILabel()
@@ -87,14 +88,17 @@ class SingleViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        self.navigationController?.setNavigationBarHidden(true, animated: animated)
+        configNavBar()
         
-//        if !initialLoad {
-            UIApplication.shared.statusBarStyle = .lightContent
-//        } else {
-//            initialLoad = false
-//            UIApplication.shared.statusBarStyle = .lightContent
-//        }
+        UIApplication.shared.statusBarStyle = .lightContent
+    }
+    
+    func configNavBar() {
+        let back = UIBarButtonItem()
+        back.title = ""
+        
+        self.navigationController?.navigationBar.topItem?.backBarButtonItem = back
+        self.navigationController?.setNavigationBarHidden(true, animated: true)
     }
     
     func configCircle() {
@@ -210,7 +214,7 @@ class SingleViewController: UIViewController {
         voiceNotificationsBtn.setImage(buttonImage, for: .highlighted)
         voiceNotificationsBtn.addTarget(self, action:#selector(onVoiceNotificationsTap), for: .touchDown)
         
-        let width = voiceNotificationsBtn.superview!.frame.height / 10
+        let width = voiceNotificationsBtn.superview!.frame.width / 5
         
         voiceNotificationsBtn.snp.makeConstraints { make in
             make.width.equalTo(width)
@@ -236,7 +240,7 @@ class SingleViewController: UIViewController {
         
         pauseBtn.addTarget(self, action:#selector(onPauseTap), for: .touchDown)
         
-        let width = pauseBtn.superview!.frame.height / 10
+        let width = pauseBtn.superview!.frame.width / 5
        
         pauseBtn.snp.makeConstraints { make in
             make.width.equalTo(width)
@@ -263,7 +267,7 @@ class SingleViewController: UIViewController {
         vibrationNotificationBtn.setImage(buttonImage, for: .highlighted)
         vibrationNotificationBtn.addTarget(self, action:#selector(onVibrationNotificationsTap), for: .touchDown)
         
-        let width = vibrationNotificationBtn.superview!.frame.height / 10
+        let width = vibrationNotificationBtn.superview!.frame.width / 5
         
         vibrationNotificationBtn.snp.makeConstraints { make in
             make.width.equalTo(width)
@@ -298,13 +302,13 @@ class SingleViewController: UIViewController {
         clearBtn.layer.shadowOpacity = shadowOpacity
         clearBtn.addTarget(self, action:#selector(onClearTap), for: .touchDown)
         
-        let width = clearBtn.superview!.frame.height / 10
+        let width = clearBtn.superview!.frame.width / 5
         
         clearBtn.snp.makeConstraints { make in
             make.width.equalTo(width)
             make.height.equalTo(clearBtn.snp.width)
             make.bottom.equalTo(clearBtn.superview!).offset(-width - CGFloat(Constants.defaultMargin / 2))
-            make.left.equalTo(clearBtn.superview!).offset(width + CGFloat(Constants.defaultMargin))
+            make.left.equalTo(clearBtn.superview!).offset(width + CGFloat(Constants.defaultMargin / 2))
         }
         
         clearBtn.layoutIfNeeded()
@@ -323,7 +327,7 @@ class SingleViewController: UIViewController {
         restartBtn.layer.shadowOpacity = shadowOpacity
         restartBtn.addTarget(self, action:#selector(onRestartTap), for: .touchDown)
         
-        let width = restartBtn.superview!.frame.height / 10
+        let width = restartBtn.superview!.frame.width / 5
         
         restartBtn.snp.makeConstraints { make in
             make.width.equalTo(width)
@@ -348,13 +352,13 @@ class SingleViewController: UIViewController {
         lapTableBtn.setImage(buttonImage, for: .highlighted)
         lapTableBtn.addTarget(self, action:#selector(onLapTableTap), for: .touchDown)
         
-        let width = lapTableBtn.superview!.frame.height / 10
+        let width = lapTableBtn.superview!.frame.width / 5
         
         lapTableBtn.snp.makeConstraints { make in
             make.width.equalTo(width)
             make.height.equalTo(lapTableBtn.snp.width)
             make.bottom.equalTo(lapTableBtn.superview!).offset(-width - CGFloat(Constants.defaultMargin / 2))
-            make.right.equalTo(lapTableBtn.superview!).offset(-width - CGFloat(Constants.defaultMargin))
+            make.right.equalTo(lapTableBtn.superview!).offset(-width - CGFloat(Constants.defaultMargin / 2))
         }
         
         lapTableBtn.layoutIfNeeded()
