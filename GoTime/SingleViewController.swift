@@ -538,9 +538,9 @@ class SingleViewController: UIViewController {
 // MARK Animations
 extension SingleViewController {
     func animateInButtons() {
-        animationSrv.animateMoveVerticallyFromOffscreenBottom(voiceNotificationsBtn)
-        animationSrv.animateMoveVerticallyFromOffscreenBottom(pauseBtn)
-        animationSrv.animateMoveVerticallyFromOffscreenBottom(vibrationNotificationBtn)
+        animationSrv.animateWithSpring(voiceNotificationsBtn, duration: 0.8, fromAlphaZero: true)
+        animationSrv.animateWithSpring(pauseBtn, duration: 0.8, fromAlphaZero: true)
+        animationSrv.animateWithSpring(vibrationNotificationBtn,duration: 0.8, fromAlphaZero: true)
     }
 }
 
@@ -584,8 +584,8 @@ extension SingleViewController: StopWatchServiceDelegate {
         pauseBtn.hide()
         restartBtn.show()
    
-        animationSrv.animateMoveHorizontallyFromOffscreen(clearBtn, direction: .left)
-        animationSrv.animateMoveHorizontallyFromOffscreen(lapTableBtn, direction: .right)
+        animationSrv.animateWithSpring(clearBtn, duration: 0.8, fromAlphaZero: true)
+        animationSrv.animateWithSpring(lapTableBtn, duration: 0.8, fromAlphaZero: true)
         
         notifyPaused()
     }
