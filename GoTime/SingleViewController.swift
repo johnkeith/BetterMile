@@ -41,15 +41,18 @@ class SingleViewController: UIViewController {
     var animationSrv: AnimationService
     var timeToTextSrv: TimeToTextService
     var speechSrv: SpeechService
+    var lapTimeTable: LapTimeTable
     
     init(stopWatchSrv: StopWatchService = StopWatchService(),
          animationSrv: AnimationService = AnimationService(),
          timeToTextSrv: TimeToTextService = TimeToTextService(),
-         speechSrv: SpeechService = SpeechService()) {
+         speechSrv: SpeechService = SpeechService(),
+         lapTimeTable: LapTimeTable = LapTimeTable()) {
         self.stopWatchSrv = stopWatchSrv
         self.animationSrv = animationSrv
         self.timeToTextSrv = timeToTextSrv
         self.speechSrv = speechSrv
+        self.lapTimeTable = lapTimeTable
         
         fgClr = Constants.colorPalette["FG"]!
         bgClr = Constants.colorPalette["BG"]!
@@ -62,7 +65,7 @@ class SingleViewController: UIViewController {
         
         view.backgroundColor = bgClr
         
-        addSubviews([startBtn, totalTimeLbl, lapLbl, voiceNotificationsBtn, pauseBtn, vibrationNotificationBtn, clearBtn, restartBtn, lapTableBtn, helpText, helpBtn, likeBtn, circle, lapTimeLbl])
+        addSubviews([startBtn, totalTimeLbl, lapLbl, voiceNotificationsBtn, pauseBtn, vibrationNotificationBtn, clearBtn, restartBtn, lapTableBtn, helpText, helpBtn, likeBtn, circle, lapTimeLbl, lapTimeTable])
         
         configStartBtn()
         configTotalTimeLbl()
@@ -79,6 +82,7 @@ class SingleViewController: UIViewController {
         
 //        configCircle()
         configLapTimeLbl()
+        configLapTimeTable()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -91,6 +95,18 @@ class SingleViewController: UIViewController {
         configNavBar()
         
         UIApplication.shared.statusBarStyle = .lightContent
+    }
+    
+    func configLapTimeTable() {
+        lapTimeTable.setRowHeightBySuperview(_superview: self.view)
+        lapTimeTable.snp.makeConstraints({ make in
+            make.width.equalTo(lapTimeTable.superview!).offset(-Constants.defaultMargin * 2)
+            make.top.equalTo(lapTimeLbl.snp.bottom).offset(Constants.defaultMargin)
+            make.bottom.equalTo(clearBtn.snp.top).offset(-Constants.defaultMargin)
+            make.centerX.equalTo(lapTimeTable.superview!)
+        })
+        lapTimeTable.layer.borderColor = Constants.colorPalette["BGDRK"]!.cgColor
+        lapTimeTable.layer.borderWidth = 2
     }
     
     func configNavBar() {
@@ -426,10 +442,16 @@ class SingleViewController: UIViewController {
     
     func onPauseTap() {
         stopWatchSrv.pause()
+        
+        lapTimeTable.setLapData(lapData: stopWatchSrv.lapTimes.reversed())
+        lapTimeTable.reloadData()
+        lapTimeTable.isHidden = false
     }
     
     func onRestartTap() {
         stopWatchSrv.restart()
+        lapTimeTable.isHidden = true
+        lapTimeLbl.isHidden = false
     }
     
     func onLapTableTap() {
