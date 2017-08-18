@@ -67,6 +67,7 @@ struct Constants {
     static let notificationOfSettingsToggle = "com.goTime.notificationOfSettingsToggle"
     static let notificationOfSubSettingsToggle = "com.goTime.notificationOfSubSettingsToggle"
     static let notificationOfDarkModeToggle = "com.goTime.notificationOfDarkModeToggle"
+    static let appRunTimes = "com.goTime.appRuns"
     
     // TODO: UNTESTED
     static func ordinalSuffixForNumber(number: Int) -> String {

@@ -29,6 +29,14 @@ class SettingsService {
     
     var mapOfSettingsForTable: [(displayName: String, userDefaultsKey: String?, shouldIndent: Bool)] = []
     
+    static func incrementAppRunCount() {
+        let key = Constants.appRunTimes
+        let currentValue = Constants.storedSettings.integer(forKey: key)
+        let newValue = currentValue + 1
+        
+        Constants.storedSettings.set(newValue, forKey: key)
+    }
+    
     init() {
         mapOfSettingsForTable = [
             (displayName: "Notification Settings", userDefaultsKey: nil, shouldIndent: false),

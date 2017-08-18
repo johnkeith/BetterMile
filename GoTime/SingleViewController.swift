@@ -9,6 +9,7 @@
 import UIKit
 import AudioToolbox
 import SnapKit
+import StoreKit
 
 class SingleViewController: UIViewController {
 //  NON-DI
@@ -77,6 +78,7 @@ class SingleViewController: UIViewController {
 //        configLikeBtn()
         configLapTimeLbl()
         
+        askForReview()
         animationSrv.animateWithSpring(startBtn, duration: 0.8)
     }
     
@@ -98,6 +100,17 @@ class SingleViewController: UIViewController {
         
         self.navigationController?.navigationBar.topItem?.backBarButtonItem = back
         self.navigationController?.setNavigationBarHidden(true, animated: true)
+    }
+    
+    func askForReview() {
+        if #available(iOS 10.3, *) {
+            let key = Constants.appRunTimes
+            let numberOfRuns = Constants.storedSettings.integer(forKey: key)
+            
+            if numberOfRuns > 5 {
+                SKStoreReviewController.requestReview()
+            }
+        }
     }
     
     func configStartBtn() {
