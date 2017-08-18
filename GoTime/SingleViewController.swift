@@ -25,10 +25,9 @@ class SingleViewController: UIViewController {
     let restartBtn = UIButton()
     let lapTableBtn = UIButton()
     let helpText = TimerHelpTextLabel()
-//    all that is needed is to create the help button and the like button and link those to the correct spots
+    
     let helpBtn = UIButton()
     let likeBtn = LikeButton()
-    let circle = UILabel()
     
     var doubleTapRecognizer: UITapGestureRecognizer! // TODO: FIX
     
@@ -54,15 +53,15 @@ class SingleViewController: UIViewController {
         fgClr = Constants.colorPalette["FG"]!
         bgClr = Constants.colorPalette["BG"]!
         btnFgClr = fgClr
-        btnBgClr = bgClr // Constants.colorPalette["BTNBG"]!
+        btnBgClr = UIColor.clear // Constants.colorPalette["BTNBG"]!
         
         super.init(nibName: nil, bundle: nil)
         
         stopWatchSrv.delegate = self
         
-        view.backgroundColor = bgClr
+        view.backgroundColor = Constants.colorPalette["_black"]
         
-        addSubviews([startBtn, totalTimeLbl, lapLbl, voiceNotificationsBtn, pauseBtn, vibrationNotificationBtn, clearBtn, restartBtn, lapTableBtn, helpText, helpBtn, likeBtn, circle, lapTimeLbl])
+        addSubviews([startBtn, totalTimeLbl, lapLbl, voiceNotificationsBtn, pauseBtn, vibrationNotificationBtn, clearBtn, restartBtn, lapTableBtn, helpText, helpBtn, likeBtn, lapTimeLbl])
         
         configStartBtn()
         configTotalTimeLbl()
@@ -76,9 +75,9 @@ class SingleViewController: UIViewController {
         configHelpText()
 //        configHelpBtn()
 //        configLikeBtn()
-        
-//        configCircle()
         configLapTimeLbl()
+        
+        animationSrv.animateWithSpring(startBtn, duration: 0.8)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -101,22 +100,8 @@ class SingleViewController: UIViewController {
         self.navigationController?.setNavigationBarHidden(true, animated: true)
     }
     
-    func configCircle() {
-        let width = circle.superview!.frame.width - CGFloat(Constants.defaultMargin * 2)
-        
-        circle.snp.makeConstraints { make in
-            make.width.equalTo(width)
-            make.height.equalTo(width)
-            make.center.equalTo(circle.superview!)
-        }
-        
-        circle.layer.borderColor = fgClr.cgColor
-        circle.layer.borderWidth = 6
-        
-        circle.layer.cornerRadius = width / 2
-    }
-    
     func configStartBtn() {
+        startBtn.isHidden = true
         startBtn.addTarget(self, action:#selector(onStartTap), for: .touchDown)
         
         startBtn.snp.makeConstraints { make in
@@ -140,7 +125,6 @@ class SingleViewController: UIViewController {
             make.width.equalTo(totalTimeLbl.superview!)
             make.height.equalTo(totalTimeLbl.superview!.frame.height / 10)
             make.centerX.equalTo(totalTimeLbl.superview!)
-//            make.left.equalTo(totalTimeLbl.superview!).offset(Constants.defaultMargin)
             make.top.equalTo(totalTimeLbl.superview!).offset(Constants.defaultMargin)
         }
     }
@@ -159,20 +143,17 @@ class SingleViewController: UIViewController {
             make.width.equalTo(lapTimeLbl.superview!)
             make.height.equalTo(lapTimeLbl.superview!.frame.height / 10)
             make.centerX.equalTo(lapTimeLbl.superview!)
-//            make.left.equalTo(lapTimeLbl.superview!).offset(Constants.defaultMargin)
             make.top.equalTo(totalTimeLbl.snp.bottom)
         }
         
         lapTimeLbl.layoutIfNeeded()
-        
-        print("LAP TIME LBL HEIGHT", lapTimeLbl.frame.height)
     }
     
     func configHelpText() {
         helpText.snp.makeConstraints { make in
-            make.width.equalTo(helpText.superview!).offset(-Constants.defaultMargin * 2)
+            make.width.equalTo(helpText.superview!).offset(-Constants.defaultMargin)
             make.centerX.equalTo(helpText.superview!)
-            make.top.equalTo(lapTimeLbl.snp.bottom).offset(Constants.defaultMargin / 2)
+            make.top.equalTo(lapLbl.snp.bottom).offset(Constants.defaultMargin)
             make.height.equalTo(helpText.superview!.frame.height / 12)
         }
     }
@@ -182,50 +163,19 @@ class SingleViewController: UIViewController {
         lapLbl.text = "01"
         lapLbl.textAlignment = .center
         lapLbl.textColor = fgClr
-//        lapLbl.layer.borderColor = fgClr.cgColor
-//        lapLbl.layer.borderWidth = 5
         lapLbl.baselineAdjustment = .alignCenters
         
         lapLbl.snp.makeConstraints { make in
             make.width.equalTo(lapLbl.superview!).offset(-Constants.defaultMargin * 2)
             make.height.equalTo(lapLbl.superview!.frame.height / 3)
-//            make.centerX.equalTo(lapLbl.superview!)
-//            make.centerY.equalTo(lapLbl.superview!).offset(-CGFloat(Constants.defaultMargin))
             make.center.equalTo(lapLbl.superview!)
         }
         
         lapLbl.layoutIfNeeded()
-            
-//        lapLbl.font = UIFont.monospacedDigitSystemFont(ofSize: lapLbl.frame.size.height, weight: Constants.responsiveDefaultFontWeight)
         
         lapLbl.adjustsFontSizeToFitWidth = true
         lapLbl.numberOfLines = 1
         lapLbl.font = Constants.responsiveDigitFont
-    }
-    
-    func configVoiceNotificationsBtn() {
-        let buttonImage = UIImage(named: "ic_volume_up_48pt")?.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
-        
-        voiceNotificationsBtn.isHidden = true
-        
-        setSettingsBtnColor(btn: voiceNotificationsBtn, enabled: Constants.storedSettings.bool(forKey: SettingsService.voiceNotificationsKey), which: 0)
-        
-        voiceNotificationsBtn.setImage(buttonImage, for: .normal)
-        voiceNotificationsBtn.setImage(buttonImage, for: .highlighted)
-        voiceNotificationsBtn.addTarget(self, action:#selector(onVoiceNotificationsTap), for: .touchDown)
-        
-        let width = voiceNotificationsBtn.superview!.frame.width / 5
-        
-        voiceNotificationsBtn.snp.makeConstraints { make in
-            make.width.equalTo(width)
-            make.height.equalTo(voiceNotificationsBtn.snp.width)
-            make.bottom.equalTo(voiceNotificationsBtn.superview!).offset(-Constants.defaultMargin)
-            make.right.equalTo(voiceNotificationsBtn.superview!).offset(-Constants.defaultMargin)
-        }
-        
-        voiceNotificationsBtn.layoutIfNeeded()
-        
-        voiceNotificationsBtn.layer.cornerRadius = voiceNotificationsBtn.frame.size.height / 2
     }
     
     func configPauseBtn() {
@@ -279,6 +229,31 @@ class SingleViewController: UIViewController {
         vibrationNotificationBtn.layoutIfNeeded()
         
         vibrationNotificationBtn.layer.cornerRadius = vibrationNotificationBtn.frame.size.height / 2
+    }
+    
+    func configVoiceNotificationsBtn() {
+        let buttonImage = UIImage(named: "ic_volume_up_48pt")?.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
+        
+        voiceNotificationsBtn.isHidden = true
+        
+        setSettingsBtnColor(btn: voiceNotificationsBtn, enabled: Constants.storedSettings.bool(forKey: SettingsService.voiceNotificationsKey), which: 0)
+        
+        voiceNotificationsBtn.setImage(buttonImage, for: .normal)
+        voiceNotificationsBtn.setImage(buttonImage, for: .highlighted)
+        voiceNotificationsBtn.addTarget(self, action:#selector(onVoiceNotificationsTap), for: .touchDown)
+        
+        let width = voiceNotificationsBtn.superview!.frame.width / 5
+        
+        voiceNotificationsBtn.snp.makeConstraints { make in
+            make.width.equalTo(width)
+            make.height.equalTo(voiceNotificationsBtn.snp.width)
+            make.bottom.equalTo(voiceNotificationsBtn.superview!).offset(-Constants.defaultMargin)
+            make.right.equalTo(voiceNotificationsBtn.superview!).offset(-Constants.defaultMargin)
+        }
+        
+        voiceNotificationsBtn.layoutIfNeeded()
+        
+        voiceNotificationsBtn.layer.cornerRadius = voiceNotificationsBtn.frame.size.height / 2
     }
     
     func setSettingsBtnColor(btn: UIButton, enabled: Bool, which: Int) {
@@ -412,15 +387,20 @@ class SingleViewController: UIViewController {
 
     func onStartTap() {
         stopWatchSrv.start()
+        
         setLapLblText(lapCount: self.stopWatchSrv.lapTimes.count)
         
+        animationSrv.animate({ self.view.backgroundColor = Constants.colorPalette["BG"] })
         animationSrv.animateFadeOutView(startBtn, duration: 0.0)
+        
         helpBtn.alpha = 0
         likeBtn.alpha = 0
+        
         animationSrv.animateWithSpring(lapLbl, fromAlphaZero: true)
         animationSrv.animateWithSpring(totalTimeLbl, duration: 0.8, fromAlphaZero: true)
         animationSrv.animateWithSpring(lapTimeLbl, duration: 0.8, fromAlphaZero: true)
         
+//        animationSrv.animateWithSpring(helpText, duration: 0.8)
 //        helpText.showBriefly()
     }
     
@@ -440,14 +420,13 @@ class SingleViewController: UIViewController {
     func onClearTap() {
         stopWatchSrv.stop()
         
-//        animationSrv.animate({ self.view.backgroundColor = Constants.colorPalette["_black"] })
-        
         animateFadeOutBtnsAndLbls()
         
-        animationSrv.animateFadeInView(startBtn)
+        animationSrv.animateWithSpring(startBtn, duration: 0.8)
         animationSrv.animateFadeInView(helpBtn, delay: 0.3)
         animationSrv.animateFadeInView(likeBtn, delay: 0.3)
         
+        animationSrv.animate({ self.view.backgroundColor = Constants.colorPalette["_black"] }, duration: 0.0)
     }
     
     func onHelpTap() {
@@ -478,10 +457,12 @@ class SingleViewController: UIViewController {
     
     func onVoiceNotificationsTap() {
         handleSettingsToggle(key: SettingsService.voiceNotificationsKey, btn: voiceNotificationsBtn, which: 0)
+       animationSrv.enlargeBriefly(voiceNotificationsBtn)
     }
     
     func onVibrationNotificationsTap() {
         handleSettingsToggle(key: SettingsService.vibrationNotificationsKey, btn: vibrationNotificationBtn, which: 1)
+        animationSrv.enlargeBriefly(vibrationNotificationBtn)
     }
     
     func handleSettingsToggle(key: String, btn: UIButton, which: Int) {
@@ -613,6 +594,7 @@ extension SingleViewController {
     func viewDoubleTapped() {
         if stopWatchSrv.timerRunning {
             stopWatchSrv.lap()
+            animationSrv.enlargeBriefly(lapLbl)
         }
     }
 }

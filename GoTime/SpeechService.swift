@@ -9,9 +9,17 @@
 import Foundation
 import AVFoundation
 
+enum SpeechTypes {
+    case TimerStarted
+    case TimerPaused
+    case TimerCleared
+    case PreviousAndAverageLapTimes
+}
+
 // TODO: UNTESTED
 class SpeechService: NSObject, AVSpeechSynthesizerDelegate {
     let synth = AVSpeechSynthesizer()
+    var voiceQueue = [SpeechTypes]()
     
     override init() {
         super.init()
@@ -22,38 +30,32 @@ class SpeechService: NSObject, AVSpeechSynthesizerDelegate {
     }
     
     func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didFinish utterance: AVSpeechUtterance) {
+        if voiceQueue.count > 0 {
+            voiceQueue.remove(at: 0)
+        }
+        
         deactivateAudio()
     }
     
     func speakTimerStarted() {
-        textToSpeech(text: "Start")
+        if !voiceQueue.contains(where: {$0 == SpeechTypes.TimerStarted}) {
+            textToSpeech(text: "Start")
+            voiceQueue.append(SpeechTypes.TimerStarted)
+        }
     }
     
     func speakTimerPaused() {
-        textToSpeech(text: "Pause")
+        if !voiceQueue.contains(where: {$0 == SpeechTypes.TimerPaused}) {
+            textToSpeech(text: "Pause")
+            voiceQueue.append(SpeechTypes.TimerPaused)
+        }
     }
     
     func speakTimerCleared() {
-        textToSpeech(text: "Clear")
-    }
-    
-    func speakPreviousLapTime(timeTuple: (minutes: String, seconds: String, fraction: String), lapNumber: Int) {
-        let lapNumberOrdinalized = "\(lapNumber)\(Constants.ordinalSuffixForNumber(number: lapNumber))"
-        let sentancePrefix = "\(lapNumberOrdinalized) lap time"
-        
-        speakSentanceAboutTime(timeTuple: timeTuple, sentancePrefix: sentancePrefix)
-    }
-    
-    func speakAverageLapTime(timeTuple: (minutes: String, seconds: String, fraction: String)) {
-        let sentancePrefix = "Average lap time"
-        
-        speakSentanceAboutTime(timeTuple: timeTuple, sentancePrefix: sentancePrefix)
-    }
-    
-    func speakTotalTime(timeTuple: (minutes: String, seconds: String, fraction: String)) {
-        let sentancePrefix = "Total running time is"
-        
-        speakSentanceAboutTime(timeTuple: timeTuple, sentancePrefix: sentancePrefix)
+        if !voiceQueue.contains(where: {$0 == SpeechTypes.TimerCleared}) {
+            textToSpeech(text: "Clear")
+            voiceQueue.append(SpeechTypes.TimerCleared)
+        }
     }
     
     // TODO: UNTESTED
@@ -68,7 +70,29 @@ class SpeechService: NSObject, AVSpeechSynthesizerDelegate {
         }
         
         textToSpeech(text: sentanceToSpeak)
+        voiceQueue.append(SpeechTypes.PreviousAndAverageLapTimes)
     }
+    
+//    not in use
+    private func speakPreviousLapTime(timeTuple: (minutes: String, seconds: String, fraction: String), lapNumber: Int) {
+        let lapNumberOrdinalized = "\(lapNumber)\(Constants.ordinalSuffixForNumber(number: lapNumber))"
+        let sentancePrefix = "\(lapNumberOrdinalized) lap time"
+        
+        speakSentanceAboutTime(timeTuple: timeTuple, sentancePrefix: sentancePrefix)
+    }
+    
+    private func speakAverageLapTime(timeTuple: (minutes: String, seconds: String, fraction: String)) {
+        let sentancePrefix = "Average lap time"
+        
+        speakSentanceAboutTime(timeTuple: timeTuple, sentancePrefix: sentancePrefix)
+    }
+    
+    private func speakTotalTime(timeTuple: (minutes: String, seconds: String, fraction: String)) {
+        let sentancePrefix = "Total running time is"
+        
+        speakSentanceAboutTime(timeTuple: timeTuple, sentancePrefix: sentancePrefix)
+    }
+//    end not in use
     
     private func speakSentanceAboutTime(timeTuple: (minutes: String, seconds: String, fraction: String), sentancePrefix: String) {
         var sentanceToSpeak = sentancePrefix
@@ -135,8 +159,7 @@ class SpeechService: NSObject, AVSpeechSynthesizerDelegate {
     
     private func setAudioDefaults() {
         do {
-            try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback, with: [AVAudioSessionCategoryOptions.duckOthers, AVAudioSessionCategoryOptions.interruptSpokenAudioAndMixWithOthers,
-                AVAudioSessionCategoryOptions.defaultToSpeaker])
+            try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback, with: [AVAudioSessionCategoryOptions.duckOthers, AVAudioSessionCategoryOptions.interruptSpokenAudioAndMixWithOthers])
         } catch {
             print("there was an error setting audio defaults")
         }

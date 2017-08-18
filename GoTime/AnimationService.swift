@@ -18,6 +18,7 @@ class AnimationService {
         UIView.animate(withDuration: duration, animations: fn)
     }
     
+//    NOT WORKING?
     func animateFadeInView(_ viewToFadeIn: UIView, duration: Double = 0.3, delay: Double = 0.0) {
         UIView.animate(withDuration: duration, delay: delay, animations: {
             viewToFadeIn.alpha = 1.0
@@ -89,5 +90,26 @@ class AnimationService {
                        animations: {
                         view.transform = .identity
         })
+    }
+    
+    func shakeBriefly(_ view: UIView) {
+        let animation = CABasicAnimation(keyPath: "position")
+        animation.duration = 0.06
+        animation.repeatCount = 0
+        animation.autoreverses = true
+        animation.fromValue = NSValue(cgPoint: CGPoint(x: view.center.x - 10, y: view.center.y))
+        animation.toValue = NSValue(cgPoint: CGPoint(x: view.center.x + 10, y: view.center.y))
+        view.layer.add(animation, forKey: "position")
+    }
+    
+    func enlargeBriefly(_ view: UIView, duration: Double = 0.3) {
+        UIView.animateKeyframes(withDuration: duration, delay: 0, animations: {
+            UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 0.5, animations: {
+                view.transform = CGAffineTransform(scaleX: 1.2, y: 1.2)
+            })
+            UIView.addKeyframe(withRelativeStartTime: 0.5, relativeDuration: 0.5, animations: {
+                view.transform = .identity
+            })
+        }, completion: nil)
     }
 }

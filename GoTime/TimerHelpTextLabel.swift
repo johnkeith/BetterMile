@@ -23,7 +23,7 @@ class TimerHelpTextLabel: UILabel {
         
         self.text = "Double-tap to Lap!"
         
-        self.font = Constants.responsiveDefaultFont
+        self.font = Constants.responsiveBoldDigitFont
         self.adjustsFontSizeToFitWidth = true
         self.numberOfLines = 2
         self.baselineAdjustment = .alignCenters
