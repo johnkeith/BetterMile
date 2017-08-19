@@ -11,14 +11,14 @@ import UIKit
 class StartButton:UIButton {
     override init(frame: CGRect = Constants.defaultFrame) {
         super.init(frame: frame)
-        setTitleLabelAttrs()
+        setTitleLabelDefaultAttrs()
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func setTitleLabelAttrs() {
+    private func setTitleLabelDefaultAttrs() {
         setTitle("START", for: UIControlState.normal)
         setTitleColor(Constants.colorPalette["FG"], for: UIControlState.normal)
     

@@ -17,7 +17,7 @@ class SingleViewController: UIViewController {
     let shadowOpacity = Float(0.0)
     let startBtn = StartButton()
     let totalTimeLbl = UILabel()
-    let lapTimeLbl = UILabel()
+    let lapTimeLbl = LapTimeLabel()
     let lapLbl = UILabel()
     let voiceNotificationsBtn = UIButton()
     let vibrationNotificationBtn = UIButton()
@@ -26,6 +26,7 @@ class SingleViewController: UIViewController {
     let restartBtn = UIButton()
     let lapTableBtn = UIButton()
     let helpText = TimerHelpTextLabel()
+    let fadingLapTimeLbl = LapTimeLabel()
     
     let helpBtn = UIButton()
     let likeBtn = LikeButton()
@@ -62,7 +63,7 @@ class SingleViewController: UIViewController {
         
         view.backgroundColor = Constants.colorPalette["_black"]
         
-        addSubviews([startBtn, totalTimeLbl, lapLbl, voiceNotificationsBtn, pauseBtn, vibrationNotificationBtn, clearBtn, restartBtn, lapTableBtn, helpText, helpBtn, likeBtn, lapTimeLbl])
+        addSubviews([startBtn, totalTimeLbl, lapLbl, voiceNotificationsBtn, pauseBtn, vibrationNotificationBtn, clearBtn, restartBtn, lapTableBtn, helpText, helpBtn, likeBtn, lapTimeLbl, fadingLapTimeLbl])
         
         configStartBtn()
         configTotalTimeLbl()
@@ -77,6 +78,7 @@ class SingleViewController: UIViewController {
 //        configHelpBtn()
 //        configLikeBtn()
         configLapTimeLbl()
+        configFadingLapTimeLbl()
         
         askForReview()
         animationSrv.animateWithSpring(startBtn, duration: 0.8)
@@ -143,15 +145,6 @@ class SingleViewController: UIViewController {
     }
     
     func configLapTimeLbl() {
-        lapTimeLbl.isHidden = true
-        lapTimeLbl.text = "Lap   00:00.00"
-        lapTimeLbl.font = Constants.responsiveDigitFont
-        lapTimeLbl.adjustsFontSizeToFitWidth = true
-        lapTimeLbl.numberOfLines = 1
-        lapTimeLbl.baselineAdjustment = .alignCenters
-        lapTimeLbl.textAlignment = .center
-        lapTimeLbl.textColor = fgClr
-        
         lapTimeLbl.snp.makeConstraints { make in
             make.width.equalTo(lapTimeLbl.superview!)
             make.height.equalTo(lapTimeLbl.superview!.frame.height / 10)
@@ -160,6 +153,15 @@ class SingleViewController: UIViewController {
         }
         
         lapTimeLbl.layoutIfNeeded()
+    }
+    
+    func configFadingLapTimeLbl() {
+        fadingLapTimeLbl.snp.makeConstraints { make in
+            make.width.equalTo(fadingLapTimeLbl.superview!)
+            make.height.equalTo(fadingLapTimeLbl.superview!.frame.height / 10)
+            make.centerX.equalTo(fadingLapTimeLbl.superview!)
+            make.top.equalTo(totalTimeLbl.snp.bottom)
+        }
     }
     
     func configHelpText() {
@@ -555,18 +557,19 @@ extension SingleViewController: StopWatchServiceDelegate {
             let lapTime = self.stopWatchSrv.lapTimes.last!
             let lapTimeAsString = self.timeToTextSrv.timeAsSingleString(inputTime: lapTime)
             
-            self.lapTimeLbl.text = "Lap   \(lapTimeAsString)"
+            self.lapTimeLbl.setTextForLabel(lapTimeAsString)
             self.totalTimeLbl.text = "Total \(self.timeToTextSrv.timeAsSingleString(inputTime: totalTimeElapsed))"
         }
     }
     
     func stopWatchLapStored(lapTime: Double, lapNumber: Int, totalTime: Double) {
-        DispatchQueue.main.async {
-            self.setLapLblText(lapCount: self.stopWatchSrv.lapTimes.count)
-        }
+        self.setLapLblText(lapCount: self.stopWatchSrv.lapTimes.count)
+        
+        let text = timeToTextSrv.timeAsSingleString(inputTime: lapTime)
+        fadingLapTimeLbl.setTextForLabel(text)
+        animationSrv.moveDownAndFade(fadingLapTimeLbl, duration: 1.0)
         
         notifyWithVibrationIfEnabled()
-        
         notifyWithVoiceIfEnabled(lapTime: lapTime, lapNumber: lapNumber)
     }
     

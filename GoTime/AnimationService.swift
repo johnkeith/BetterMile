@@ -112,4 +112,21 @@ class AnimationService {
             })
         }, completion: nil)
     }
+    
+    func moveDownAndFade(_ view: UIView, duration: Double = 0.3) {
+        view.isHidden = false
+        view.alpha = 1
+        
+        let viewHeight = view.frame.height
+        let transform = CGAffineTransform(translationX: 0, y: viewHeight / 2)
+        
+        UIView.animateKeyframes(withDuration: duration, delay: 0, animations: {
+            UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 1, animations: {
+                view.transform = transform
+                view.alpha = 0
+            })
+        }, completion: { complete in
+            view.transform = .identity
+        })
+    }
 }
