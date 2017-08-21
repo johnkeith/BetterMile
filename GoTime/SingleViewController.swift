@@ -399,6 +399,16 @@ class SingleViewController: UIViewController {
         let padding = shouldPad ? "0" : ""
         lapLbl.text = "\(padding)\(lapCount)"
     }
+    
+    func setTotalTimeLblText(totalTimeElapsed: TimeInterval) {
+        self.totalTimeLbl.text = "Total \(self.timeToTextSrv.timeAsSingleString(inputTime: totalTimeElapsed))"
+    }
+    
+    func setLapTimeLblText(lapTime: TimeInterval) {
+        let lapTimeAsString = self.timeToTextSrv.timeAsSingleString(inputTime: lapTime)
+        
+        self.lapTimeLbl.setTextForLabel(lapTimeAsString)
+    }
 
     func onStartTap() {
         stopWatchSrv.start()
@@ -428,7 +438,7 @@ class SingleViewController: UIViewController {
     }
     
     func onLapTableTap() {
-        let lapTableController = LapTableController(lapTimes: stopWatchSrv.lapTimes.reversed())
+        let lapTableController = LapTableController(stopWatchSrv: stopWatchSrv)
         self.navigationController?.pushViewController(lapTableController, animated: true)
     }
     
@@ -555,10 +565,9 @@ extension SingleViewController: StopWatchServiceDelegate {
     func stopWatchIntervalElapsed(totalTimeElapsed: TimeInterval) {
         DispatchQueue.main.async {
             let lapTime = self.stopWatchSrv.lapTimes.last!
-            let lapTimeAsString = self.timeToTextSrv.timeAsSingleString(inputTime: lapTime)
             
-            self.lapTimeLbl.setTextForLabel(lapTimeAsString)
-            self.totalTimeLbl.text = "Total \(self.timeToTextSrv.timeAsSingleString(inputTime: totalTimeElapsed))"
+            self.setLapTimeLblText(lapTime: lapTime)
+            self.setTotalTimeLblText(totalTimeElapsed: totalTimeElapsed)
         }
     }
     
@@ -571,6 +580,24 @@ extension SingleViewController: StopWatchServiceDelegate {
         
         notifyWithVibrationIfEnabled()
         notifyWithVoiceIfEnabled(lapTime: lapTime, lapNumber: lapNumber)
+    }
+    
+    func stopWatchLapRemoved() {
+        let lapCount = stopWatchSrv.lapTimes.count
+        var totalLapTime: Double
+        var currentLap: Double
+        
+        if lapCount > 0 {
+            totalLapTime = stopWatchSrv.calculateTotalLapsTime()
+            currentLap = stopWatchSrv.lapTimes.last!
+        } else {
+            totalLapTime = 0.0
+            currentLap = 0.0
+        }
+        
+        self.setLapLblText(lapCount: lapCount)
+        self.setTotalTimeLblText(totalTimeElapsed: totalLapTime)
+        self.setLapTimeLblText(lapTime: currentLap)
     }
     
     func stopWatchStopped() {

@@ -9,10 +9,10 @@
 import UIKit
 
 class LapTableController: UIViewController {
-    let lapTable = LapTimeTable()
+    let lapTable: LapTimeTable
     
-    init(lapTimes: [Double]) {
-        lapTable.setLapData(lapData: lapTimes)
+    init(stopWatchSrv: StopWatchService) {
+        lapTable = LapTimeTable(stopWatchSrv: stopWatchSrv)
         lapTable.reloadData()
         
         super.init(nibName: nil, bundle: nil)

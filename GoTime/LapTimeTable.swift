@@ -8,18 +8,20 @@
 
 import UIKit
 
-class LapTimeTable: UITableView {    
+class LapTimeTable: UITableView {
+    var stopWatchSrv: StopWatchService
     var lapData = [Double]()
     var timeToTextService: TimeToTextService
     
-    init(hidden: Bool = true, timeToTextService: TimeToTextService = TimeToTextService()) {
+    init(stopWatchSrv: StopWatchService = StopWatchService(), hidden: Bool = true, timeToTextService: TimeToTextService = TimeToTextService()) {
         self.timeToTextService = timeToTextService
+        self.stopWatchSrv = stopWatchSrv
+        
         let defaultFrame = CGRect()
 
         super.init(frame: defaultFrame, style: .plain)
 
         self.isHidden = hidden
-//        self.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
         self.dataSource = self
         self.delegate = self
         
@@ -31,14 +33,16 @@ class LapTimeTable: UITableView {
         self.backgroundColor = Constants.colorPalette["_black"]
         
         self.register(LapTimeTableCell.self, forCellReuseIdentifier: "lapTimeTableCell")
+        
+        setLapData()
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) is not supported")
     }
     
-    func setLapData(lapData: [Double]) {
-        self.lapData = lapData        
+    func setLapData() {
+        self.lapData = stopWatchSrv.lapTimes.reversed()
     }
     
 //  TODO: UNTESTED - TODO: FIX - showing errors sometimes
@@ -46,11 +50,6 @@ class LapTimeTable: UITableView {
         let indexPath = IndexPath(row: 0, section: 0)
         
         self.reloadRows(at: [indexPath], with: .none)
-    }
-    
-    func clearLapData() {
-        self.lapData.removeAll()
-        self.reloadData()
     }
     
 //  TODO: UNTESTED
@@ -83,6 +82,36 @@ extension LapTimeTable: UITableViewDataSource {
         
         return cell
     }
+    
+//    CAN BE USED TO ADD DELETE TO TABLE, NEEDS STYLING
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        let someAction = UITableViewRowAction(style: .default, title: "Delete") { value in
+            self.beginUpdates()
+            
+            self.stopWatchSrv.deleteLap(at: indexPath.row)
+            self.lapData.remove(at: indexPath.row)
+            self.deleteRows(at: [indexPath], with: .automatic)
+            
+            self.endUpdates()
+        }
+        
+        someAction.backgroundColor = Constants.colorPalette["_black"]
+        
+        return [someAction]
+    }
+    
+//    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+//        if editingStyle == .delete {
+//            print("Deleted")
+//
+//            self.stopWatchSrv.deleteLap(at: indexPath.row)
+//            self.deleteRows(at: [indexPath], with: .automatic)
+//        }
+//    }
 }
 
 extension LapTimeTable: UITableViewDelegate {

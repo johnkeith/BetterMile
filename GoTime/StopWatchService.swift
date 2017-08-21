@@ -26,6 +26,8 @@ protocol StopWatchServiceDelegate: class {
     func stopWatchLapStored(lapTime: Double, lapNumber: Int, totalTime: Double)
     
     func stopWatchStarted()
+    
+    func stopWatchLapRemoved()
 }
 
 class StopWatchService: NSObject {
@@ -72,6 +74,10 @@ class StopWatchService: NSObject {
     
     func completedLapTimes() -> [Double] {
         return Array(self.lapTimes[0..<self.lapTimes.count - 1])
+    }
+    
+    func calculateTotalLapsTime() -> Double {
+        return klass.calculateTotalLapsTime(laps: lapTimes)
     }
     
     func calculateLapDeviationPercentage(lapTime: Double) -> Double {
@@ -166,6 +172,16 @@ class StopWatchService: NSObject {
         let lapTime = lapTimes[lapTimes.count - 2]
                 
         delegate?.stopWatchLapStored(lapTime: lapTime, lapNumber: lapNumber, totalTime: currentTotalTime)
+    }
+    
+    func deleteLap(at: Int) {
+        lapTimes.remove(at: at)
+        
+        if lapTimes.count == 0 {
+            lapTimes.append(0.0)
+        }
+        
+        delegate?.stopWatchLapRemoved()
     }
 }
 
