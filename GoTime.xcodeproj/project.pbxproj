@@ -52,6 +52,7 @@
 		63F7EE681F4E67410008D65D /* FirebaseNanoPB.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63F7EE651F4E66F20008D65D /* FirebaseNanoPB.framework */; };
 		63F7EE691F4E67410008D65D /* GoogleToolboxForMac.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63F7EE611F4E66F20008D65D /* GoogleToolboxForMac.framework */; };
 		63F7EE6A1F4E67410008D65D /* nanopb.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63F7EE631F4E66F20008D65D /* nanopb.framework */; };
+		63F7EE6C1F4E689E0008D65D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 63F7EE6B1F4E67C60008D65D /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -449,6 +450,7 @@
 			files = (
 				6369A9011E9C70A400DC3B35 /* TODOLIST.rtf in Resources */,
 				63805AB31F36AE56007CBBF2 /* Storyboard.storyboard in Resources */,
+				63F7EE6C1F4E689E0008D65D /* GoogleService-Info.plist in Resources */,
 				63A3F1FC1E34FE3800AA8A92 /* LaunchScreen.storyboard in Resources */,
 				63A3F1F91E34FE3800AA8A92 /* Assets.xcassets in Resources */,
 			);
