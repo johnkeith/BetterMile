@@ -97,21 +97,13 @@ extension LapTimeTable: UITableViewDataSource {
             self.deleteRows(at: [indexPath], with: .automatic)
             
             self.endUpdates()
+            self.reloadData()
         }
         
         someAction.backgroundColor = Constants.colorPalette["_black"]
         
         return [someAction]
     }
-    
-//    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-//        if editingStyle == .delete {
-//            print("Deleted")
-//
-//            self.stopWatchSrv.deleteLap(at: indexPath.row)
-//            self.deleteRows(at: [indexPath], with: .automatic)
-//        }
-//    }
 }
 
 extension LapTimeTable: UITableViewDelegate {
