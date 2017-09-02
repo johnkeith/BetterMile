@@ -163,6 +163,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		633C31531F5A39F400BD2460 /* Firebase */ = {
+			isa = PBXGroup;
+			children = (
+				63F7EE6B1F4E67C60008D65D /* GoogleService-Info.plist */,
+				63F7EE621F4E66F20008D65D /* FirebaseCoreDiagnostics.framework */,
+				63F7EE641F4E66F20008D65D /* FirebaseInstanceID.framework */,
+				63F7EE651F4E66F20008D65D /* FirebaseNanoPB.framework */,
+				63F7EE611F4E66F20008D65D /* GoogleToolboxForMac.framework */,
+				63F7EE631F4E66F20008D65D /* nanopb.framework */,
+				63F7EE5D1F4E66110008D65D /* FirebaseAnalytics.framework */,
+				63F7EE5E1F4E66110008D65D /* FirebaseCore.framework */,
+				63F7EE581F4E64930008D65D /* Firebase.h */,
+				63F7EE591F4E64930008D65D /* module.modulemap */,
+			);
+			name = Firebase;
+			sourceTree = "<group>";
+		};
 		6386BF291E421E3800BD2875 /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -196,19 +213,10 @@
 		63A3F1ED1E34FE3800AA8A92 /* GoTime */ = {
 			isa = PBXGroup;
 			children = (
-				63F7EE6B1F4E67C60008D65D /* GoogleService-Info.plist */,
-				63F7EE621F4E66F20008D65D /* FirebaseCoreDiagnostics.framework */,
-				63F7EE641F4E66F20008D65D /* FirebaseInstanceID.framework */,
-				63F7EE651F4E66F20008D65D /* FirebaseNanoPB.framework */,
-				63F7EE611F4E66F20008D65D /* GoogleToolboxForMac.framework */,
-				63F7EE631F4E66F20008D65D /* nanopb.framework */,
-				63F7EE5D1F4E66110008D65D /* FirebaseAnalytics.framework */,
-				63F7EE5E1F4E66110008D65D /* FirebaseCore.framework */,
-				63F7EE581F4E64930008D65D /* Firebase.h */,
-				63F7EE591F4E64930008D65D /* module.modulemap */,
 				63A3F22E1E35356200AA8A92 /* Components */,
 				63A3F22F1E35356B00AA8A92 /* Controllers */,
 				63C9A1971E883D8D00AB9144 /* Extensions */,
+				633C31531F5A39F400BD2460 /* Firebase */,
 				63A3F2391E3C194100AA8A92 /* Services */,
 				63A3F2321E35363C00AA8A92 /* Storyboards */,
 				63A3F2241E35355500AA8A92 /* Constants.swift */,
