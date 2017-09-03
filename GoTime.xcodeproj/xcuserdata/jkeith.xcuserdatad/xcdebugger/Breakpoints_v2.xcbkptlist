@@ -605,11 +605,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GoTime/SingleViewController.swift"
-            timestampString = "526152569.468905"
+            timestampString = "526155271.090785"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "508"
-            endingLineNumber = "508"
+            startingLineNumber = "516"
+            endingLineNumber = "516"
             landmarkName = "notifyWithVoiceIfEnabled(lapTime:lapNumber:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -621,11 +621,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GoTime/SingleViewController.swift"
-            timestampString = "526152569.468964"
+            timestampString = "526155271.090887"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "495"
-            endingLineNumber = "495"
+            startingLineNumber = "503"
+            endingLineNumber = "503"
             landmarkName = "handleSettingsToggle(key:btn:which:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -669,7 +669,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GoTime/BlurOverlayView.swift"
-            timestampString = "526152869.715682"
+            timestampString = "526155271.090974"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "13"

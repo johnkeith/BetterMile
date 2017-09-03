@@ -26,7 +26,7 @@ class SingleViewController: UIViewController {
     let lapTableBtn = UIButton()
     let helpText = TimerHelpTextLabel()
     let fadingLapTimeLbl = LapTimeLabel()
-    let settingsBtn = SettingsButton()
+    let blurOverlay = BlurOverlayView()
     
     let helpBtn = UIButton()
     let likeBtn = LikeButton()
@@ -43,6 +43,7 @@ class SingleViewController: UIViewController {
     var timeToTextSrv: TimeToTextService
     var speechSrv: SpeechService
     var pauseBtn: PauseButton
+    var settingsBtn: SettingsButton
     
     init(stopWatchSrv: StopWatchService = StopWatchService(),
          animationSrv: AnimationService = AnimationService(),
@@ -53,6 +54,8 @@ class SingleViewController: UIViewController {
         self.timeToTextSrv = timeToTextSrv
         self.speechSrv = speechSrv
         self.pauseBtn = PauseButton(stopWatchSrv: stopWatchSrv)
+        self.settingsBtn = SettingsButton(blurOverlay: blurOverlay, animationSrv: animationSrv)
+        
         
         fgClr = Constants.colorPalette["FG"]!
         bgClr = Constants.colorBackground
@@ -65,7 +68,7 @@ class SingleViewController: UIViewController {
         
         view.backgroundColor = Constants.colorPalette["_black"]
         
-        addSubviews([startBtn, totalTimeLbl, lapLbl, voiceNotificationsBtn, pauseBtn, vibrationNotificationBtn, clearBtn, restartBtn, lapTableBtn, helpText, helpBtn, likeBtn, lapTimeLbl, fadingLapTimeLbl, settingsBtn])
+        addSubviews([startBtn, totalTimeLbl, lapLbl, voiceNotificationsBtn, pauseBtn, vibrationNotificationBtn, clearBtn, restartBtn, lapTableBtn, helpText, helpBtn, likeBtn, lapTimeLbl, fadingLapTimeLbl, settingsBtn, blurOverlay])
         
         configStartBtn()
         configTotalTimeLbl()
@@ -82,6 +85,7 @@ class SingleViewController: UIViewController {
 //        configLikeBtn()
         configLapTimeLbl()
         configFadingLapTimeLbl()
+        configBlurOverlay()
         
         askForReview()
         animationSrv.animateWithSpring(startBtn, duration: 0.8)
@@ -116,6 +120,10 @@ class SingleViewController: UIViewController {
                 SKStoreReviewController.requestReview()
             }
         }
+    }
+    
+    func configBlurOverlay() {
+        blurOverlay.addBlurEffect()
     }
     
     func configStartBtn() {

@@ -10,8 +10,14 @@ import UIKit
 
 class SettingsButton:UIView {
     let label = UILabel()
+    var blurOverlay: BlurOverlayView
+    var animationSrv: AnimationService
+    var settingsView: SettingsView?
     
-    init(isHidden: Bool = true, frame: CGRect = Constants.defaultFrame) {
+    init(blurOverlay: BlurOverlayView, animationSrv: AnimationService, isHidden: Bool = true, frame: CGRect = Constants.defaultFrame) {
+        self.blurOverlay = blurOverlay
+        self.animationSrv = animationSrv
+        
         super.init(frame: frame)
         
         self.isHidden = isHidden
@@ -34,7 +40,15 @@ class SettingsButton:UIView {
     }
     
     @objc private func onTap() {
-        print("SHOW SETTINGS MODAL")
+        animationSrv.animateFadeInView(blurOverlay, duration: 0.1)
+        
+        settingsView = SettingsView()
+        
+        self.superview!.addSubview(settingsView!) // ugly.
+        
+        settingsView!.configConstraints()
+        
+        animationSrv.animateMoveVerticallyFromOffscreenBottom(settingsView!, duration: 0.25)
     }
     
     private func addLabel() {
@@ -45,7 +59,6 @@ class SettingsButton:UIView {
     
     private func setLabelDefaultAttrs() {
         label.text = "SETTINGS"
-//        label.font = UIFont.monospacedDigitSystemFont(ofSize: 25, weight: Constants.responsiveDigitFontWeight)
         label.font = Constants.responsiveDigitFont
         label.adjustsFontSizeToFitWidth = true
         label.numberOfLines = 1

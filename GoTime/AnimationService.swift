@@ -18,7 +18,7 @@ class AnimationService {
         UIView.animate(withDuration: duration, animations: fn)
     }
     
-//    NOT WORKING?
+//    Works - just need to make sure the view has 0 alpha and is not hidden when launched
     func animateFadeInView(_ viewToFadeIn: UIView, duration: Double = 0.3, delay: Double = 0.0) {
         UIView.animate(withDuration: duration, delay: delay, animations: {
             viewToFadeIn.alpha = 1.0

@@ -9,20 +9,25 @@
 import UIKit
 
 class BlurOverlayView:UIView {
-    init(isHidden: Bool = true) {
+    init(isHidden: Bool = false) {
         super.init(frame: Constants.defaultFrame)
         
         self.isHidden = isHidden
-        
+        self.alpha = 0
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    func addBlurEffect() {
         let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.dark)
         let blurEffectView = UIVisualEffectView(effect: blurEffect)
         
         blurEffectView.frame = superview!.bounds
         blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        
+        addSubview(blurEffectView)
     }
 }
 
