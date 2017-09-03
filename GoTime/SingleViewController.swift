@@ -26,6 +26,7 @@ class SingleViewController: UIViewController {
     let lapTableBtn = UIButton()
     let helpText = TimerHelpTextLabel()
     let fadingLapTimeLbl = LapTimeLabel()
+    let settingsBtn = SettingsButton()
     
     let helpBtn = UIButton()
     let likeBtn = LikeButton()
@@ -64,13 +65,14 @@ class SingleViewController: UIViewController {
         
         view.backgroundColor = Constants.colorPalette["_black"]
         
-        addSubviews([startBtn, totalTimeLbl, lapLbl, voiceNotificationsBtn, pauseBtn, vibrationNotificationBtn, clearBtn, restartBtn, lapTableBtn, helpText, helpBtn, likeBtn, lapTimeLbl, fadingLapTimeLbl])
+        addSubviews([startBtn, totalTimeLbl, lapLbl, voiceNotificationsBtn, pauseBtn, vibrationNotificationBtn, clearBtn, restartBtn, lapTableBtn, helpText, helpBtn, likeBtn, lapTimeLbl, fadingLapTimeLbl, settingsBtn])
         
         configStartBtn()
         configTotalTimeLbl()
         configLapLbl()
 //        configVoiceNotificationsBtn()
         configPauseBtn()
+        configSettingsBtn()
 //        configVibrationNotificationBtn()
 //        configClearBtn()
 //        configRestartBtn()
@@ -184,7 +186,8 @@ class SingleViewController: UIViewController {
         lapLbl.snp.makeConstraints { make in
             make.width.equalTo(lapLbl.superview!).offset(-Constants.defaultMargin * 2)
             make.height.equalTo(lapLbl.superview!.frame.height / 3)
-            make.center.equalTo(lapLbl.superview!)
+            make.centerX.equalTo(lapLbl.superview!)
+            make.centerY.equalTo(lapLbl.superview!)
         }
         
         lapLbl.layoutIfNeeded()
@@ -203,6 +206,21 @@ class SingleViewController: UIViewController {
         }
         
         pauseBtn.setLabelConstraints()
+    }
+    
+    func configSettingsBtn() {
+        settingsBtn.snp.makeConstraints { make in
+            make.width.equalTo(settingsBtn.superview!.frame.width / 2)
+            make.height.equalTo(settingsBtn.superview!.frame.height / 10 + CGFloat(Constants.defaultMargin))
+            make.bottom.equalTo(settingsBtn.superview!)
+            make.right.equalTo(settingsBtn.superview!)
+        }
+        
+        settingsBtn.setLabelConstraints()
+        
+        settingsBtn.layoutIfNeeded()
+        
+        pauseBtn.matchFontSize(of: settingsBtn)
     }
     
     func configVibrationNotificationBtn() {
@@ -526,6 +544,7 @@ extension SingleViewController {
     func animateInButtons() {
         animationSrv.animateWithSpring(voiceNotificationsBtn, duration: 0.8, fromAlphaZero: true)
         animationSrv.animateWithSpring(pauseBtn, duration: 0.8, fromAlphaZero: true)
+        animationSrv.animateWithSpring(settingsBtn, duration: 0.8, fromAlphaZero: true)
         animationSrv.animateWithSpring(vibrationNotificationBtn,duration: 0.8, fromAlphaZero: true)
     }
 }

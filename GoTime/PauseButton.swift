@@ -36,6 +36,12 @@ class PauseButton:UIView {
         }
     }
     
+    func matchFontSize(of: SettingsButton) {
+        let size = of.label.fontSize
+        label.adjustsFontSizeToFitWidth = false
+        label.font = UIFont.monospacedDigitSystemFont(ofSize: size, weight: Constants.responsiveDigitFontWeight)
+    }
+    
     @objc private func onTap() {
         stopWatchSrv.pause()
     }
@@ -48,6 +54,7 @@ class PauseButton:UIView {
     
     private func setLabelDefaultAttrs() {
         label.text = "PAUSE"
+//        label.font = UIFont.monospacedDigitSystemFont(ofSize: 25, weight: Constants.responsiveDigitFontWeight)
         label.font = Constants.responsiveDigitFont
         label.adjustsFontSizeToFitWidth = true
         label.numberOfLines = 1

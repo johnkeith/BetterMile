@@ -11,7 +11,9 @@
 		632E32AA1F1A6104000683B8 /* StartButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632E32A91F1A6104000683B8 /* StartButton.swift */; };
 		633C31551F5ADB5800BD2460 /* PauseButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633C31541F5ADB5800BD2460 /* PauseButton.swift */; };
 		633C31571F5C0FB900BD2460 /* SettingsButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633C31561F5C0FB900BD2460 /* SettingsButton.swift */; };
+		633C31591F5C218600BD2460 /* UILabelExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633C31581F5C218600BD2460 /* UILabelExtension.swift */; };
 		6341A8531F3E8E09001979CE /* FadeOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6341A8521F3E8E09001979CE /* FadeOverlayView.swift */; };
+		6347A94F1F5C73B400B1CB8A /* BlurOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6347A94E1F5C73B400B1CB8A /* BlurOverlayView.swift */; };
 		634CACDF1E4BD4AE0064FD5E /* LapTimeTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634CACDE1E4BD4AE0064FD5E /* LapTimeTable.swift */; };
 		634CACF01E5C69210064FD5E /* LapTimeTableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634CACEF1E5C69210064FD5E /* LapTimeTableTests.swift */; };
 		63684F891F47C1D40067DC36 /* LapTimeLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63684F881F47C1D40067DC36 /* LapTimeLabel.swift */; };
@@ -79,7 +81,9 @@
 		632E32A91F1A6104000683B8 /* StartButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartButton.swift; sourceTree = "<group>"; };
 		633C31541F5ADB5800BD2460 /* PauseButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PauseButton.swift; sourceTree = "<group>"; };
 		633C31561F5C0FB900BD2460 /* SettingsButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsButton.swift; sourceTree = "<group>"; };
+		633C31581F5C218600BD2460 /* UILabelExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UILabelExtension.swift; sourceTree = "<group>"; };
 		6341A8521F3E8E09001979CE /* FadeOverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FadeOverlayView.swift; sourceTree = "<group>"; };
+		6347A94E1F5C73B400B1CB8A /* BlurOverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurOverlayView.swift; sourceTree = "<group>"; };
 		634CACDE1E4BD4AE0064FD5E /* LapTimeTable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LapTimeTable.swift; sourceTree = "<group>"; };
 		634CACEF1E5C69210064FD5E /* LapTimeTableTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LapTimeTableTests.swift; sourceTree = "<group>"; };
 		63684F881F47C1D40067DC36 /* LapTimeLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LapTimeLabel.swift; sourceTree = "<group>"; };
@@ -276,6 +280,7 @@
 				63684F881F47C1D40067DC36 /* LapTimeLabel.swift */,
 				633C31541F5ADB5800BD2460 /* PauseButton.swift */,
 				633C31561F5C0FB900BD2460 /* SettingsButton.swift */,
+				6347A94E1F5C73B400B1CB8A /* BlurOverlayView.swift */,
 			);
 			name = Components;
 			sourceTree = "<group>";
@@ -346,6 +351,7 @@
 			children = (
 				63C9A1981E883DA300AB9144 /* UIViewExtension.swift */,
 				63805AB01F36972C007CBBF2 /* UIColorExtension.swift */,
+				633C31581F5C218600BD2460 /* UILabelExtension.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -512,6 +518,7 @@
 				63C9A1991E883DA300AB9144 /* UIViewExtension.swift in Sources */,
 				63684F891F47C1D40067DC36 /* LapTimeLabel.swift in Sources */,
 				6386BF331E45FE9700BD2875 /* RunPersistanceService.swift in Sources */,
+				633C31591F5C218600BD2460 /* UILabelExtension.swift in Sources */,
 				63B3DFE81EDB314E007B6991 /* SettingsService.swift in Sources */,
 				63CB140C1E6E4E0A00F7BC14 /* AnimationService.swift in Sources */,
 				63805AB11F36972C007CBBF2 /* UIColorExtension.swift in Sources */,
@@ -519,6 +526,7 @@
 				63E9BBE01EA07BFD0019FC35 /* SpeechService.swift in Sources */,
 				632E32AA1F1A6104000683B8 /* StartButton.swift in Sources */,
 				63A3F1F71E34FE3800AA8A92 /* GoTime.xcdatamodeld in Sources */,
+				6347A94F1F5C73B400B1CB8A /* BlurOverlayView.swift in Sources */,
 				6341A8531F3E8E09001979CE /* FadeOverlayView.swift in Sources */,
 				633C31571F5C0FB900BD2460 /* SettingsButton.swift in Sources */,
 				6386BF211E3EC1FC00BD2875 /* TimeToTextService.swift in Sources */,

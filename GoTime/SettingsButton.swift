@@ -15,7 +15,7 @@ class SettingsButton:UIView {
         super.init(frame: frame)
         
         self.isHidden = isHidden
-        backgroundColor = Constants.colorBackgroundDark
+        backgroundColor = Constants.colorBackgroundMedium
         
         addLabel()
         addTapRecognizer()
@@ -45,6 +45,7 @@ class SettingsButton:UIView {
     
     private func setLabelDefaultAttrs() {
         label.text = "SETTINGS"
+//        label.font = UIFont.monospacedDigitSystemFont(ofSize: 25, weight: Constants.responsiveDigitFontWeight)
         label.font = Constants.responsiveDigitFont
         label.adjustsFontSizeToFitWidth = true
         label.numberOfLines = 1
