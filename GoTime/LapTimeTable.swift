@@ -125,27 +125,27 @@ extension LapTimeTable: UITableViewDelegate {
         
         if quality == LapQualities.good {
             cell.backgroundColor = Constants.colorPalette["_green"]
-            cell.label.textColor = Constants.colorPalette["_white"]
+            cell.label.textColor = Constants.colorWhite
         } else if quality == LapQualities.bad {
             setDefaultRowColors(cell)
         } else {
             cell.backgroundColor = Constants.colorPalette["_red"]
-            cell.label.textColor = Constants.colorPalette["_white"]
+            cell.label.textColor = Constants.colorWhite
         }
     }
     
     func setDefaultRowColors(_ cell: LapTimeTableCell) {
         cell.backgroundColor = Constants.colorPalette["_black"]
-        cell.label.textColor = Constants.colorPalette["_white"]
+        cell.label.textColor = Constants.colorWhite
     }
     
     func oldSetCellTextColor(_ cell: LapTimeTableCell, at index: Int, checkForSlowest: Bool = false) {
         if checkForSlowest && isSlowestLap(index){
             cell.backgroundColor = Constants.colorPalette["_red"]
-            cell.label.textColor = Constants.colorPalette["_white"]
+            cell.label.textColor = Constants.colorWhite
         } else if isFastestLap(index) {
             cell.backgroundColor = Constants.colorPalette["_green"]
-            cell.label.textColor = Constants.colorPalette["_white"]
+            cell.label.textColor = Constants.colorWhite
         }
     }
     

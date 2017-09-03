@@ -53,7 +53,7 @@ class SingleViewController: UIViewController {
         self.speechSrv = speechSrv
         
         fgClr = Constants.colorPalette["FG"]!
-        bgClr = Constants.colorPalette["BG"]!
+        bgClr = Constants.colorBackground
         btnFgClr = fgClr
         btnBgClr = UIColor.clear // Constants.colorPalette["BTNBG"]!
         
@@ -277,7 +277,7 @@ class SingleViewController: UIViewController {
         btn.layer.shadowOpacity = shadowOpacity
         
         if !enabled {
-            btn.tintColor = Constants.colorPalette["BGDRK"]
+            btn.tintColor = Constants.colorBackgroundDark
         }
     }
     
@@ -415,7 +415,7 @@ class SingleViewController: UIViewController {
         
         setLapLblText(lapCount: self.stopWatchSrv.lapTimes.count)
         
-        animationSrv.animate({ self.view.backgroundColor = Constants.colorPalette["BG"] })
+        animationSrv.animate({ self.view.backgroundColor = Constants.colorBackground })
         animationSrv.animateFadeOutView(startBtn, duration: 0.0)
         
         helpBtn.alpha = 0

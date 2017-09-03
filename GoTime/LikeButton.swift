@@ -49,7 +49,7 @@ class LikeButton:UIButton {
         let buttonImage = UIImage(named: "ic_favorite_border_48pt")?.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
         
         tintColor = Constants.colorPalette["FG"]
-        backgroundColor = Constants.colorPalette["BG"]
+        backgroundColor = Constants.colorBackground
         setImage(buttonImage, for: .normal)
         setImage(buttonImage, for: .highlighted)
     }

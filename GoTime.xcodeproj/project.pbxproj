@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		632271B51ED7B9C100244ED3 /* LapTableController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632271B41ED7B9C100244ED3 /* LapTableController.swift */; };
 		632E32AA1F1A6104000683B8 /* StartButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632E32A91F1A6104000683B8 /* StartButton.swift */; };
+		633C31551F5ADB5800BD2460 /* PauseButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633C31541F5ADB5800BD2460 /* PauseButton.swift */; };
 		6341A8531F3E8E09001979CE /* FadeOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6341A8521F3E8E09001979CE /* FadeOverlayView.swift */; };
 		634CACDF1E4BD4AE0064FD5E /* LapTimeTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634CACDE1E4BD4AE0064FD5E /* LapTimeTable.swift */; };
 		634CACF01E5C69210064FD5E /* LapTimeTableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634CACEF1E5C69210064FD5E /* LapTimeTableTests.swift */; };
@@ -75,6 +76,7 @@
 /* Begin PBXFileReference section */
 		632271B41ED7B9C100244ED3 /* LapTableController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LapTableController.swift; sourceTree = "<group>"; };
 		632E32A91F1A6104000683B8 /* StartButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartButton.swift; sourceTree = "<group>"; };
+		633C31541F5ADB5800BD2460 /* PauseButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PauseButton.swift; sourceTree = "<group>"; };
 		6341A8521F3E8E09001979CE /* FadeOverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FadeOverlayView.swift; sourceTree = "<group>"; };
 		634CACDE1E4BD4AE0064FD5E /* LapTimeTable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LapTimeTable.swift; sourceTree = "<group>"; };
 		634CACEF1E5C69210064FD5E /* LapTimeTableTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LapTimeTableTests.swift; sourceTree = "<group>"; };
@@ -270,6 +272,7 @@
 				63BC12A01F30107500E7F8AE /* LikeButton.swift */,
 				6341A8521F3E8E09001979CE /* FadeOverlayView.swift */,
 				63684F881F47C1D40067DC36 /* LapTimeLabel.swift */,
+				633C31541F5ADB5800BD2460 /* PauseButton.swift */,
 			);
 			name = Components;
 			sourceTree = "<group>";
@@ -502,6 +505,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				633C31551F5ADB5800BD2460 /* PauseButton.swift in Sources */,
 				63C9A1991E883DA300AB9144 /* UIViewExtension.swift in Sources */,
 				63684F891F47C1D40067DC36 /* LapTimeLabel.swift in Sources */,
 				6386BF331E45FE9700BD2875 /* RunPersistanceService.swift in Sources */,

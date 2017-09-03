@@ -37,7 +37,7 @@ class LapTableController: UIViewController {
         self.navigationController?.navigationBar.isTranslucent = false
         self.navigationController?.navigationBar.backgroundColor = Constants.colorPalette["_black"]
         self.navigationController?.view.backgroundColor = Constants.colorPalette["_black"]
-        self.navigationController?.navigationBar.tintColor = Constants.colorPalette["_white"]
+        self.navigationController?.navigationBar.tintColor = Constants.colorWhite
         self.navigationItem.title = "Lap Times"
         
         UIApplication.shared.statusBarStyle = .lightContent
