@@ -21,7 +21,6 @@ class SingleViewController: UIViewController {
     let lapLbl = UILabel()
     let voiceNotificationsBtn = UIButton()
     let vibrationNotificationBtn = UIButton()
-    let pauseBtn = UIButton()
     let clearBtn = UIButton()
     let restartBtn = UIButton()
     let lapTableBtn = UIButton()
@@ -42,6 +41,7 @@ class SingleViewController: UIViewController {
     var animationSrv: AnimationService
     var timeToTextSrv: TimeToTextService
     var speechSrv: SpeechService
+    var pauseBtn: PauseButton
     
     init(stopWatchSrv: StopWatchService = StopWatchService(),
          animationSrv: AnimationService = AnimationService(),
@@ -51,6 +51,7 @@ class SingleViewController: UIViewController {
         self.animationSrv = animationSrv
         self.timeToTextSrv = timeToTextSrv
         self.speechSrv = speechSrv
+        self.pauseBtn = PauseButton(stopWatchSrv: stopWatchSrv)
         
         fgClr = Constants.colorPalette["FG"]!
         bgClr = Constants.colorBackground
@@ -68,11 +69,11 @@ class SingleViewController: UIViewController {
         configStartBtn()
         configTotalTimeLbl()
         configLapLbl()
-        configVoiceNotificationsBtn()
+//        configVoiceNotificationsBtn()
         configPauseBtn()
-        configVibrationNotificationBtn()
-        configClearBtn()
-        configRestartBtn()
+//        configVibrationNotificationBtn()
+//        configClearBtn()
+//        configRestartBtn()
         configLapTableBtn()
         configHelpText()
 //        configHelpBtn()
@@ -194,31 +195,16 @@ class SingleViewController: UIViewController {
     }
     
     func configPauseBtn() {
-        let buttonImage = UIImage(named: "ic_pause_48pt")?.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
-        
-        pauseBtn.isHidden = true
-        pauseBtn.tintColor = btnFgClr
-        pauseBtn.backgroundColor = btnBgClr
-        pauseBtn.layer.shadowOpacity = shadowOpacity
-        pauseBtn.setImage(buttonImage, for: .normal)
-        pauseBtn.setImage(buttonImage, for: .highlighted)
-        
-        pauseBtn.addTarget(self, action:#selector(onPauseTap), for: .touchDown)
-        
-        let width = pauseBtn.superview!.frame.width / 5
-       
+//        pauseBtn.addTarget(self, action:#selector(onPauseTap), for: .touchDown)
+
         pauseBtn.snp.makeConstraints { make in
-            make.width.equalTo(width)
-            make.height.equalTo(pauseBtn.snp.width)
-            make.bottom.equalTo(pauseBtn.superview!).offset(-Constants.defaultMargin)
-            make.centerX.equalTo(pauseBtn.superview!)
+            make.width.equalTo(pauseBtn.superview!.frame.width / 2)
+            make.height.equalTo(pauseBtn.superview!.frame.height / 10)
+            make.bottom.equalTo(pauseBtn.superview!)
+            make.left.equalTo(pauseBtn.superview!)
         }
         
-        pauseBtn.layoutIfNeeded()
-        
-        print("PAUSE BTN HEIGHT", pauseBtn.frame.height)
-        
-        pauseBtn.layer.cornerRadius = pauseBtn.frame.size.height / 2
+        pauseBtn.setLabelConstraints()
     }
     
     func configVibrationNotificationBtn() {
@@ -427,10 +413,6 @@ class SingleViewController: UIViewController {
         
 //        animationSrv.animateWithSpring(helpText, duration: 0.8)
 //        helpText.showBriefly()
-    }
-    
-    func onPauseTap() {
-        stopWatchSrv.pause()
     }
     
     func onRestartTap() {

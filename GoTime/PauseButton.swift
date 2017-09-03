@@ -10,35 +10,43 @@ import UIKit
 
 class PauseButton:UIView {
     let label = UILabel()
+    var stopWatchSrv: StopWatchService
     
-    override init(frame: CGRect = Constants.defaultFrame) {
+    init(stopWatchSrv: StopWatchService, frame: CGRect = Constants.defaultFrame) {
+        self.stopWatchSrv = stopWatchSrv
+        
         super.init(frame: frame)
         
         backgroundColor = Constants.colorBackgroundDark
         
         addLabel()
+        addTapRecognizer()
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func addLabel() {
-        addSubview(label)
-        
-        setLabelConstraints()
-        setLabelDefaultAttrs()
-    }
-    
-    private func setLabelConstraints() {
+    func setLabelConstraints() {
         label.snp.makeConstraints { make in
-            make.width.equalTo(superview!.snp.width)
-            make.height.equalTo(superview!.snp.height)
+            make.width.equalTo(label.superview!.snp.width).offset(-Constants.defaultMargin * 2)
+            make.height.equalTo(label.superview!.snp.height).offset(-Constants.defaultMargin)
+            make.center.equalTo(label.superview!)
         }
     }
     
+    @objc private func onTap() {
+        stopWatchSrv.pause()
+    }
+    
+    private func addLabel() {
+        addSubview(label)
+        
+        setLabelDefaultAttrs()
+    }
+    
     private func setLabelDefaultAttrs() {
-        label.text = "Pause"
+        label.text = "PAUSE"
         label.font = Constants.responsiveDigitFont
         label.adjustsFontSizeToFitWidth = true
         label.numberOfLines = 1
@@ -46,6 +54,14 @@ class PauseButton:UIView {
         label.textAlignment = .center
         label.textColor = Constants.colorWhite
         label.backgroundColor = Constants.colorClear
+    }
+    
+    private func addTapRecognizer() {
+        let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(onTap))
+        
+        tapRecognizer.delegate = self as? UIGestureRecognizerDelegate
+        
+        addGestureRecognizer(tapRecognizer)
     }
 }
 
