@@ -1,20 +1,17 @@
 //
-//  PauseButton.swift
+//  SettingsButton.swift
 //  GoTime
 //
-//  Created by John Keith on 9/2/17.
+//  Created by John Keith on 9/3/17.
 //  Copyright © 2017 John Keith. All rights reserved.
 //
 
 import UIKit
 
-class PauseButton:UIView {
+class SettingsButton:UIView {
     let label = UILabel()
-    var stopWatchSrv: StopWatchService
     
-    init(stopWatchSrv: StopWatchService, isHidden: Bool = true, frame: CGRect = Constants.defaultFrame) {
-        self.stopWatchSrv = stopWatchSrv
-        
+    init(isHidden: Bool = true, frame: CGRect = Constants.defaultFrame) {
         super.init(frame: frame)
         
         self.isHidden = isHidden
@@ -37,7 +34,7 @@ class PauseButton:UIView {
     }
     
     @objc private func onTap() {
-        stopWatchSrv.pause()
+        print("SHOW SETTINGS MODAL")
     }
     
     private func addLabel() {
@@ -47,7 +44,7 @@ class PauseButton:UIView {
     }
     
     private func setLabelDefaultAttrs() {
-        label.text = "PAUSE"
+        label.text = "SETTINGS"
         label.font = Constants.responsiveDigitFont
         label.adjustsFontSizeToFitWidth = true
         label.numberOfLines = 1
@@ -65,4 +62,5 @@ class PauseButton:UIView {
         addGestureRecognizer(tapRecognizer)
     }
 }
+
 

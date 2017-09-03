@@ -42,7 +42,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GoTime/StartButton.swift"
-            timestampString = "526126592.308401"
+            timestampString = "526127022.701934"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "32"
@@ -605,11 +605,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GoTime/SingleViewController.swift"
-            timestampString = "526126592.308974"
+            timestampString = "526127022.702467"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "492"
-            endingLineNumber = "492"
+            startingLineNumber = "490"
+            endingLineNumber = "490"
             landmarkName = "notifyWithVoiceIfEnabled(lapTime:lapNumber:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -621,12 +621,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GoTime/SingleViewController.swift"
-            timestampString = "526126592.309038"
+            timestampString = "526127022.702531"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "479"
-            endingLineNumber = "479"
-            landmarkName = "notifyWithVibrationIfEnabled()"
+            startingLineNumber = "477"
+            endingLineNumber = "477"
+            landmarkName = "handleSettingsToggle(key:btn:which:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

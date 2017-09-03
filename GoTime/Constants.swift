@@ -32,6 +32,7 @@ struct Constants {
     ]
     
     static let colorBackground = UIColor(hex: "FC5130")
+    static let colorBackgroundMedium = colorBackground.darker(by: 20)
     static let colorBackgroundDark = colorBackground.darker(by: 50)
     static let colorWhite = UIColor.white
     static let colorClear = UIColor.clear

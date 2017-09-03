@@ -195,11 +195,9 @@ class SingleViewController: UIViewController {
     }
     
     func configPauseBtn() {
-//        pauseBtn.addTarget(self, action:#selector(onPauseTap), for: .touchDown)
-
         pauseBtn.snp.makeConstraints { make in
             make.width.equalTo(pauseBtn.superview!.frame.width / 2)
-            make.height.equalTo(pauseBtn.superview!.frame.height / 10)
+            make.height.equalTo(pauseBtn.superview!.frame.height / 10 + CGFloat(Constants.defaultMargin))
             make.bottom.equalTo(pauseBtn.superview!)
             make.left.equalTo(pauseBtn.superview!)
         }
