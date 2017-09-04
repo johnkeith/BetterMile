@@ -20,7 +20,7 @@ class LapTableController: UIViewController {
         lapTable.setRowHeightBySuperview(_superview: self.view)
         
         self.view.addSubview(lapTable)
-        self.view.backgroundColor = Constants.colorPalette["_black"]
+        self.view.backgroundColor = Constants.colorBlack
         
         configLapTable()
     }
@@ -35,8 +35,8 @@ class LapTableController: UIViewController {
         self.navigationController?.setNavigationBarHidden(false, animated: animated)
         self.navigationController?.navigationBar.barStyle = .black
         self.navigationController?.navigationBar.isTranslucent = false
-        self.navigationController?.navigationBar.backgroundColor = Constants.colorPalette["_black"]
-        self.navigationController?.view.backgroundColor = Constants.colorPalette["_black"]
+        self.navigationController?.navigationBar.backgroundColor = Constants.colorBlack
+        self.navigationController?.view.backgroundColor = Constants.colorBlack
         self.navigationController?.navigationBar.tintColor = Constants.colorWhite
         self.navigationItem.title = "Lap Times"
         

@@ -66,7 +66,7 @@ class SingleViewController: UIViewController {
         
         stopWatchSrv.delegate = self
         
-        view.backgroundColor = Constants.colorPalette["_black"]
+        view.backgroundColor = Constants.colorBlack
         
         addSubviews([startBtn, totalTimeLbl, lapLbl, voiceNotificationsBtn, pauseBtn, vibrationNotificationBtn, clearBtn, restartBtn, lapTableBtn, helpText, helpBtn, likeBtn, lapTimeLbl, fadingLapTimeLbl, settingsBtn, blurOverlay])
         
@@ -457,7 +457,7 @@ class SingleViewController: UIViewController {
         animationSrv.animateFadeInView(helpBtn, delay: 0.3)
         animationSrv.animateFadeInView(likeBtn, delay: 0.3)
         
-        animationSrv.animate({ self.view.backgroundColor = Constants.colorPalette["_black"] }, duration: 0.0)
+        animationSrv.animate({ self.view.backgroundColor = Constants.colorBlack }, duration: 0.0)
     }
     
     func onHelpTap() {
