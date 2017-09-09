@@ -10,6 +10,7 @@ import UIKit
 
 class SettingsButton:UIView {
     let label = UILabel()
+    let settingsViewAnimationDuration = 0.5
     var blurOverlay: BlurOverlayView
     var animationSrv: AnimationService
     var settingsView: SettingsView?
@@ -49,7 +50,7 @@ class SettingsButton:UIView {
         self.superview!.addSubview(settingsView!) // ugly.
         
         settingsView!.configConstraints()
-        animationSrv.animateMoveVerticallyFromOffscreenBottom(settingsView!, duration: 0.25)
+        animationSrv.animateMoveVerticallyFromOffscreenBottom(settingsView!, duration: settingsViewAnimationDuration)
     }
     
     private func addLabel() {
@@ -81,7 +82,9 @@ class SettingsButton:UIView {
 extension SettingsButton: SettingsViewDelegate {
     func onSave() {
         animationSrv.animateFadeOutView(blurOverlay, duration: 0.1)
-        animationSrv.animateFadeOutView(settingsView!)
+        animationSrv.animateMoveVerticallyToOffscreenBottom(settingsView!, duration: settingsViewAnimationDuration, yPosition: 500, completion: { done in
+            self.settingsView = nil
+        })
     }
 }
 

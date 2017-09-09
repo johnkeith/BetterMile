@@ -69,6 +69,23 @@ class AnimationService {
         })
     }
     
+//    TODO: NEXT
+//    NEED TO FIGURE OUT BETTER WAY TO CALCULATE THE YPOSITION TO MOVE TO
+    func animateMoveVerticallyToOffscreenBottom(_ view: UIView, duration: Double = 0.5, yPosition: CGFloat = 1000, completion: @escaping (Bool) -> Void = { success in }) {
+        view.isHidden = false
+        
+        let position =  CGAffineTransform(translationX: 0, y: yPosition)
+        
+        UIView.animate(withDuration: duration,
+                       delay: 0,
+                       usingSpringWithDamping: 1,
+                       initialSpringVelocity: 16.0,
+                       options: .allowUserInteraction,
+                       animations: {
+                        view.transform = position
+        }, completion: completion)
+    }
+    
     func animateMoveHorizontallyFromOffscreen(_ view: UIView, direction: AnimationDirection, duration: Double = 0.5) {
         view.isHidden = false
         

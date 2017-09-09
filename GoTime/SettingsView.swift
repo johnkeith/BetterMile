@@ -49,13 +49,24 @@ class SettingsView:UIView {
         
         layoutIfNeeded()
         
+        configTitleLabelConstraints()
+        configSaveButtonConstraints()
+    }
+    
+    @objc func onSave() {
+        delegate!.onSave()
+    }
+    
+    private func configTitleLabelConstraints() {
         titleLabel.snp.makeConstraints { make in
             make.centerX.equalTo(titleLabel.superview!)
             make.height.equalTo(superview!.frame.height / Constants.tableRowHeightDivisor)
             make.width.equalTo(titleLabel.superview!.frame.width / 3)
             make.top.equalTo(titleLabel.superview!)
         }
-        
+    }
+    
+    private func configSaveButtonConstraints() {
         saveButton.snp.makeConstraints { make in
             make.bottom.equalTo(saveButton.superview!)
             make.height.equalTo(superview!.frame.height / Constants.tableRowHeightDivisor)
@@ -99,10 +110,6 @@ class SettingsView:UIView {
         saveButtonLabel.textColor = Constants.colorWhite
         
         addSaveButtonTapRecognizer()
-    }
-    
-    @objc func onSave() {
-        delegate!.onSave()
     }
     
     private func addSaveButtonTapRecognizer() {
