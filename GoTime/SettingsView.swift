@@ -8,10 +8,16 @@
 
 import UIKit
 
+protocol SettingsViewDelegate: class {
+    func onSave()
+}
+
 class SettingsView:UIView {
     let titleLabel = UILabel()
     let saveButton = UIView()
     let saveButtonLabel = UILabel()
+    
+    weak var delegate: SettingsViewDelegate?
     
     init(isHidden: Bool = true) {
         super.init(frame: Constants.defaultFrame)
@@ -91,5 +97,19 @@ class SettingsView:UIView {
         saveButtonLabel.numberOfLines = 1
         saveButtonLabel.baselineAdjustment = .alignCenters
         saveButtonLabel.textColor = Constants.colorWhite
+        
+        addSaveButtonTapRecognizer()
+    }
+    
+    @objc func onSave() {
+        delegate!.onSave()
+    }
+    
+    private func addSaveButtonTapRecognizer() {
+        let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.onSave))
+        
+        tapRecognizer.delegate = self as? UIGestureRecognizerDelegate
+        
+        saveButton.addGestureRecognizer(tapRecognizer)
     }
 }

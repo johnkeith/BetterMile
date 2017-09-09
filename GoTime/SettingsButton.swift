@@ -40,14 +40,15 @@ class SettingsButton:UIView {
     }
     
     @objc private func onTap() {
+//        HERE - need to pass in closure to SettingsView that will dismiss
         animationSrv.animateFadeInView(blurOverlay, duration: 0.1)
         
         settingsView = SettingsView()
+        settingsView!.delegate = self
         
         self.superview!.addSubview(settingsView!) // ugly.
         
         settingsView!.configConstraints()
-        
         animationSrv.animateMoveVerticallyFromOffscreenBottom(settingsView!, duration: 0.25)
     }
     
@@ -74,6 +75,13 @@ class SettingsButton:UIView {
         tapRecognizer.delegate = self as? UIGestureRecognizerDelegate
         
         addGestureRecognizer(tapRecognizer)
+    }
+}
+
+extension SettingsButton: SettingsViewDelegate {
+    func onSave() {
+        animationSrv.animateFadeOutView(blurOverlay, duration: 0.1)
+        animationSrv.animateFadeOutView(settingsView!)
     }
 }
 
