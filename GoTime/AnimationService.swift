@@ -9,9 +9,18 @@
 import UIKit
 
 class AnimationService {
+    let screenBounds = UIScreen.main.bounds
+    var screenHeight: CGFloat
+    var screenWidth: CGFloat
+    
     enum AnimationDirection {
         case left
         case right
+    }
+    
+    init() {
+        screenWidth = screenBounds.width
+        screenHeight = screenBounds.height
     }
     
     func animate(_ fn: @escaping (() -> Void), duration: Double = 0.3) {
@@ -55,7 +64,7 @@ class AnimationService {
     func animateMoveVerticallyFromOffscreenBottom(_ view: UIView, duration: Double = 0.5) {
         view.isHidden = false
         
-        let position =  CGAffineTransform(translationX: 0, y: 1000)
+        let position =  CGAffineTransform(translationX: 0, y: screenHeight)
         
         view.transform = position
         
@@ -69,12 +78,10 @@ class AnimationService {
         })
     }
     
-//    TODO: NEXT
-//    NEED TO FIGURE OUT BETTER WAY TO CALCULATE THE YPOSITION TO MOVE TO
-    func animateMoveVerticallyToOffscreenBottom(_ view: UIView, duration: Double = 0.5, yPosition: CGFloat = 1000, completion: @escaping (Bool) -> Void = { success in }) {
+    func animateMoveVerticallyToOffscreenBottom(_ view: UIView, duration: Double = 0.5, completion: @escaping (Bool) -> Void = { success in }) {
         view.isHidden = false
         
-        let position =  CGAffineTransform(translationX: 0, y: yPosition)
+        let position =  CGAffineTransform(translationX: 0, y: screenHeight)
         
         UIView.animate(withDuration: duration,
                        delay: 0,

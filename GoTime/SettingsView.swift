@@ -16,10 +16,15 @@ class SettingsView:UIView {
     let titleLabel = UILabel()
     let saveButton = UIView()
     let saveButtonLabel = UILabel()
+    let voiceSettingsRow = SettingsViewRow(labelText: "Voice", userDefaultsKey: SettingsService.voiceNotificationsKey)
+    let vibrationSettingsRow = SettingsViewRow(labelText: "Vibration", userDefaultsKey: SettingsService.vibrationNotificationsKey)
+    
+    var settingsRows: [SettingsViewRow]
     
     weak var delegate: SettingsViewDelegate?
     
     init(isHidden: Bool = true) {
+        settingsRows = [voiceSettingsRow, vibrationSettingsRow]
         super.init(frame: Constants.defaultFrame)
         
         self.isHidden = isHidden
@@ -31,6 +36,7 @@ class SettingsView:UIView {
         
         addtitleLabel()
         addSaveButton()
+        addSettingsRows()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -51,6 +57,7 @@ class SettingsView:UIView {
         
         configTitleLabelConstraints()
         configSaveButtonConstraints()
+        configSettingsRowConstraints()
     }
     
     @objc func onSave() {
@@ -83,6 +90,29 @@ class SettingsView:UIView {
         }
     }
     
+    private func configSettingsRowConstraints() {
+        for (index, row) in settingsRows.enumerated() {
+            row.snp.makeConstraints { make in
+                if index == 0 {
+                    make.top.equalTo(titleLabel.snp.bottom)
+                } else {
+                    let previousRow = settingsRows[index - 1]
+                    make.top.equalTo(previousRow.snp.bottom)
+                }
+                
+                make.height.equalTo(superview!.frame.height / Constants.tableRowHeightDivisor)
+                make.right.equalTo(self.snp.right)
+                make.width.equalTo(row.superview!.frame.width - CGFloat(Constants.defaultMargin / 2))
+            }
+            
+            row.layoutIfNeeded()
+                    
+            row.configConstraints()
+        }
+        
+        voiceSettingsRow.matchFontSize(of: vibrationSettingsRow)
+    }
+    
     private func addtitleLabel() {
         addSubview(titleLabel)
         
@@ -110,6 +140,12 @@ class SettingsView:UIView {
         saveButtonLabel.textColor = Constants.colorWhite
         
         addSaveButtonTapRecognizer()
+    }
+    
+    private func addSettingsRows() {
+        for row in settingsRows {
+            addSubview(row)
+        }
     }
     
     private func addSaveButtonTapRecognizer() {

@@ -82,7 +82,7 @@ class SettingsButton:UIView {
 extension SettingsButton: SettingsViewDelegate {
     func onSave() {
         animationSrv.animateFadeOutView(blurOverlay, duration: 0.1)
-        animationSrv.animateMoveVerticallyToOffscreenBottom(settingsView!, duration: settingsViewAnimationDuration, yPosition: 500, completion: { done in
+        animationSrv.animateMoveVerticallyToOffscreenBottom(settingsView!, duration: settingsViewAnimationDuration, completion: { done in
             self.settingsView = nil
         })
     }
