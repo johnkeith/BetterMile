@@ -55,10 +55,10 @@ class PauseButton:UIView {
     private func setLabelDefaultAttrs() {
         label.text = "PAUSE"
         label.font = Constants.responsiveDigitFont
-        label.adjustsFontSizeToFitWidth = true
-        label.numberOfLines = 1
-        label.baselineAdjustment = .alignCenters
-        label.textAlignment = .center
+//        label.adjustsFontSizeToFitWidth = true
+//        label.numberOfLines = 1
+//        label.baselineAdjustment = .alignCenters
+//        label.textAlignment = .center
         label.textColor = Constants.colorWhite
         label.backgroundColor = Constants.colorClear
     }

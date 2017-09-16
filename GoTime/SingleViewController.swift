@@ -42,7 +42,7 @@ class SingleViewController: UIViewController {
     var animationSrv: AnimationService
     var timeToTextSrv: TimeToTextService
     var speechSrv: SpeechService
-    var pauseBtn: PauseButton
+    let pauseBtn = UIButton()
     var settingsBtn: SettingsButton
     
     init(stopWatchSrv: StopWatchService = StopWatchService(),
@@ -53,7 +53,7 @@ class SingleViewController: UIViewController {
         self.animationSrv = animationSrv
         self.timeToTextSrv = timeToTextSrv
         self.speechSrv = speechSrv
-        self.pauseBtn = PauseButton(stopWatchSrv: stopWatchSrv)
+//        self.pauseBtn = PauseButton(stopWatchSrv: stopWatchSrv)
         self.settingsBtn = SettingsButton(blurOverlay: blurOverlay, animationSrv: animationSrv)
         
         
@@ -75,12 +75,12 @@ class SingleViewController: UIViewController {
         configStartBtn()
         configTotalTimeLbl()
         configLapLbl()
-//        configVoiceNotificationsBtn()
+        configVoiceNotificationsBtn()
         configPauseBtn()
-        configSettingsBtn()
-//        configVibrationNotificationBtn()
-//        configClearBtn()
-//        configRestartBtn()
+//        configSettingsBtn()
+        configVibrationNotificationBtn()
+        configClearBtn()
+        configRestartBtn()
         configLapTableBtn()
         configHelpText()
 //        configHelpBtn()
@@ -215,9 +215,30 @@ class SingleViewController: UIViewController {
             make.left.equalTo(pauseBtn.superview!)
         }
         
-        pauseBtn.setLabelConstraints()
+        pauseBtn.isHidden = true
+        pauseBtn.tintColor = btnFgClr
+        pauseBtn.backgroundColor = Constants.colorBackgroundDark
+        pauseBtn.layer.shadowOpacity = shadowOpacity
+        pauseBtn.addTarget(self, action:#selector(onPauseTap), for: .touchDown)
+        pauseBtn.setTitle("PAUSE", for: .normal)
+        
+        let width = clearBtn.superview!.frame.width / 5
+        
+//        pauseBtn.snp.makeConstraints { make in
+//            make.width.equalTo(width)
+//            make.height.equalTo(pauseBtn.snp.width)
+//            make.bottom.equalTo(pauseBtn.superview!).offset(-width - CGFloat(Constants.defaultMargin / 2))
+//            make.centerX.equalTo(pauseBtn.superview!)
+//        }
+        
+        pauseBtn.layoutIfNeeded()
+        
+        pauseBtn.layer.cornerRadius = clearBtn.frame.size.height / 2
     }
     
+    func onPauseTap() {
+        stopWatchSrv.pause()
+    }
     func configSettingsBtn() {
         settingsBtn.snp.makeConstraints { make in
             make.width.equalTo(settingsBtn.superview!.frame.width / 2)
@@ -230,7 +251,7 @@ class SingleViewController: UIViewController {
         
         settingsBtn.layoutIfNeeded()
         
-        pauseBtn.matchFontSize(of: settingsBtn)
+//        pauseBtn.matchFontSize(of: settingsBtn)
     }
     
     func configVibrationNotificationBtn() {
@@ -240,17 +261,19 @@ class SingleViewController: UIViewController {
 
         setSettingsBtnColor(btn: vibrationNotificationBtn, enabled: Constants.storedSettings.bool(forKey: SettingsService.vibrationNotificationsKey), which: 1)
         
-        vibrationNotificationBtn.setImage(buttonImage, for: .normal)
-        vibrationNotificationBtn.setImage(buttonImage, for: .highlighted)
+//        vibrationNotificatio´nBtn.setImage(buttonImage, for: .normal)
+//        vibrationNotificationBtn.setImage(buttonImage, for: .highlighted)
+        vibrationNotificationBtn.setTitle("VIBRATION ON", for: .normal)
         vibrationNotificationBtn.addTarget(self, action:#selector(onVibrationNotificationsTap), for: .touchDown)
         
-        let width = vibrationNotificationBtn.superview!.frame.width / 5
+        let width = (voiceNotificationsBtn.superview!.frame.width / 2) - CGFloat(Constants.defaultMargin / 2)
+        let height = voiceNotificationsBtn.superview!.frame.width / 5
         
         vibrationNotificationBtn.snp.makeConstraints { make in
             make.width.equalTo(width)
-            make.height.equalTo(vibrationNotificationBtn.snp.width)
+            make.height.equalTo(height)
             make.bottom.equalTo(vibrationNotificationBtn.superview!).offset(-Constants.defaultMargin)
-            make.left.equalTo(vibrationNotificationBtn.superview!).offset(Constants.defaultMargin)
+            make.left.equalTo(vibrationNotificationBtn.superview!).offset(Constants.defaultMargin / 2)
         }
         
         vibrationNotificationBtn.layoutIfNeeded()
@@ -265,17 +288,19 @@ class SingleViewController: UIViewController {
         
         setSettingsBtnColor(btn: voiceNotificationsBtn, enabled: Constants.storedSettings.bool(forKey: SettingsService.voiceNotificationsKey), which: 0)
         
-        voiceNotificationsBtn.setImage(buttonImage, for: .normal)
-        voiceNotificationsBtn.setImage(buttonImage, for: .highlighted)
+//        voiceNotificationsBtn.setImage(buttonImage, for: .normal)
+//        voiceNotificationsBtn.setImage(buttonImage, for: .highlighted)
+        voiceNotificationsBtn.setTitle("VOICE ON", for: .normal)
         voiceNotificationsBtn.addTarget(self, action:#selector(onVoiceNotificationsTap), for: .touchDown)
         
-        let width = voiceNotificationsBtn.superview!.frame.width / 5
+        let width = (voiceNotificationsBtn.superview!.frame.width / 2) - CGFloat(Constants.defaultMargin / 2)
+        let height = voiceNotificationsBtn.superview!.frame.width / 5
         
         voiceNotificationsBtn.snp.makeConstraints { make in
             make.width.equalTo(width)
-            make.height.equalTo(voiceNotificationsBtn.snp.width)
+            make.height.equalTo(height)
             make.bottom.equalTo(voiceNotificationsBtn.superview!).offset(-Constants.defaultMargin)
-            make.right.equalTo(voiceNotificationsBtn.superview!).offset(-Constants.defaultMargin)
+            make.right.equalTo(voiceNotificationsBtn.superview!).offset(-Constants.defaultMargin / 2)
         }
         
         voiceNotificationsBtn.layoutIfNeeded()
