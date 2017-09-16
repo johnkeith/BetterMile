@@ -70,6 +70,8 @@ class SingleViewController: UIViewController {
         
         addSubviews([startBtn, totalTimeLbl, lapLbl, voiceNotificationsBtn, pauseBtn, vibrationNotificationBtn, clearBtn, restartBtn, lapTableBtn, helpText, helpBtn, likeBtn, lapTimeLbl, fadingLapTimeLbl, settingsBtn, blurOverlay])
         
+        settingsBtn.addSettingsView()
+        
         configStartBtn()
         configTotalTimeLbl()
         configLapLbl()

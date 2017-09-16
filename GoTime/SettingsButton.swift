@@ -13,11 +13,13 @@ class SettingsButton:UIView {
     let settingsViewAnimationDuration = 0.5
     var blurOverlay: BlurOverlayView
     var animationSrv: AnimationService
-    var settingsView: SettingsView?
     
-    init(blurOverlay: BlurOverlayView, animationSrv: AnimationService, isHidden: Bool = true, frame: CGRect = Constants.defaultFrame) {
+    var settingsView: SettingsView
+    
+    init(blurOverlay: BlurOverlayView, animationSrv: AnimationService, settingsView: SettingsView = SettingsView(), isHidden: Bool = true, frame: CGRect = Constants.defaultFrame) {
         self.blurOverlay = blurOverlay
         self.animationSrv = animationSrv
+        self.settingsView = settingsView
         
         super.init(frame: frame)
         
@@ -40,17 +42,18 @@ class SettingsButton:UIView {
         }
     }
     
-    @objc private func onTap() {
-//        HERE - need to pass in closure to SettingsView that will dismiss
+    func addSettingsView() {
+        self.superview!.addSubview(settingsView) // ugly.
+        
+        settingsView.delegate = self
+        
+        settingsView.configConstraints()
+    }
+    
+    @objc func onTap() {
         animationSrv.animateFadeInView(blurOverlay, duration: 0.1)
         
-        settingsView = SettingsView()
-        settingsView!.delegate = self
-        
-        self.superview!.addSubview(settingsView!) // ugly.
-        
-        settingsView!.configConstraints()
-        animationSrv.animateMoveVerticallyFromOffscreenBottom(settingsView!, duration: settingsViewAnimationDuration)
+        animationSrv.animateMoveVerticallyFromOffscreenBottom(settingsView, duration: settingsViewAnimationDuration)
     }
     
     private func addLabel() {
@@ -82,9 +85,7 @@ class SettingsButton:UIView {
 extension SettingsButton: SettingsViewDelegate {
     func onSave() {
         animationSrv.animateFadeOutView(blurOverlay, duration: 0.1)
-        animationSrv.animateMoveVerticallyToOffscreenBottom(settingsView!, duration: settingsViewAnimationDuration, completion: { done in
-            self.settingsView = nil
-        })
+        animationSrv.animateMoveVerticallyToOffscreenBottom(settingsView, duration: settingsViewAnimationDuration)
     }
 }
 
