@@ -109,8 +109,6 @@ class SettingsView:UIView {
                     
             row.configConstraints()
         }
-        
-        voiceSettingsRow.matchFontSize(of: vibrationSettingsRow)
     }
     
     private func addtitleLabel() {

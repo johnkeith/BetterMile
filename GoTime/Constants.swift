@@ -46,6 +46,7 @@ struct Constants {
     static let responsiveDigitFont: UIFont = UIFont.monospacedDigitSystemFont(ofSize: 999, weight: responsiveDigitFontWeight)
     static let defaultSmallFont: UIFont = UIFont.systemFont(ofSize: 18, weight: UIFontWeightThin)
     static let defaultHeaderFont: UIFont = UIFont.preferredFont(forTextStyle: UIFontTextStyle.title1)
+    static let defaultHeadlineFont: UIFont = UIFont.preferredFont(forTextStyle: .headline)
     
     static let defaultFrame: CGRect = CGRect()
     static let defaultMargin: Int = 20

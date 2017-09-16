@@ -48,7 +48,7 @@ class SettingsViewRow:UIView {
         
         rowSwitch.snp.makeConstraints { make in
             make.centerY.equalTo(self)
-            make.right.equalTo(self).offset(-Constants.defaultMargin / 2)
+            make.right.equalTo(self).offset(-Constants.defaultMargin)
             make.width.equalTo(self.frame.width / 6)
         }
         
@@ -61,15 +61,19 @@ class SettingsViewRow:UIView {
         label.font = UIFont.systemFont(ofSize: size, weight: Constants.responsiveDefaultFontWeight)
     }
     
+    @objc func onRowToggle() {
+        let currentValue = Constants.storedSettings.bool(forKey: userDefaultsKey)
+        
+        Constants.storedSettings.set(!currentValue, forKey: userDefaultsKey)
+    }
+    
     private func addLabel() {
         addSubview(label)
         
-        label.font = Constants.responsiveDefaultFont
+        label.font = Constants.defaultHeadlineFont
         label.text = labelText
         label.textAlignment = .left
-        label.adjustsFontSizeToFitWidth = true
-        label.numberOfLines = 1
-        label.baselineAdjustment = .alignCenters
+        
         label.textColor = Constants.colorBlack
     }
     
@@ -83,5 +87,10 @@ class SettingsViewRow:UIView {
         addSubview(rowSwitch)
         
         rowSwitch.onTintColor = Constants.colorGreen
+        
+        let currentStoredValue = Constants.storedSettings.bool(forKey: userDefaultsKey)
+        rowSwitch.isOn = currentStoredValue
+        
+        rowSwitch.addTarget(self, action: #selector(onRowToggle), for: UIControlEvents.allEvents)
     }
 }
