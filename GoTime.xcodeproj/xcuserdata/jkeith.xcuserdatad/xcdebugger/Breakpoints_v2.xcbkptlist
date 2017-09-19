@@ -605,13 +605,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GoTime/SingleViewController.swift"
-            timestampString = "527280948.030911"
+            timestampString = "527479668.612928"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "543"
-            endingLineNumber = "543"
-            landmarkName = "notifyWithVoiceIfEnabled(lapTime:lapNumber:)"
-            landmarkType = "7">
+            startingLineNumber = "603"
+            endingLineNumber = "603"
+            landmarkName = "unknown"
+            landmarkType = "0">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -621,13 +621,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GoTime/SingleViewController.swift"
-            timestampString = "527280948.031408"
+            timestampString = "527479668.613015"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "530"
-            endingLineNumber = "530"
-            landmarkName = "handleSettingsToggle(key:btn:which:)"
-            landmarkType = "7">
+            startingLineNumber = "590"
+            endingLineNumber = "590"
+            landmarkName = "unknown"
+            landmarkType = "0">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy

@@ -42,7 +42,7 @@ struct Constants {
     static let responsiveDefaultFont: UIFont = UIFont.systemFont(ofSize: 999, weight: responsiveDefaultFontWeight)
     static let responsiveBoldDigitFont: UIFont = UIFont.monospacedDigitSystemFont(ofSize: 999, weight: UIFontWeightBold)
     static let responsiveFancyFont = UIFont.italicSystemFont(ofSize: 999)
-    static let responsiveDigitFontWeight = UIFontWeightRegular
+    static let responsiveDigitFontWeight = UIFontWeightLight
     static let responsiveDigitFont: UIFont = UIFont.monospacedDigitSystemFont(ofSize: 999, weight: responsiveDigitFontWeight)
     static let defaultSmallFont: UIFont = UIFont.systemFont(ofSize: 18, weight: UIFontWeightThin)
     static let defaultHeaderFont: UIFont = UIFont.preferredFont(forTextStyle: UIFontTextStyle.title1)

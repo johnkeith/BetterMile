@@ -28,6 +28,10 @@ class SingleViewController: UIViewController {
     let fadingLapTimeLbl = LapTimeLabel()
     let blurOverlay = BlurOverlayView()
     
+    let topContainer = UIView()
+    let bottomContainer = UIView()
+    let dividerLine = UIView()
+    
     let helpBtn = UIButton()
     let likeBtn = LikeButton()
     
@@ -42,7 +46,7 @@ class SingleViewController: UIViewController {
     var animationSrv: AnimationService
     var timeToTextSrv: TimeToTextService
     var speechSrv: SpeechService
-    let pauseBtn = UIButton()
+    let pauseBtn: PauseButton
     var settingsBtn: SettingsButton
     
     init(stopWatchSrv: StopWatchService = StopWatchService(),
@@ -53,11 +57,10 @@ class SingleViewController: UIViewController {
         self.animationSrv = animationSrv
         self.timeToTextSrv = timeToTextSrv
         self.speechSrv = speechSrv
-//        self.pauseBtn = PauseButton(stopWatchSrv: stopWatchSrv)
+        self.pauseBtn = PauseButton(stopWatchSrv: stopWatchSrv)
         self.settingsBtn = SettingsButton(blurOverlay: blurOverlay, animationSrv: animationSrv)
         
-        
-        fgClr = Constants.colorPalette["FG"]!
+        fgClr = Constants.colorBlack
         bgClr = Constants.colorBackground
         btnFgClr = fgClr
         btnBgClr = UIColor.clear // Constants.colorPalette["BTNBG"]!
@@ -66,19 +69,29 @@ class SingleViewController: UIViewController {
         
         stopWatchSrv.delegate = self
         
-        view.backgroundColor = Constants.colorBlack
+        view.backgroundColor = Constants.colorWhite
         
-        addSubviews([startBtn, totalTimeLbl, lapLbl, voiceNotificationsBtn, pauseBtn, vibrationNotificationBtn, clearBtn, restartBtn, lapTableBtn, helpText, helpBtn, likeBtn, lapTimeLbl, fadingLapTimeLbl, settingsBtn, blurOverlay])
+        addSubviews([topContainer, bottomContainer, dividerLine, startBtn, voiceNotificationsBtn, pauseBtn, vibrationNotificationBtn, clearBtn, restartBtn, lapTableBtn, helpText, helpBtn, likeBtn, fadingLapTimeLbl, settingsBtn, blurOverlay])
         
         settingsBtn.addSettingsView()
         
         configStartBtn()
-        configTotalTimeLbl()
+        
+        configTopContainer()
+        configBottomContainer()
+//        configDividerLine()
+        
+        bottomContainer.addSubview(totalTimeLbl)
+        topContainer.addSubview(lapLbl)
+        bottomContainer.addSubview(lapTimeLbl)
+        
         configLapLbl()
-        configVoiceNotificationsBtn()
-        configPauseBtn()
+        
+        configTotalTimeLbl()
+//        configVoiceNotificationsBtn()
+//        configPauseBtn()
 //        configSettingsBtn()
-        configVibrationNotificationBtn()
+//        configVibrationNotificationBtn()
         configClearBtn()
         configRestartBtn()
         configLapTableBtn()
@@ -86,8 +99,9 @@ class SingleViewController: UIViewController {
 //        configHelpBtn()
 //        configLikeBtn()
         configLapTimeLbl()
-        configFadingLapTimeLbl()
+//        configFadingLapTimeLbl()
         configBlurOverlay()
+        configToolbar()
         
         askForReview()
         animationSrv.animateWithSpring(startBtn, duration: 0.8)
@@ -102,7 +116,20 @@ class SingleViewController: UIViewController {
         
         configNavBar()
         
-        UIApplication.shared.statusBarStyle = .lightContent
+        UIApplication.shared.statusBarStyle = .default
+    }
+    
+    func configToolbar() {
+        let buttonImage = UIImage(named: "ic_vibration_48pt")?.withRenderingMode(UIImageRenderingMode.alwaysOriginal)
+        
+        let vibrationBarBtn = UIBarButtonItem(title: "Vibration On", style: .plain, target: self, action: #selector(onVibrationNotificationsTap))
+        vibrationBarBtn.tintColor = Constants.colorBlack
+        let voiceBarBtn = UIBarButtonItem(title: "Voice On", style: .plain, target: self, action: #selector(onVoiceNotificationsTap))
+        voiceBarBtn.tintColor = Constants.colorBlack
+        let spacer = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        
+        
+        self.toolbarItems = [vibrationBarBtn, spacer, voiceBarBtn]
     }
     
     func configNavBar() {
@@ -110,7 +137,27 @@ class SingleViewController: UIViewController {
         back.title = ""
         
         self.navigationController?.navigationBar.topItem?.backBarButtonItem = back
-        self.navigationController?.setNavigationBarHidden(true, animated: true)
+//        self.navigationController?.setNavigationBarHidden(true, animated: true)
+        
+        let clearBarBtn = UIBarButtonItem(title: "Clear", style: .plain, target: self, action: #selector(onClearTap))
+        let pauseBarBtn = UIBarButtonItem(title: "Pause", style: .plain, target: self, action: #selector(onPauseTap))
+        
+        clearBarBtn.tintColor = Constants.colorBlack
+        pauseBarBtn.tintColor = Constants.colorBlack
+        
+        self.navigationItem.leftBarButtonItem = clearBarBtn
+        self.navigationItem.rightBarButtonItem = pauseBarBtn
+        self.navigationController?.isToolbarHidden = false
+        self.navigationController?.navigationBar.barStyle = .default
+        self.navigationController?.navigationBar.isTranslucent = false
+        self.navigationController?.navigationBar.backgroundColor = Constants.colorWhite
+        self.navigationController?.view.backgroundColor = Constants.colorWhite
+        self.navigationController?.navigationBar.tintColor = Constants.colorWhite
+        
+        self.navigationController?.toolbar!.barStyle = .default
+        self.navigationController?.toolbar!.isTranslucent = false
+        self.navigationController?.toolbar!.backgroundColor = Constants.colorWhite
+        self.navigationController?.toolbar!.barTintColor = Constants.colorWhite
     }
     
     func askForReview() {
@@ -151,18 +198,18 @@ class SingleViewController: UIViewController {
         
         totalTimeLbl.snp.makeConstraints { make in
             make.width.equalTo(totalTimeLbl.superview!)
-            make.height.equalTo(totalTimeLbl.superview!.frame.height / 10)
+            make.height.equalTo(self.view.frame.height / 10)
             make.centerX.equalTo(totalTimeLbl.superview!)
-            make.top.equalTo(totalTimeLbl.superview!).offset(Constants.defaultMargin)
+            make.top.equalTo(container.snp.top)
         }
     }
     
     func configLapTimeLbl() {
         lapTimeLbl.snp.makeConstraints { make in
             make.width.equalTo(lapTimeLbl.superview!)
-            make.height.equalTo(lapTimeLbl.superview!.frame.height / 10)
+            make.height.equalTo(self.view.frame.height / 10)
             make.centerX.equalTo(lapTimeLbl.superview!)
-            make.top.equalTo(totalTimeLbl.snp.bottom)
+            make.bottom.equalTo(container.snp.bottom)
         }
         
         lapTimeLbl.layoutIfNeeded()
@@ -186,6 +233,37 @@ class SingleViewController: UIViewController {
         }
     }
     
+    func configTopContainer() {
+//        let height = (container.superview!.frame.height / 3) + (container.superview!.frame.height / 5)
+        let height = topContainer.superview!.frame.height / 2
+        
+        topContainer.snp.makeConstraints { make in
+            make.width.equalTo(topContainer.superview!)
+            make.height.equalTo(height)
+            make.top.equalTo(topContainer.superview!)
+        }
+        
+        topContainer.layoutIfNeeded()
+        
+        topContainer.layer.borderColor = UIColor.black.cgColor
+        topContainer.layer.borderWidth = 1
+    }
+    
+    func configBottomContainer() {
+        let height = bottomContainer.superview!.frame.height / 2
+        
+        bottomContainer.snp.makeConstraints { make in
+            make.width.equalTo(bottomContainer.superview!)
+            make.height.equalTo(height)
+            make.bottom.equalTo(bottomContainer.superview!)
+        }
+        
+        bottomContainer.layoutIfNeeded()
+        
+        bottomContainer.layer.borderColor = UIColor.purple.cgColor
+        bottomContainer.layer.borderWidth = 1
+    }
+    
     func configLapLbl() {
         lapLbl.isHidden = true
         lapLbl.text = "01"
@@ -195,9 +273,10 @@ class SingleViewController: UIViewController {
         
         lapLbl.snp.makeConstraints { make in
             make.width.equalTo(lapLbl.superview!).offset(-Constants.defaultMargin * 2)
-            make.height.equalTo(lapLbl.superview!.frame.height / 3)
-            make.centerX.equalTo(lapLbl.superview!)
-            make.centerY.equalTo(lapLbl.superview!)
+            make.height.equalTo(self.view.frame.height / 3)
+            make.center.equalTo(lapLbl.superview!)
+//            make.centerY.equalTo(lapLbl.superview!)
+//            make.top.equalTo(container.snp.top)
         }
         
         lapLbl.layoutIfNeeded()
@@ -215,14 +294,14 @@ class SingleViewController: UIViewController {
             make.left.equalTo(pauseBtn.superview!)
         }
         
-        pauseBtn.isHidden = true
-        pauseBtn.tintColor = btnFgClr
-        pauseBtn.backgroundColor = Constants.colorBackgroundDark
-        pauseBtn.layer.shadowOpacity = shadowOpacity
-        pauseBtn.addTarget(self, action:#selector(onPauseTap), for: .touchDown)
-        pauseBtn.setTitle("PAUSE", for: .normal)
-        
-        let width = clearBtn.superview!.frame.width / 5
+//        pauseBtn.isHidden = true
+//        pauseBtn.tintColor = btnFgClr
+//        pauseBtn.backgroundColor = Constants.colorBackgroundDark
+//        pauseBtn.layer.shadowOpacity = shadowOpacity
+//        pauseBtn.addTarget(self, action:#selector(onPauseTap), for: .touchDown)
+//        pauseBtn.setTitle("PAUSE", for: .normal)
+//        
+//        let width = clearBtn.superview!.frame.width / 5
         
 //        pauseBtn.snp.makeConstraints { make in
 //            make.width.equalTo(width)
@@ -239,6 +318,7 @@ class SingleViewController: UIViewController {
     func onPauseTap() {
         stopWatchSrv.pause()
     }
+    
     func configSettingsBtn() {
         settingsBtn.snp.makeConstraints { make in
             make.width.equalTo(settingsBtn.superview!.frame.width / 2)
@@ -261,17 +341,15 @@ class SingleViewController: UIViewController {
 
         setSettingsBtnColor(btn: vibrationNotificationBtn, enabled: Constants.storedSettings.bool(forKey: SettingsService.vibrationNotificationsKey), which: 1)
         
-//        vibrationNotificatio´nBtn.setImage(buttonImage, for: .normal)
-//        vibrationNotificationBtn.setImage(buttonImage, for: .highlighted)
-        vibrationNotificationBtn.setTitle("VIBRATION ON", for: .normal)
+        vibrationNotificationBtn.setImage(buttonImage, for: .normal)
+        vibrationNotificationBtn.setImage(buttonImage, for: .highlighted)
         vibrationNotificationBtn.addTarget(self, action:#selector(onVibrationNotificationsTap), for: .touchDown)
         
-        let width = (voiceNotificationsBtn.superview!.frame.width / 2) - CGFloat(Constants.defaultMargin / 2)
-        let height = voiceNotificationsBtn.superview!.frame.width / 5
+        let width = voiceNotificationsBtn.superview!.frame.width / 5
         
         vibrationNotificationBtn.snp.makeConstraints { make in
             make.width.equalTo(width)
-            make.height.equalTo(height)
+            make.height.equalTo(width)
             make.bottom.equalTo(vibrationNotificationBtn.superview!).offset(-Constants.defaultMargin)
             make.left.equalTo(vibrationNotificationBtn.superview!).offset(Constants.defaultMargin / 2)
         }
@@ -288,17 +366,15 @@ class SingleViewController: UIViewController {
         
         setSettingsBtnColor(btn: voiceNotificationsBtn, enabled: Constants.storedSettings.bool(forKey: SettingsService.voiceNotificationsKey), which: 0)
         
-//        voiceNotificationsBtn.setImage(buttonImage, for: .normal)
-//        voiceNotificationsBtn.setImage(buttonImage, for: .highlighted)
-        voiceNotificationsBtn.setTitle("VOICE ON", for: .normal)
+        voiceNotificationsBtn.setImage(buttonImage, for: .normal)
+        voiceNotificationsBtn.setImage(buttonImage, for: .highlighted)
         voiceNotificationsBtn.addTarget(self, action:#selector(onVoiceNotificationsTap), for: .touchDown)
         
-        let width = (voiceNotificationsBtn.superview!.frame.width / 2) - CGFloat(Constants.defaultMargin / 2)
-        let height = voiceNotificationsBtn.superview!.frame.width / 5
-        
+        let width = voiceNotificationsBtn.superview!.frame.width / 5
+            
         voiceNotificationsBtn.snp.makeConstraints { make in
             make.width.equalTo(width)
-            make.height.equalTo(height)
+            make.height.equalTo(width)
             make.bottom.equalTo(voiceNotificationsBtn.superview!).offset(-Constants.defaultMargin)
             make.right.equalTo(voiceNotificationsBtn.superview!).offset(-Constants.defaultMargin / 2)
         }
@@ -452,7 +528,7 @@ class SingleViewController: UIViewController {
         
         setLapLblText(lapCount: self.stopWatchSrv.lapTimes.count)
         
-        animationSrv.animate({ self.view.backgroundColor = Constants.colorBackground })
+//        animationSrv.animate({ self.view.backgroundColor = Constants.colorBackground })
         animationSrv.animateFadeOutView(startBtn, duration: 0.0)
         
         helpBtn.alpha = 0
@@ -484,7 +560,7 @@ class SingleViewController: UIViewController {
         animationSrv.animateFadeInView(helpBtn, delay: 0.3)
         animationSrv.animateFadeInView(likeBtn, delay: 0.3)
         
-        animationSrv.animate({ self.view.backgroundColor = Constants.colorBlack }, duration: 0.0)
+//        animationSrv.animate({ self.view.backgroundColor = Constants.colorBlack }, duration: 0.0)
     }
     
     func onHelpTap() {
@@ -639,12 +715,12 @@ extension SingleViewController: StopWatchServiceDelegate {
     }
     
     func stopWatchPaused() {
-        pauseBtn.hide()
-        restartBtn.show()
-   
-        animationSrv.animateWithSpring(clearBtn, duration: 0.8, fromAlphaZero: true)
-        animationSrv.animateWithSpring(lapTableBtn, duration: 0.8, fromAlphaZero: true)
-        
+//        pauseBtn.hide()
+//        restartBtn.show()
+//
+//        animationSrv.animateWithSpring(clearBtn, duration: 0.8, fromAlphaZero: true)
+//        animationSrv.animateWithSpring(lapTableBtn, duration: 0.8, fromAlphaZero: true)
+//
         notifyPaused()
     }
     

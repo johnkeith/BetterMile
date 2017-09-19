@@ -30,6 +30,6 @@ class LapTimeLabel:UILabel {
         numberOfLines = 1
         baselineAdjustment = .alignCenters
         textAlignment = .center
-        textColor = Constants.colorPalette["FG"]
+        textColor = Constants.colorBlack
     }
 }
