@@ -30,7 +30,7 @@ class SingleViewController: UIViewController {
     
     let topContainer = UIView()
     let bottomContainer = UIView()
-    let dividerLine = UIView()
+    let bottomInnerContainer = UIView()
     
     let helpBtn = UIButton()
     let likeBtn = LikeButton()
@@ -71,37 +71,16 @@ class SingleViewController: UIViewController {
         
         view.backgroundColor = Constants.colorWhite
         
-        addSubviews([topContainer, bottomContainer, dividerLine, startBtn, voiceNotificationsBtn, pauseBtn, vibrationNotificationBtn, clearBtn, restartBtn, lapTableBtn, helpText, helpBtn, likeBtn, fadingLapTimeLbl, settingsBtn, blurOverlay])
+        addSubviews([topContainer, bottomContainer, startBtn, voiceNotificationsBtn, pauseBtn, vibrationNotificationBtn, clearBtn, restartBtn, lapTableBtn, helpText, helpBtn, likeBtn, fadingLapTimeLbl, settingsBtn, blurOverlay])
         
         settingsBtn.addSettingsView()
         
         configStartBtn()
         
-        configTopContainer()
-        configBottomContainer()
-//        configDividerLine()
-        
-        bottomContainer.addSubview(totalTimeLbl)
         topContainer.addSubview(lapLbl)
-        bottomContainer.addSubview(lapTimeLbl)
-        
-        configLapLbl()
-        
-        configTotalTimeLbl()
-//        configVoiceNotificationsBtn()
-//        configPauseBtn()
-//        configSettingsBtn()
-//        configVibrationNotificationBtn()
-        configClearBtn()
-        configRestartBtn()
-        configLapTableBtn()
-        configHelpText()
-//        configHelpBtn()
-//        configLikeBtn()
-        configLapTimeLbl()
-//        configFadingLapTimeLbl()
-        configBlurOverlay()
-        configToolbar()
+        bottomContainer.addSubview(bottomInnerContainer)
+        bottomInnerContainer.addSubview(totalTimeLbl)
+        bottomInnerContainer.addSubview(lapTimeLbl)
         
         askForReview()
         animationSrv.animateWithSpring(startBtn, duration: 0.8)
@@ -111,12 +90,38 @@ class SingleViewController: UIViewController {
         fatalError("config(coder:) has not been implemented")
     }
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         configNavBar()
         
         UIApplication.shared.statusBarStyle = .default
+        
+        configTopContainer()
+        configBottomContainer()
+        configBottomInnerContainer()
+        
+        configLapLbl()
+        
+        configTotalTimeLbl()
+        //        configVoiceNotificationsBtn()
+        //        configPauseBtn()
+        //        configSettingsBtn()
+        //        configVibrationNotificationBtn()
+        configClearBtn()
+        configRestartBtn()
+        configLapTableBtn()
+        configHelpText()
+        //        configHelpBtn()
+        //        configLikeBtn()
+        configLapTimeLbl()
+        //        configFadingLapTimeLbl()
+        configBlurOverlay()
+        configToolbar()
     }
     
     func configToolbar() {
@@ -197,19 +202,19 @@ class SingleViewController: UIViewController {
         totalTimeLbl.textColor = fgClr
         
         totalTimeLbl.snp.makeConstraints { make in
-            make.width.equalTo(totalTimeLbl.superview!)
+            make.width.equalTo(totalTimeLbl.superview!).offset(-Constants.defaultMargin)
             make.height.equalTo(self.view.frame.height / 10)
             make.centerX.equalTo(totalTimeLbl.superview!)
-            make.top.equalTo(container.snp.top)
+            make.top.equalTo(bottomInnerContainer.snp.top)
         }
     }
     
     func configLapTimeLbl() {
         lapTimeLbl.snp.makeConstraints { make in
-            make.width.equalTo(lapTimeLbl.superview!)
+            make.width.equalTo(lapTimeLbl.superview!).offset(-Constants.defaultMargin)
             make.height.equalTo(self.view.frame.height / 10)
             make.centerX.equalTo(lapTimeLbl.superview!)
-            make.bottom.equalTo(container.snp.bottom)
+            make.bottom.equalTo(bottomInnerContainer.snp.bottom)
         }
         
         lapTimeLbl.layoutIfNeeded()
@@ -234,23 +239,22 @@ class SingleViewController: UIViewController {
     }
     
     func configTopContainer() {
-//        let height = (container.superview!.frame.height / 3) + (container.superview!.frame.height / 5)
-        let height = topContainer.superview!.frame.height / 2
+        let offset = UIApplication.shared.statusBarFrame.height + (self.navigationController?.navigationBar.frame.height)!
+        let height = (topContainer.superview!.frame.height / 2)
         
         topContainer.snp.makeConstraints { make in
             make.width.equalTo(topContainer.superview!)
             make.height.equalTo(height)
             make.top.equalTo(topContainer.superview!)
+            make.centerX.equalTo(topContainer.superview!)
         }
         
         topContainer.layoutIfNeeded()
-        
-        topContainer.layer.borderColor = UIColor.black.cgColor
-        topContainer.layer.borderWidth = 1
     }
     
     func configBottomContainer() {
-        let height = bottomContainer.superview!.frame.height / 2
+        let offset = UIApplication.shared.statusBarFrame.height + (self.navigationController?.navigationBar.frame.height)!
+        let height = (bottomContainer.superview!.frame.height / 2)
         
         bottomContainer.snp.makeConstraints { make in
             make.width.equalTo(bottomContainer.superview!)
@@ -259,9 +263,18 @@ class SingleViewController: UIViewController {
         }
         
         bottomContainer.layoutIfNeeded()
+    }
+    
+    func configBottomInnerContainer() {
+        let height = self.view.frame.height / 5
         
-        bottomContainer.layer.borderColor = UIColor.purple.cgColor
-        bottomContainer.layer.borderWidth = 1
+        bottomInnerContainer.snp.makeConstraints { make in
+            make.width.equalTo(bottomInnerContainer.superview!)
+            make.height.equalTo(height)
+            make.center.equalTo(bottomInnerContainer.superview!)
+        }
+        
+        bottomInnerContainer.layoutIfNeeded()
     }
     
     func configLapLbl() {

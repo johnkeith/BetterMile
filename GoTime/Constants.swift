@@ -37,6 +37,7 @@ struct Constants {
     static let colorBlack = UIColor(hex: "050401")
     static let colorGreen = UIColor(red:0.40, green:0.75, blue:0.65, alpha:1.0)
     static let colorDivider = UIColor(red:0.14, green:0.14, blue:0.14, alpha:1.0)
+    static let colorGray = UIColor(hex: "D8D8D8")
     
     static let responsiveDefaultFontWeight = UIFontWeightRegular
     static let responsiveDefaultFont: UIFont = UIFont.systemFont(ofSize: 999, weight: responsiveDefaultFontWeight)
