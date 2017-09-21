@@ -14,6 +14,12 @@ import StoreKit
 class SingleViewController: UIViewController {
 //  NON-DI
 //    let shadowOpacity = Float(0.15)
+    
+    let vibrationOnText = "Vibration On"
+    let vibrationOffText = "Vibration Off"
+    let voiceOnText = "Voice On"
+    let voiceOffText = "Voice Off"
+    
     let shadowOpacity = Float(0.0)
     let startBtn = StartButton()
     let totalTimeLbl = UILabel()
@@ -28,6 +34,10 @@ class SingleViewController: UIViewController {
     let fadingLapTimeLbl = LapTimeLabel()
     let blurOverlay = BlurOverlayView()
     
+    var vibrationBarBtn: UIBarButtonItem!
+    var voiceBarBtn: UIBarButtonItem!
+    
+    let container = UIView()
     let topContainer = UIView()
     let bottomContainer = UIView()
     let bottomInnerContainer = UIView()
@@ -67,20 +77,23 @@ class SingleViewController: UIViewController {
         
         super.init(nibName: nil, bundle: nil)
         
+        vibrationBarBtn = UIBarButtonItem(title: "", style: .plain, target: self, action: #selector(onVibrationNotificationsTap))
+        voiceBarBtn = UIBarButtonItem(title: "", style: .plain, target: self, action: #selector(onVoiceNotificationsTap))
+        
         stopWatchSrv.delegate = self
         
         view.backgroundColor = Constants.colorWhite
         
-        addSubviews([topContainer, bottomContainer, startBtn, voiceNotificationsBtn, pauseBtn, vibrationNotificationBtn, clearBtn, restartBtn, lapTableBtn, helpText, helpBtn, likeBtn, fadingLapTimeLbl, settingsBtn, blurOverlay])
+        addSubviews([container, topContainer, bottomContainer, startBtn, voiceNotificationsBtn, pauseBtn, vibrationNotificationBtn, clearBtn, restartBtn, lapTableBtn, helpText, helpBtn, likeBtn, fadingLapTimeLbl, settingsBtn, blurOverlay])
         
         settingsBtn.addSettingsView()
         
         configStartBtn()
         
-        topContainer.addSubview(lapLbl)
+        container.addSubview(lapLbl)
         bottomContainer.addSubview(bottomInnerContainer)
-        bottomInnerContainer.addSubview(totalTimeLbl)
-        bottomInnerContainer.addSubview(lapTimeLbl)
+        container.addSubview(totalTimeLbl)
+        container.addSubview(lapTimeLbl)
         
         askForReview()
         animationSrv.animateWithSpring(startBtn, duration: 0.8)
@@ -101,6 +114,7 @@ class SingleViewController: UIViewController {
         
         UIApplication.shared.statusBarStyle = .default
         
+        configContainer()
         configTopContainer()
         configBottomContainer()
         configBottomInnerContainer()
@@ -125,14 +139,18 @@ class SingleViewController: UIViewController {
     }
     
     func configToolbar() {
-        let buttonImage = UIImage(named: "ic_vibration_48pt")?.withRenderingMode(UIImageRenderingMode.alwaysOriginal)
+        let vibrationState = Constants.storedSettings.bool(forKey: SettingsService.vibrationNotificationsKey)
+        let voiceState = Constants.storedSettings.bool(forKey: SettingsService.voiceNotificationsKey)
         
-        let vibrationBarBtn = UIBarButtonItem(title: "Vibration On", style: .plain, target: self, action: #selector(onVibrationNotificationsTap))
+        let vibrationTitle = vibrationState ? vibrationOnText : vibrationOffText
+        let voiceTitle = voiceState ? voiceOnText : voiceOffText
+        
+        vibrationBarBtn.title = vibrationTitle
+        voiceBarBtn.title = voiceTitle
+        
         vibrationBarBtn.tintColor = Constants.colorBlack
-        let voiceBarBtn = UIBarButtonItem(title: "Voice On", style: .plain, target: self, action: #selector(onVoiceNotificationsTap))
         voiceBarBtn.tintColor = Constants.colorBlack
         let spacer = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        
         
         self.toolbarItems = [vibrationBarBtn, spacer, voiceBarBtn]
     }
@@ -238,6 +256,19 @@ class SingleViewController: UIViewController {
         }
     }
     
+    func configContainer() {
+        let parentHeight = topContainer.superview!.frame.height
+        let height = (parentHeight / 3) + (parentHeight / 5)
+        
+        container.snp.makeConstraints { make in
+            make.width.equalTo(container.superview!)
+            make.height.equalTo(height)
+            make.center.equalTo(container.superview!)
+        }
+        
+        topContainer.layoutIfNeeded()
+    }
+    
     func configTopContainer() {
         let offset = UIApplication.shared.statusBarFrame.height + (self.navigationController?.navigationBar.frame.height)!
         let height = (topContainer.superview!.frame.height / 2)
@@ -287,9 +318,9 @@ class SingleViewController: UIViewController {
         lapLbl.snp.makeConstraints { make in
             make.width.equalTo(lapLbl.superview!).offset(-Constants.defaultMargin * 2)
             make.height.equalTo(self.view.frame.height / 3)
-            make.center.equalTo(lapLbl.superview!)
-//            make.centerY.equalTo(lapLbl.superview!)
-//            make.top.equalTo(container.snp.top)
+//            make.center.equalTo(lapLbl.superview!)
+            make.centerX.equalTo(lapLbl.superview!)
+            make.top.equalTo(container.snp.top).offset(-Constants.defaultMargin)
         }
         
         lapLbl.layoutIfNeeded()
@@ -603,21 +634,24 @@ class SingleViewController: UIViewController {
     }
     
     func onVoiceNotificationsTap() {
-        handleSettingsToggle(key: SettingsService.voiceNotificationsKey, btn: voiceNotificationsBtn, which: 0)
-       animationSrv.enlargeBriefly(voiceNotificationsBtn)
+        let newValue = handleSettingsToggle(key: SettingsService.voiceNotificationsKey)
+        
+        voiceBarBtn.title = newValue ? voiceOnText : voiceOffText
     }
     
     func onVibrationNotificationsTap() {
-        handleSettingsToggle(key: SettingsService.vibrationNotificationsKey, btn: vibrationNotificationBtn, which: 1)
-        animationSrv.enlargeBriefly(vibrationNotificationBtn)
+        let newValue = handleSettingsToggle(key: SettingsService.vibrationNotificationsKey)
+        
+        vibrationBarBtn.title = newValue ? vibrationOnText : vibrationOffText
     }
     
-    func handleSettingsToggle(key: String, btn: UIButton, which: Int) {
+    func handleSettingsToggle(key: String) -> Bool {
         let currentValue = Constants.storedSettings.bool(forKey: key)
+        let newValue = !currentValue
         
-        Constants.storedSettings.set(!currentValue, forKey: key)
+        Constants.storedSettings.set(newValue, forKey: key)
         
-        setSettingsBtnColor(btn: btn, enabled: !currentValue, which: which)
+        return newValue
     }
     
     func notifyWithVibrationIfEnabled() {
