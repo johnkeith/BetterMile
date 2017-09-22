@@ -9,6 +9,8 @@
 import UIKit
 
 class LapTimeLabel:UILabel {
+    let defaultText = "Lap   00:00.00"
+    
     override init(frame: CGRect = Constants.defaultFrame) {
         super.init(frame: frame)
         setTitleLabelDefaultAttrs()
@@ -24,7 +26,7 @@ class LapTimeLabel:UILabel {
     
     private func setTitleLabelDefaultAttrs() {
         isHidden = true
-        text = "Lap   00:00.00"
+        text = defaultText
         font = Constants.responsiveDigitFont
         adjustsFontSizeToFitWidth = true
         numberOfLines = 1
