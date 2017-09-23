@@ -92,7 +92,8 @@ extension LapTimeTable: UITableViewDataSource {
         let someAction = UITableViewRowAction(style: .default, title: "Delete") { value in
             self.beginUpdates()
             
-            self.stopWatchSrv.deleteLap(at: indexPath.row)
+            let reversedIndex = self.stopWatchSrv.lapTimes.count - indexPath.row - 1
+            self.stopWatchSrv.deleteLap(at: reversedIndex)
             self.lapData.remove(at: indexPath.row)
             self.deleteRows(at: [indexPath], with: .automatic)
             

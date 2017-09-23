@@ -111,6 +111,11 @@ class SingleViewController: UIViewController {
         
         UIApplication.shared.statusBarStyle = .default
         
+        if let lapTime = self.stopWatchSrv.lapTimes.last {
+            print("VIEW WILL APPEAR", self.stopWatchSrv.lapTimes)
+            self.setLapTimeLblText(lapTime: lapTime)
+        }
+        
         configNavBar()
         configToolbar()
         
