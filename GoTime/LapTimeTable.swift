@@ -26,11 +26,11 @@ class LapTimeTable: UITableView {
         self.delegate = self
         
         self.rowHeight = 60
-        self.separatorStyle = .none
+//        self.separatorStyle = .none
         self.showsVerticalScrollIndicator = false
         self.alwaysBounceVertical = false
         
-        self.backgroundColor = Constants.colorBlack
+        self.backgroundColor = Constants.colorWhite
         
         self.register(LapTimeTableCell.self, forCellReuseIdentifier: "lapTimeTableCell")
         
@@ -75,7 +75,7 @@ extension LapTimeTable: UITableViewDataSource {
         
         let cell = self.dequeueReusableCell(withIdentifier: "lapTimeTableCell") as! LapTimeTableCell
         
-        cell.backgroundColor = Constants.colorBlack
+        cell.backgroundColor = Constants.colorWhite
         cell.setContent(labelText: content)
         cell.setLineVisibility(index: index)
         cell.addLabelAndLineConstraints(rowHeight: self.rowHeight)
@@ -124,19 +124,21 @@ extension LapTimeTable: UITableViewDelegate {
         let quality = StopWatchService.determineLapQuality(lap: lap, laps: lapDataWithoutCurrentLap)
         
         if quality == LapQualities.good {
-            cell.backgroundColor = Constants.colorGreen
-            cell.label.textColor = Constants.colorWhite
+//            cell.backgroundColor = Constants.colorGreen
+//            cell.label.textColor = Constants.colorWhite
+            cell.label.textColor = Constants.colorGreen
         } else if quality == LapQualities.bad {
             setDefaultRowColors(cell)
         } else {
-            cell.backgroundColor = Constants.colorPalette["_red"]
-            cell.label.textColor = Constants.colorWhite
+//            cell.backgroundColor = Constants.colorPalette["_red"]
+//            cell.label.textColor = Constants.colorWhite
+            cell.label.textColor = Constants.colorPalette["_red"]
         }
     }
     
     func setDefaultRowColors(_ cell: LapTimeTableCell) {
-        cell.backgroundColor = Constants.colorBlack
-        cell.label.textColor = Constants.colorWhite
+        cell.backgroundColor = Constants.colorWhite
+        cell.label.textColor = Constants.colorBlack
     }
     
     func oldSetCellTextColor(_ cell: LapTimeTableCell, at index: Int, checkForSlowest: Bool = false) {

@@ -57,15 +57,15 @@ class LapTimeTableCell: UITableViewCell {
             make.height.equalTo(rowHeight)
         }
         
-        self.line.snp.makeConstraints { (make) -> Void in
-            make.width.equalTo(line.superview!)
-            make.height.equalTo(1)
-        }
+//        self.line.snp.makeConstraints { (make) -> Void in
+//            make.width.equalTo(line.superview!)
+//            make.height.equalTo(1)
+//        }
     }
     
     func setColoration() {
         self.line.backgroundColor = Constants.colorDivider
-        self.label.textColor = Constants.colorWhite
-        self.backgroundColor = Constants.colorBlack
+        self.label.textColor = Constants.colorBlack
+        self.backgroundColor = Constants.colorWhite
     }
 }
