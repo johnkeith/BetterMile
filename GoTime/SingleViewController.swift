@@ -26,6 +26,7 @@ class SingleViewController: UIViewController {
     let lapTimeLbl = LapTimeLabel()
     let lapLbl = UILabel()
     let blurOverlay = BlurOverlayView()
+    let lapTableBtn = UIButton()
     
     var vibrationBarBtn: UIBarButtonItem!
     var voiceBarBtn: UIBarButtonItem!
@@ -82,11 +83,18 @@ class SingleViewController: UIViewController {
         
         view.backgroundColor = Constants.colorWhite
         
-        addSubviews([container, blurOverlay])
+        addSubviews([container, blurOverlay, lapTableBtn])
         
         container.addSubview(lapLbl)
         container.addSubview(totalTimeLbl)
         container.addSubview(lapTimeLbl)
+        
+        configContainer()
+        configLapLbl()
+        configTotalTimeLbl()
+        configLapTimeLbl()
+        configBlurOverlay()
+        configLapTableBtn()
         
         askForReview()
     }
@@ -102,17 +110,9 @@ class SingleViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        configNavBar()
-        
         UIApplication.shared.statusBarStyle = .default
         
-        configContainer()
-        
-        configLapLbl()
-        configTotalTimeLbl()
-        configLapTimeLbl()
-        
-        configBlurOverlay()
+        configNavBar()
         configToolbar()
         
         animationSrv.animateWithSpring(lapLbl, fromAlphaZero: true)
@@ -238,6 +238,21 @@ class SingleViewController: UIViewController {
         lapLbl.adjustsFontSizeToFitWidth = true
         lapLbl.numberOfLines = 1
         lapLbl.font = Constants.responsiveDigitFont
+    }
+    
+    func configLapTableBtn() {
+        lapTableBtn.setTitle("View lap times →", for: UIControlState.normal)
+        lapTableBtn.setTitleColor(fgClr, for: UIControlState.normal)
+        
+//      lapTableBtn.titleLable?.font = Constants.responsiveDigitFont
+        lapTableBtn.titleLabel?.textAlignment = .center
+        
+        lapTableBtn.addTarget(self, action: #selector(onLapTableTap), for: .touchDown)
+        
+        lapTableBtn.snp.makeConstraints { make in
+            make.width.equalTo(lapTableBtn.superview!)
+            make.bottom.equalTo(lapTableBtn.superview!).offset(-Constants.defaultMargin)
+        }
     }
     
     func onPauseTap() {
