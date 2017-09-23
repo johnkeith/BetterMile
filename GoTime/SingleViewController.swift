@@ -21,7 +21,8 @@ class SingleViewController: UIViewController {
     let voiceOffText = "Voice Off"
     let defaultTotalTimeLblText = "Total 00:00.00"
     
-    let shadowOpacity = Float(0.0)
+    let container = UIView()
+    
     let totalTimeLbl = UILabel()
     let lapTimeLbl = LapTimeLabel()
     let lapLbl = UILabel()
@@ -35,11 +36,6 @@ class SingleViewController: UIViewController {
     var startBarBtn: UIBarButtonItem!
     var restartBarBtn: UIBarButtonItem!
     
-    let container = UIView()
-    
-    let helpBtn = UIButton()
-    let likeBtn = LikeButton()
-    
     var doubleTapRecognizer: UITapGestureRecognizer! // TODO: FIX
     
     var fgClr: UIColor
@@ -51,7 +47,6 @@ class SingleViewController: UIViewController {
     var animationSrv: AnimationService
     var timeToTextSrv: TimeToTextService
     var speechSrv: SpeechService
-    let pauseBtn: PauseButton
     var settingsBtn: SettingsButton
     var helpText: TimerHelpTextLabel
     
@@ -63,7 +58,6 @@ class SingleViewController: UIViewController {
         self.animationSrv = animationSrv
         self.timeToTextSrv = timeToTextSrv
         self.speechSrv = speechSrv
-        self.pauseBtn = PauseButton(stopWatchSrv: stopWatchSrv)
         self.settingsBtn = SettingsButton(blurOverlay: blurOverlay, animationSrv: animationSrv)
         self.helpText = TimerHelpTextLabel(hidden: true, animationService: animationSrv)
         
