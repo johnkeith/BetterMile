@@ -284,18 +284,25 @@ class SingleViewController: UIViewController {
     }
     
     func onClearTap() {
-        stopWatchSrv.stop()
+        let message = "Are you sure you want to end your run?"
+        let goToAppStoreAction = UIAlertAction(title: "Clear", style: .destructive, handler: { (action) in
+            self.stopWatchSrv.stop()
+            
+            self.totalTimeLbl.text = self.defaultTotalTimeLblText
+            self.lapLbl.text = "00"
+            self.lapTimeLbl.text = self.lapTimeLbl.defaultText
+            
+            self.navigationItem.leftBarButtonItem = nil
+            self.navigationItem.rightBarButtonItem = self.startBarBtn
+        })
         
-        totalTimeLbl.text = defaultTotalTimeLblText
-        lapLbl.text = "00"
-        lapTimeLbl.text = lapTimeLbl.defaultText
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: { (action) in })
         
-        self.navigationItem.leftBarButtonItem = nil
-        self.navigationItem.rightBarButtonItem = startBarBtn
-    }
-    
-    func onHelpTap() {
-        print("tapped")
+        let cancelAlert = UIAlertController(title: "Clear Run", message: message, preferredStyle: .alert)
+        cancelAlert.addAction(cancelAction)
+        cancelAlert.addAction(goToAppStoreAction)
+        
+        self.present(cancelAlert, animated: true, completion: nil)
     }
     
     func onVoiceNotificationsTap() {
@@ -375,10 +382,10 @@ extension SingleViewController: StopWatchServiceDelegate {
     
     func stopWatchIntervalElapsed(totalTimeElapsed: TimeInterval) {
         DispatchQueue.main.async {
-            let lapTime = self.stopWatchSrv.lapTimes.last!
-            
-            self.setLapTimeLblText(lapTime: lapTime)
-            self.setTotalTimeLblText(totalTimeElapsed: totalTimeElapsed)
+            if let lapTime = self.stopWatchSrv.lapTimes.last {
+                self.setLapTimeLblText(lapTime: lapTime)
+                self.setTotalTimeLblText(totalTimeElapsed: totalTimeElapsed)
+            }
         }
     }
     
