@@ -31,16 +31,10 @@ class LapTableController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-                
-//        self.navigationController?.setNavigationBarHidden(false, animated: animated)
-//        self.navigationController?.navigationBar.barStyle = .black
-//        self.navigationController?.navigationBar.isTranslucent = false
-//        self.navigationController?.navigationBar.backgroundColor = Constants.colorBlack
+        
         self.navigationController?.navigationBar.tintColor = Constants.colorBlack
         self.navigationItem.title = "Lap Times"
         self.navigationController?.isToolbarHidden = true
-        
-//        UIApplication.shared.statusBarStyle = .lightContent
     }
     
     func configLapTable() {

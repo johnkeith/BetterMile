@@ -391,6 +391,14 @@ class SingleViewController: UIViewController {
         }
     }
     
+    func notifyResumed() {
+        let shouldSpeak = Constants.storedSettings.bool(forKey: SettingsService.voiceNotificationsKey)
+        
+        if shouldSpeak {
+            speechSrv.speakTimerRestarted()
+        }
+    }
+    
     func notifyStarted() {
         let shouldSpeak = Constants.storedSettings.bool(forKey: SettingsService.voiceNotificationsKey)
         

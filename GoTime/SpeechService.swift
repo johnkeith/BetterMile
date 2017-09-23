@@ -13,6 +13,7 @@ enum SpeechTypes {
     case TimerStarted
     case TimerPaused
     case TimerCleared
+    case TimerRestarted
     case PreviousAndAverageLapTimes
 }
 
@@ -55,6 +56,13 @@ class SpeechService: NSObject, AVSpeechSynthesizerDelegate {
         if !voiceQueue.contains(where: {$0 == SpeechTypes.TimerCleared}) {
             textToSpeech(text: "Clear")
             voiceQueue.append(SpeechTypes.TimerCleared)
+        }
+    }
+    
+    func speakTimerRestarted() {
+        if !voiceQueue.contains(where: {$0 == SpeechTypes.TimerRestarted}) {
+            textToSpeech(text: "Resume")
+            voiceQueue.append(SpeechTypes.TimerRestarted)
         }
     }
     
