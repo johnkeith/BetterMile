@@ -20,6 +20,7 @@ class SingleViewController: UIViewController {
     let voiceOnText = "Voice On"
     let voiceOffText = "Voice Off"
     let defaultTotalTimeLblText = "Total 00:00.00"
+    let clearAlertMessage = "Are you sure you want to end your run?"
     
     let container = UIView()
     
@@ -112,7 +113,6 @@ class SingleViewController: UIViewController {
         UIApplication.shared.statusBarStyle = .default
         
         if let lapTime = self.stopWatchSrv.lapTimes.last {
-            print("VIEW WILL APPEAR", self.stopWatchSrv.lapTimes)
             self.setLapTimeLblText(lapTime: lapTime)
         }
         
@@ -246,7 +246,7 @@ class SingleViewController: UIViewController {
     func configLapTableBtn() {
         lapTableBtn.hide()
         
-        lapTableBtn.setTitle("View lap times →", for: UIControlState.normal)
+        lapTableBtn.setTitle("View lap times ›", for: UIControlState.normal)
         lapTableBtn.setTitleColor(fgClr, for: UIControlState.normal)
         
 //      lapTableBtn.titleLable?.font = Constants.responsiveDigitFont
@@ -317,26 +317,31 @@ class SingleViewController: UIViewController {
     }
     
     func onClearTap() {
-        let message = "Are you sure you want to end your run?"
-        let goToAppStoreAction = UIAlertAction(title: "Clear", style: .destructive, handler: { (action) in
+        let clearAlertConfirmAction = UIAlertAction(title: "Clear", style: .destructive, handler: { (action) in
             self.animationSrv.animateFadeOutView(self.lapTableBtn)
             self.stopWatchSrv.stop()
             
-            self.totalTimeLbl.text = self.defaultTotalTimeLblText
-            self.lapLbl.text = "00"
-            self.lapTimeLbl.text = self.lapTimeLbl.defaultText
+            DispatchQueue.main.async {
+                self.animationSrv.animateTextChange(self.lapLbl, duration: 0.8)
+                self.animationSrv.animateTextChange(self.totalTimeLbl, duration: 0.8)
+                self.animationSrv.animateTextChange(self.lapTimeLbl, duration: 0.8)
+                
+                self.totalTimeLbl.text = self.defaultTotalTimeLblText
+                self.lapLbl.text = "00"
+                self.lapTimeLbl.text = self.lapTimeLbl.defaultText
+            }
             
             self.navigationItem.leftBarButtonItem = nil
             self.navigationItem.rightBarButtonItem = self.startBarBtn
         })
         
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: { (action) in })
+        let clearAlertCancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: { (action) in })
         
-        let cancelAlert = UIAlertController(title: "Clear Run", message: message, preferredStyle: .alert)
-        cancelAlert.addAction(cancelAction)
-        cancelAlert.addAction(goToAppStoreAction)
+        let clearAlert = UIAlertController(title: "Clear Run", message: clearAlertMessage, preferredStyle: .alert)
+        clearAlert.addAction(clearAlertCancelAction)
+        clearAlert.addAction(clearAlertConfirmAction)
         
-        self.present(cancelAlert, animated: true, completion: nil)
+        self.present(clearAlert, animated: true, completion: nil)
     }
     
     func onVoiceNotificationsTap() {
@@ -426,7 +431,7 @@ extension SingleViewController: StopWatchServiceDelegate {
     func stopWatchLapStored(lapTime: Double, lapNumber: Int, totalTime: Double) {
         self.setLapLblText(lapCount: self.stopWatchSrv.lapTimes.count)
         
-        let text = timeToTextSrv.timeAsSingleString(inputTime: lapTime)
+        self.animationSrv.animateTextChange(self.lapTimeLbl, duration: 0.8)
         
         notifyWithVibrationIfEnabled()
         notifyWithVoiceIfEnabled(lapTime: lapTime, lapNumber: lapNumber)
