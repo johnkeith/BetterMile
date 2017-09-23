@@ -53,6 +53,7 @@ class SingleViewController: UIViewController {
     var speechSrv: SpeechService
     let pauseBtn: PauseButton
     var settingsBtn: SettingsButton
+    var helpText: TimerHelpTextLabel
     
     init(stopWatchSrv: StopWatchService = StopWatchService(),
          animationSrv: AnimationService = AnimationService(),
@@ -64,6 +65,7 @@ class SingleViewController: UIViewController {
         self.speechSrv = speechSrv
         self.pauseBtn = PauseButton(stopWatchSrv: stopWatchSrv)
         self.settingsBtn = SettingsButton(blurOverlay: blurOverlay, animationSrv: animationSrv)
+        self.helpText = TimerHelpTextLabel(hidden: true, animationService: animationSrv)
         
         fgClr = Constants.colorBlack
         bgClr = Constants.colorBackground
@@ -83,7 +85,7 @@ class SingleViewController: UIViewController {
         
         view.backgroundColor = Constants.colorWhite
         
-        addSubviews([container, blurOverlay, lapTableBtn])
+        addSubviews([container, blurOverlay, lapTableBtn, helpText])
         
         container.addSubview(lapLbl)
         container.addSubview(totalTimeLbl)
@@ -95,6 +97,9 @@ class SingleViewController: UIViewController {
         configLapTimeLbl()
         configBlurOverlay()
         configLapTableBtn()
+        configHelpText()
+        
+        self.navigationItem.rightBarButtonItem = startBarBtn
         
         askForReview()
     }
@@ -148,11 +153,10 @@ class SingleViewController: UIViewController {
         startBarBtn.tintColor = Constants.colorBlack
         restartBarBtn.tintColor = Constants.colorBlack
         
-        self.navigationItem.rightBarButtonItem = startBarBtn
-        self.navigationController?.isToolbarHidden = false
         self.navigationController?.navigationBar.barStyle = .default
         self.navigationController?.navigationBar.isTranslucent = false
         self.navigationController?.navigationBar.backgroundColor = Constants.colorWhite
+        self.navigationController?.isToolbarHidden = false
         self.navigationController?.view.backgroundColor = Constants.colorWhite
         self.navigationController?.navigationBar.tintColor = Constants.colorWhite
         
@@ -241,6 +245,8 @@ class SingleViewController: UIViewController {
     }
     
     func configLapTableBtn() {
+        lapTableBtn.hide()
+        
         lapTableBtn.setTitle("View lap times →", for: UIControlState.normal)
         lapTableBtn.setTitleColor(fgClr, for: UIControlState.normal)
         
@@ -255,8 +261,17 @@ class SingleViewController: UIViewController {
         }
     }
     
+    func configHelpText() {
+        helpText.snp.makeConstraints { make in
+            make.width.equalTo(helpText.superview!)
+            make.top.equalTo(helpText.superview!).offset(Constants.defaultMargin)
+        }
+    }
+    
     func onPauseTap() {
         self.navigationItem.rightBarButtonItem = restartBarBtn
+        
+        animationSrv.animateWithSpring(lapTableBtn, fromAlphaZero: true)
         
         stopWatchSrv.pause()
     }
@@ -280,6 +295,8 @@ class SingleViewController: UIViewController {
     func onStartTap() {
         stopWatchSrv.start()
         
+        helpText.showBriefly()
+        
         setLapLblText(lapCount: self.stopWatchSrv.lapTimes.count)
         
         self.navigationItem.leftBarButtonItem = clearBarBtn
@@ -288,6 +305,8 @@ class SingleViewController: UIViewController {
     
     func onRestartTap() {
         self.navigationItem.rightBarButtonItem = pauseBarBtn
+        
+        animationSrv.animateFadeOutView(lapTableBtn)
         
         stopWatchSrv.restart()
     }
@@ -301,6 +320,7 @@ class SingleViewController: UIViewController {
     func onClearTap() {
         let message = "Are you sure you want to end your run?"
         let goToAppStoreAction = UIAlertAction(title: "Clear", style: .destructive, handler: { (action) in
+            self.animationSrv.animateFadeOutView(self.lapTableBtn)
             self.stopWatchSrv.stop()
             
             self.totalTimeLbl.text = self.defaultTotalTimeLblText
