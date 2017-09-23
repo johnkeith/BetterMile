@@ -178,6 +178,7 @@ class StopWatchService: NSObject {
         lapTimes.remove(at: at)
         
         if lapTimes.count == 0 {
+            elapsedTimeBeforePause = 0.0
             lapTimes.append(0.0)
         }
         
