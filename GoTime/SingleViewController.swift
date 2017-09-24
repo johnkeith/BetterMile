@@ -33,9 +33,7 @@ class SingleViewController: UIViewController {
     var vibrationBarBtn: UIBarButtonItem!
     var voiceBarBtn: UIBarButtonItem!
     var clearBarBtn: UIBarButtonItem!
-    var pauseBarBtn: UIBarButtonItem!
-    var startBarBtn: UIBarButtonItem!
-    var restartBarBtn: UIBarButtonItem!
+    var rightBarBtn: UIBarButtonItem!
     
     var doubleTapRecognizer: UITapGestureRecognizer! // TODO: FIX
     
@@ -72,9 +70,7 @@ class SingleViewController: UIViewController {
         vibrationBarBtn = UIBarButtonItem(title: "", style: .plain, target: self, action: #selector(onVibrationNotificationsTap))
         voiceBarBtn = UIBarButtonItem(title: "", style: .plain, target: self, action: #selector(onVoiceNotificationsTap))
         clearBarBtn = UIBarButtonItem(title: "Clear", style: .plain, target: self, action: #selector(onClearTap))
-        pauseBarBtn = UIBarButtonItem(title: "Pause", style: .plain, target: self, action: #selector(onPauseTap))
-        startBarBtn = UIBarButtonItem(title: "Start", style: .plain, target: self, action: #selector(onStartTap))
-        restartBarBtn = UIBarButtonItem(title: "Resume", style: .plain, target: self, action: #selector(onRestartTap))
+        rightBarBtn = UIBarButtonItem(title: "Start", style: .plain, target: self, action: #selector(onStartTap))
         
         stopWatchSrv.delegate = self
         
@@ -94,8 +90,8 @@ class SingleViewController: UIViewController {
         configLapTableBtn()
         configHelpText()
         
-        self.navigationItem.rightBarButtonItem = startBarBtn
-        
+        self.navigationItem.rightBarButtonItem = rightBarBtn
+
         askForReview()
     }
     
@@ -142,15 +138,8 @@ class SingleViewController: UIViewController {
     }
     
     func configNavBar() {
-        let back = UIBarButtonItem()
-        back.title = ""
-        
-        self.navigationController?.navigationBar.topItem?.backBarButtonItem = back
-        
         clearBarBtn.tintColor = Constants.colorBlack
-        pauseBarBtn.tintColor = Constants.colorBlack
-        startBarBtn.tintColor = Constants.colorBlack
-        restartBarBtn.tintColor = Constants.colorBlack
+        rightBarBtn.tintColor = Constants.colorBlack
         
         self.navigationController?.navigationBar.barStyle = .default
         self.navigationController?.navigationBar.isTranslucent = false
@@ -158,6 +147,7 @@ class SingleViewController: UIViewController {
         self.navigationController?.isToolbarHidden = false
         self.navigationController?.view.backgroundColor = Constants.colorWhite
         self.navigationController?.navigationBar.tintColor = Constants.colorWhite
+        self.navigationController?.navigationBar.barTintColor = Constants.colorWhite
         
         self.navigationController?.toolbar!.barStyle = .default
         self.navigationController?.toolbar!.isTranslucent = false
@@ -203,8 +193,10 @@ class SingleViewController: UIViewController {
         totalTimeLbl.textAlignment = .center
         totalTimeLbl.textColor = fgClr
         
+        let offset = totalTimeLbl.superview!.frame.width / 10
+        
         totalTimeLbl.snp.makeConstraints { make in
-            make.width.equalTo(totalTimeLbl.superview!).offset(-Constants.defaultMargin)
+            make.width.equalTo(totalTimeLbl.superview!).offset(-offset)
             make.height.equalTo(self.view.frame.height / 10)
             make.centerX.equalTo(totalTimeLbl.superview!)
             make.bottom.equalTo(lapTimeLbl.snp.top)
@@ -212,8 +204,10 @@ class SingleViewController: UIViewController {
     }
     
     func configLapTimeLbl() {
+        let offset = lapTimeLbl.superview!.frame.width / 10
+        
         lapTimeLbl.snp.makeConstraints { make in
-            make.width.equalTo(lapTimeLbl.superview!).offset(-Constants.defaultMargin)
+            make.width.equalTo(lapTimeLbl.superview!).offset(-offset)
             make.height.equalTo(self.view.frame.height / 10)
             make.centerX.equalTo(lapTimeLbl.superview!)
             make.bottom.equalTo(container.snp.bottom)
@@ -249,7 +243,7 @@ class SingleViewController: UIViewController {
         lapTableBtn.setTitle("View lap times ›", for: UIControlState.normal)
         lapTableBtn.setTitleColor(fgClr, for: UIControlState.normal)
         
-//      lapTableBtn.titleLable?.font = Constants.responsiveDigitFont
+        lapTableBtn.titleLabel?.font = UIFont.preferredFont(forTextStyle: .title1)
         lapTableBtn.titleLabel?.textAlignment = .center
         
         lapTableBtn.addTarget(self, action: #selector(onLapTableTap), for: .touchDown)
@@ -268,7 +262,8 @@ class SingleViewController: UIViewController {
     }
     
     @objc func onPauseTap() {
-        self.navigationItem.rightBarButtonItem = restartBarBtn
+        self.navigationItem.rightBarButtonItem?.title = "Resume"
+        self.navigationItem.rightBarButtonItem?.action = #selector(onRestartTap)
         
         animationSrv.animateWithSpring(lapTableBtn, fromAlphaZero: true)
         
@@ -299,11 +294,13 @@ class SingleViewController: UIViewController {
         setLapLblText(lapCount: self.stopWatchSrv.lapTimes.count)
         
         self.navigationItem.leftBarButtonItem = clearBarBtn
-        self.navigationItem.rightBarButtonItem = pauseBarBtn
+        self.navigationItem.rightBarButtonItem?.title = "Pause"
+        self.navigationItem.rightBarButtonItem?.action = #selector(onPauseTap)
     }
     
     @objc func onRestartTap() {
-        self.navigationItem.rightBarButtonItem = pauseBarBtn
+        self.navigationItem.rightBarButtonItem?.title = "Pause"
+        self.navigationItem.rightBarButtonItem?.action = #selector(onPauseTap)
         
         animationSrv.animateFadeOutView(lapTableBtn)
         
@@ -332,7 +329,8 @@ class SingleViewController: UIViewController {
             }
             
             self.navigationItem.leftBarButtonItem = nil
-            self.navigationItem.rightBarButtonItem = self.startBarBtn
+            self.navigationItem.rightBarButtonItem?.title = "Start"
+            self.navigationItem.rightBarButtonItem?.action = #selector(self.onStartTap)
         })
         
         let clearAlertCancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: { (action) in })
