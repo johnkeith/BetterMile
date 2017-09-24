@@ -89,7 +89,7 @@ extension LapTimeTable: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
-        let someAction = UITableViewRowAction(style: .default, title: "Delete") { value in
+        let someAction = UITableViewRowAction(style: .default, title: "Delete") { value, other in
             self.beginUpdates()
             
             let reversedIndex = self.stopWatchSrv.lapTimes.count - indexPath.row - 1

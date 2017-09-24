@@ -65,7 +65,7 @@ class StopWatchService: NSObject {
         }
     }
     
-    func timeIntervalElapsed() {
+    @objc func timeIntervalElapsed() {
         lapTimes[lapTimes.endIndex - 1] = calculateTimeBetweenPointAndNow(initialTime: startTime)
         let totalTimeElapsed = klass.calculateTotalLapsTime(laps: lapTimes)
 

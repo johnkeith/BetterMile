@@ -34,7 +34,6 @@
 		63A3F2351E37082100AA8A92 /* MainViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A3F2341E37082100AA8A92 /* MainViewControllerTests.swift */; };
 		63A3F23B1E3C195400AA8A92 /* StopWatchService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A3F23A1E3C195400AA8A92 /* StopWatchService.swift */; };
 		63A3F23E1E3D1FFA00AA8A92 /* StopWatchServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A3F23D1E3D1FFA00AA8A92 /* StopWatchServiceTests.swift */; };
-		63B3DFE61EDB2EFD007B6991 /* SnapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63A3F2201E35151600AA8A92 /* SnapKit.framework */; };
 		63B3DFE81EDB314E007B6991 /* SettingsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63B3DFE71EDB314E007B6991 /* SettingsService.swift */; };
 		63C9A17E1E7773CF00AB9144 /* LapTimeTableCellTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C9A17D1E7773CF00AB9144 /* LapTimeTableCellTests.swift */; };
 		63C9A1801E7D54FA00AB9144 /* TimerHelpTextLabelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C9A17F1E7D54FA00AB9144 /* TimerHelpTextLabelTests.swift */; };
@@ -102,7 +101,6 @@
 		63A3F20D1E34FE3900AA8A92 /* GoTimeUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GoTimeUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		63A3F2111E34FE3900AA8A92 /* GoTimeUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoTimeUITests.swift; sourceTree = "<group>"; };
 		63A3F2131E34FE3900AA8A92 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		63A3F2201E35151600AA8A92 /* SnapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SnapKit.framework; path = Carthage/Build/iOS/SnapKit.framework; sourceTree = "<group>"; };
 		63A3F2241E35355500AA8A92 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		63A3F2341E37082100AA8A92 /* MainViewControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewControllerTests.swift; sourceTree = "<group>"; };
 		63A3F23A1E3C195400AA8A92 /* StopWatchService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StopWatchService.swift; sourceTree = "<group>"; };
@@ -142,7 +140,6 @@
 				63F7EE6A1F4E67410008D65D /* nanopb.framework in Frameworks */,
 				63F7EE5F1F4E66420008D65D /* FirebaseAnalytics.framework in Frameworks */,
 				63F7EE601F4E66420008D65D /* FirebaseCore.framework in Frameworks */,
-				63B3DFE61EDB2EFD007B6991 /* SnapKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -253,7 +250,6 @@
 		63A3F21F1E35151600AA8A92 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				63A3F2201E35151600AA8A92 /* SnapKit.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -420,12 +416,14 @@
 					63A3F2011E34FE3900AA8A92 = {
 						CreatedOnToolsVersion = 8.1;
 						DevelopmentTeam = H8RKQ3P369;
+						LastSwiftMigration = 0900;
 						ProvisioningStyle = Automatic;
 						TestTargetID = 63A3F1EA1E34FE3800AA8A92;
 					};
 					63A3F20C1E34FE3900AA8A92 = {
 						CreatedOnToolsVersion = 8.1;
 						DevelopmentTeam = H8RKQ3P369;
+						LastSwiftMigration = 0900;
 						ProvisioningStyle = Automatic;
 						TestTargetID = 63A3F1EA1E34FE3800AA8A92;
 					};
@@ -701,7 +699,8 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "GoTime/GoTime-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -722,7 +721,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = us.johnkeith.GoTime;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "GoTime/GoTime-Bridging-Header.h";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
@@ -737,7 +737,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = us.johnkeith.GoTimeTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/GoTime.app/GoTime";
 			};
 			name = Debug;
@@ -752,7 +753,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = us.johnkeith.GoTimeTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/GoTime.app/GoTime";
 			};
 			name = Release;
@@ -766,7 +768,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = us.johnkeith.GoTimeUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.0;
 				TEST_TARGET_NAME = GoTime;
 			};
 			name = Debug;
@@ -780,7 +783,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = us.johnkeith.GoTimeUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.0;
 				TEST_TARGET_NAME = GoTime;
 			};
 			name = Release;

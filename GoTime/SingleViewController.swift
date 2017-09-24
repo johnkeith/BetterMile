@@ -267,7 +267,7 @@ class SingleViewController: UIViewController {
         }
     }
     
-    func onPauseTap() {
+    @objc func onPauseTap() {
         self.navigationItem.rightBarButtonItem = restartBarBtn
         
         animationSrv.animateWithSpring(lapTableBtn, fromAlphaZero: true)
@@ -291,7 +291,7 @@ class SingleViewController: UIViewController {
         self.lapTimeLbl.setTextForLabel(lapTimeAsString)
     }
 
-    func onStartTap() {
+    @objc func onStartTap() {
         stopWatchSrv.start()
         
         helpText.showBriefly()
@@ -302,7 +302,7 @@ class SingleViewController: UIViewController {
         self.navigationItem.rightBarButtonItem = pauseBarBtn
     }
     
-    func onRestartTap() {
+    @objc func onRestartTap() {
         self.navigationItem.rightBarButtonItem = pauseBarBtn
         
         animationSrv.animateFadeOutView(lapTableBtn)
@@ -310,13 +310,13 @@ class SingleViewController: UIViewController {
         stopWatchSrv.restart()
     }
     
-    func onLapTableTap() {
+    @objc func onLapTableTap() {
         let lapTableController = LapTableController(stopWatchSrv: stopWatchSrv)
         
         self.navigationController?.pushViewController(lapTableController, animated: true)
     }
     
-    func onClearTap() {
+    @objc func onClearTap() {
         let clearAlertConfirmAction = UIAlertAction(title: "Clear", style: .destructive, handler: { (action) in
             self.animationSrv.animateFadeOutView(self.lapTableBtn)
             self.stopWatchSrv.stop()
@@ -344,13 +344,13 @@ class SingleViewController: UIViewController {
         self.present(clearAlert, animated: true, completion: nil)
     }
     
-    func onVoiceNotificationsTap() {
+    @objc func onVoiceNotificationsTap() {
         let newValue = handleSettingsToggle(key: SettingsService.voiceNotificationsKey)
         
         voiceBarBtn.title = newValue ? voiceOnText : voiceOffText
     }
     
-    func onVibrationNotificationsTap() {
+    @objc func onVibrationNotificationsTap() {
         let newValue = handleSettingsToggle(key: SettingsService.vibrationNotificationsKey)
         
         vibrationBarBtn.title = newValue ? vibrationOnText : vibrationOffText
@@ -485,7 +485,7 @@ extension SingleViewController {
         view.addGestureRecognizer(doubleTapRecognizer)
     }
 
-    func viewDoubleTapped() {
+    @objc func viewDoubleTapped() {
         if stopWatchSrv.timerRunning {
             stopWatchSrv.lap()
             animationSrv.enlargeBriefly(lapLbl)

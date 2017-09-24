@@ -1,1 +1,1 @@
-github "SnapKit/SnapKit" "swift-4"
+github "SnapKit/SnapKit" ~> 4.0.0

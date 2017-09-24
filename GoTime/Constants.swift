@@ -39,13 +39,13 @@ struct Constants {
     static let colorDivider = UIColor(red:0.14, green:0.14, blue:0.14, alpha:1.0)
     static let colorGray = UIColor(hex: "D8D8D8")
     
-    static let responsiveDefaultFontWeight = UIFontWeightRegular
+    static let responsiveDefaultFontWeight = UIFont.Weight.regular
     static let responsiveDefaultFont: UIFont = UIFont.systemFont(ofSize: 999, weight: responsiveDefaultFontWeight)
-    static let responsiveBoldDigitFont: UIFont = UIFont.monospacedDigitSystemFont(ofSize: 999, weight: UIFontWeightBold)
+    static let responsiveBoldDigitFont: UIFont = UIFont.monospacedDigitSystemFont(ofSize: 999, weight: UIFont.Weight.bold)
     static let responsiveFancyFont = UIFont.italicSystemFont(ofSize: 999)
-    static let responsiveDigitFontWeight = UIFontWeightLight
+    static let responsiveDigitFontWeight = UIFont.Weight.light
     static let responsiveDigitFont: UIFont = UIFont.monospacedDigitSystemFont(ofSize: 999, weight: responsiveDigitFontWeight)
-    static let defaultSmallFont: UIFont = UIFont.systemFont(ofSize: 18, weight: UIFontWeightThin)
+    static let defaultSmallFont: UIFont = UIFont.systemFont(ofSize: 18, weight: UIFont.Weight.thin)
     static let defaultHeaderFont: UIFont = UIFont.preferredFont(forTextStyle: UIFontTextStyle.title1)
     static let defaultHeadlineFont: UIFont = UIFont.preferredFont(forTextStyle: .headline)
     

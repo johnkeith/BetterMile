@@ -29,7 +29,7 @@ class RunPersistanceService {
     
     func createRun() -> Run {
         let run = Run(context: coreData.viewContext)
-        run.date = NSDate()
+        run.date = Date()
         
         return run
     }

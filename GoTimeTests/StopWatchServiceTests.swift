@@ -13,6 +13,10 @@ class StopWatchServiceTests: XCTestCase {
     let lapTimesMock = [2.0, 4.0, 4.0, 4.0, 5.0, 5.0, 7.0, 9.0]
     
     class FakeDelegate: NSObject, StopWatchServiceDelegate {
+        func stopWatchLapRemoved() {
+            <#code#>
+        }
+        
         var stopWatchService: StopWatchService
 
         var currentTimePassed = 0.0
