@@ -249,7 +249,7 @@ class SingleViewController: UIViewController {
         
         lapTableBtn.snp.makeConstraints { make in
             make.width.equalTo(lapTableBtn.superview!)
-            make.bottom.equalTo(lapTableBtn.superview!).offset(-Constants.defaultMargin)
+            make.top.equalTo(lapTimeLbl.snp.bottom).offset(Constants.defaultMargin)
         }
     }
     
