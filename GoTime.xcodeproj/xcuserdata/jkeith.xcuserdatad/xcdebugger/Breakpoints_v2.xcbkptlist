@@ -605,13 +605,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GoTime/SingleViewController.swift"
-            timestampString = "527911335.16194"
+            timestampString = "527912797.978813"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "496"
-            endingLineNumber = "496"
-            landmarkName = "SingleViewController"
-            landmarkType = "3">
+            endingLineNumber = "496">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
