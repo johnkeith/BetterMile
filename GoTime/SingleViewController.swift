@@ -13,10 +13,9 @@ import StoreKit
 
 class SingleViewController: UIViewController {
 //  NON-DI
-//    let shadowOpacity = Float(0.15)
     
-    let vibrationOnText = "Vibration On"
-    let vibrationOffText = "Vibration Off"
+    let vibrationOnText = "Vibrate On"
+    let vibrationOffText = "Vibrate Off"
     let voiceOnText = "Voice On"
     let voiceOffText = "Voice Off"
     let defaultTotalTimeLblText = "Total 00:00.00"
