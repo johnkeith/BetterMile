@@ -8,9 +8,15 @@
 
 /* Begin PBXBuildFile section */
 		632271B51ED7B9C100244ED3 /* LapTableController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632271B41ED7B9C100244ED3 /* LapTableController.swift */; };
+		633C31571F5C0FB900BD2460 /* SettingsButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633C31561F5C0FB900BD2460 /* SettingsButton.swift */; };
+		633C31591F5C218600BD2460 /* UILabelExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633C31581F5C218600BD2460 /* UILabelExtension.swift */; };
+		6347A94F1F5C73B400B1CB8A /* BlurOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6347A94E1F5C73B400B1CB8A /* BlurOverlayView.swift */; };
+		6347A9531F5C76E000B1CB8A /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6347A9521F5C76E000B1CB8A /* SettingsView.swift */; };
+		6347A9551F6569A000B1CB8A /* SettingsViewRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6347A9541F6569A000B1CB8A /* SettingsViewRow.swift */; };
 		634CACDF1E4BD4AE0064FD5E /* LapTimeTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634CACDE1E4BD4AE0064FD5E /* LapTimeTable.swift */; };
 		634CACF01E5C69210064FD5E /* LapTimeTableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634CACEF1E5C69210064FD5E /* LapTimeTableTests.swift */; };
-		6369A9011E9C70A400DC3B35 /* TODOLIST.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 6369A9001E9C70A400DC3B35 /* TODOLIST.rtf */; };
+		63684F891F47C1D40067DC36 /* LapTimeLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63684F881F47C1D40067DC36 /* LapTimeLabel.swift */; };
+		63805AB11F36972C007CBBF2 /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63805AB01F36972C007CBBF2 /* UIColorExtension.swift */; };
 		6386BF211E3EC1FC00BD2875 /* TimeToTextService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6386BF201E3EC1FC00BD2875 /* TimeToTextService.swift */; };
 		6386BF231E3ED67E00BD2875 /* TImeToTextServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6386BF221E3ED67E00BD2875 /* TImeToTextServiceTests.swift */; };
 		6386BF281E421A1300BD2875 /* DataModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6386BF271E421A1300BD2875 /* DataModelTests.swift */; };
@@ -28,7 +34,6 @@
 		63A3F2351E37082100AA8A92 /* MainViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A3F2341E37082100AA8A92 /* MainViewControllerTests.swift */; };
 		63A3F23B1E3C195400AA8A92 /* StopWatchService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A3F23A1E3C195400AA8A92 /* StopWatchService.swift */; };
 		63A3F23E1E3D1FFA00AA8A92 /* StopWatchServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A3F23D1E3D1FFA00AA8A92 /* StopWatchServiceTests.swift */; };
-		63B3DFE61EDB2EFD007B6991 /* SnapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63A3F2201E35151600AA8A92 /* SnapKit.framework */; };
 		63B3DFE81EDB314E007B6991 /* SettingsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63B3DFE71EDB314E007B6991 /* SettingsService.swift */; };
 		63C9A17E1E7773CF00AB9144 /* LapTimeTableCellTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C9A17D1E7773CF00AB9144 /* LapTimeTableCellTests.swift */; };
 		63C9A1801E7D54FA00AB9144 /* TimerHelpTextLabelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C9A17F1E7D54FA00AB9144 /* TimerHelpTextLabelTests.swift */; };
@@ -39,6 +44,14 @@
 		63CB140C1E6E4E0A00F7BC14 /* AnimationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63CB140B1E6E4E0A00F7BC14 /* AnimationService.swift */; };
 		63CC94EE1EB7FA1C00D5DB0E /* SingleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63CC94ED1EB7FA1C00D5DB0E /* SingleViewController.swift */; };
 		63E9BBE01EA07BFD0019FC35 /* SpeechService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63E9BBDF1EA07BFD0019FC35 /* SpeechService.swift */; };
+		63F7EE5F1F4E66420008D65D /* FirebaseAnalytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63F7EE5D1F4E66110008D65D /* FirebaseAnalytics.framework */; };
+		63F7EE601F4E66420008D65D /* FirebaseCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63F7EE5E1F4E66110008D65D /* FirebaseCore.framework */; };
+		63F7EE661F4E67410008D65D /* FirebaseCoreDiagnostics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63F7EE621F4E66F20008D65D /* FirebaseCoreDiagnostics.framework */; };
+		63F7EE671F4E67410008D65D /* FirebaseInstanceID.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63F7EE641F4E66F20008D65D /* FirebaseInstanceID.framework */; };
+		63F7EE681F4E67410008D65D /* FirebaseNanoPB.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63F7EE651F4E66F20008D65D /* FirebaseNanoPB.framework */; };
+		63F7EE691F4E67410008D65D /* GoogleToolboxForMac.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63F7EE611F4E66F20008D65D /* GoogleToolboxForMac.framework */; };
+		63F7EE6A1F4E67410008D65D /* nanopb.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63F7EE631F4E66F20008D65D /* nanopb.framework */; };
+		63F7EE6C1F4E689E0008D65D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 63F7EE6B1F4E67C60008D65D /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,9 +73,15 @@
 
 /* Begin PBXFileReference section */
 		632271B41ED7B9C100244ED3 /* LapTableController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LapTableController.swift; sourceTree = "<group>"; };
+		633C31561F5C0FB900BD2460 /* SettingsButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsButton.swift; sourceTree = "<group>"; };
+		633C31581F5C218600BD2460 /* UILabelExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UILabelExtension.swift; sourceTree = "<group>"; };
+		6347A94E1F5C73B400B1CB8A /* BlurOverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurOverlayView.swift; sourceTree = "<group>"; };
+		6347A9521F5C76E000B1CB8A /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		6347A9541F6569A000B1CB8A /* SettingsViewRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewRow.swift; sourceTree = "<group>"; };
 		634CACDE1E4BD4AE0064FD5E /* LapTimeTable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LapTimeTable.swift; sourceTree = "<group>"; };
 		634CACEF1E5C69210064FD5E /* LapTimeTableTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LapTimeTableTests.swift; sourceTree = "<group>"; };
-		6369A9001E9C70A400DC3B35 /* TODOLIST.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = TODOLIST.rtf; sourceTree = "<group>"; };
+		63684F881F47C1D40067DC36 /* LapTimeLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LapTimeLabel.swift; sourceTree = "<group>"; };
+		63805AB01F36972C007CBBF2 /* UIColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
 		6386BF201E3EC1FC00BD2875 /* TimeToTextService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeToTextService.swift; sourceTree = "<group>"; };
 		6386BF221E3ED67E00BD2875 /* TImeToTextServiceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TImeToTextServiceTests.swift; sourceTree = "<group>"; };
 		6386BF271E421A1300BD2875 /* DataModelTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataModelTests.swift; sourceTree = "<group>"; };
@@ -82,7 +101,6 @@
 		63A3F20D1E34FE3900AA8A92 /* GoTimeUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GoTimeUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		63A3F2111E34FE3900AA8A92 /* GoTimeUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoTimeUITests.swift; sourceTree = "<group>"; };
 		63A3F2131E34FE3900AA8A92 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		63A3F2201E35151600AA8A92 /* SnapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SnapKit.framework; path = Carthage/Build/iOS/SnapKit.framework; sourceTree = "<group>"; };
 		63A3F2241E35355500AA8A92 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		63A3F2341E37082100AA8A92 /* MainViewControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewControllerTests.swift; sourceTree = "<group>"; };
 		63A3F23A1E3C195400AA8A92 /* StopWatchService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StopWatchService.swift; sourceTree = "<group>"; };
@@ -97,6 +115,17 @@
 		63CB140B1E6E4E0A00F7BC14 /* AnimationService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimationService.swift; sourceTree = "<group>"; };
 		63CC94ED1EB7FA1C00D5DB0E /* SingleViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SingleViewController.swift; sourceTree = "<group>"; };
 		63E9BBDF1EA07BFD0019FC35 /* SpeechService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpeechService.swift; sourceTree = "<group>"; };
+		63F7EE581F4E64930008D65D /* Firebase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Firebase.h; sourceTree = "<group>"; };
+		63F7EE591F4E64930008D65D /* module.modulemap */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; path = module.modulemap; sourceTree = "<group>"; };
+		63F7EE5A1F4E65200008D65D /* GoTime-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "GoTime-Bridging-Header.h"; sourceTree = "<group>"; };
+		63F7EE5D1F4E66110008D65D /* FirebaseAnalytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FirebaseAnalytics.framework; sourceTree = "<group>"; };
+		63F7EE5E1F4E66110008D65D /* FirebaseCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FirebaseCore.framework; sourceTree = "<group>"; };
+		63F7EE611F4E66F20008D65D /* GoogleToolboxForMac.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GoogleToolboxForMac.framework; sourceTree = "<group>"; };
+		63F7EE621F4E66F20008D65D /* FirebaseCoreDiagnostics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FirebaseCoreDiagnostics.framework; sourceTree = "<group>"; };
+		63F7EE631F4E66F20008D65D /* nanopb.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = nanopb.framework; sourceTree = "<group>"; };
+		63F7EE641F4E66F20008D65D /* FirebaseInstanceID.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FirebaseInstanceID.framework; sourceTree = "<group>"; };
+		63F7EE651F4E66F20008D65D /* FirebaseNanoPB.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FirebaseNanoPB.framework; sourceTree = "<group>"; };
+		63F7EE6B1F4E67C60008D65D /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,7 +133,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				63B3DFE61EDB2EFD007B6991 /* SnapKit.framework in Frameworks */,
+				63F7EE661F4E67410008D65D /* FirebaseCoreDiagnostics.framework in Frameworks */,
+				63F7EE671F4E67410008D65D /* FirebaseInstanceID.framework in Frameworks */,
+				63F7EE681F4E67410008D65D /* FirebaseNanoPB.framework in Frameworks */,
+				63F7EE691F4E67410008D65D /* GoogleToolboxForMac.framework in Frameworks */,
+				63F7EE6A1F4E67410008D65D /* nanopb.framework in Frameworks */,
+				63F7EE5F1F4E66420008D65D /* FirebaseAnalytics.framework in Frameworks */,
+				63F7EE601F4E66420008D65D /* FirebaseCore.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -125,6 +160,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		633C31531F5A39F400BD2460 /* Firebase */ = {
+			isa = PBXGroup;
+			children = (
+				63F7EE6B1F4E67C60008D65D /* GoogleService-Info.plist */,
+				63F7EE621F4E66F20008D65D /* FirebaseCoreDiagnostics.framework */,
+				63F7EE641F4E66F20008D65D /* FirebaseInstanceID.framework */,
+				63F7EE651F4E66F20008D65D /* FirebaseNanoPB.framework */,
+				63F7EE611F4E66F20008D65D /* GoogleToolboxForMac.framework */,
+				63F7EE631F4E66F20008D65D /* nanopb.framework */,
+				63F7EE5D1F4E66110008D65D /* FirebaseAnalytics.framework */,
+				63F7EE5E1F4E66110008D65D /* FirebaseCore.framework */,
+				63F7EE581F4E64930008D65D /* Firebase.h */,
+				63F7EE591F4E64930008D65D /* module.modulemap */,
+			);
+			name = Firebase;
+			sourceTree = "<group>";
+		};
 		6386BF291E421E3800BD2875 /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -161,6 +213,7 @@
 				63A3F22E1E35356200AA8A92 /* Components */,
 				63A3F22F1E35356B00AA8A92 /* Controllers */,
 				63C9A1971E883D8D00AB9144 /* Extensions */,
+				633C31531F5A39F400BD2460 /* Firebase */,
 				63A3F2391E3C194100AA8A92 /* Services */,
 				63A3F2321E35363C00AA8A92 /* Storyboards */,
 				63A3F2241E35355500AA8A92 /* Constants.swift */,
@@ -168,7 +221,7 @@
 				63A3F1F81E34FE3800AA8A92 /* Assets.xcassets */,
 				63A3F1FD1E34FE3800AA8A92 /* Info.plist */,
 				63A3F1F51E34FE3800AA8A92 /* GoTime.xcdatamodeld */,
-				6369A9001E9C70A400DC3B35 /* TODOLIST.rtf */,
+				63F7EE5A1F4E65200008D65D /* GoTime-Bridging-Header.h */,
 			);
 			path = GoTime;
 			sourceTree = "<group>";
@@ -197,7 +250,6 @@
 		63A3F21F1E35151600AA8A92 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				63A3F2201E35151600AA8A92 /* SnapKit.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -208,6 +260,11 @@
 				634CACDE1E4BD4AE0064FD5E /* LapTimeTable.swift */,
 				63CB14051E67AD2900F7BC14 /* LapTimeTableCell.swift */,
 				63CB14091E6D0A6300F7BC14 /* TimerHelpTextLabel.swift */,
+				63684F881F47C1D40067DC36 /* LapTimeLabel.swift */,
+				633C31561F5C0FB900BD2460 /* SettingsButton.swift */,
+				6347A94E1F5C73B400B1CB8A /* BlurOverlayView.swift */,
+				6347A9521F5C76E000B1CB8A /* SettingsView.swift */,
+				6347A9541F6569A000B1CB8A /* SettingsViewRow.swift */,
 			);
 			name = Components;
 			sourceTree = "<group>";
@@ -277,6 +334,8 @@
 			isa = PBXGroup;
 			children = (
 				63C9A1981E883DA300AB9144 /* UIViewExtension.swift */,
+				63805AB01F36972C007CBBF2 /* UIColorExtension.swift */,
+				633C31581F5C218600BD2460 /* UILabelExtension.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -345,23 +404,26 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0810;
-				LastUpgradeCheck = 0820;
+				LastUpgradeCheck = 0900;
 				ORGANIZATIONNAME = "John Keith";
 				TargetAttributes = {
 					63A3F1EA1E34FE3800AA8A92 = {
 						CreatedOnToolsVersion = 8.1;
 						DevelopmentTeam = H8RKQ3P369;
+						LastSwiftMigration = 0900;
 						ProvisioningStyle = Automatic;
 					};
 					63A3F2011E34FE3900AA8A92 = {
 						CreatedOnToolsVersion = 8.1;
 						DevelopmentTeam = H8RKQ3P369;
+						LastSwiftMigration = 0900;
 						ProvisioningStyle = Automatic;
 						TestTargetID = 63A3F1EA1E34FE3800AA8A92;
 					};
 					63A3F20C1E34FE3900AA8A92 = {
 						CreatedOnToolsVersion = 8.1;
 						DevelopmentTeam = H8RKQ3P369;
+						LastSwiftMigration = 0900;
 						ProvisioningStyle = Automatic;
 						TestTargetID = 63A3F1EA1E34FE3800AA8A92;
 					};
@@ -392,7 +454,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6369A9011E9C70A400DC3B35 /* TODOLIST.rtf in Resources */,
+				63F7EE6C1F4E689E0008D65D /* GoogleService-Info.plist in Resources */,
 				63A3F1FC1E34FE3800AA8A92 /* LaunchScreen.storyboard in Resources */,
 				63A3F1F91E34FE3800AA8A92 /* Assets.xcassets in Resources */,
 			);
@@ -437,21 +499,28 @@
 			buildActionMask = 2147483647;
 			files = (
 				63C9A1991E883DA300AB9144 /* UIViewExtension.swift in Sources */,
+				63684F891F47C1D40067DC36 /* LapTimeLabel.swift in Sources */,
 				6386BF331E45FE9700BD2875 /* RunPersistanceService.swift in Sources */,
+				633C31591F5C218600BD2460 /* UILabelExtension.swift in Sources */,
 				63B3DFE81EDB314E007B6991 /* SettingsService.swift in Sources */,
 				63CB140C1E6E4E0A00F7BC14 /* AnimationService.swift in Sources */,
+				63805AB11F36972C007CBBF2 /* UIColorExtension.swift in Sources */,
 				63CC94EE1EB7FA1C00D5DB0E /* SingleViewController.swift in Sources */,
 				63E9BBE01EA07BFD0019FC35 /* SpeechService.swift in Sources */,
 				63A3F1F71E34FE3800AA8A92 /* GoTime.xcdatamodeld in Sources */,
+				6347A94F1F5C73B400B1CB8A /* BlurOverlayView.swift in Sources */,
+				633C31571F5C0FB900BD2460 /* SettingsButton.swift in Sources */,
 				6386BF211E3EC1FC00BD2875 /* TimeToTextService.swift in Sources */,
 				63A3F1EF1E34FE3800AA8A92 /* AppDelegate.swift in Sources */,
 				63A3F2291E35355500AA8A92 /* Constants.swift in Sources */,
 				6386BF2F1E440EE500BD2875 /* CoreDataService.swift in Sources */,
 				634CACDF1E4BD4AE0064FD5E /* LapTimeTable.swift in Sources */,
 				63CB140A1E6D0A6300F7BC14 /* TimerHelpTextLabel.swift in Sources */,
+				6347A9551F6569A000B1CB8A /* SettingsViewRow.swift in Sources */,
 				63A3F23B1E3C195400AA8A92 /* StopWatchService.swift in Sources */,
 				632271B51ED7B9C100244ED3 /* LapTableController.swift in Sources */,
 				63CB14061E67AD2900F7BC14 /* LapTimeTableCell.swift in Sources */,
+				6347A9531F5C76E000B1CB8A /* SettingsView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -511,13 +580,16 @@
 		63A3F2141E34FE3900AA8A92 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
@@ -525,7 +597,11 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
@@ -549,25 +625,33 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = (
+					"$(OTHER_LDFLAGS)",
+					"-ObjC",
+				);
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				USER_HEADER_SEARCH_PATHS = "\"$PROJECT_DIR\"";
 			};
 			name = Debug;
 		};
 		63A3F2151E34FE3900AA8A92 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
@@ -575,7 +659,11 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
@@ -593,10 +681,15 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = (
+					"$(OTHER_LDFLAGS)",
+					"-ObjC",
+				);
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				USER_HEADER_SEARCH_PATHS = "\"$PROJECT_DIR\"";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -605,16 +698,22 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = H8RKQ3P369;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
+					"$(PROJECT_DIR)/GoTime",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				INFOPLIST_FILE = GoTime/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = us.johnkeith.GoTime;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_OBJC_BRIDGING_HEADER = "GoTime/GoTime-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -623,16 +722,21 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = H8RKQ3P369;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
+					"$(PROJECT_DIR)/GoTime",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				INFOPLIST_FILE = GoTime/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = us.johnkeith.GoTime;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_OBJC_BRIDGING_HEADER = "GoTime/GoTime-Bridging-Header.h";
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
@@ -647,7 +751,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = us.johnkeith.GoTimeTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/GoTime.app/GoTime";
 			};
 			name = Debug;
@@ -662,7 +767,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = us.johnkeith.GoTimeTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/GoTime.app/GoTime";
 			};
 			name = Release;
@@ -676,7 +782,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = us.johnkeith.GoTimeUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.0;
 				TEST_TARGET_NAME = GoTime;
 			};
 			name = Debug;
@@ -690,7 +797,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = us.johnkeith.GoTimeUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.0;
 				TEST_TARGET_NAME = GoTime;
 			};
 			name = Release;

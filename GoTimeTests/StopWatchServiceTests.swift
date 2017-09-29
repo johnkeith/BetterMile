@@ -10,7 +10,13 @@ import XCTest
 @testable import GoTime
 
 class StopWatchServiceTests: XCTestCase {
+    let lapTimesMock = [2.0, 4.0, 4.0, 4.0, 5.0, 5.0, 7.0, 9.0]
+    
     class FakeDelegate: NSObject, StopWatchServiceDelegate {
+        func stopWatchLapRemoved() {
+            <#code#>
+        }
+        
         var stopWatchService: StopWatchService
 
         var currentTimePassed = 0.0
@@ -58,6 +64,7 @@ class StopWatchServiceTests: XCTestCase {
         }
     }
 
+    private typealias klass = StopWatchService
     var service: StopWatchService!
     var fakeDelegate: FakeDelegate!
     var timeToRunUntil: Date!
@@ -110,7 +117,7 @@ class StopWatchServiceTests: XCTestCase {
         
         service.lap()
         
-        let result = service.calculateTotalLapsTime(_lapTimes: service.lapTimes)
+        let result = klass.calculateTotalLapsTime(laps: service.lapTimes)
         
         XCTAssertGreaterThan(result, 0.0)
     }
@@ -236,5 +243,57 @@ class StopWatchServiceTests: XCTestCase {
         let thirdResult = StopWatchService.findSlowestLapIndex(testLapTimes)
         
         XCTAssertEqual(thirdResult, 2)
+    }
+    
+    func testCalculateAverageLapTime() {
+        service.lapTimes = [10.0, 8.0, 0.0]
+        
+        let result = klass.calculateAverageLapTime(laps: service.lapTimes)
+        
+        XCTAssertEqual(6.0, result)
+        
+        let secondResult = klass.calculateAverageLapTime(laps: service.completedLapTimes())
+        
+        XCTAssertEqual(9.0, secondResult)
+    }
+    
+    func testCalculateStandardDeviation() {
+        service.lapTimes = lapTimesMock
+        
+        let result = klass.calculateStandardDeviation(laps: service.lapTimes)
+        
+        XCTAssertEqual(2, result)
+    }
+    
+    func testDetermineLapQualityWhenGood() {
+        service.lapTimes = lapTimesMock
+        
+        let result = klass.determineLapQuality(lap: 5.0, laps: service.lapTimes)
+        
+        XCTAssertEqual(LapQualities.good, result)
+    }
+    
+    func testDetermineLapQualityWhenBad() {
+        service.lapTimes = lapTimesMock
+        
+        let result = klass.determineLapQuality(lap: 7.0, laps: service.lapTimes)
+        
+        XCTAssertEqual(LapQualities.bad, result)
+    }
+    
+    func testDetermineLapQualityWhenUgly() {
+        service.lapTimes = lapTimesMock
+        
+        let result = klass.determineLapQuality(lap: 10.0, laps: service.lapTimes)
+        
+        XCTAssertEqual(LapQualities.ugly, result)
+    }
+    
+    func testCalculateLapDeviationPercentage() {
+        service.lapTimes = lapTimesMock
+        
+        let result = service.calculateLapDeviationPercentage(lapTime: 5.34)
+        
+        XCTAssertEqual(result, 0.585)
     }
 }

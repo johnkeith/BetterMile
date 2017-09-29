@@ -9,30 +9,44 @@
 import UIKit
 import AudioToolbox
 import SnapKit
+import StoreKit
 
 class SingleViewController: UIViewController {
 //  NON-DI
-    let startBtn = UIButton()
-    let totalTimeLbl = UILabel()
-    let lapLbl = UILabel()
-    let voiceNotificationsBtn = UIButton()
-    let vibrationNotificationBtn = UIButton()
-    let pauseBtn = UIButton()
-    let clearBtn = UIButton()
-    let restartBtn = UIButton()
-    let lapTableBtn = UIButton()
-    let helpText = TimerHelpTextLabel()
-//    all that is needed is to create the help button and the like button and link those to the correct spots
-    let helpBtn = UIButton()
     
+    let vibrationOnText = "Vibrate On"
+    let vibrationOffText = "Vibrate Off"
+    let voiceOnText = "Voice On"
+    let voiceOffText = "Voice Off"
+    let defaultTotalTimeLblText = "Total 00:00.00"
+    let clearAlertMessage = "Are you sure you want to end your run?"
+    
+    let container = UIView()
+    
+    let totalTimeLbl = UILabel()
+    let lapTimeLbl = LapTimeLabel()
+    let lapLbl = UILabel()
+    let blurOverlay = BlurOverlayView()
+    let lapTableBtn = UIButton()
+    
+    var vibrationBarBtn: UIBarButtonItem!
+    var voiceBarBtn: UIBarButtonItem!
+    var clearBarBtn: UIBarButtonItem!
+    var rightBarBtn: UIBarButtonItem!
     
     var doubleTapRecognizer: UITapGestureRecognizer! // TODO: FIX
     
+    var fgClr: UIColor
+    var bgClr: UIColor
+    var btnFgClr: UIColor
+    var btnBgClr: UIColor
 //  DI
     var stopWatchSrv: StopWatchService
     var animationSrv: AnimationService
     var timeToTextSrv: TimeToTextService
     var speechSrv: SpeechService
+    var settingsBtn: SettingsButton
+    var helpText: TimerHelpTextLabel
     
     init(stopWatchSrv: StopWatchService = StopWatchService(),
          animationSrv: AnimationService = AnimationService(),
@@ -42,361 +56,310 @@ class SingleViewController: UIViewController {
         self.animationSrv = animationSrv
         self.timeToTextSrv = timeToTextSrv
         self.speechSrv = speechSrv
+        self.settingsBtn = SettingsButton(blurOverlay: blurOverlay, animationSrv: animationSrv)
+        self.helpText = TimerHelpTextLabel(hidden: true, animationService: animationSrv)
+        
+        fgClr = Constants.colorBlack
+        bgClr = Constants.colorBackground
+        btnFgClr = fgClr
+        btnBgClr = UIColor.clear // Constants.colorPalette["BTNBG"]!
         
         super.init(nibName: nil, bundle: nil)
         
+        vibrationBarBtn = UIBarButtonItem(title: "", style: .plain, target: self, action: #selector(onVibrationNotificationsTap))
+        voiceBarBtn = UIBarButtonItem(title: "", style: .plain, target: self, action: #selector(onVoiceNotificationsTap))
+        clearBarBtn = UIBarButtonItem(title: "Clear", style: .plain, target: self, action: #selector(onClearTap))
+        rightBarBtn = UIBarButtonItem(title: "Start", style: .plain, target: self, action: #selector(onStartTap))
+        
         stopWatchSrv.delegate = self
         
-        view.backgroundColor = Constants.colorPalette["_white"]
+        view.backgroundColor = Constants.colorWhite
         
-        addSubviews([startBtn, totalTimeLbl, lapLbl, voiceNotificationsBtn, pauseBtn, vibrationNotificationBtn, clearBtn, restartBtn, lapTableBtn, helpText, helpBtn])
+        addSubviews([container, blurOverlay, lapTableBtn, helpText])
         
-        configStartBtn()
-        configTotalTimeLbl()
+        container.addSubview(lapLbl)
+        container.addSubview(totalTimeLbl)
+        container.addSubview(lapTimeLbl)
+        
+        configContainer()
         configLapLbl()
-        configVoiceNotificationsBtn()
-        configPauseBtn()
-        configVibrationNotificationBtn()
-        configClearBtn()
-        configRestartBtn()
+        configTotalTimeLbl()
+        configLapTimeLbl()
+        configBlurOverlay()
         configLapTableBtn()
         configHelpText()
-        configHelpBtn()
+        
+        self.navigationItem.rightBarButtonItem = rightBarBtn
+
+        askForReview()
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("config(coder:) has not been implemented")
     }
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        self.navigationController?.setNavigationBarHidden(true, animated: animated)
+        UIApplication.shared.statusBarStyle = .default
+        
+        if let lapTime = self.stopWatchSrv.lapTimes.last {
+            self.setLapTimeLblText(lapTime: lapTime)
+        }
+        
+        configNavBar()
+        configToolbar()
+        
+        animationSrv.animateWithSpring(lapLbl, fromAlphaZero: true)
+        animationSrv.animateWithSpring(totalTimeLbl, duration: 0.8, fromAlphaZero: true)
+        animationSrv.animateWithSpring(lapTimeLbl, duration: 0.8, fromAlphaZero: true)
     }
     
-    func configStartBtn() {
-        startBtn.isHidden = false
-        startBtn.setTitle("START", for: UIControlState.normal)
-        startBtn.setTitleColor(Constants.colorPalette["black"], for: UIControlState.normal)
-        startBtn.titleLabel?.font = Constants.responsiveDefaultFont
-        startBtn.titleLabel?.adjustsFontSizeToFitWidth = true
-        startBtn.titleLabel?.numberOfLines = 1
-        startBtn.titleLabel?.baselineAdjustment = .alignCenters
-        startBtn.titleLabel?.textAlignment = .center
+    func configToolbar() {
+        let vibrationState = Constants.storedSettings.bool(forKey: SettingsService.vibrationNotificationsKey)
+        let voiceState = Constants.storedSettings.bool(forKey: SettingsService.voiceNotificationsKey)
         
-        startBtn.addTarget(self, action:#selector(onStartTap), for: .touchDown)
+        let vibrationTitle = vibrationState ? vibrationOnText : vibrationOffText
+        let voiceTitle = voiceState ? voiceOnText : voiceOffText
         
-        startBtn.snp.makeConstraints { make in
-            make.width.equalTo(startBtn.superview!).offset(-Constants.defaultMargin * 4)
-            make.height.equalTo(startBtn.superview!.frame.height / 5)
-            make.center.equalTo(startBtn.superview!)
+        vibrationBarBtn.title = vibrationTitle
+        voiceBarBtn.title = voiceTitle
+        
+        vibrationBarBtn.tintColor = Constants.colorBlack
+        voiceBarBtn.tintColor = Constants.colorBlack
+        let spacer = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        
+        self.toolbarItems = [vibrationBarBtn, spacer, voiceBarBtn]
+    }
+    
+    func configNavBar() {
+        clearBarBtn.tintColor = Constants.colorBlack
+        rightBarBtn.tintColor = Constants.colorBlack
+        
+        self.navigationController?.navigationBar.barStyle = .default
+        self.navigationController?.navigationBar.isTranslucent = false
+        self.navigationController?.navigationBar.backgroundColor = Constants.colorWhite
+        self.navigationController?.isToolbarHidden = false
+        self.navigationController?.view.backgroundColor = Constants.colorWhite
+        self.navigationController?.navigationBar.tintColor = Constants.colorWhite
+        self.navigationController?.navigationBar.barTintColor = Constants.colorWhite
+        
+        self.navigationController?.toolbar!.barStyle = .default
+        self.navigationController?.toolbar!.isTranslucent = false
+        self.navigationController?.toolbar!.backgroundColor = Constants.colorWhite
+        self.navigationController?.toolbar!.barTintColor = Constants.colorWhite
+    }
+    
+    func askForReview() {
+        if #available(iOS 10.3, *) {
+            let key = Constants.appRunTimes
+            let numberOfRuns = Constants.storedSettings.integer(forKey: key)
+            
+            if numberOfRuns > 5 {
+                SKStoreReviewController.requestReview()
+            }
         }
+    }
+    
+    func configBlurOverlay() {
+        blurOverlay.addBlurEffect()
+    }
+    
+    func configContainer() {
+        let parentHeight = container.superview!.frame.height
+        let height = (parentHeight / 3) + (parentHeight / 5)
+        
+        container.snp.makeConstraints { make in
+            make.width.equalTo(container.superview!)
+            make.height.equalTo(height)
+            make.center.equalTo(container.superview!)
+        }
+        
+        container.layoutIfNeeded()
     }
     
     func configTotalTimeLbl() {
         totalTimeLbl.isHidden = true
-        totalTimeLbl.text = "00:00.00"
+        totalTimeLbl.text = defaultTotalTimeLblText
         totalTimeLbl.font = Constants.responsiveDigitFont
         totalTimeLbl.adjustsFontSizeToFitWidth = true
         totalTimeLbl.numberOfLines = 1
         totalTimeLbl.baselineAdjustment = .alignCenters
         totalTimeLbl.textAlignment = .center
-        totalTimeLbl.textColor = Constants.colorPalette["_white"]
+        totalTimeLbl.textColor = fgClr
+        
+        let offset = totalTimeLbl.superview!.frame.width / 10
         
         totalTimeLbl.snp.makeConstraints { make in
-            make.width.equalTo(totalTimeLbl.superview!).offset(-Constants.defaultMargin)
-            make.left.equalTo(totalTimeLbl.superview!).offset(Constants.defaultMargin / 2)
-            make.right.equalTo(totalTimeLbl.superview!).offset(-Constants.defaultMargin / 2)
-            make.height.equalTo(totalTimeLbl.superview!.frame.height / 6)
-//            make.centerX.equalTo(totalTimeLbl.superview!)
-            make.top.equalTo(totalTimeLbl.superview!).offset(Constants.defaultMargin)
+            make.width.equalTo(totalTimeLbl.superview!).offset(-offset)
+            make.height.equalTo(self.view.frame.height / 10)
+            make.centerX.equalTo(totalTimeLbl.superview!)
+            make.bottom.equalTo(lapTimeLbl.snp.top)
+        }
+    }
+    
+    func configLapTimeLbl() {
+        let offset = lapTimeLbl.superview!.frame.width / 10
+        
+        lapTimeLbl.snp.makeConstraints { make in
+            make.width.equalTo(lapTimeLbl.superview!).offset(-offset)
+            make.height.equalTo(self.view.frame.height / 10)
+            make.centerX.equalTo(lapTimeLbl.superview!)
+            make.bottom.equalTo(container.snp.bottom)
+        }
+        
+        lapTimeLbl.layoutIfNeeded()
+    }
+    
+    func configLapLbl() {
+        lapLbl.isHidden = true
+        lapLbl.text = "00"
+        lapLbl.textAlignment = .center
+        lapLbl.textColor = fgClr
+        lapLbl.baselineAdjustment = .alignCenters
+        
+        lapLbl.snp.makeConstraints { make in
+            make.width.equalTo(lapLbl.superview!).offset(-Constants.defaultMargin * 2)
+            make.height.equalTo(self.view.frame.height / 3)
+            make.centerX.equalTo(lapLbl.superview!)
+            make.top.equalTo(container.snp.top).offset(-Constants.defaultMargin)
+        }
+        
+        lapLbl.layoutIfNeeded()
+        
+        lapLbl.adjustsFontSizeToFitWidth = true
+        lapLbl.numberOfLines = 1
+        lapLbl.font = Constants.responsiveDigitFont
+    }
+    
+    func configLapTableBtn() {
+        lapTableBtn.hide()
+        
+        lapTableBtn.setTitle("View lap times ›", for: UIControlState.normal)
+        lapTableBtn.setTitleColor(fgClr, for: UIControlState.normal)
+        
+        lapTableBtn.titleLabel?.font = UIFont.preferredFont(forTextStyle: .title1)
+        lapTableBtn.titleLabel?.textAlignment = .center
+        
+        lapTableBtn.addTarget(self, action: #selector(onLapTableTap), for: .touchDown)
+        
+        lapTableBtn.snp.makeConstraints { make in
+            make.width.equalTo(lapTableBtn.superview!)
+            make.top.equalTo(lapTimeLbl.snp.bottom).offset(Constants.defaultMargin)
         }
     }
     
     func configHelpText() {
         helpText.snp.makeConstraints { make in
-            make.width.equalTo(helpText.superview!).offset(-Constants.defaultMargin * 2)
-            make.centerX.equalTo(helpText.superview!)
-            make.top.equalTo(totalTimeLbl.snp.bottom).offset(Constants.defaultMargin)
-            make.height.equalTo(helpText.superview!.frame.height / 12)
+            make.width.equalTo(helpText.superview!)
+            make.top.equalTo(helpText.superview!).offset(Constants.defaultMargin)
         }
     }
     
-    func configLapLbl() {
-        lapLbl.isHidden = true
-        lapLbl.text = "1"
-        lapLbl.textAlignment = .center
-        lapLbl.textColor = Constants.colorPalette["_white"]
+    @objc func onPauseTap() {
+        self.navigationItem.rightBarButtonItem?.title = "Resume"
+        self.navigationItem.rightBarButtonItem?.action = #selector(onRestartTap)
         
-        lapLbl.snp.makeConstraints { make in
-            make.width.equalTo(lapLbl.superview!)
-            make.height.equalTo(lapLbl.superview!.frame.height / 3)
-            make.center.equalTo(lapLbl.superview!)
-        }
+        animationSrv.animateWithSpring(lapTableBtn, fromAlphaZero: true)
         
-        lapLbl.layoutIfNeeded()
-        
-        lapLbl.font = UIFont.systemFont(ofSize: lapLbl.frame.size.height, weight: UIFontWeightThin)
-    }
-    
-    func configVoiceNotificationsBtn() {
-        let buttonImage = UIImage(named: "ic_volume_up_48pt")?.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
-        
-        voiceNotificationsBtn.isHidden = true
-        
-        setSettingsBtnColor(btn: voiceNotificationsBtn, enabled: Constants.storedSettings.bool(forKey: SettingsService.voiceNotificationsKey))
-        
-        voiceNotificationsBtn.setImage(buttonImage, for: .normal)
-        voiceNotificationsBtn.setImage(buttonImage, for: .highlighted)
-        voiceNotificationsBtn.addTarget(self, action:#selector(onVoiceNotificationsTap), for: .touchDown)
-        
-        let width = voiceNotificationsBtn.superview!.frame.width / 5
-        
-        voiceNotificationsBtn.snp.makeConstraints { make in
-            make.width.equalTo(width)
-            make.height.equalTo(voiceNotificationsBtn.snp.width)
-            make.bottom.equalTo(voiceNotificationsBtn.superview!).offset(-Constants.defaultMargin)
-            make.right.equalTo(voiceNotificationsBtn.superview!).offset(-Constants.defaultMargin)
-        }
-        
-        voiceNotificationsBtn.layoutIfNeeded()
-        
-        voiceNotificationsBtn.layer.cornerRadius = voiceNotificationsBtn.frame.size.height / 2
-    }
-    
-    func configPauseBtn() {
-        let buttonImage = UIImage(named: "ic_pause_48pt")?.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
-        
-        pauseBtn.isHidden = true
-        pauseBtn.tintColor = Constants.colorPalette["_white"]
-        pauseBtn.backgroundColor = Constants.colorPalette["_red"]
-        pauseBtn.setImage(buttonImage, for: .normal)
-        pauseBtn.setImage(buttonImage, for: .highlighted)
-        
-        pauseBtn.addTarget(self, action:#selector(onPauseTap), for: .touchDown)
-        
-        let width = pauseBtn.superview!.frame.width / 5
-       
-        pauseBtn.snp.makeConstraints { make in
-            make.width.equalTo(width)
-            make.height.equalTo(pauseBtn.snp.width)
-            make.bottom.equalTo(pauseBtn.superview!).offset(-Constants.defaultMargin)
-            make.centerX.equalTo(pauseBtn.superview!)
-        }
-        
-        pauseBtn.layoutIfNeeded()
-        
-        pauseBtn.layer.cornerRadius = pauseBtn.frame.size.height / 2
-    }
-    
-    func configVibrationNotificationBtn() {
-        let buttonImage = UIImage(named: "ic_vibration_48pt")?.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
-        
-        vibrationNotificationBtn.isHidden = true
-
-        setSettingsBtnColor(btn: vibrationNotificationBtn, enabled: Constants.storedSettings.bool(forKey: SettingsService.vibrationNotificationsKey))
-        
-        vibrationNotificationBtn.setImage(buttonImage, for: .normal)
-        vibrationNotificationBtn.setImage(buttonImage, for: .highlighted)
-        vibrationNotificationBtn.addTarget(self, action:#selector(onVibrationNotificationsTap), for: .touchDown)
-        
-        let width = vibrationNotificationBtn.superview!.frame.width / 5
-        
-        vibrationNotificationBtn.snp.makeConstraints { make in
-            make.width.equalTo(width)
-            make.height.equalTo(vibrationNotificationBtn.snp.width)
-            make.bottom.equalTo(vibrationNotificationBtn.superview!).offset(-Constants.defaultMargin)
-            make.left.equalTo(vibrationNotificationBtn.superview!).offset(Constants.defaultMargin)
-        }
-        
-        vibrationNotificationBtn.layoutIfNeeded()
-        
-        vibrationNotificationBtn.layer.cornerRadius = vibrationNotificationBtn.frame.size.height / 2
-    }
-    
-    func setSettingsBtnColor(btn: UIButton, enabled: Bool) {
-        if enabled {
-            btn.tintColor = Constants.colorPalette["_white"]
-            btn.backgroundColor = Constants.colorPalette["_blue"]
-        } else {
-            btn.tintColor = Constants.colorPalette["_black"]
-            btn.backgroundColor = Constants.colorPalette["_white"]
-        }
-    }
-    
-    func configClearBtn() {
-        let buttonImage = UIImage(named: "ic_clear_48pt")?.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
-        
-        clearBtn.isHidden = true
-        clearBtn.tintColor = Constants.colorPalette["_white"]
-        clearBtn.backgroundColor = Constants.colorPalette["_red"]
-        clearBtn.setImage(buttonImage, for: .normal)
-        clearBtn.setImage(buttonImage, for: .highlighted)
-        clearBtn.addTarget(self, action:#selector(onClearTap), for: .touchDown)
-        
-        let width = clearBtn.superview!.frame.width / 5
-        
-        clearBtn.snp.makeConstraints { make in
-            make.width.equalTo(width)
-            make.height.equalTo(clearBtn.snp.width)
-            make.bottom.equalTo(clearBtn.superview!).offset(-width - CGFloat(Constants.defaultMargin))
-            make.left.equalTo(clearBtn.superview!).offset(width + CGFloat(Constants.defaultMargin / 2))
-        }
-        
-        clearBtn.layoutIfNeeded()
-        
-        clearBtn.layer.cornerRadius = clearBtn.frame.size.height / 2
-    }
-    
-    func configRestartBtn() {
-        let buttonImage = UIImage(named: "ic_play_arrow_48pt")?.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
-        
-        restartBtn.isHidden = true
-        restartBtn.tintColor = Constants.colorPalette["_white"]
-        restartBtn.backgroundColor = Constants.colorPalette["_green"]
-        restartBtn.setImage(buttonImage, for: .normal)
-        restartBtn.setImage(buttonImage, for: .highlighted)
-        restartBtn.addTarget(self, action:#selector(onRestartTap), for: .touchDown)
-        
-        let width = restartBtn.superview!.frame.width / 5
-        
-        restartBtn.snp.makeConstraints { make in
-            make.width.equalTo(width)
-            make.height.equalTo(restartBtn.snp.width)
-            make.bottom.equalTo(restartBtn.superview!).offset(-Constants.defaultMargin)
-            make.centerX.equalTo(restartBtn.superview!)
-        }
-        
-        restartBtn.layoutIfNeeded()
-        
-        restartBtn.layer.cornerRadius = restartBtn.frame.size.height / 2
-    }
-    
-    func configLapTableBtn() {
-        let buttonImage = UIImage(named: "ic_format_list_bulleted_48pt")?.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
-        
-        lapTableBtn.isHidden = true
-        lapTableBtn.tintColor = Constants.colorPalette["_white"]
-        lapTableBtn.backgroundColor = Constants.colorPalette["_blue"]
-        lapTableBtn.setImage(buttonImage, for: .normal)
-        lapTableBtn.setImage(buttonImage, for: .highlighted)
-        lapTableBtn.addTarget(self, action:#selector(onLapTableTap), for: .touchDown)
-        
-        let width = lapTableBtn.superview!.frame.width / 5
-        
-        lapTableBtn.snp.makeConstraints { make in
-            make.width.equalTo(width)
-            make.height.equalTo(lapTableBtn.snp.width)
-            make.bottom.equalTo(lapTableBtn.superview!).offset(-width - CGFloat(Constants.defaultMargin))
-            make.right.equalTo(lapTableBtn.superview!).offset(-width - CGFloat(Constants.defaultMargin / 2))
-        }
-        
-        lapTableBtn.layoutIfNeeded()
-        
-        lapTableBtn.layer.cornerRadius = lapTableBtn.frame.size.height / 2
-    }
-    
-    func configHelpBtn() {
-        let buttonImage = UIImage(named: "ic_help_outline_48pt")?.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
-        
-        helpBtn.isHidden = true
-        helpBtn.tintColor = Constants.colorPalette["_black"]
-        helpBtn.backgroundColor = Constants.colorPalette["_white"]
-        helpBtn.setImage(buttonImage, for: .normal)
-        helpBtn.setImage(buttonImage, for: .highlighted)
-        helpBtn.addTarget(self, action:#selector(onHelpTap), for: .touchDown)
-        
-        let width = helpBtn.superview!.frame.width / 8
-
-        print(width)
-        helpBtn.snp.makeConstraints { make in
-            make.width.equalTo(width)
-            make.height.equalTo(helpBtn.snp.width)
-            make.top.equalTo(helpBtn.superview!).offset(Constants.defaultMargin)
-            make.right.equalTo(helpBtn.superview!).offset(-Constants.defaultMargin / 2)
-        }
-        
-        helpBtn.layoutIfNeeded()
-        
-        helpBtn.layer.cornerRadius = helpBtn.frame.size.height / 2
-    }
-
-    func onStartTap() {
-        stopWatchSrv.start()
-        lapLbl.text = "\(self.stopWatchSrv.lapTimes.count)"
-        
-        animationSrv.animateFadeOutView(startBtn)
-        animationSrv.animateWithSpring(lapLbl, fromAlphaZero: true)
-        animationSrv.animateWithSpring(totalTimeLbl, duration: 0.8, fromAlphaZero: true)
-        
-        animationSrv.animate({ self.view.backgroundColor = Constants.colorPalette["_black"] })
-        helpText.showBriefly()
-        UIApplication.shared.statusBarStyle = .lightContent
-    }
-    
-    func onPauseTap() {
         stopWatchSrv.pause()
     }
     
-    func onRestartTap() {
+    func setLapLblText(lapCount: Int) {
+        let shouldPad = lapCount < 10
+        let padding = shouldPad ? "0" : ""
+        lapLbl.text = "\(padding)\(lapCount)"
+    }
+    
+    func setTotalTimeLblText(totalTimeElapsed: TimeInterval) {
+        self.totalTimeLbl.text = "Total \(self.timeToTextSrv.timeAsSingleString(inputTime: totalTimeElapsed))"
+    }
+    
+    func setLapTimeLblText(lapTime: TimeInterval) {
+        let lapTimeAsString = self.timeToTextSrv.timeAsSingleString(inputTime: lapTime)
+        
+        self.lapTimeLbl.setTextForLabel(lapTimeAsString)
+    }
+
+    @objc func onStartTap() {
+        stopWatchSrv.start()
+        
+        helpText.showBriefly()
+        
+        setLapLblText(lapCount: self.stopWatchSrv.lapTimes.count)
+        
+        self.navigationItem.leftBarButtonItem = clearBarBtn
+        self.navigationItem.rightBarButtonItem?.title = "Pause"
+        self.navigationItem.rightBarButtonItem?.action = #selector(onPauseTap)
+    }
+    
+    @objc func onRestartTap() {
+        self.navigationItem.rightBarButtonItem?.title = "Pause"
+        self.navigationItem.rightBarButtonItem?.action = #selector(onPauseTap)
+        
+        animationSrv.animateFadeOutView(lapTableBtn)
+        
         stopWatchSrv.restart()
     }
     
-    func onLapTableTap() {
-        let lapTableController = LapTableController(lapTimes: stopWatchSrv.lapTimes.reversed())
+    @objc func onLapTableTap() {
+        let lapTableController = LapTableController(stopWatchSrv: stopWatchSrv)
+        
         self.navigationController?.pushViewController(lapTableController, animated: true)
     }
     
-    func onClearTap() {
-        stopWatchSrv.stop()
+    @objc func onClearTap() {
+        let clearAlertConfirmAction = UIAlertAction(title: "Clear", style: .destructive, handler: { (action) in
+            self.animationSrv.animateFadeOutView(self.lapTableBtn)
+            self.stopWatchSrv.stop()
+            
+            DispatchQueue.main.async {
+                self.animationSrv.animateTextChange(self.lapLbl, duration: 0.8)
+                self.animationSrv.animateTextChange(self.totalTimeLbl, duration: 0.8)
+                self.animationSrv.animateTextChange(self.lapTimeLbl, duration: 0.8)
+                
+                self.totalTimeLbl.text = self.defaultTotalTimeLblText
+                self.lapLbl.text = "00"
+                self.lapTimeLbl.text = self.lapTimeLbl.defaultText
+            }
+            
+            self.navigationItem.leftBarButtonItem = nil
+            self.navigationItem.rightBarButtonItem?.title = "Start"
+            self.navigationItem.rightBarButtonItem?.action = #selector(self.onStartTap)
+        })
         
-        animationSrv.animate({ self.view.backgroundColor = Constants.colorPalette["_white"] })
-
-        animateFadeOutBtnsAndLbls()
+        let clearAlertCancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: { (action) in })
         
-        animationSrv.animateFadeInView(startBtn)
+        let clearAlert = UIAlertController(title: "Clear Run", message: clearAlertMessage, preferredStyle: .alert)
+        clearAlert.addAction(clearAlertCancelAction)
+        clearAlert.addAction(clearAlertConfirmAction)
         
-        UIApplication.shared.statusBarStyle = .default
+        self.present(clearAlert, animated: true, completion: nil)
     }
     
-    func onHelpTap() {
-        print("tapped")
+    @objc func onVoiceNotificationsTap() {
+        let newValue = handleSettingsToggle(key: SettingsService.voiceNotificationsKey)
+        
+        voiceBarBtn.title = newValue ? voiceOnText : voiceOffText
     }
     
-    func animateFadeOutBtnsAndLbls() {
-        animationSrv.animateFadeOutView(clearBtn, duration: 0.0)
-        animationSrv.animateFadeOutView(lapTableBtn, duration: 0.0)
-        animationSrv.animateFadeOutView(voiceNotificationsBtn, duration: 0.0)
-        animationSrv.animateFadeOutView(restartBtn, duration: 0.0)
-        animationSrv.animateFadeOutView(vibrationNotificationBtn, duration: 0.0)
-        animationSrv.animateFadeOutView(lapLbl, duration: 0.0)
-        animationSrv.animateFadeOutView(totalTimeLbl, duration: 0.0)
+    @objc func onVibrationNotificationsTap() {
+        let newValue = handleSettingsToggle(key: SettingsService.vibrationNotificationsKey)
+        
+        vibrationBarBtn.title = newValue ? vibrationOnText : vibrationOffText
     }
     
-    func animateFadeInBtnsAndLbls() {
-        animationSrv.animateFadeInView(clearBtn, duration: 0.0)
-        animationSrv.animateFadeInView(lapTableBtn, duration: 0.0)
-        animationSrv.animateFadeInView(voiceNotificationsBtn, duration: 0.0)
-        animationSrv.animateFadeInView(restartBtn, duration: 0.0)
-        animationSrv.animateFadeInView(vibrationNotificationBtn, duration: 0.0)
-        animationSrv.animateFadeInView(lapLbl, duration: 0.0)
-        animationSrv.animateFadeInView(totalTimeLbl, duration: 0.0)
-    }
-    
-    func onVoiceNotificationsTap() {
-        handleSettingsToggle(key: SettingsService.voiceNotificationsKey, btn: voiceNotificationsBtn)
-    }
-    
-    func onVibrationNotificationsTap() {
-        handleSettingsToggle(key: SettingsService.vibrationNotificationsKey, btn: vibrationNotificationBtn)
-    }
-    
-    func handleSettingsToggle(key: String, btn: UIButton) {
+    func handleSettingsToggle(key: String) -> Bool {
         let currentValue = Constants.storedSettings.bool(forKey: key)
+        let newValue = !currentValue
         
-        Constants.storedSettings.set(!currentValue, forKey: key)
+        Constants.storedSettings.set(newValue, forKey: key)
         
-        setSettingsBtnColor(btn: btn, enabled: !currentValue)
+        return newValue
     }
     
     func notifyWithVibrationIfEnabled() {
@@ -410,7 +373,7 @@ class SingleViewController: UIViewController {
         
         if shouldSpeak {
             let timeTuple = timeToTextSrv.timeAsMultipleStrings(inputTime: lapTime)
-            let averageLapTime = stopWatchSrv.calculateAverageLapTime()
+            let averageLapTime = StopWatchService.calculateAverageLapTime(laps: stopWatchSrv.completedLapTimes())
             let averageLapTimeTuple = timeToTextSrv.timeAsMultipleStrings(inputTime: averageLapTime)
             
             speechSrv.speakPreviousAndAverageLapTimes(previous: timeTuple, average: averageLapTimeTuple, lapNumber: lapNumber)
@@ -422,6 +385,14 @@ class SingleViewController: UIViewController {
         
         if shouldSpeak {
             speechSrv.speakTimerPaused()
+        }
+    }
+    
+    func notifyResumed() {
+        let shouldSpeak = Constants.storedSettings.bool(forKey: SettingsService.voiceNotificationsKey)
+        
+        if shouldSpeak {
+            speechSrv.speakTimerRestarted()
         }
     }
     
@@ -442,15 +413,6 @@ class SingleViewController: UIViewController {
     }
 }
 
-// MARK Animations
-extension SingleViewController {
-    func animateInButtons() {
-        animationSrv.animateMoveVerticallyFromOffscreenBottom(voiceNotificationsBtn)
-        animationSrv.animateMoveVerticallyFromOffscreenBottom(pauseBtn)
-        animationSrv.animateMoveVerticallyFromOffscreenBottom(vibrationNotificationBtn)
-    }
-}
-
 
 // MARK StopWatchServiceDelegate
 extension SingleViewController: StopWatchServiceDelegate {
@@ -458,25 +420,44 @@ extension SingleViewController: StopWatchServiceDelegate {
         attachDoubleTapRecognizer()
         
         if stopWatchSrv.lapTimes.count == 1 {
-            animateInButtons()
             notifyStarted()
         }
     }
     
     func stopWatchIntervalElapsed(totalTimeElapsed: TimeInterval) {
         DispatchQueue.main.async {
-            self.totalTimeLbl.text = self.timeToTextSrv.timeAsSingleString(inputTime: totalTimeElapsed)
+            if let lapTime = self.stopWatchSrv.lapTimes.last {
+                self.setLapTimeLblText(lapTime: lapTime)
+                self.setTotalTimeLblText(totalTimeElapsed: totalTimeElapsed)
+            }
         }
     }
     
     func stopWatchLapStored(lapTime: Double, lapNumber: Int, totalTime: Double) {
-        DispatchQueue.main.async {
-            self.lapLbl.text = "\(self.stopWatchSrv.lapTimes.count)"
-        }
+        self.setLapLblText(lapCount: self.stopWatchSrv.lapTimes.count)
+        
+        self.animationSrv.animateTextChange(self.lapTimeLbl, duration: 0.8)
         
         notifyWithVibrationIfEnabled()
-        
         notifyWithVoiceIfEnabled(lapTime: lapTime, lapNumber: lapNumber)
+    }
+    
+    func stopWatchLapRemoved() {
+        let lapCount = stopWatchSrv.lapTimes.count
+        var totalLapTime: Double
+        var currentLap: Double
+        
+        if lapCount > 0 {
+            totalLapTime = stopWatchSrv.calculateTotalLapsTime()
+            currentLap = stopWatchSrv.lapTimes.last!
+        } else {
+            totalLapTime = 0.0
+            currentLap = 0.0
+        }
+        
+        self.setLapLblText(lapCount: lapCount)
+        self.setTotalTimeLblText(totalTimeElapsed: totalLapTime)
+        self.setLapTimeLblText(lapTime: currentLap)
     }
     
     func stopWatchStopped() {
@@ -484,22 +465,10 @@ extension SingleViewController: StopWatchServiceDelegate {
     }
     
     func stopWatchPaused() {
-        pauseBtn.hide()
-        restartBtn.show()
-   
-        animationSrv.animateMoveHorizontallyFromOffscreen(clearBtn, direction: .left)
-        animationSrv.animateMoveHorizontallyFromOffscreen(lapTableBtn, direction: .right)
-        
         notifyPaused()
     }
     
     func stopWatchRestarted() {
-        restartBtn.hide()
-        pauseBtn.show()
-        
-        animationSrv.animateFadeOutView(clearBtn)
-        animationSrv.animateFadeOutView(lapTableBtn)
-        
         notifyStarted()
     }
 }
@@ -513,9 +482,11 @@ extension SingleViewController {
         view.addGestureRecognizer(doubleTapRecognizer)
     }
 
-    func viewDoubleTapped() {
+    @objc func viewDoubleTapped() {
         if stopWatchSrv.timerRunning {
             stopWatchSrv.lap()
+            animationSrv.enlargeBriefly(lapLbl)
         }
     }
 }
+

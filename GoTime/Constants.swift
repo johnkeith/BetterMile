@@ -18,25 +18,36 @@ struct Constants {
         "dark-gray": UIColor(red:0.06, green:0.15, blue:0.44, alpha:1.0),
         "dark-orange": UIColor(red:0.72, green:0.11, blue:0.05, alpha:1.0),
         "shadow-gray": UIColor(red:0.15, green:0.21, blue:0.21, alpha:1.0),
-//        "black": UIColor(red:0.17, green:0.24, blue:0.31, alpha:1.0),
         "black": UIColor.black,
-        "white": UIColor.white,
         "flat-green": UIColor(red:0.18, green:0.80, blue:0.44, alpha:1.0),
         "flat-red": UIColor(red:0.91, green:0.30, blue:0.24, alpha:1.0),
-        "_green": UIColor(red:0.40, green:0.75, blue:0.65, alpha:1.0),
+        "_yellow": UIColor(red:1.00, green:0.58, blue:0.42, alpha:1.0),
         "_blue": UIColor(red:0.38, green:0.67, blue:0.90, alpha:1.0),
-        "_red": UIColor(red:0.90, green:0.38, blue:0.55, alpha:1.0),
-//        "_white": UIColor(red:1.00, green:1.00, blue:1.00, alpha:1.0),
-        "_white": UIColor.white,
-//        "_black": UIColor(red:0.14, green:0.14, blue:0.14, alpha:1.0),
-        "_black": UIColor.black
+        "FG": UIColor(hex: "FFFAFF"),
+        "_red": UIColor(hex: "FC5130"),
+        "RED": UIColor(hex: "b40069"), // for the lap table
+        "BTNBG": UIColor(hex: "8425a6")
     ]
     
-    static let responsiveDefaultFont: UIFont = UIFont.systemFont(ofSize: 999, weight: UIFontWeightThin)
-    static let responsiveBoldDigitFont: UIFont = UIFont.monospacedDigitSystemFont(ofSize: 999, weight: UIFontWeightBold)
+    static let colorBackground = UIColor(hex: "FC5130")
+    static let colorBackgroundMedium = colorBackground.darker(by: 20)
+    static let colorBackgroundDark = colorBackground.darker(by: 50)
+    static let colorWhite = UIColor.white
+    static let colorClear = UIColor.clear
+    static let colorBlack = UIColor(hex: "050401")
+    static let colorGreen = UIColor(red:0.40, green:0.75, blue:0.65, alpha:1.0)
+    static let colorDivider = UIColor(red:0.14, green:0.14, blue:0.14, alpha:1.0)
+    static let colorGray = UIColor(hex: "D8D8D8")
+    
+    static let responsiveDefaultFontWeight = UIFont.Weight.regular
+    static let responsiveDefaultFont: UIFont = UIFont.systemFont(ofSize: 999, weight: responsiveDefaultFontWeight)
+    static let responsiveBoldDigitFont: UIFont = UIFont.monospacedDigitSystemFont(ofSize: 999, weight: UIFont.Weight.bold)
     static let responsiveFancyFont = UIFont.italicSystemFont(ofSize: 999)
-    static let responsiveDigitFont: UIFont = UIFont.monospacedDigitSystemFont(ofSize: 999, weight: UIFontWeightThin)
-    static let defaultSmallFont: UIFont = UIFont.systemFont(ofSize: 18, weight: UIFontWeightThin)
+    static let responsiveDigitFontWeight = UIFont.Weight.light
+    static let responsiveDigitFont: UIFont = UIFont.monospacedDigitSystemFont(ofSize: 999, weight: responsiveDigitFontWeight)
+    static let defaultSmallFont: UIFont = UIFont.systemFont(ofSize: 18, weight: UIFont.Weight.thin)
+    static let defaultHeaderFont: UIFont = UIFont.preferredFont(forTextStyle: UIFontTextStyle.title1)
+    static let defaultHeadlineFont: UIFont = UIFont.preferredFont(forTextStyle: .headline)
     
     static let defaultFrame: CGRect = CGRect()
     static let defaultMargin: Int = 20
@@ -48,9 +59,12 @@ struct Constants {
     
     static let timeBetweenVibrations = 0.8
     
+    static let tableRowHeightDivisor = CGFloat(9)
+    
     static let notificationOfSettingsToggle = "com.goTime.notificationOfSettingsToggle"
     static let notificationOfSubSettingsToggle = "com.goTime.notificationOfSubSettingsToggle"
     static let notificationOfDarkModeToggle = "com.goTime.notificationOfDarkModeToggle"
+    static let appRunTimes = "com.goTime.appRuns"
     
     // TODO: UNTESTED
     static func ordinalSuffixForNumber(number: Int) -> String {

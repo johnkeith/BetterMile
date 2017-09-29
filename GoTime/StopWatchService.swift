@@ -8,6 +8,12 @@
 
 import UIKit
 
+enum LapQualities {
+    case good
+    case bad
+    case ugly
+}
+
 protocol StopWatchServiceDelegate: class {
     func stopWatchIntervalElapsed(totalTimeElapsed: TimeInterval)
     
@@ -20,9 +26,12 @@ protocol StopWatchServiceDelegate: class {
     func stopWatchLapStored(lapTime: Double, lapNumber: Int, totalTime: Double)
     
     func stopWatchStarted()
+    
+    func stopWatchLapRemoved()
 }
 
 class StopWatchService: NSObject {
+    private typealias klass = StopWatchService
     weak var delegate: StopWatchServiceDelegate?
     
     var coreData: CoreDataService
@@ -56,22 +65,54 @@ class StopWatchService: NSObject {
         }
     }
     
-    func timeIntervalElapsed() {
+    @objc func timeIntervalElapsed() {
         lapTimes[lapTimes.endIndex - 1] = calculateTimeBetweenPointAndNow(initialTime: startTime)
-        let totalTimeElapsed = calculateTotalLapsTime(_lapTimes: lapTimes)
+        let totalTimeElapsed = klass.calculateTotalLapsTime(laps: lapTimes)
 
         delegate?.stopWatchIntervalElapsed(totalTimeElapsed: totalTimeElapsed)
     }
     
-    func calculateTotalLapsTime(_lapTimes: [Double]) -> Double {
-        return _lapTimes.map{$0}.reduce(0, +)
+    func completedLapTimes() -> [Double] {
+        return Array(self.lapTimes[0..<self.lapTimes.count - 1])
     }
     
-//    TODO: UNTESTED
-    func calculateAverageLapTime() -> Double {
-        let totalLapTime = calculateTotalLapsTime(_lapTimes: self.lapTimes)
+    func calculateTotalLapsTime() -> Double {
+        return klass.calculateTotalLapsTime(laps: lapTimes)
+    }
+    
+    func calculateLapDeviationPercentage(lapTime: Double) -> Double {
+        let currentStandardDeviation = klass.calculateStandardDeviation(laps: self.lapTimes)
+        let currentAverageLapTime = klass.calculateAverageLapTime(laps: self.lapTimes)
         
-        return totalLapTime / Double(lapTimes.count - 1)
+        let startOfDeviationRange = currentAverageLapTime - currentStandardDeviation
+        let endOfDeviationRange = currentAverageLapTime + currentStandardDeviation
+
+        // starts at 0 being good, 1 being no good
+        if (lapTime <= startOfDeviationRange) {
+            return 0.0
+        } else if ((startOfDeviationRange...endOfDeviationRange).contains(lapTime)) {
+            return (lapTime - startOfDeviationRange) / (endOfDeviationRange - startOfDeviationRange)
+        } else { // lapTime >= endOfDeviationRange
+            return 1.0
+        }
+    }
+    
+    func colorOfLapTime(lapTime: Double) -> UIColor {
+        let percent = CGFloat(calculateLapDeviationPercentage(lapTime: lapTime))
+        let baseGreen = CIColor(color: Constants.colorGreen)
+        let baseRed = CIColor(color: Constants.colorPalette["_red"]!)
+        
+        if (percent == 0.0) {
+            return Constants.colorGreen;
+        } else if (percent == 1.0) {
+            return Constants.colorPalette["_red"]!
+        }
+        
+        let resultRed = baseGreen.red + percent * (baseRed.red - baseGreen.red);
+        let resultGreen = baseGreen.green + percent * (baseRed.green - baseGreen.green);
+        let resultBlue = baseGreen.blue + percent * (baseRed.blue - baseGreen.blue);
+        
+        return UIColor(red: resultRed, green: resultGreen, blue: resultBlue, alpha: 1.0)
     }
     
     func calculateTimeBetweenPointAndNow(initialTime: TimeInterval) -> TimeInterval {
@@ -126,11 +167,23 @@ class StopWatchService: NSObject {
 
         start()
     
-        let currentTotalTime = calculateTotalLapsTime(_lapTimes: lapTimes)
+        let currentTotalTime = klass.calculateTotalLapsTime(laps: lapTimes)
         let lapNumber = lapTimes.count - 1
         let lapTime = lapTimes[lapTimes.count - 2]
-        
+                
         delegate?.stopWatchLapStored(lapTime: lapTime, lapNumber: lapNumber, totalTime: currentTotalTime)
+    }
+    
+    func deleteLap(at: Int) {
+        lapTimes.remove(at: at)
+        
+        if lapTimes.count == 0 {
+            lapTimes.append(0.0)
+        }
+        
+        elapsedTimeBeforePause = lapTimes.last!
+        
+        delegate?.stopWatchLapRemoved()
     }
 }
 
@@ -153,6 +206,42 @@ extension StopWatchService {
             return laps.index(of: max!)
         } else {
             return nil
+        }
+    }
+    
+    class func calculateTotalLapsTime(laps: [Double]) -> Double {
+        return laps.map{$0}.reduce(0, +)
+    }
+    
+    class func calculateAverageLapTime(laps: [Double]) -> Double {
+        let totalLapTime = calculateTotalLapsTime(laps: laps)
+        
+        return totalLapTime / Double(laps.count)
+    }
+    
+    class func calculateStandardDeviation(laps: [Double]) -> Double {
+        let meanLapTime = calculateAverageLapTime(laps: laps)
+        
+        let sumOfLaps = laps.reduce(0.0, { acc, time in
+            let s = (time - meanLapTime)
+            return acc + s * s
+        })
+        
+        let result = sumOfLaps / Double(laps.count)
+        
+        return result.squareRoot()
+    }
+    
+    class func determineLapQuality(lap: Double, laps: [Double]) -> LapQualities {
+        let currentStandardDeviation = calculateStandardDeviation(laps: laps)
+        let currentAverageLapTime = calculateAverageLapTime(laps: laps)
+        
+        if (lap <= currentAverageLapTime) {
+            return LapQualities.good
+        } else if (lap <= currentStandardDeviation + currentAverageLapTime) {
+            return LapQualities.bad
+        } else {
+            return LapQualities.ugly
         }
     }
 }

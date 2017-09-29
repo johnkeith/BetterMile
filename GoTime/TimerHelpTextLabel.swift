@@ -21,14 +21,9 @@ class TimerHelpTextLabel: UILabel {
         
         self.isHidden = hidden
         
-        self.text = "Double-tap to Lap!"
-        
-        self.font = Constants.responsiveDefaultFont
-        self.adjustsFontSizeToFitWidth = true
-        self.numberOfLines = 2
-        self.baselineAdjustment = .alignCenters
+        self.text = "Double-tap to lap!"
+        self.font = UIFont.preferredFont(forTextStyle: .title1)
         self.textAlignment = .center
-        self.textColor = Constants.colorPalette["_white"]
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -36,7 +31,7 @@ class TimerHelpTextLabel: UILabel {
     }
     
     func showBriefly() {
-        show()
+        self.animationService.animateWithSpring(self)
         
         DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) {
             self.animationService.animateFadeOutView(self, duration: 2.0)

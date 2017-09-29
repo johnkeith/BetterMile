@@ -33,6 +33,12 @@ class LapTimeTableCell: UITableViewCell {
         label.text = labelText
     }
     
+    func setLineVisibility(index: Int) {
+        if index == 0 {
+            line.isHidden = true
+        }
+    }
+    
     // TODO: UNTESTED
     func setLabelAttributes(label: UILabel) {
         label.font = Constants.responsiveDigitFont
@@ -51,15 +57,15 @@ class LapTimeTableCell: UITableViewCell {
             make.height.equalTo(rowHeight)
         }
         
-        self.line.snp.makeConstraints { (make) -> Void in
-            make.width.equalTo(line.superview!)
-            make.height.equalTo(1)
-        }
+//        self.line.snp.makeConstraints { (make) -> Void in
+//            make.width.equalTo(line.superview!)
+//            make.height.equalTo(1)
+//        }
     }
     
     func setColoration() {
-        self.line.backgroundColor = UIColor(red:0.14, green:0.14, blue:0.14, alpha:1.0)
-        self.label.textColor = Constants.colorPalette["_white"]
-        self.backgroundColor = Constants.colorPalette["_black"]
+        self.line.backgroundColor = Constants.colorDivider
+        self.label.textColor = Constants.colorBlack
+        self.backgroundColor = Constants.colorWhite
     }
 }

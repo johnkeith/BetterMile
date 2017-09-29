@@ -9,15 +9,25 @@
 import UIKit
 
 class AnimationService {
+    let screenBounds = UIScreen.main.bounds
+    var screenHeight: CGFloat
+    var screenWidth: CGFloat
+    
     enum AnimationDirection {
         case left
         case right
+    }
+    
+    init() {
+        screenWidth = screenBounds.width
+        screenHeight = screenBounds.height
     }
     
     func animate(_ fn: @escaping (() -> Void), duration: Double = 0.3) {
         UIView.animate(withDuration: duration, animations: fn)
     }
     
+//    Works - just need to make sure the view has 0 alpha and is not hidden when launched
     func animateFadeInView(_ viewToFadeIn: UIView, duration: Double = 0.3, delay: Double = 0.0) {
         UIView.animate(withDuration: duration, delay: delay, animations: {
             viewToFadeIn.alpha = 1.0
@@ -54,7 +64,7 @@ class AnimationService {
     func animateMoveVerticallyFromOffscreenBottom(_ view: UIView, duration: Double = 0.5) {
         view.isHidden = false
         
-        let position =  CGAffineTransform(translationX: 0, y: 1000)
+        let position =  CGAffineTransform(translationX: 0, y: screenHeight)
         
         view.transform = position
         
@@ -66,6 +76,21 @@ class AnimationService {
             animations: {
                 view.transform = .identity
         })
+    }
+    
+    func animateMoveVerticallyToOffscreenBottom(_ view: UIView, duration: Double = 0.5, completion: @escaping (Bool) -> Void = { success in }) {
+        view.isHidden = false
+        
+        let position =  CGAffineTransform(translationX: 0, y: screenHeight)
+        
+        UIView.animate(withDuration: duration,
+                       delay: 0,
+                       usingSpringWithDamping: 1,
+                       initialSpringVelocity: 16.0,
+                       options: .allowUserInteraction,
+                       animations: {
+                        view.transform = position
+        }, completion: completion)
     }
     
     func animateMoveHorizontallyFromOffscreen(_ view: UIView, direction: AnimationDirection, duration: Double = 0.5) {
@@ -89,5 +114,53 @@ class AnimationService {
                        animations: {
                         view.transform = .identity
         })
+    }
+    
+    func shakeBriefly(_ view: UIView) {
+        let animation = CABasicAnimation(keyPath: "position")
+        animation.duration = 0.06
+        animation.repeatCount = 0
+        animation.autoreverses = true
+        animation.fromValue = NSValue(cgPoint: CGPoint(x: view.center.x - 10, y: view.center.y))
+        animation.toValue = NSValue(cgPoint: CGPoint(x: view.center.x + 10, y: view.center.y))
+        view.layer.add(animation, forKey: "position")
+    }
+    
+    func enlargeBriefly(_ view: UIView, duration: Double = 0.3) {
+        UIView.animateKeyframes(withDuration: duration, delay: 0, animations: {
+            UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 0.5, animations: {
+                view.transform = CGAffineTransform(scaleX: 1.2, y: 1.2)
+            })
+            UIView.addKeyframe(withRelativeStartTime: 0.5, relativeDuration: 0.5, animations: {
+                view.transform = .identity
+            })
+        }, completion: nil)
+    }
+    
+    func moveDownAndFade(_ view: UIView, duration: Double = 0.3) {
+        view.isHidden = false
+        view.alpha = 1
+        
+        let viewHeight = view.frame.height
+        let transform = CGAffineTransform(translationX: 0, y: viewHeight / 2)
+        
+        UIView.animateKeyframes(withDuration: duration, delay: 0, animations: {
+            UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 1, animations: {
+                view.transform = transform
+                view.alpha = 0
+            })
+        }, completion: { complete in
+            view.transform = .identity
+        })
+    }
+    
+    func animateTextChange(_ view: UIView, duration: CFTimeInterval = 0.8) {
+        let animation:CATransition = CATransition()
+        animation.timingFunction = CAMediaTimingFunction(name:
+            kCAMediaTimingFunctionEaseInEaseOut)
+        animation.type = kCATransitionReveal
+        animation.subtype = kCATransitionFromBottom
+        animation.duration = duration
+        view.layer.add(animation, forKey: kCATransitionPush)
     }
 }

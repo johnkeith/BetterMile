@@ -2,4 +2,13 @@
 
 import UIKit
 
-var str = "Hello, playground"
+class Test: NSObject {
+    let klass = type(of: self)
+    
+    func whoAmI() {
+        print(klass)
+    }
+}
+
+let inst = Test()
+inst.whoAmI()

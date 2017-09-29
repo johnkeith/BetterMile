@@ -8,37 +8,41 @@
 
 import UIKit
 
-class LapTimeTable: UITableView {    
+class LapTimeTable: UITableView {
+    var stopWatchSrv: StopWatchService
     var lapData = [Double]()
     var timeToTextService: TimeToTextService
     
-    init(hidden: Bool = true, timeToTextService: TimeToTextService = TimeToTextService()) {
+    init(stopWatchSrv: StopWatchService = StopWatchService(), hidden: Bool = true, timeToTextService: TimeToTextService = TimeToTextService()) {
         self.timeToTextService = timeToTextService
+        self.stopWatchSrv = stopWatchSrv
+        
         let defaultFrame = CGRect()
 
         super.init(frame: defaultFrame, style: .plain)
 
         self.isHidden = hidden
-//        self.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
         self.dataSource = self
         self.delegate = self
         
         self.rowHeight = 60
-        self.separatorStyle = .none
+//        self.separatorStyle = .none
         self.showsVerticalScrollIndicator = false
         self.alwaysBounceVertical = false
         
-        self.backgroundColor = Constants.colorPalette["black"]
+        self.backgroundColor = Constants.colorWhite
         
         self.register(LapTimeTableCell.self, forCellReuseIdentifier: "lapTimeTableCell")
+        
+        setLapData()
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) is not supported")
     }
     
-    func setLapData(lapData: [Double]) {
-        self.lapData = lapData        
+    func setLapData() {
+        self.lapData = stopWatchSrv.lapTimes.reversed()
     }
     
 //  TODO: UNTESTED - TODO: FIX - showing errors sometimes
@@ -48,14 +52,9 @@ class LapTimeTable: UITableView {
         self.reloadRows(at: [indexPath], with: .none)
     }
     
-    func clearLapData() {
-        self.lapData.removeAll()
-        self.reloadData()
-    }
-    
 //  TODO: UNTESTED
     func setRowHeightBySuperview(_superview: UIView) {
-        self.rowHeight = _superview.frame.height / 9
+        self.rowHeight = _superview.frame.height / Constants.tableRowHeightDivisor
     }
 }
 
@@ -76,38 +75,80 @@ extension LapTimeTable: UITableViewDataSource {
         
         let cell = self.dequeueReusableCell(withIdentifier: "lapTimeTableCell") as! LapTimeTableCell
         
-        cell.backgroundColor = Constants.colorPalette["_black"]
+        cell.backgroundColor = Constants.colorWhite
         cell.setContent(labelText: content)
+        cell.setLineVisibility(index: index)
         cell.addLabelAndLineConstraints(rowHeight: self.rowHeight)
         
         return cell
+    }
+    
+//    CAN BE USED TO ADD DELETE TO TABLE, NEEDS STYLING
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        let someAction = UITableViewRowAction(style: .default, title: "Delete") { value, other in
+            self.beginUpdates()
+            
+            let reversedIndex = self.stopWatchSrv.lapTimes.count - indexPath.row - 1
+            self.stopWatchSrv.deleteLap(at: reversedIndex)
+            self.lapData.remove(at: indexPath.row)
+            self.deleteRows(at: [indexPath], with: .automatic)
+            
+            self.endUpdates()
+            self.reloadData()
+        }
+        
+        someAction.backgroundColor = Constants.colorBlack
+        
+        return [someAction]
     }
 }
 
 extension LapTimeTable: UITableViewDelegate {
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        print(indexPath);
         let index = indexPath.row
         let _cell = cell as! LapTimeTableCell
 
-        if index > 0 {
-            if lapData.count > 2 {
-                setCellTextColor(_cell, at: index, checkForSlowest: true)
-            } else if lapData.count == 2 {
-                setCellTextColor(_cell, at: index)
-            }
+        if self.lapData.count > 1 && index != 0 {
+            setCellTextColor(_cell, at: index)
         } else {
-            _cell.backgroundColor = Constants.colorPalette["_black"]
+            setDefaultRowColors(_cell)
         }
     }
     
-    func setCellTextColor(_ cell: LapTimeTableCell, at index: Int, checkForSlowest: Bool = false) {
+    func setCellTextColor(_ cell: LapTimeTableCell, at index: Int) {
+        let lap = self.lapData[index]
+        let lapDataWithoutCurrentLap = Array(self.lapData[1..<self.lapData.count])
+        let quality = StopWatchService.determineLapQuality(lap: lap, laps: lapDataWithoutCurrentLap)
+        
+        if quality == LapQualities.good {
+//            cell.backgroundColor = Constants.colorGreen
+//            cell.label.textColor = Constants.colorWhite
+            cell.label.textColor = Constants.colorGreen
+        } else if quality == LapQualities.bad {
+            setDefaultRowColors(cell)
+        } else {
+//            cell.backgroundColor = Constants.colorPalette["_red"]
+//            cell.label.textColor = Constants.colorWhite
+            cell.label.textColor = Constants.colorPalette["_red"]
+        }
+    }
+    
+    func setDefaultRowColors(_ cell: LapTimeTableCell) {
+        cell.backgroundColor = Constants.colorWhite
+        cell.label.textColor = Constants.colorBlack
+    }
+    
+    func oldSetCellTextColor(_ cell: LapTimeTableCell, at index: Int, checkForSlowest: Bool = false) {
         if checkForSlowest && isSlowestLap(index){
             cell.backgroundColor = Constants.colorPalette["_red"]
-            cell.label.textColor = Constants.colorPalette["_white"]
+            cell.label.textColor = Constants.colorWhite
         } else if isFastestLap(index) {
-            cell.backgroundColor = Constants.colorPalette["_green"]
-            cell.label.textColor = Constants.colorPalette["_white"]
+            cell.backgroundColor = Constants.colorGreen
+            cell.label.textColor = Constants.colorWhite
         }
     }
     

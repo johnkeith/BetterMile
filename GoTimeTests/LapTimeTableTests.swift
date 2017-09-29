@@ -42,7 +42,7 @@ class LapTimeTableTests: XCTestCase {
     func testSetLapData() {
         XCTAssertEqual(table.lapData.count, 0)
         
-        table.setLapData(lapData: lapData)
+        table.setLapData()
         
         XCTAssertEqual(table.lapData.count, lapData.count)
         
@@ -70,13 +70,5 @@ class LapTimeTableTests: XCTestCase {
     func testShow() {
         table.show()
         XCTAssertFalse(table.isHidden)
-    }
-    
-    func testClearLapData() {
-        table.lapData = lapData
-        
-        table.clearLapData()
-        
-        XCTAssertEqual(table.lapData.count, 0)
     }
 }
