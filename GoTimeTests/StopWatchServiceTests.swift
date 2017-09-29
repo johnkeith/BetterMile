@@ -14,7 +14,7 @@ class StopWatchServiceTests: XCTestCase {
     
     class FakeDelegate: NSObject, StopWatchServiceDelegate {
         func stopWatchLapRemoved() {
-            <#code#>
+            print("just a fake")
         }
         
         var stopWatchService: StopWatchService

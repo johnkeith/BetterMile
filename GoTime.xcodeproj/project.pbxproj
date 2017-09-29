@@ -748,6 +748,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				DEVELOPMENT_TEAM = H8RKQ3P369;
 				INFOPLIST_FILE = GoTimeTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = us.johnkeith.GoTimeTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -764,6 +765,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				DEVELOPMENT_TEAM = H8RKQ3P369;
 				INFOPLIST_FILE = GoTimeTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = us.johnkeith.GoTimeTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";

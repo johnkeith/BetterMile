@@ -89,6 +89,8 @@ class SingleViewController: UIViewController {
         configLapTableBtn()
         configHelpText()
         
+        self.navigationItem.leftBarButtonItem = clearBarBtn
+        self.navigationItem.leftBarButtonItem?.isEnabled = false
         self.navigationItem.rightBarButtonItem = rightBarBtn
 
         askForReview()
@@ -292,6 +294,8 @@ class SingleViewController: UIViewController {
         
         setLapLblText(lapCount: self.stopWatchSrv.lapTimes.count)
         
+        self.navigationItem.leftBarButtonItem?.isEnabled = true
+        
         self.navigationItem.leftBarButtonItem = clearBarBtn
         self.navigationItem.rightBarButtonItem?.title = "Pause"
         self.navigationItem.rightBarButtonItem?.action = #selector(onPauseTap)
@@ -318,18 +322,14 @@ class SingleViewController: UIViewController {
             self.stopWatchSrv.stop()
             
             DispatchQueue.main.async {
-                self.animationSrv.animateTextChange(self.lapLbl, duration: 0.8)
-                self.animationSrv.animateTextChange(self.totalTimeLbl, duration: 0.8)
-                self.animationSrv.animateTextChange(self.lapTimeLbl, duration: 0.8)
-                
                 self.totalTimeLbl.text = self.defaultTotalTimeLblText
                 self.lapLbl.text = "00"
                 self.lapTimeLbl.text = self.lapTimeLbl.defaultText
             }
             
-            self.navigationItem.leftBarButtonItem = nil
             self.navigationItem.rightBarButtonItem?.title = "Start"
             self.navigationItem.rightBarButtonItem?.action = #selector(self.onStartTap)
+            self.navigationItem.leftBarButtonItem?.isEnabled = false
         })
         
         let clearAlertCancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: { (action) in })
@@ -435,8 +435,6 @@ extension SingleViewController: StopWatchServiceDelegate {
     
     func stopWatchLapStored(lapTime: Double, lapNumber: Int, totalTime: Double) {
         self.setLapLblText(lapCount: self.stopWatchSrv.lapTimes.count)
-        
-        self.animationSrv.animateTextChange(self.lapTimeLbl, duration: 0.8)
         
         notifyWithVibrationIfEnabled()
         notifyWithVoiceIfEnabled(lapTime: lapTime, lapNumber: lapNumber)

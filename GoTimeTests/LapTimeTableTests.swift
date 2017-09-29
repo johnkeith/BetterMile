@@ -11,6 +11,7 @@ import XCTest
 
 class LapTimeTableTests: XCTestCase {
     let lapData = [1.0, 2.0, 3.0]
+    let stopWatchSrv = StopWatchService()
     
     class FakeTimeToTextService: TimeToTextService {
         var timeAsSingleStringCalled = false
@@ -27,7 +28,8 @@ class LapTimeTableTests: XCTestCase {
     override func setUp() {
         super.setUp()
         
-        table = LapTimeTable(hidden: true, timeToTextService: timeToTextService)
+        stopWatchSrv.lapTimes = lapData
+        table = LapTimeTable(stopWatchSrv: stopWatchSrv, hidden: true, timeToTextService: timeToTextService)
     }
     
     func testInitOfTable() {
@@ -40,10 +42,7 @@ class LapTimeTableTests: XCTestCase {
     }
     
     func testSetLapData() {
-        XCTAssertEqual(table.lapData.count, 0)
-        
-        table.setLapData()
-        
+//        happens in init
         XCTAssertEqual(table.lapData.count, lapData.count)
         
         let firstCell = table.tableView(table, cellForRowAt: IndexPath(row: 0, section: 1))
