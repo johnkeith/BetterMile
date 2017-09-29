@@ -16,15 +16,15 @@ class SettingsView:UIView {
     let titleLabel = UILabel()
     let saveButton = UIView()
     let saveButtonLabel = UILabel()
-    let voiceSettingsRow = SettingsViewRow(labelText: "Voice", userDefaultsKey: SettingsService.voiceNotificationsKey)
-    let vibrationSettingsRow = SettingsViewRow(labelText: "Vibration", userDefaultsKey: SettingsService.vibrationNotificationsKey)
+    let mileSettingsRow = SettingsViewRow(labelText: "Notify mile pace time", userDefaultsKey: SettingsService.milePaceKey)
+    let intervalSettingsRow = SettingsViewRow(labelText: "Notify every X seconds", userDefaultsKey: SettingsService.intervalKey)
     
     var settingsRows: [SettingsViewRow]
     
     weak var delegate: SettingsViewDelegate?
     
     init(isHidden: Bool = true) {
-        settingsRows = [voiceSettingsRow, vibrationSettingsRow]
+        settingsRows = [mileSettingsRow, intervalSettingsRow]
         super.init(frame: Constants.defaultFrame)
         
         self.isHidden = isHidden
@@ -115,7 +115,7 @@ class SettingsView:UIView {
         addSubview(titleLabel)
         
         titleLabel.font = Constants.responsiveDefaultFont
-        titleLabel.text = "Settings"
+        titleLabel.text = "Advanced Settings"
         titleLabel.textAlignment = .center
         titleLabel.adjustsFontSizeToFitWidth = true
         titleLabel.numberOfLines = 1
@@ -129,7 +129,7 @@ class SettingsView:UIView {
         saveButton.addSubview(saveButtonLabel)
         saveButton.backgroundColor = Constants.colorGreen
         
-        saveButtonLabel.text = "SAVE"
+        saveButtonLabel.text = "Done"
         saveButtonLabel.font = Constants.responsiveDefaultFont
         saveButtonLabel.textAlignment = .center
         saveButtonLabel.adjustsFontSizeToFitWidth = true

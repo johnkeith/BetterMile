@@ -16,6 +16,8 @@ class SettingsService {
     static let totalTimeKey = "totalTimeVoiceNotification"
     static let timerPausedKey = "timerPauseNotification"
     static let timerClearedKey = "timerClearedNotification"
+    static let milePaceKey = "milePaceVoiceNotification"
+    static let intervalKey = "intervalVoiceNotification"
     
     static let voiceNotificationOptionKeys = [previousLapTimeKey, averageLapTimeKey, totalTimeKey, timerPausedKey, timerClearedKey]
     

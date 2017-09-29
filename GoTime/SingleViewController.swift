@@ -13,11 +13,13 @@ import StoreKit
 
 class SingleViewController: UIViewController {
 //  NON-DI
-    
+    let settingsViewAnimationDuration = 0.5
+
     let vibrationOnText = "Vibrate On"
     let vibrationOffText = "Vibrate Off"
     let voiceOnText = "Voice On"
     let voiceOffText = "Voice Off"
+    let advancedSettingsText = "Advanced"
     let defaultTotalTimeLblText = "Total 00:00.00"
     let clearAlertMessage = "Are you sure you want to end your run?"
     
@@ -28,11 +30,13 @@ class SingleViewController: UIViewController {
     let lapLbl = UILabel()
     let blurOverlay = BlurOverlayView()
     let lapTableBtn = UIButton()
+    let settingsView = SettingsView()
     
     var vibrationBarBtn: UIBarButtonItem!
     var voiceBarBtn: UIBarButtonItem!
     var clearBarBtn: UIBarButtonItem!
     var rightBarBtn: UIBarButtonItem!
+    var advancedBarBtn: UIBarButtonItem!
     
     var doubleTapRecognizer: UITapGestureRecognizer! // TODO: FIX
     
@@ -45,7 +49,6 @@ class SingleViewController: UIViewController {
     var animationSrv: AnimationService
     var timeToTextSrv: TimeToTextService
     var speechSrv: SpeechService
-    var settingsBtn: SettingsButton
     var helpText: TimerHelpTextLabel
     
     init(stopWatchSrv: StopWatchService = StopWatchService(),
@@ -56,7 +59,6 @@ class SingleViewController: UIViewController {
         self.animationSrv = animationSrv
         self.timeToTextSrv = timeToTextSrv
         self.speechSrv = speechSrv
-        self.settingsBtn = SettingsButton(blurOverlay: blurOverlay, animationSrv: animationSrv)
         self.helpText = TimerHelpTextLabel(hidden: true, animationService: animationSrv)
         
         fgClr = Constants.colorBlack
@@ -68,14 +70,16 @@ class SingleViewController: UIViewController {
         
         vibrationBarBtn = UIBarButtonItem(title: "", style: .plain, target: self, action: #selector(onVibrationNotificationsTap))
         voiceBarBtn = UIBarButtonItem(title: "", style: .plain, target: self, action: #selector(onVoiceNotificationsTap))
+        advancedBarBtn = UIBarButtonItem(title: advancedSettingsText, style: .plain, target: self, action: #selector(onAdvancedSettingsTap))
         clearBarBtn = UIBarButtonItem(title: "Clear", style: .plain, target: self, action: #selector(onClearTap))
         rightBarBtn = UIBarButtonItem(title: "Start", style: .plain, target: self, action: #selector(onStartTap))
         
         stopWatchSrv.delegate = self
-        
+        settingsView.delegate = self
+
         view.backgroundColor = Constants.colorWhite
         
-        addSubviews([container, blurOverlay, lapTableBtn, helpText])
+        addSubviews([container, lapTableBtn, helpText])
         
         container.addSubview(lapLbl)
         container.addSubview(totalTimeLbl)
@@ -85,7 +89,6 @@ class SingleViewController: UIViewController {
         configLapLbl()
         configTotalTimeLbl()
         configLapTimeLbl()
-        configBlurOverlay()
         configLapTableBtn()
         configHelpText()
         
@@ -133,9 +136,10 @@ class SingleViewController: UIViewController {
         
         vibrationBarBtn.tintColor = Constants.colorBlack
         voiceBarBtn.tintColor = Constants.colorBlack
+        advancedBarBtn.tintColor = Constants.colorBlack
         let spacer = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         
-        self.toolbarItems = [vibrationBarBtn, spacer, voiceBarBtn]
+        self.toolbarItems = [vibrationBarBtn, spacer, advancedBarBtn, spacer, voiceBarBtn]
     }
     
     func configNavBar() {
@@ -154,6 +158,13 @@ class SingleViewController: UIViewController {
         self.navigationController?.toolbar!.isTranslucent = false
         self.navigationController?.toolbar!.backgroundColor = Constants.colorWhite
         self.navigationController?.toolbar!.barTintColor = Constants.colorWhite
+        
+        self.navigationController?.view.addSubview(blurOverlay)
+        self.navigationController?.view.addSubview(settingsView)
+        
+        settingsView.configConstraints()
+        
+        configBlurOverlay()
     }
     
     func askForReview() {
@@ -260,6 +271,12 @@ class SingleViewController: UIViewController {
             make.width.equalTo(helpText.superview!)
             make.top.equalTo(helpText.superview!).offset(Constants.defaultMargin)
         }
+    }
+    
+    @objc func onAdvancedSettingsTap() {
+//        show blur
+        animationSrv.animateFadeInView(blurOverlay, duration: 0.1)
+        animationSrv.animateMoveVerticallyFromOffscreenBottom(settingsView, duration: settingsViewAnimationDuration)
     }
     
     @objc func onPauseTap() {
@@ -485,6 +502,13 @@ extension SingleViewController {
             stopWatchSrv.lap()
             animationSrv.enlargeBriefly(lapLbl)
         }
+    }
+}
+
+extension SingleViewController: SettingsViewDelegate {
+    func onSave() {
+        animationSrv.animateFadeOutView(blurOverlay, duration: 0.1)
+        animationSrv.animateMoveVerticallyToOffscreenBottom(settingsView, duration: settingsViewAnimationDuration)
     }
 }
 
