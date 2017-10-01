@@ -16,8 +16,8 @@ class SettingsView:UIView {
     let titleLabel = UILabel()
     let saveButton = UIView()
     let saveButtonLabel = UILabel()
-    let mileSettingsRow = SettingsViewRow(labelText: "Notify mile pace time", userDefaultsKey: SettingsService.milePaceKey)
-    let intervalSettingsRow = SettingsViewRow(labelText: "Notify every X seconds", userDefaultsKey: SettingsService.intervalKey)
+    let mileSettingsRow = SettingsViewRow(labelText: "Speak mile pace", sublabelText: "Laps per mile", userDefaultsKey: SettingsService.milePaceKey)
+    let intervalSettingsRow = SettingsViewRow(labelText: "Sound at intervals", sublabelText: "After every", userDefaultsKey: SettingsService.intervalKey)
     
     var settingsRows: [SettingsViewRow]
     
@@ -45,7 +45,7 @@ class SettingsView:UIView {
     
     func configConstraints() {
         let _height = superview!.frame.height - CGFloat(Constants.defaultMargin * 4)
-        let _width = superview!.frame.width - CGFloat(Constants.defaultMargin * 2)
+        let _width = superview!.frame.width - CGFloat(Constants.defaultMargin)
         
         snp.makeConstraints { make in
             make.center.equalTo(superview!)
@@ -68,7 +68,7 @@ class SettingsView:UIView {
         titleLabel.snp.makeConstraints { make in
             make.centerX.equalTo(titleLabel.superview!)
             make.height.equalTo(superview!.frame.height / Constants.tableRowHeightDivisor)
-            make.width.equalTo(titleLabel.superview!.frame.width / 3)
+            make.width.equalTo(titleLabel.superview!)
             make.top.equalTo(titleLabel.superview!)
         }
     }
@@ -100,9 +100,20 @@ class SettingsView:UIView {
                     make.top.equalTo(previousRow.snp.bottom)
                 }
                 
-                make.height.equalTo(superview!.frame.height / Constants.tableRowHeightDivisor)
+                let heightDivisor: CGFloat
+                
+                if(row.settingIsEnabled()) {
+                    heightDivisor = Constants.tableRowHeightDivisor / 2
+                } else {
+                    heightDivisor = Constants.tableRowHeightDivisor
+                }
+                
+//                let margin = CGFloat(Constants.defaultMargin)
+//                make.edges.equalTo(UIEdgeInsetsMake(margin, margin, margin, margin))
+
+                make.height.equalTo(self.frame.height / heightDivisor)
                 make.right.equalTo(self.snp.right)
-                make.width.equalTo(row.superview!.frame.width - CGFloat(Constants.defaultMargin / 2))
+                make.width.equalTo(row.superview!.frame.width - CGFloat(Constants.defaultMargin))
             }
             
             row.layoutIfNeeded()
@@ -114,12 +125,9 @@ class SettingsView:UIView {
     private func addtitleLabel() {
         addSubview(titleLabel)
         
-        titleLabel.font = Constants.responsiveDefaultFont
+        titleLabel.font = Constants.defaultHeaderFont
         titleLabel.text = "Advanced Settings"
         titleLabel.textAlignment = .center
-        titleLabel.adjustsFontSizeToFitWidth = true
-        titleLabel.numberOfLines = 1
-        titleLabel.baselineAdjustment = .alignCenters
         titleLabel.textColor = Constants.colorBlack
     }
     
@@ -130,11 +138,8 @@ class SettingsView:UIView {
         saveButton.backgroundColor = Constants.colorGreen
         
         saveButtonLabel.text = "Done"
-        saveButtonLabel.font = Constants.responsiveDefaultFont
+        saveButtonLabel.font = Constants.defaultHeaderFont
         saveButtonLabel.textAlignment = .center
-        saveButtonLabel.adjustsFontSizeToFitWidth = true
-        saveButtonLabel.numberOfLines = 1
-        saveButtonLabel.baselineAdjustment = .alignCenters
         saveButtonLabel.textColor = Constants.colorWhite
         
         addSaveButtonTapRecognizer()

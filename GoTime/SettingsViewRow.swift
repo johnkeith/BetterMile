@@ -10,19 +10,23 @@ import UIKit
 
 class SettingsViewRow:UIView {
     let label = UILabel()
+    let subLabel = UILabel()
     let line = UILabel()
     let rowSwitch = UISwitch()
     
     var labelText: String
     var userDefaultsKey: String
+    var sublabelText: String
     
-    init(labelText: String, userDefaultsKey: String) {
+    init(labelText: String, sublabelText: String, userDefaultsKey: String) {
         self.labelText = labelText
         self.userDefaultsKey = userDefaultsKey
+        self.sublabelText = sublabelText
         
         super.init(frame: Constants.defaultFrame)
         
         addLabel()
+        addSublabel()
         addLine()
         addRowSwitch()
     }
@@ -32,11 +36,20 @@ class SettingsViewRow:UIView {
     }
     
     func configConstraints() {
+        setRowSwitchConstraints()
+                
         label.snp.makeConstraints { make in
-            make.centerY.equalTo(self)
-            make.height.equalTo(self)
+            make.centerY.equalTo(rowSwitch)
+            make.height.lessThanOrEqualToSuperview()
             make.left.equalTo(self).offset(Constants.defaultMargin / 2)
-            make.width.equalTo(self.frame.width * (2/5))
+            make.width.equalTo(self.frame.width * (5/6))
+        }
+        
+        subLabel.snp.makeConstraints { make in
+            make.bottom.equalTo(self.snp.bottom).offset(-Constants.defaultMargin)
+            make.height.lessThanOrEqualToSuperview()
+            make.left.equalTo(self).offset(Constants.defaultMargin / 2)
+            make.width.equalTo(self.frame.width * (5/6))
         }
         
         line.snp.makeConstraints { make in
@@ -45,34 +58,67 @@ class SettingsViewRow:UIView {
             make.top.equalTo(self.snp.bottom)
             make.width.equalTo(self)
         }
-        
-        rowSwitch.snp.makeConstraints { make in
-            make.centerY.equalTo(self)
-            make.right.equalTo(self).offset(-Constants.defaultMargin)
-            make.width.equalTo(self.frame.width / 6)
-        }
+
         
         label.layoutIfNeeded()
     }
     
-    func matchFontSize(of: SettingsViewRow) {
-        let size = of.label.fontSize
-        label.adjustsFontSizeToFitWidth = false
-        label.font = UIFont.systemFont(ofSize: size, weight: Constants.responsiveDefaultFontWeight)
-    }
-    
     @objc func onRowToggle() {
         let currentValue = Constants.storedSettings.bool(forKey: userDefaultsKey)
+        let nextValue = !currentValue
         
-        Constants.storedSettings.set(!currentValue, forKey: userDefaultsKey)
+        Constants.storedSettings.set(nextValue, forKey: userDefaultsKey)
+        
+        if nextValue {
+            self.snp.updateConstraints { make in
+                make.height.equalTo(superview!.frame.height / (Constants.tableRowHeightDivisor / 2))
+            }
+        } else {
+            self.snp.updateConstraints { make in
+                make.height.equalTo(superview!.frame.height / Constants.tableRowHeightDivisor)
+            }
+        }
+        
+        setRowSwitchConstraints()
+        setSublabelVisibleBasedOnToggle()
+    }
+    
+    func settingIsEnabled() -> Bool {
+        return Constants.storedSettings.bool(forKey: userDefaultsKey)
+    }
+    
+    func setSublabelVisibleBasedOnToggle() {
+        subLabel.isHidden = !settingIsEnabled()
+    }
+    
+    private func setRowSwitchConstraints() {
+        rowSwitch.snp.remakeConstraints { make in
+            if(settingIsEnabled()) {
+                make.top.equalTo(self).offset(Constants.defaultMargin)
+            } else {
+                make.centerY.equalTo(self)
+            }
+            make.right.equalTo(self).offset(-Constants.defaultMargin)
+            make.width.equalTo(self.frame.width / 6)
+        }
     }
     
     private func addLabel() {
         addSubview(label)
         
-        label.font = Constants.defaultHeadlineFont
         label.text = labelText
         label.textAlignment = .left
+        
+        label.textColor = Constants.colorBlack
+    }
+    
+    private func addSublabel() {
+        addSubview(subLabel)
+        
+        subLabel.text = sublabelText
+        subLabel.textAlignment = .left
+        
+        setSublabelVisibleBasedOnToggle()
         
         label.textColor = Constants.colorBlack
     }
@@ -80,7 +126,7 @@ class SettingsViewRow:UIView {
     private func addLine() {
         addSubview(line)
         
-        line.backgroundColor = Constants.colorBlack
+        line.backgroundColor = Constants.colorGray
     }
     
     private func addRowSwitch() {

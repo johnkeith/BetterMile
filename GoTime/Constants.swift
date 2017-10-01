@@ -48,6 +48,7 @@ struct Constants {
     static let defaultSmallFont: UIFont = UIFont.systemFont(ofSize: 18, weight: UIFont.Weight.thin)
     static let defaultHeaderFont: UIFont = UIFont.preferredFont(forTextStyle: UIFontTextStyle.title1)
     static let defaultHeadlineFont: UIFont = UIFont.preferredFont(forTextStyle: .headline)
+    static let defaultSubtextFont: UIFont = UIFont.preferredFont(forTextStyle: UIFontTextStyle.footnote)
     
     static let defaultFrame: CGRect = CGRect()
     static let defaultMargin: Int = 20
