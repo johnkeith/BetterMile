@@ -17,16 +17,19 @@ class SettingsViewRow:UIView {
     var labelText: String
     var userDefaultsKey: String
     var sublabelText: String
+    var subInput: UIView
     
-    init(labelText: String, sublabelText: String, userDefaultsKey: String) {
+    init(labelText: String, sublabelText: String, userDefaultsKey: String, subInput: UIView) {
         self.labelText = labelText
         self.userDefaultsKey = userDefaultsKey
         self.sublabelText = sublabelText
+        self.subInput = subInput
         
         super.init(frame: Constants.defaultFrame)
         
         addLabel()
         addSublabel()
+        addSubInput()
         addLine()
         addRowSwitch()
     }
@@ -36,31 +39,17 @@ class SettingsViewRow:UIView {
     }
     
     func configConstraints() {
+        setLabelConstraints()
         setRowSwitchConstraints()
-                
-        label.snp.makeConstraints { make in
-            make.centerY.equalTo(rowSwitch)
-            make.height.lessThanOrEqualToSuperview()
-            make.left.equalTo(self).offset(Constants.defaultMargin / 2)
-            make.width.equalTo(self.frame.width * (5/6))
-        }
-        
-        subLabel.snp.makeConstraints { make in
-            make.bottom.equalTo(self.snp.bottom).offset(-Constants.defaultMargin)
-            make.height.lessThanOrEqualToSuperview()
-            make.left.equalTo(self).offset(Constants.defaultMargin / 2)
-            make.width.equalTo(self.frame.width * (5/6))
-        }
+        setSublabelConstraints()
+        setSubInputConstraints()
         
         line.snp.makeConstraints { make in
             make.height.equalTo(1)
             make.right.equalTo(self)
-            make.top.equalTo(self.snp.bottom)
+            make.bottom.equalTo(self.snp.bottom)
             make.width.equalTo(self)
         }
-
-        
-        label.layoutIfNeeded()
     }
     
     @objc func onRowToggle() {
@@ -79,27 +68,60 @@ class SettingsViewRow:UIView {
             }
         }
         
+        self.layoutIfNeeded()
+        
+        setLabelConstraints()
         setRowSwitchConstraints()
-        setSublabelVisibleBasedOnToggle()
+        setSublabelConstraints()
+        setSubInputConstraints()
+        setVisibleBasedOnToggle()
     }
     
     func settingIsEnabled() -> Bool {
         return Constants.storedSettings.bool(forKey: userDefaultsKey)
     }
     
-    func setSublabelVisibleBasedOnToggle() {
+    func setVisibleBasedOnToggle() {
         subLabel.isHidden = !settingIsEnabled()
+        subInput.isHidden = !settingIsEnabled()
+    }
+    
+    private func setLabelConstraints() {
+        label.snp.remakeConstraints { make in
+            if(settingIsEnabled()) {
+                make.height.equalTo(self.frame.height / 2)
+            } else {
+                make.height.equalTo(self)
+            }
+            make.top.equalTo(self)
+            make.left.equalTo(self)
+            make.width.equalTo(self.frame.width * (2/3))
+        }
     }
     
     private func setRowSwitchConstraints() {
         rowSwitch.snp.remakeConstraints { make in
-            if(settingIsEnabled()) {
-                make.top.equalTo(self).offset(Constants.defaultMargin)
-            } else {
-                make.centerY.equalTo(self)
-            }
-            make.right.equalTo(self).offset(-Constants.defaultMargin)
+            make.centerY.equalTo(label)
+            make.right.equalTo(self).offset(-Constants.defaultMargin / 2)
             make.width.equalTo(self.frame.width / 6)
+        }
+    }
+    
+    private func setSublabelConstraints() {
+        subLabel.snp.remakeConstraints { make in
+            make.bottom.equalTo(self).offset(-4)
+            make.height.equalTo(self.frame.height / 2)
+            make.left.equalTo(self)
+            make.width.equalTo(self.frame.width / 2)
+        }
+    }
+    
+    private func setSubInputConstraints() {
+        subInput.snp.remakeConstraints { make in
+            make.bottom.equalTo(self).offset(-4)
+            make.height.equalTo(label)
+            make.right.equalTo(self).offset(-Constants.defaultMargin / 2)
+            make.width.equalTo(self.frame.width / 2)
         }
     }
     
@@ -118,9 +140,9 @@ class SettingsViewRow:UIView {
         subLabel.text = sublabelText
         subLabel.textAlignment = .left
         
-        setSublabelVisibleBasedOnToggle()
+        setVisibleBasedOnToggle()
         
-        label.textColor = Constants.colorBlack
+        subLabel.textColor = Constants.colorBlack
     }
     
     private func addLine() {
@@ -138,5 +160,13 @@ class SettingsViewRow:UIView {
         rowSwitch.isOn = currentStoredValue
         
         rowSwitch.addTarget(self, action: #selector(onRowToggle), for: UIControlEvents.allEvents)
+    }
+    
+    private func addSubInput() {
+        addSubview(subInput)
+        
+        subInput.layer.borderColor = Constants.colorGray.cgColor
+        subInput.layer.borderWidth = 1
+        subInput.layer.cornerRadius = 8
     }
 }

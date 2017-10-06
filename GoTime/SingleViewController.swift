@@ -44,6 +44,9 @@ class SingleViewController: UIViewController {
     var bgClr: UIColor
     var btnFgClr: UIColor
     var btnBgClr: UIColor
+    
+    var vibrationTitlesSet: Set<String>
+    var voiceTitlesSet: Set<String>
 //  DI
     var stopWatchSrv: StopWatchService
     var animationSrv: AnimationService
@@ -66,10 +69,15 @@ class SingleViewController: UIViewController {
         btnFgClr = fgClr
         btnBgClr = UIColor.clear // Constants.colorPalette["BTNBG"]!
         
+        vibrationTitlesSet = [vibrationOnText, vibrationOffText]
+        voiceTitlesSet = [voiceOffText, voiceOnText]
+        
         super.init(nibName: nil, bundle: nil)
         
         vibrationBarBtn = UIBarButtonItem(title: "", style: .plain, target: self, action: #selector(onVibrationNotificationsTap))
+        vibrationBarBtn.possibleTitles = vibrationTitlesSet
         voiceBarBtn = UIBarButtonItem(title: "", style: .plain, target: self, action: #selector(onVoiceNotificationsTap))
+        voiceBarBtn.possibleTitles = voiceTitlesSet
         advancedBarBtn = UIBarButtonItem(title: advancedSettingsText, style: .plain, target: self, action: #selector(onAdvancedSettingsTap))
         clearBarBtn = UIBarButtonItem(title: "Clear", style: .plain, target: self, action: #selector(onClearTap))
         rightBarBtn = UIBarButtonItem(title: "Start", style: .plain, target: self, action: #selector(onStartTap))

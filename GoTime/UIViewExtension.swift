@@ -22,6 +22,11 @@ extension UIView: GTComponent {
     func show() {
         self.isHidden = false
     }
+    
+    func addDebuggingBorders() {
+        self.layer.borderColor = UIColor.purple.cgColor
+        self.layer.borderWidth = 1
+    }
 }
 
 protocol GTController: class {

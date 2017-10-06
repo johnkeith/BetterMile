@@ -16,15 +16,26 @@ class SettingsView:UIView {
     let titleLabel = UILabel()
     let saveButton = UIView()
     let saveButtonLabel = UILabel()
-    let mileSettingsRow = SettingsViewRow(labelText: "Speak mile pace", sublabelText: "Laps per mile", userDefaultsKey: SettingsService.milePaceKey)
-    let intervalSettingsRow = SettingsViewRow(labelText: "Sound at intervals", sublabelText: "After every", userDefaultsKey: SettingsService.intervalKey)
     
     var settingsRows: [SettingsViewRow]
+    var mileSettingsRow: SettingsViewRow
+    var intervalSettingsRow: SettingsViewRow
     
     weak var delegate: SettingsViewDelegate?
     
     init(isHidden: Bool = true) {
+        let lapsPerMileInput = UILabel()
+        lapsPerMileInput.text = "1"
+        lapsPerMileInput.textAlignment = .center
+        
+        let intervalInput = UILabel()
+        intervalInput.text = "30 minutes"
+        intervalInput.textAlignment = .center
+        
+        mileSettingsRow = SettingsViewRow(labelText: "Speak mile pace", sublabelText: "Laps per mile", userDefaultsKey: SettingsService.milePaceKey, subInput: lapsPerMileInput)
+        intervalSettingsRow = SettingsViewRow(labelText: "Sound at intervals", sublabelText: "After every", userDefaultsKey: SettingsService.intervalKey, subInput: intervalInput)
         settingsRows = [mileSettingsRow, intervalSettingsRow]
+
         super.init(frame: Constants.defaultFrame)
         
         self.isHidden = isHidden
@@ -107,12 +118,9 @@ class SettingsView:UIView {
                 } else {
                     heightDivisor = Constants.tableRowHeightDivisor
                 }
-                
-//                let margin = CGFloat(Constants.defaultMargin)
-//                make.edges.equalTo(UIEdgeInsetsMake(margin, margin, margin, margin))
 
                 make.height.equalTo(self.frame.height / heightDivisor)
-                make.right.equalTo(self.snp.right)
+                make.right.equalTo(self)
                 make.width.equalTo(row.superview!.frame.width - CGFloat(Constants.defaultMargin))
             }
             
