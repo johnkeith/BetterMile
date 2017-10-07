@@ -83,7 +83,7 @@ class SingleViewController: UIViewController {
         rightBarBtn = UIBarButtonItem(title: "Start", style: .plain, target: self, action: #selector(onStartTap))
         
         stopWatchSrv.delegate = self
-        settingsView.delegate = self
+        settingsView.saveDelegate = self
 
         view.backgroundColor = Constants.colorWhite
         

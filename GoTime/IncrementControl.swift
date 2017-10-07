@@ -30,6 +30,7 @@ class IncrementControl: UIView {
                 _value = newValue
             }
             updateLabel()
+            delegate?.onIncrementChangeHandler(newValue: newValue)
         }
     }
     
@@ -91,11 +92,6 @@ class IncrementControl: UIView {
             make.height.equalTo(self)
             make.width.equalTo(labelWidth)
         }
-        
-        plusButton.layoutIfNeeded()
-        
-        print("PLUS BUTTOn", plusButton.frame)
-        label.layoutIfNeeded()
     }
     
     private func configMinusButton() {

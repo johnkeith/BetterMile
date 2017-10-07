@@ -25,7 +25,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         self.window?.rootViewController = mainNavController
         self.window?.makeKeyAndVisible()
-                
+        
+        SettingsService.firstRunSetup()
         SettingsService.incrementAppRunCount()
         return true
     }

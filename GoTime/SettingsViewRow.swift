@@ -16,27 +16,35 @@ class SettingsViewRow:UIView {
     
     var labelText: String
     var userDefaultsKey: String
-    var sublabelText: String
-    var incrementControl: IncrementControl
+    var sublabelText: String?
+    var incrementControl: IncrementControl?
     
     init(
         labelText: String,
-        sublabelText: String,
         userDefaultsKey: String,
-        incrementValue: Int,
-        incrementLabel: String) {
+        sublabelText: String? = nil,
+        incrementValue: Int? = nil,
+        incrementLabel: String? = nil) {
         self.labelText = labelText
         self.userDefaultsKey = userDefaultsKey
-        self.sublabelText = sublabelText
-        self.incrementControl = IncrementControl(value: incrementValue, labelText: incrementLabel)
         
         super.init(frame: Constants.defaultFrame)
-        
+
         addLabel()
-        addSublabel()
-        addIncrementControl()
         addLine()
         addRowSwitch()
+        
+        if sublabelText != nil {
+            self.sublabelText = sublabelText
+            addSublabel()
+        }
+        
+        if incrementValue != nil && incrementLabel != nil { 
+            self.incrementControl = IncrementControl(value: incrementValue!, labelText: incrementLabel!)
+            addIncrementControl()
+        }
+        
+        setVisibleBasedOnToggle()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -63,7 +71,7 @@ class SettingsViewRow:UIView {
         
         Constants.storedSettings.set(nextValue, forKey: userDefaultsKey)
         
-        if nextValue {
+        if nextValue && incrementControl != nil {
             self.snp.updateConstraints { make in
                 make.height.equalTo(superview!.frame.height / (Constants.tableRowHeightDivisor / 2))
             }
@@ -87,13 +95,15 @@ class SettingsViewRow:UIView {
     }
     
     func setVisibleBasedOnToggle() {
-        subLabel.isHidden = !settingIsEnabled()
-        incrementControl.isHidden = !settingIsEnabled()
+        if sublabelText != nil && incrementControl != nil {
+            subLabel.isHidden = !settingIsEnabled()
+            incrementControl!.isHidden = !settingIsEnabled()
+        }
     }
     
     private func setLabelConstraints() {
         label.snp.remakeConstraints { make in
-            if(settingIsEnabled()) {
+            if(settingIsEnabled() && incrementControl != nil) {
                 make.height.equalTo(self.frame.height / 2)
             } else {
                 make.height.equalTo(self)
@@ -113,23 +123,27 @@ class SettingsViewRow:UIView {
     }
     
     private func setSublabelConstraints() {
-        subLabel.snp.remakeConstraints { make in
-            make.bottom.equalTo(self).offset(-4)
-            make.height.equalTo(self.frame.height / 2)
-            make.left.equalTo(self)
-            make.width.equalTo(self.frame.width * (2/5))
+        if sublabelText != nil {
+            subLabel.snp.remakeConstraints { make in
+                make.bottom.equalTo(self).offset(-4)
+                make.height.equalTo(self.frame.height / 2)
+                make.left.equalTo(self)
+                make.width.equalTo(self.frame.width * (2/5))
+            }
         }
     }
     
     private func setIncrementControlConstraints() {
-        incrementControl.snp.remakeConstraints { make in
-            make.bottom.equalTo(self).offset(-4)
-            make.height.equalTo(label)
-            make.right.equalTo(self).offset(-Constants.defaultMargin / 2)
-            make.width.equalTo(self.frame.width * (3/5))
+        if incrementControl != nil {
+            incrementControl!.snp.remakeConstraints { make in
+                make.bottom.equalTo(self).offset(-4)
+                make.height.equalTo(label)
+                make.right.equalTo(self).offset(-Constants.defaultMargin / 2)
+                make.width.equalTo(self.frame.width * (3/5))
+            }
+            
+            incrementControl!.layoutIfNeeded()
         }
-        
-        incrementControl.layoutIfNeeded()
     }
     
     private func addLabel() {
@@ -146,9 +160,6 @@ class SettingsViewRow:UIView {
         
         subLabel.text = sublabelText
         subLabel.textAlignment = .left
-        
-        setVisibleBasedOnToggle()
-        
         subLabel.textColor = Constants.colorBlack
     }
     
@@ -170,6 +181,6 @@ class SettingsViewRow:UIView {
     }
     
     private func addIncrementControl() {
-        addSubview(incrementControl)
+        addSubview(incrementControl!)
     }
 }

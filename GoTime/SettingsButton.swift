@@ -45,7 +45,7 @@ class SettingsButton:UIView {
     func addSettingsView() {
         self.superview!.addSubview(settingsView) // ugly.
         
-        settingsView.delegate = self
+        settingsView.saveDelegate = self
         
         settingsView.configConstraints()
     }

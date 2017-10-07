@@ -12,29 +12,25 @@ protocol SettingsViewDelegate: class {
     func onSave()
 }
 
-class SettingsView:UIView {
+class SettingsView: UIView {
     let titleLabel = UILabel()
     let saveButton = UIView()
     let saveButtonLabel = UILabel()
     
     var settingsRows: [SettingsViewRow]
+    var voiceSettingsRow: SettingsViewRow
+    var vibrationSettingsRow: SettingsViewRow
     var mileSettingsRow: SettingsViewRow
     var intervalSettingsRow: SettingsViewRow
     
-    weak var delegate: SettingsViewDelegate?
+    weak var saveDelegate: SettingsViewDelegate?
     
     init(isHidden: Bool = true) {
-//        let lapsPerMileInput = UILabel()
-//        lapsPerMileInput.text = "1"
-//        lapsPerMileInput.textAlignment = .center
-//
-//        let intervalInput = UILabel()
-//        intervalInput.text = "30 minutes"
-//        intervalInput.textAlignment = .center
-        
-        mileSettingsRow = SettingsViewRow(labelText: "Speak mile pace", sublabelText: "Laps / mile", userDefaultsKey: SettingsService.milePaceKey, incrementValue: 1, incrementLabel: "")
-        intervalSettingsRow = SettingsViewRow(labelText: "Sound at intervals", sublabelText: "After every", userDefaultsKey: SettingsService.intervalKey, incrementValue: 15, incrementLabel: "secs.")
-        settingsRows = [mileSettingsRow, intervalSettingsRow]
+        vibrationSettingsRow = SettingsViewRow(labelText: "Vibration", userDefaultsKey: SettingsService.vibrationNotificationsKey)
+        voiceSettingsRow = SettingsViewRow(labelText: "Voice Notifications", userDefaultsKey: SettingsService.voiceNotificationsKey)
+        mileSettingsRow = SettingsViewRow(labelText: "Speak mile pace", userDefaultsKey: SettingsService.milePaceKey, sublabelText: "Laps / mile", incrementValue: 1, incrementLabel: "")
+        intervalSettingsRow = SettingsViewRow(labelText: "Sound at intervals", userDefaultsKey: SettingsService.intervalKey, sublabelText: "After every", incrementValue: 15, incrementLabel: "secs.")
+        settingsRows = [vibrationSettingsRow, voiceSettingsRow, mileSettingsRow, intervalSettingsRow]
 
         super.init(frame: Constants.defaultFrame)
         
@@ -72,7 +68,7 @@ class SettingsView:UIView {
     }
     
     @objc func onSave() {
-        delegate!.onSave()
+        saveDelegate!.onSave()
     }
     
     private func configTitleLabelConstraints() {
@@ -113,7 +109,7 @@ class SettingsView:UIView {
                 
                 let heightDivisor: CGFloat
                 
-                if(row.settingIsEnabled()) {
+                if(row.settingIsEnabled() && row.incrementControl != nil) {
                     heightDivisor = Constants.tableRowHeightDivisor / 2
                 } else {
                     heightDivisor = Constants.tableRowHeightDivisor
@@ -127,7 +123,10 @@ class SettingsView:UIView {
             row.layoutIfNeeded()
                     
             row.configConstraints()
-            row.incrementControl.configConstraints()
+            
+            if row.incrementControl != nil {
+                row.incrementControl!.configConstraints()
+            }
         }
     }
     
