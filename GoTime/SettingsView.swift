@@ -134,7 +134,7 @@ class SettingsView: UIView {
         addSubview(titleLabel)
         
         titleLabel.font = Constants.defaultHeaderFont
-        titleLabel.text = "Advanced Settings"
+        titleLabel.text = "Settings"
         titleLabel.textAlignment = .center
         titleLabel.textColor = Constants.colorBlack
     }

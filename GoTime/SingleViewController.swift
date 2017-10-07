@@ -15,11 +15,7 @@ class SingleViewController: UIViewController {
 //  NON-DI
     let settingsViewAnimationDuration = 0.5
 
-    let vibrationOnText = "Vibrate On"
-    let vibrationOffText = "Vibrate Off"
-    let voiceOnText = "Voice On"
-    let voiceOffText = "Voice Off"
-    let advancedSettingsText = "Advanced"
+    let advancedSettingsText = "Settings"
     let defaultTotalTimeLblText = "Total 00:00.00"
     let clearAlertMessage = "Are you sure you want to end your run?"
     
@@ -32,8 +28,6 @@ class SingleViewController: UIViewController {
     let lapTableBtn = UIButton()
     let settingsView = SettingsView()
     
-    var vibrationBarBtn: UIBarButtonItem!
-    var voiceBarBtn: UIBarButtonItem!
     var clearBarBtn: UIBarButtonItem!
     var rightBarBtn: UIBarButtonItem!
     var advancedBarBtn: UIBarButtonItem!
@@ -45,8 +39,6 @@ class SingleViewController: UIViewController {
     var btnFgClr: UIColor
     var btnBgClr: UIColor
     
-    var vibrationTitlesSet: Set<String>
-    var voiceTitlesSet: Set<String>
 //  DI
     var stopWatchSrv: StopWatchService
     var animationSrv: AnimationService
@@ -69,15 +61,8 @@ class SingleViewController: UIViewController {
         btnFgClr = fgClr
         btnBgClr = UIColor.clear // Constants.colorPalette["BTNBG"]!
         
-        vibrationTitlesSet = [vibrationOnText, vibrationOffText]
-        voiceTitlesSet = [voiceOffText, voiceOnText]
-        
         super.init(nibName: nil, bundle: nil)
         
-        vibrationBarBtn = UIBarButtonItem(title: "", style: .plain, target: self, action: #selector(onVibrationNotificationsTap))
-        vibrationBarBtn.possibleTitles = vibrationTitlesSet
-        voiceBarBtn = UIBarButtonItem(title: "", style: .plain, target: self, action: #selector(onVoiceNotificationsTap))
-        voiceBarBtn.possibleTitles = voiceTitlesSet
         advancedBarBtn = UIBarButtonItem(title: advancedSettingsText, style: .plain, target: self, action: #selector(onAdvancedSettingsTap))
         clearBarBtn = UIBarButtonItem(title: "Clear", style: .plain, target: self, action: #selector(onClearTap))
         rightBarBtn = UIBarButtonItem(title: "Start", style: .plain, target: self, action: #selector(onStartTap))
@@ -133,21 +118,10 @@ class SingleViewController: UIViewController {
     }
     
     func configToolbar() {
-        let vibrationState = Constants.storedSettings.bool(forKey: SettingsService.vibrationNotificationsKey)
-        let voiceState = Constants.storedSettings.bool(forKey: SettingsService.voiceNotificationsKey)
-        
-        let vibrationTitle = vibrationState ? vibrationOnText : vibrationOffText
-        let voiceTitle = voiceState ? voiceOnText : voiceOffText
-        
-        vibrationBarBtn.title = vibrationTitle
-        voiceBarBtn.title = voiceTitle
-        
-        vibrationBarBtn.tintColor = Constants.colorBlack
-        voiceBarBtn.tintColor = Constants.colorBlack
         advancedBarBtn.tintColor = Constants.colorBlack
         let spacer = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         
-        self.toolbarItems = [vibrationBarBtn, spacer, advancedBarBtn, spacer, voiceBarBtn]
+        self.toolbarItems = [spacer, advancedBarBtn, spacer]
     }
     
     func configNavBar() {
@@ -364,18 +338,6 @@ class SingleViewController: UIViewController {
         clearAlert.addAction(clearAlertConfirmAction)
         
         self.present(clearAlert, animated: true, completion: nil)
-    }
-    
-    @objc func onVoiceNotificationsTap() {
-        let newValue = handleSettingsToggle(key: SettingsService.voiceNotificationsKey)
-        
-        voiceBarBtn.title = newValue ? voiceOnText : voiceOffText
-    }
-    
-    @objc func onVibrationNotificationsTap() {
-        let newValue = handleSettingsToggle(key: SettingsService.vibrationNotificationsKey)
-        
-        vibrationBarBtn.title = newValue ? vibrationOnText : vibrationOffText
     }
     
     func handleSettingsToggle(key: String) -> Bool {
