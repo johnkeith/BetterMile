@@ -8,6 +8,7 @@
 
 import UIKit
 
+// TODO - MOVE ALL FUNCTIONS TO NAMESPACED UIVIEW EXTENSION
 class AnimationService {
     let screenBounds = UIScreen.main.bounds
     var screenHeight: CGFloat

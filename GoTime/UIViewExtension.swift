@@ -41,3 +41,20 @@ extension UIViewController: GTController {
     }
 }
 
+protocol GTAnimation: class {
+    func enlargeBriefly(duration: Double, scale: CGFloat)
+}
+
+extension UIView: GTAnimation {
+    func enlargeBriefly(duration: Double = 0.3, scale: CGFloat = 1.2) {
+        UIView.animateKeyframes(withDuration: duration, delay: 0, animations: {
+            UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 0.5, animations: {
+                self.transform = CGAffineTransform(scaleX: scale, y: scale)
+            })
+            UIView.addKeyframe(withRelativeStartTime: 0.5, relativeDuration: 0.5, animations: {
+                self.transform = .identity
+            })
+        }, completion: nil)
+    }
+}
+

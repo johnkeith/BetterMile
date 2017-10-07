@@ -24,16 +24,16 @@ class SettingsView:UIView {
     weak var delegate: SettingsViewDelegate?
     
     init(isHidden: Bool = true) {
-        let lapsPerMileInput = UILabel()
-        lapsPerMileInput.text = "1"
-        lapsPerMileInput.textAlignment = .center
+//        let lapsPerMileInput = UILabel()
+//        lapsPerMileInput.text = "1"
+//        lapsPerMileInput.textAlignment = .center
+//
+//        let intervalInput = UILabel()
+//        intervalInput.text = "30 minutes"
+//        intervalInput.textAlignment = .center
         
-        let intervalInput = UILabel()
-        intervalInput.text = "30 minutes"
-        intervalInput.textAlignment = .center
-        
-        mileSettingsRow = SettingsViewRow(labelText: "Speak mile pace", sublabelText: "Laps per mile", userDefaultsKey: SettingsService.milePaceKey, subInput: lapsPerMileInput)
-        intervalSettingsRow = SettingsViewRow(labelText: "Sound at intervals", sublabelText: "After every", userDefaultsKey: SettingsService.intervalKey, subInput: intervalInput)
+        mileSettingsRow = SettingsViewRow(labelText: "Speak mile pace", sublabelText: "Laps / mile", userDefaultsKey: SettingsService.milePaceKey, incrementValue: 1, incrementLabel: "")
+        intervalSettingsRow = SettingsViewRow(labelText: "Sound at intervals", sublabelText: "After every", userDefaultsKey: SettingsService.intervalKey, incrementValue: 15, incrementLabel: "secs.")
         settingsRows = [mileSettingsRow, intervalSettingsRow]
 
         super.init(frame: Constants.defaultFrame)
@@ -127,6 +127,7 @@ class SettingsView:UIView {
             row.layoutIfNeeded()
                     
             row.configConstraints()
+            row.incrementControl.configConstraints()
         }
     }
     

@@ -17,19 +17,24 @@ class SettingsViewRow:UIView {
     var labelText: String
     var userDefaultsKey: String
     var sublabelText: String
-    var subInput: UIView
+    var incrementControl: IncrementControl
     
-    init(labelText: String, sublabelText: String, userDefaultsKey: String, subInput: UIView) {
+    init(
+        labelText: String,
+        sublabelText: String,
+        userDefaultsKey: String,
+        incrementValue: Int,
+        incrementLabel: String) {
         self.labelText = labelText
         self.userDefaultsKey = userDefaultsKey
         self.sublabelText = sublabelText
-        self.subInput = subInput
+        self.incrementControl = IncrementControl(value: incrementValue, labelText: incrementLabel)
         
         super.init(frame: Constants.defaultFrame)
         
         addLabel()
         addSublabel()
-        addSubInput()
+        addIncrementControl()
         addLine()
         addRowSwitch()
     }
@@ -42,7 +47,7 @@ class SettingsViewRow:UIView {
         setLabelConstraints()
         setRowSwitchConstraints()
         setSublabelConstraints()
-        setSubInputConstraints()
+        setIncrementControlConstraints()
         
         line.snp.makeConstraints { make in
             make.height.equalTo(1)
@@ -73,7 +78,7 @@ class SettingsViewRow:UIView {
         setLabelConstraints()
         setRowSwitchConstraints()
         setSublabelConstraints()
-        setSubInputConstraints()
+        setIncrementControlConstraints()
         setVisibleBasedOnToggle()
     }
     
@@ -83,7 +88,7 @@ class SettingsViewRow:UIView {
     
     func setVisibleBasedOnToggle() {
         subLabel.isHidden = !settingIsEnabled()
-        subInput.isHidden = !settingIsEnabled()
+        incrementControl.isHidden = !settingIsEnabled()
     }
     
     private func setLabelConstraints() {
@@ -112,17 +117,19 @@ class SettingsViewRow:UIView {
             make.bottom.equalTo(self).offset(-4)
             make.height.equalTo(self.frame.height / 2)
             make.left.equalTo(self)
-            make.width.equalTo(self.frame.width / 2)
+            make.width.equalTo(self.frame.width * (2/5))
         }
     }
     
-    private func setSubInputConstraints() {
-        subInput.snp.remakeConstraints { make in
+    private func setIncrementControlConstraints() {
+        incrementControl.snp.remakeConstraints { make in
             make.bottom.equalTo(self).offset(-4)
             make.height.equalTo(label)
             make.right.equalTo(self).offset(-Constants.defaultMargin / 2)
-            make.width.equalTo(self.frame.width / 2)
+            make.width.equalTo(self.frame.width * (3/5))
         }
+        
+        incrementControl.layoutIfNeeded()
     }
     
     private func addLabel() {
@@ -162,11 +169,7 @@ class SettingsViewRow:UIView {
         rowSwitch.addTarget(self, action: #selector(onRowToggle), for: UIControlEvents.allEvents)
     }
     
-    private func addSubInput() {
-        addSubview(subInput)
-        
-        subInput.layer.borderColor = Constants.colorGray.cgColor
-        subInput.layer.borderWidth = 1
-        subInput.layer.cornerRadius = 8
+    private func addIncrementControl() {
+        addSubview(incrementControl)
     }
 }
