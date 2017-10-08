@@ -14,7 +14,8 @@ protocol SettingsViewToggleDelegate: class {
 
 enum SettingsViewRowKind {
     case vibration
-    case voice
+    case previousLap
+    case averageLap
     case milePace
     case intervalPing
 }

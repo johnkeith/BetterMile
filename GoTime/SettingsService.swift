@@ -12,8 +12,8 @@ import Foundation
 class SettingsService {
     static let voiceNotificationsKey = "voiceNotifications"
     
-//    static let previousLapTimeKey = "previousLapTimeVoiceNotification"
-//    static let averageLapTimeKey = "averageLapTimeVoiceNotification"
+    static let previousLapTimeKey = "previousLapTimeVoiceNotification"
+    static let averageLapTimeKey = "averageLapTimeVoiceNotification"
 //    static let totalTimeKey = "totalTimeVoiceNotification"
 //    static let timerPausedKey = "timerPauseNotification"
 //    static let timerClearedKey = "timerClearedNotification"
