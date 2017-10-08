@@ -26,10 +26,11 @@ class SettingsView: UIView {
     weak var saveDelegate: SettingsViewDelegate?
     
     init(isHidden: Bool = true) {
-        vibrationSettingsRow = SettingsViewRow(labelText: "Haptic feedback", userDefaultsKey: SettingsService.vibrationNotificationsKey)
-        voiceSettingsRow = SettingsViewRow(labelText: "Voice feedback", userDefaultsKey: SettingsService.voiceNotificationsKey)
-        mileSettingsRow = SettingsViewRow(labelText: "Mile pace", userDefaultsKey: SettingsService.milePaceKey, sublabelText: "Laps / mile", incrementValue: 1, incrementLabel: "")
-        intervalSettingsRow = SettingsViewRow(labelText: "Interval ping", userDefaultsKey: SettingsService.intervalKey, sublabelText: "After every", incrementValue: 15, incrementLabel: "secs.")
+        vibrationSettingsRow = SettingsViewRow(labelText: "Haptic feedback", userDefaultsKey: SettingsService.vibrationNotificationsKey, kind: SettingsViewRowKind.vibration)
+        voiceSettingsRow = SettingsViewRow(labelText: "Voice feedback", userDefaultsKey: SettingsService.voiceNotificationsKey, kind: SettingsViewRowKind.voice)
+        mileSettingsRow = SettingsViewRow(labelText: "Mile pace", userDefaultsKey: SettingsService.milePaceKey, kind: SettingsViewRowKind.milePace, sublabelText: "Laps / mile", incrementValue: 1, incrementLabel: "")
+        intervalSettingsRow = SettingsViewRow(labelText: "Interval ping", userDefaultsKey: SettingsService.intervalKey, kind: SettingsViewRowKind.intervalPing, sublabelText: "After every", incrementValue: 15, incrementLabel: "secs.")
+        
         settingsRows = [vibrationSettingsRow, voiceSettingsRow, mileSettingsRow, intervalSettingsRow]
 
         super.init(frame: Constants.defaultFrame)
@@ -117,7 +118,10 @@ class SettingsView: UIView {
 
                 make.height.equalTo(self.frame.height / heightDivisor)
                 make.right.equalTo(self)
-                make.width.equalTo(row.superview!.frame.width - CGFloat(Constants.defaultMargin))
+                
+                let baseMargin = CGFloat(Constants.defaultMargin)
+                
+                make.width.equalTo(row.superview!.frame.width - baseMargin)
             }
             
             row.layoutIfNeeded()
@@ -156,6 +160,7 @@ class SettingsView: UIView {
     private func addSettingsRows() {
         for row in settingsRows {
             addSubview(row)
+            row.settingsToggleDelegate = self
         }
     }
     
@@ -165,5 +170,20 @@ class SettingsView: UIView {
         tapRecognizer.delegate = self as? UIGestureRecognizerDelegate
         
         saveButton.addGestureRecognizer(tapRecognizer)
+    }
+}
+
+extension SettingsView: SettingsViewToggleDelegate {
+    func onSettingsToggle(kind: SettingsViewRowKind, newValue: Bool) {
+        print("JUST TOGGLED KIND \(kind), \(newValue)")
+        if kind == .voice && !newValue {
+//            NEED TO EXPOSE METHOD AT ROW TO SET ENABLED STATE
+            mileSettingsRow.setToDisabled()
+            intervalSettingsRow.setToDisabled()
+        } else if kind == .milePace && !voiceSettingsRow.settingIsEnabled() {
+            voiceSettingsRow.setToEnabled()
+        } else if kind == .intervalPing && !voiceSettingsRow.settingIsEnabled() {
+            voiceSettingsRow.setToEnabled()
+        }
     }
 }

@@ -8,6 +8,17 @@
 
 import UIKit
 
+protocol SettingsViewToggleDelegate: class {
+    func onSettingsToggle(kind: SettingsViewRowKind, newValue: Bool)
+}
+
+enum SettingsViewRowKind {
+    case vibration
+    case voice
+    case milePace
+    case intervalPing
+}
+
 class SettingsViewRow:UIView {
     let label = UILabel()
     let subLabel = UILabel()
@@ -16,17 +27,21 @@ class SettingsViewRow:UIView {
     
     var labelText: String
     var userDefaultsKey: String
+    var kind: SettingsViewRowKind
     var sublabelText: String?
     var incrementControl: IncrementControl?
+    var settingsToggleDelegate: SettingsViewToggleDelegate?
     
     init(
         labelText: String,
         userDefaultsKey: String,
+        kind: SettingsViewRowKind,
         sublabelText: String? = nil,
         incrementValue: Int? = nil,
         incrementLabel: String? = nil) {
         self.labelText = labelText
         self.userDefaultsKey = userDefaultsKey
+        self.kind = kind
         
         super.init(frame: Constants.defaultFrame)
 
@@ -71,6 +86,12 @@ class SettingsViewRow:UIView {
         
         Constants.storedSettings.set(nextValue, forKey: userDefaultsKey)
         
+        resetConstraints(nextValue: nextValue)
+        
+        settingsToggleDelegate?.onSettingsToggle(kind: kind, newValue: nextValue)
+    }
+    
+    func resetConstraints(nextValue: Bool) {
         if nextValue && incrementControl != nil {
             self.snp.updateConstraints { make in
                 make.height.equalTo(superview!.frame.height / (Constants.tableRowHeightDivisor / 2))
@@ -92,6 +113,22 @@ class SettingsViewRow:UIView {
     
     func settingIsEnabled() -> Bool {
         return Constants.storedSettings.bool(forKey: userDefaultsKey)
+    }
+    
+    func setToDisabled() {
+        rowSwitch.setOn(false, animated: true)
+        
+        Constants.storedSettings.set(false, forKey: userDefaultsKey)
+        
+        resetConstraints(nextValue: false)
+    }
+    
+    func setToEnabled() {
+        rowSwitch.setOn(true, animated: true)
+        
+        Constants.storedSettings.set(true, forKey: userDefaultsKey)
+        
+        resetConstraints(nextValue: true)
     }
     
     func setVisibleBasedOnToggle() {
