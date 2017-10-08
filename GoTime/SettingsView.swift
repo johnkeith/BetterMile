@@ -26,10 +26,10 @@ class SettingsView: UIView {
     weak var saveDelegate: SettingsViewDelegate?
     
     init(isHidden: Bool = true) {
-        vibrationSettingsRow = SettingsViewRow(labelText: "Vibration", userDefaultsKey: SettingsService.vibrationNotificationsKey)
-        voiceSettingsRow = SettingsViewRow(labelText: "Voice Notifications", userDefaultsKey: SettingsService.voiceNotificationsKey)
-        mileSettingsRow = SettingsViewRow(labelText: "Speak mile pace", userDefaultsKey: SettingsService.milePaceKey, sublabelText: "Laps / mile", incrementValue: 1, incrementLabel: "")
-        intervalSettingsRow = SettingsViewRow(labelText: "Sound at intervals", userDefaultsKey: SettingsService.intervalKey, sublabelText: "After every", incrementValue: 15, incrementLabel: "secs.")
+        vibrationSettingsRow = SettingsViewRow(labelText: "Haptic feedback", userDefaultsKey: SettingsService.vibrationNotificationsKey)
+        voiceSettingsRow = SettingsViewRow(labelText: "Voice feedback", userDefaultsKey: SettingsService.voiceNotificationsKey)
+        mileSettingsRow = SettingsViewRow(labelText: "Mile pace", userDefaultsKey: SettingsService.milePaceKey, sublabelText: "Laps / mile", incrementValue: 1, incrementLabel: "")
+        intervalSettingsRow = SettingsViewRow(labelText: "Interval ping", userDefaultsKey: SettingsService.intervalKey, sublabelText: "After every", incrementValue: 15, incrementLabel: "secs.")
         settingsRows = [vibrationSettingsRow, voiceSettingsRow, mileSettingsRow, intervalSettingsRow]
 
         super.init(frame: Constants.defaultFrame)
