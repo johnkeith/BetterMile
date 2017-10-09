@@ -359,17 +359,18 @@ class SingleViewController: UIViewController {
         let shouldSpeakLap = Constants.storedSettings.bool(forKey: SettingsService.previousLapTimeKey)
         let shouldSpeakAverage = Constants.storedSettings.bool(forKey: SettingsService.averageLapTimeKey)
         
-        if shouldSpeakLap {
-            let timeTuple = timeToTextSrv.timeAsMultipleStrings(inputTime: lapTime)
-            
-            speechSrv.speakPreviousLapTime(timeTuple: timeTuple, lapNumber: lapNumber)
-        }
-        
+        //        TODO: NOT SPEAKING IN CORRECT ORDER
         if shouldSpeakAverage {
             let averageLapTime = StopWatchService.calculateAverageLapTime(laps: stopWatchSrv.completedLapTimes())
             let averageLapTimeTuple = timeToTextSrv.timeAsMultipleStrings(inputTime: averageLapTime)
             
             speechSrv.speakAverageLapTime(timeTuple: averageLapTimeTuple)
+        }
+        
+        if shouldSpeakLap {
+            let timeTuple = timeToTextSrv.timeAsMultipleStrings(inputTime: lapTime)
+            
+            speechSrv.speakPreviousLapTime(timeTuple: timeTuple, lapNumber: lapNumber)
         }
     }
     

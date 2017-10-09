@@ -9,7 +9,7 @@
 import UIKit
 
 protocol SettingsViewToggleDelegate: class {
-    func onSettingsToggle(kind: SettingsViewRowKind, newValue: Bool)
+    func onSettingsToggle(_ this: SettingsViewRow, kind: SettingsViewRowKind, newValue: Bool)
 }
 
 enum SettingsViewRowKind {
@@ -86,25 +86,13 @@ class SettingsViewRow:UIView {
         let nextValue = !currentValue
         
         Constants.storedSettings.set(nextValue, forKey: userDefaultsKey)
-        
+
+        settingsToggleDelegate?.onSettingsToggle(self, kind: kind, newValue: nextValue)
+
         resetConstraints(nextValue: nextValue)
-        
-        settingsToggleDelegate?.onSettingsToggle(kind: kind, newValue: nextValue)
     }
     
     func resetConstraints(nextValue: Bool) {
-        if nextValue && incrementControl != nil {
-            self.snp.updateConstraints { make in
-                make.height.equalTo(superview!.frame.height / (Constants.tableRowHeightDivisor / 2))
-            }
-        } else {
-            self.snp.updateConstraints { make in
-                make.height.equalTo(superview!.frame.height / Constants.tableRowHeightDivisor)
-            }
-        }
-        
-        self.layoutIfNeeded()
-        
         setLabelConstraints()
         setRowSwitchConstraints()
         setSublabelConstraints()

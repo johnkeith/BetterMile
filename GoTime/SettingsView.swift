@@ -16,6 +16,7 @@ class SettingsView: UIView {
     let titleLabel = UILabel()
     let saveButton = UIView()
     let saveButtonLabel = UILabel()
+    let scrollView = UIScrollView()
     
     var settingsRows: [SettingsViewRow]
     var averageLapSettingsRow: SettingsViewRow
@@ -46,6 +47,7 @@ class SettingsView: UIView {
         
         addtitleLabel()
         addSaveButton()
+        addScrollView()
         addSettingsRows()
     }
     
@@ -65,9 +67,13 @@ class SettingsView: UIView {
         
         layoutIfNeeded()
         
+        configScrollViewConstraints()
         configTitleLabelConstraints()
         configSaveButtonConstraints()
         configSettingsRowConstraints()
+        
+        setScrollViewContentSize()
+        scrollView.scrollRectToVisible(CGRect(x: 0, y: 0, width: 1, height: 1), animated: true)
     }
     
     @objc func onSave() {
@@ -81,6 +87,8 @@ class SettingsView: UIView {
             make.width.equalTo(titleLabel.superview!)
             make.top.equalTo(titleLabel.superview!)
         }
+        
+        titleLabel.layoutIfNeeded()
     }
     
     private func configSaveButtonConstraints() {
@@ -100,11 +108,22 @@ class SettingsView: UIView {
         }
     }
     
+    private func configScrollViewConstraints() {
+        scrollView.snp.makeConstraints { make in
+            make.left.equalTo(self)
+            make.top.equalTo(titleLabel.snp.bottom)
+            make.bottom.equalTo(saveButton.snp.top)
+            make.width.equalTo(self)
+        }
+        
+        scrollView.layoutIfNeeded()
+    }
+    
     private func configSettingsRowConstraints() {
         for (index, row) in settingsRows.enumerated() {
             row.snp.makeConstraints { make in
                 if index == 0 {
-                    make.top.equalTo(titleLabel.snp.bottom)
+                    make.top.equalTo(row.superview!.snp.top)
                 } else {
                     let previousRow = settingsRows[index - 1]
                     make.top.equalTo(previousRow.snp.bottom)
@@ -161,9 +180,20 @@ class SettingsView: UIView {
     
     private func addSettingsRows() {
         for row in settingsRows {
-            addSubview(row)
+            scrollView.addSubview(row)
             row.settingsToggleDelegate = self
         }
+    }
+    
+    private func addScrollView() {
+        addSubview(scrollView)
+        
+        scrollView.delegate = self
+        scrollView.isScrollEnabled = true
+    }
+    
+    private func sumOfRowHeights() -> CGFloat {
+        return settingsRows.reduce(0.0) { memo, row in row.frame.height + memo }
     }
     
     private func addSaveButtonTapRecognizer() {
@@ -173,10 +203,32 @@ class SettingsView: UIView {
         
         saveButton.addGestureRecognizer(tapRecognizer)
     }
+    
+    private func setScrollViewContentSize() {
+        let rowHeights = sumOfRowHeights()
+        
+        scrollView.contentSize = CGSize(width: self.frame.width, height: rowHeights)
+    }
+}
+
+extension SettingsView: UIScrollViewDelegate {
+    
 }
 
 extension SettingsView: SettingsViewToggleDelegate {
-    func onSettingsToggle(kind: SettingsViewRowKind, newValue: Bool) {
-
+    func onSettingsToggle(_ this: SettingsViewRow, kind: SettingsViewRowKind, newValue: Bool) {
+        if newValue && this.incrementControl != nil {
+            this.snp.updateConstraints { make in
+                make.height.equalTo(self.frame.height / (Constants.tableRowHeightDivisor / 2))
+            }
+        } else {
+            this.snp.updateConstraints { make in
+                make.height.equalTo(self.frame.height / Constants.tableRowHeightDivisor)
+            }
+        }
+        
+        this.layoutIfNeeded()
+        
+        setScrollViewContentSize()
     }
 }
