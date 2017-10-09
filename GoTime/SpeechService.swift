@@ -81,15 +81,14 @@ class SpeechService: NSObject, AVSpeechSynthesizerDelegate {
         voiceQueue.append(SpeechTypes.PreviousAndAverageLapTimes)
     }
     
-//    not in use
-    private func speakPreviousLapTime(timeTuple: (minutes: String, seconds: String, fraction: String), lapNumber: Int) {
+    func speakPreviousLapTime(timeTuple: (minutes: String, seconds: String, fraction: String), lapNumber: Int) {
         let lapNumberOrdinalized = "\(lapNumber)\(Constants.ordinalSuffixForNumber(number: lapNumber))"
         let sentancePrefix = "\(lapNumberOrdinalized) lap time"
         
         speakSentanceAboutTime(timeTuple: timeTuple, sentancePrefix: sentancePrefix)
     }
     
-    private func speakAverageLapTime(timeTuple: (minutes: String, seconds: String, fraction: String)) {
+    func speakAverageLapTime(timeTuple: (minutes: String, seconds: String, fraction: String)) {
         let sentancePrefix = "Average lap time"
         
         speakSentanceAboutTime(timeTuple: timeTuple, sentancePrefix: sentancePrefix)

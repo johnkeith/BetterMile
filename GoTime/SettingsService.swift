@@ -10,7 +10,7 @@ import Foundation
 
 // TODO: UNTESTED
 class SettingsService {
-    static let voiceNotificationsKey = "voiceNotifications"
+//    static let voiceNotificationsKey = "voiceNotifications"
     
     static let previousLapTimeKey = "previousLapTimeVoiceNotification"
     static let averageLapTimeKey = "averageLapTimeVoiceNotification"
@@ -39,7 +39,8 @@ class SettingsService {
         let currentValue = Constants.storedSettings.integer(forKey: key)
 
         if currentValue == 0 {
-            Constants.storedSettings.set(true, forKey: voiceNotificationsKey)
+            Constants.storedSettings.set(true, forKey: previousLapTimeKey)
+            Constants.storedSettings.set(true, forKey: averageLapTimeKey)
             Constants.storedSettings.set(true, forKey: vibrationNotificationsKey)
         }
     }

@@ -356,47 +356,53 @@ class SingleViewController: UIViewController {
     }
     
     func notifyWithVoiceIfEnabled(lapTime: Double, lapNumber: Int) {
-        let shouldSpeak = Constants.storedSettings.bool(forKey: SettingsService.voiceNotificationsKey)
+        let shouldSpeakLap = Constants.storedSettings.bool(forKey: SettingsService.previousLapTimeKey)
+        let shouldSpeakAverage = Constants.storedSettings.bool(forKey: SettingsService.averageLapTimeKey)
         
-        if shouldSpeak {
+        if shouldSpeakLap {
             let timeTuple = timeToTextSrv.timeAsMultipleStrings(inputTime: lapTime)
+            
+            speechSrv.speakPreviousLapTime(timeTuple: timeTuple, lapNumber: lapNumber)
+        }
+        
+        if shouldSpeakAverage {
             let averageLapTime = StopWatchService.calculateAverageLapTime(laps: stopWatchSrv.completedLapTimes())
             let averageLapTimeTuple = timeToTextSrv.timeAsMultipleStrings(inputTime: averageLapTime)
             
-            speechSrv.speakPreviousAndAverageLapTimes(previous: timeTuple, average: averageLapTimeTuple, lapNumber: lapNumber)
+            speechSrv.speakAverageLapTime(timeTuple: averageLapTimeTuple)
         }
     }
     
     func notifyPaused() {
-        let shouldSpeak = Constants.storedSettings.bool(forKey: SettingsService.voiceNotificationsKey)
-        
-        if shouldSpeak {
-            speechSrv.speakTimerPaused()
-        }
+//        let shouldSpeak = Constants.storedSettings.bool(forKey: SettingsService.voiceNotificationsKey)
+//
+//        if shouldSpeak {
+//            speechSrv.speakTimerPaused()
+//        }
     }
     
     func notifyResumed() {
-        let shouldSpeak = Constants.storedSettings.bool(forKey: SettingsService.voiceNotificationsKey)
-        
-        if shouldSpeak {
-            speechSrv.speakTimerRestarted()
-        }
+//        let shouldSpeak = Constants.storedSettings.bool(forKey: SettingsService.voiceNotificationsKey)
+//
+//        if shouldSpeak {
+//            speechSrv.speakTimerRestarted()
+//        }
     }
     
     func notifyStarted() {
-        let shouldSpeak = Constants.storedSettings.bool(forKey: SettingsService.voiceNotificationsKey)
-        
-        if shouldSpeak {
-            speechSrv.speakTimerStarted()
-        }
+//        let shouldSpeak = Constants.storedSettings.bool(forKey: SettingsService.voiceNotificationsKey)
+//
+//        if shouldSpeak {
+//            speechSrv.speakTimerStarted()
+//        }
     }
     
     func notifyTimerCleared() {
-        let shouldSpeak = Constants.storedSettings.bool(forKey: SettingsService.voiceNotificationsKey)
-        
-        if shouldSpeak {
-            speechSrv.speakTimerCleared()
-        }
+//        let shouldSpeak = Constants.storedSettings.bool(forKey: SettingsService.voiceNotificationsKey)
+//        
+//        if shouldSpeak {
+//            speechSrv.speakTimerCleared()
+//        }
     }
 }
 
