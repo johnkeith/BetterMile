@@ -24,17 +24,19 @@ class SettingsView: UIView {
     var mileSettingsRow: SettingsViewRow
     var intervalSettingsRow: SettingsViewRow
     var previousLapSettingsRow: SettingsViewRow
+    var startStopSettingsRow: SettingsViewRow
     
     weak var saveDelegate: SettingsViewDelegate?
     
     init(isHidden: Bool = true) {
         vibrationSettingsRow = SettingsViewRow(labelText: "Vibrate after lap", userDefaultsKey: SettingsService.vibrationNotificationsKey, kind: SettingsViewRowKind.vibration)
+        startStopSettingsRow = SettingsViewRow(labelText: "Speak run start / stop", userDefaultsKey: SettingsService.speakStartStopKey, kind: SettingsViewRowKind.startStop)
         previousLapSettingsRow = SettingsViewRow(labelText: "Speak previous lap pace", userDefaultsKey: SettingsService.previousLapTimeKey, kind: SettingsViewRowKind.previousLap)
         averageLapSettingsRow = SettingsViewRow(labelText: "Speak average lap pace", userDefaultsKey: SettingsService.averageLapTimeKey, kind: SettingsViewRowKind.averageLap)
         mileSettingsRow = SettingsViewRow(labelText: "Speak mile pace", userDefaultsKey: SettingsService.milePaceKey, kind: SettingsViewRowKind.milePace, sublabelText: "Laps / mile", incrementValue: 1, incrementLabel: "")
         intervalSettingsRow = SettingsViewRow(labelText: "Sound at interval", userDefaultsKey: SettingsService.intervalKey, kind: SettingsViewRowKind.intervalPing, sublabelText: "Of every", incrementValue: 15, incrementLabel: "secs.")
         
-        settingsRows = [vibrationSettingsRow, previousLapSettingsRow, averageLapSettingsRow, mileSettingsRow, intervalSettingsRow]
+        settingsRows = [vibrationSettingsRow, startStopSettingsRow, previousLapSettingsRow, averageLapSettingsRow, mileSettingsRow, intervalSettingsRow]
 
         super.init(frame: Constants.defaultFrame)
         

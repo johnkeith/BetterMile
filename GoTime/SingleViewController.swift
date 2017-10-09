@@ -374,35 +374,35 @@ class SingleViewController: UIViewController {
     }
     
     func notifyPaused() {
-//        let shouldSpeak = Constants.storedSettings.bool(forKey: SettingsService.voiceNotificationsKey)
-//
-//        if shouldSpeak {
-//            speechSrv.speakTimerPaused()
-//        }
+        let shouldSpeak = Constants.storedSettings.bool(forKey: SettingsService.speakStartStopKey)
+
+        if shouldSpeak {
+            speechSrv.speakTimerPaused()
+        }
     }
     
     func notifyResumed() {
-//        let shouldSpeak = Constants.storedSettings.bool(forKey: SettingsService.voiceNotificationsKey)
-//
-//        if shouldSpeak {
-//            speechSrv.speakTimerRestarted()
-//        }
+        let shouldSpeak = Constants.storedSettings.bool(forKey: SettingsService.speakStartStopKey)
+
+        if shouldSpeak {
+            speechSrv.speakTimerRestarted()
+        }
     }
     
     func notifyStarted() {
-//        let shouldSpeak = Constants.storedSettings.bool(forKey: SettingsService.voiceNotificationsKey)
-//
-//        if shouldSpeak {
-//            speechSrv.speakTimerStarted()
-//        }
+        let shouldSpeak = Constants.storedSettings.bool(forKey: SettingsService.speakStartStopKey)
+
+        if shouldSpeak {
+            speechSrv.speakTimerStarted()
+        }
     }
     
     func notifyTimerCleared() {
-//        let shouldSpeak = Constants.storedSettings.bool(forKey: SettingsService.voiceNotificationsKey)
-//        
-//        if shouldSpeak {
-//            speechSrv.speakTimerCleared()
-//        }
+        let shouldSpeak = Constants.storedSettings.bool(forKey: SettingsService.speakStartStopKey)
+        
+        if shouldSpeak {
+            speechSrv.speakTimerCleared()
+        }
     }
 }
 

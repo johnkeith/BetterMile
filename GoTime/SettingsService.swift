@@ -10,21 +10,15 @@ import Foundation
 
 // TODO: UNTESTED
 class SettingsService {
-//    static let voiceNotificationsKey = "voiceNotifications"
-    
     static let previousLapTimeKey = "previousLapTimeVoiceNotification"
     static let averageLapTimeKey = "averageLapTimeVoiceNotification"
-//    static let totalTimeKey = "totalTimeVoiceNotification"
-//    static let timerPausedKey = "timerPauseNotification"
-//    static let timerClearedKey = "timerClearedNotification"
     
     static let milePaceKey = "milePaceVoiceNotification"
     static let intervalKey = "intervalVoiceNotification"
     
     static let vibrationNotificationsKey = "vibrationNotifications"
-//    static let vibrateOnLapKey = "vibrateOnLapNotification"
-//    static let vibrateOnPauseKey = "vibrateOnPauseNotification"
-//    static let vibrateOnClearKey = "vibrateOnClearNotification"
+    
+    static let speakStartStopKey = "startStopNotification"
     
     static func incrementAppRunCount() {
         let key = Constants.appRunTimes

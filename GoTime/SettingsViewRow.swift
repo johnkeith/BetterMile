@@ -18,6 +18,7 @@ enum SettingsViewRowKind {
     case averageLap
     case milePace
     case intervalPing
+    case startStop
 }
 
 class SettingsViewRow:UIView {
