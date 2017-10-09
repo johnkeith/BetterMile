@@ -144,13 +144,11 @@ class SpeechService: NSObject, AVSpeechSynthesizerDelegate {
     }
     
     private func activateAudioAndSpeak(utterance: AVSpeechUtterance) {
-        DispatchQueue.global(qos: .background).async {
-            do {
-                try AVAudioSession.sharedInstance().setActive(true)
-                self.synth.speak(utterance)
-            } catch {
-                print("there was an error activating audio")
-            }
+        do {
+            try AVAudioSession.sharedInstance().setActive(true)
+            self.synth.speak(utterance)
+        } catch {
+            print("there was an error activating audio")
         }
     }
     
