@@ -29,7 +29,9 @@ class IncrementControl: UIView {
             } else {
                 _value = newValue
             }
+            
             updateLabel()
+            
             delegate?.onIncrementChangeHandler(newValue: newValue)
         }
     }

@@ -91,7 +91,10 @@ class AnimationService {
                        options: .allowUserInteraction,
                        animations: {
                         view.transform = position
-        }, completion: completion)
+        }, completion: { success in
+            view.isHidden = true
+            completion(success)
+        })
     }
     
     func animateMoveHorizontallyFromOffscreen(_ view: UIView, direction: AnimationDirection, duration: Double = 0.5) {

@@ -256,9 +256,10 @@ class SingleViewController: UIViewController {
     }
     
     @objc func onAdvancedSettingsTap() {
-//        show blur
-        animationSrv.animateFadeInView(blurOverlay, duration: 0.1)
-        animationSrv.animateMoveVerticallyFromOffscreenBottom(settingsView, duration: settingsViewAnimationDuration)
+        if settingsView.isHidden {
+            animationSrv.animateFadeInView(blurOverlay, duration: 0.1)
+            animationSrv.animateMoveVerticallyFromOffscreenBottom(settingsView, duration: settingsViewAnimationDuration)
+        }
     }
     
     @objc func onPauseTap() {
