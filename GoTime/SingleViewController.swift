@@ -322,6 +322,10 @@ class SingleViewController: UIViewController {
             self.stopWatchSrv.stop()
             
             DispatchQueue.main.async {
+                self.animationSrv.animateTextChange(self.lapLbl, duration: 0.8)
+                self.animationSrv.animateTextChange(self.totalTimeLbl, duration: 0.8)
+                self.animationSrv.animateTextChange(self.lapTimeLbl, duration: 0.8)
+                
                 self.totalTimeLbl.text = self.defaultTotalTimeLblText
                 self.lapLbl.text = "00"
                 self.lapTimeLbl.text = self.lapTimeLbl.defaultText

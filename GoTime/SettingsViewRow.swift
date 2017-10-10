@@ -33,6 +33,7 @@ class SettingsViewRow:UIView {
     var sublabelText: String?
     var incrementControl: IncrementControl?
     var settingsToggleDelegate: SettingsViewToggleDelegate?
+    var incrementUserDefaultsKey: String?
     
     init(
         labelText: String,
@@ -40,10 +41,13 @@ class SettingsViewRow:UIView {
         kind: SettingsViewRowKind,
         sublabelText: String? = nil,
         incrementValue: Int? = nil,
-        incrementLabel: String? = nil) {
+        incrementLabel: String? = nil,
+        incrementMin: Int? = nil,
+        incrementUserDefaultsKey: String? = nil) {
         self.labelText = labelText
         self.userDefaultsKey = userDefaultsKey
         self.kind = kind
+        self.incrementUserDefaultsKey = incrementUserDefaultsKey
         
         super.init(frame: Constants.defaultFrame)
 
@@ -56,8 +60,11 @@ class SettingsViewRow:UIView {
             addSublabel()
         }
         
-        if incrementValue != nil && incrementLabel != nil { 
-            self.incrementControl = IncrementControl(value: incrementValue!, labelText: incrementLabel!)
+        if incrementValue != nil && incrementLabel != nil && incrementMin != nil {
+            self.incrementControl = IncrementControl(value: incrementValue!, labelText: incrementLabel!, minValue: incrementMin!)
+            
+            incrementControl!.delegate = self
+            
             addIncrementControl()
         }
         
@@ -209,5 +216,11 @@ class SettingsViewRow:UIView {
     
     private func addIncrementControl() {
         addSubview(incrementControl!)
+    }
+}
+
+extension SettingsViewRow: IncrementControlDelegate {
+    func onIncrementChangeHandler(newValue: Int) {
+        Constants.storedSettings.set(newValue, forKey: incrementUserDefaultsKey!)
     }
 }

@@ -159,13 +159,12 @@ class AnimationService {
     }
     
     func animateTextChange(_ view: UIView, duration: CFTimeInterval = 0.8) {
-//        NOT WORKING :(
-//        let animation:CATransition = CATransition()
-//        animation.timingFunction = CAMediaTimingFunction(name:
-//            kCAMediaTimingFunctionEaseInEaseOut)
-//        animation.type = kCATransitionReveal
-//        animation.subtype = kCATransitionFromBottom
-//        animation.duration = duration
-//        view.layer.add(animation, forKey: kCATransitionPush)
+        let animation:CATransition = CATransition()
+        animation.timingFunction = CAMediaTimingFunction(name:
+            kCAMediaTimingFunctionEaseInEaseOut)
+        animation.type = kCATransitionReveal
+        animation.subtype = kCATransitionFromBottom
+        animation.duration = duration
+        view.layer.add(animation, forKey: kCATransitionPush)
     }
 }

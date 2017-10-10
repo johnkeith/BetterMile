@@ -13,7 +13,6 @@ protocol IncrementControlDelegate: class {
 }
 
 class IncrementControl: UIView {
-    let minValue = 0
     let minusButton = UIButton()
     let plusButton = UIButton()
     let label = UILabel()
@@ -37,11 +36,13 @@ class IncrementControl: UIView {
     }
     
     var labelText: String
+    var minValue: Int
     var delegate: IncrementControlDelegate?
     
-    init(value: Int, labelText: String) {
+    init(value: Int, labelText: String, minValue: Int) {
         self._value = value
         self.labelText = labelText
+        self.minValue = minValue
         
         super.init(frame: Constants.defaultFrame)
         

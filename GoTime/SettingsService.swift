@@ -15,6 +15,8 @@ class SettingsService {
     
     static let milePaceKey = "milePaceVoiceNotification"
     static let intervalKey = "intervalVoiceNotification"
+    static let milePaceAmountKey = "milePaceAmount"
+    static let intervalAmountKey = "intervalAmount"
     
     static let vibrationNotificationsKey = "vibrationNotifications"
     
@@ -33,9 +35,15 @@ class SettingsService {
         let currentValue = Constants.storedSettings.integer(forKey: key)
 
         if currentValue == 0 {
-            Constants.storedSettings.set(true, forKey: previousLapTimeKey)
-            Constants.storedSettings.set(true, forKey: averageLapTimeKey)
-            Constants.storedSettings.set(true, forKey: vibrationNotificationsKey)
+            resetToDefaultSettings()
         }
+    }
+    
+    static func resetToDefaultSettings() {
+        Constants.storedSettings.set(true, forKey: previousLapTimeKey)
+        Constants.storedSettings.set(true, forKey: averageLapTimeKey)
+        Constants.storedSettings.set(true, forKey: vibrationNotificationsKey)
+        Constants.storedSettings.set(12, forKey: milePaceAmountKey)
+        Constants.storedSettings.set(15, forKey: intervalAmountKey)
     }
 }

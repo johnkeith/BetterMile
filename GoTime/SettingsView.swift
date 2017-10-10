@@ -29,12 +29,15 @@ class SettingsView: UIView {
     weak var saveDelegate: SettingsViewDelegate?
     
     init(isHidden: Bool = true) {
+        let milePaceIncrementValue: Int = Constants.storedSettings.integer(forKey: SettingsService.milePaceAmountKey)
+        let intervalAmount: Int = Constants.storedSettings.integer(forKey: SettingsService.intervalAmountKey)
+        
         vibrationSettingsRow = SettingsViewRow(labelText: "Vibrate after lap", userDefaultsKey: SettingsService.vibrationNotificationsKey, kind: SettingsViewRowKind.vibration)
         startStopSettingsRow = SettingsViewRow(labelText: "Speak run start / stop", userDefaultsKey: SettingsService.speakStartStopKey, kind: SettingsViewRowKind.startStop)
         previousLapSettingsRow = SettingsViewRow(labelText: "Speak previous lap pace", userDefaultsKey: SettingsService.previousLapTimeKey, kind: SettingsViewRowKind.previousLap)
         averageLapSettingsRow = SettingsViewRow(labelText: "Speak average lap pace", userDefaultsKey: SettingsService.averageLapTimeKey, kind: SettingsViewRowKind.averageLap)
-        mileSettingsRow = SettingsViewRow(labelText: "Speak mile pace", userDefaultsKey: SettingsService.milePaceKey, kind: SettingsViewRowKind.milePace, sublabelText: "Laps / mile", incrementValue: 1, incrementLabel: "")
-        intervalSettingsRow = SettingsViewRow(labelText: "Sound at interval", userDefaultsKey: SettingsService.intervalKey, kind: SettingsViewRowKind.intervalPing, sublabelText: "Of every", incrementValue: 15, incrementLabel: "secs.")
+        mileSettingsRow = SettingsViewRow(labelText: "Speak mile pace", userDefaultsKey: SettingsService.milePaceKey, kind: SettingsViewRowKind.milePace, sublabelText: "Laps / mile", incrementValue: milePaceIncrementValue, incrementLabel: "", incrementMin: 1, incrementUserDefaultsKey: SettingsService.milePaceAmountKey)
+        intervalSettingsRow = SettingsViewRow(labelText: "Sound at interval", userDefaultsKey: SettingsService.intervalKey, kind: SettingsViewRowKind.intervalPing, sublabelText: "Of every", incrementValue: intervalAmount, incrementLabel: "secs.", incrementMin: 1, incrementUserDefaultsKey: SettingsService.intervalAmountKey)
         
         settingsRows = [vibrationSettingsRow, startStopSettingsRow, previousLapSettingsRow, averageLapSettingsRow, mileSettingsRow, intervalSettingsRow]
 
