@@ -15,6 +15,7 @@ enum SpeechTypes {
     case TimerCleared
     case TimerRestarted
     case PreviousAndAverageLapTimes
+    case SpeakAfterLap
 }
 
 // TODO: UNTESTED
@@ -108,7 +109,7 @@ class SpeechService: NSObject, AVSpeechSynthesizerDelegate {
         textToSpeech(text: sentanceToSpeak)
     }
     
-    private func convertTimeTupleToString(_ timeTuple: (minutes: String, seconds: String, fraction: String)) -> String {
+    func convertTimeTupleToString(_ timeTuple: (minutes: String, seconds: String, fraction: String)) -> String {
         
         let milliseconds = timeTuple.fraction
         let minutesInt = Int(timeTuple.minutes)
@@ -116,7 +117,6 @@ class SpeechService: NSObject, AVSpeechSynthesizerDelegate {
         
         var result: String = ""
         
-        //        TODO - NOT WORKING
         if minutesInt! > 0 {
             result += " \(minutesInt!) minute"
         }
@@ -136,7 +136,7 @@ class SpeechService: NSObject, AVSpeechSynthesizerDelegate {
         return result
     }
     
-    private func textToSpeech(text: String) {
+    func textToSpeech(text: String) {
         let myUtterance = AVSpeechUtterance(string: text)
         myUtterance.rate = 0.5
         
@@ -144,11 +144,13 @@ class SpeechService: NSObject, AVSpeechSynthesizerDelegate {
     }
     
     private func activateAudioAndSpeak(utterance: AVSpeechUtterance) {
-        do {
-            try AVAudioSession.sharedInstance().setActive(true)
-            self.synth.speak(utterance)
-        } catch {
-            print("there was an error activating audio")
+        DispatchQueue.global(qos: .background).async {
+            do {
+                try AVAudioSession.sharedInstance().setActive(true)
+                self.synth.speak(utterance)
+            } catch {
+                print("there was an error activating audio")
+            }
         }
     }
     

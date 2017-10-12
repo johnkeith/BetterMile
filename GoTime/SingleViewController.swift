@@ -363,19 +363,37 @@ class SingleViewController: UIViewController {
     func notifyWithVoiceIfEnabled(lapTime: Double, lapNumber: Int) {
         let shouldSpeakLap = Constants.storedSettings.bool(forKey: SettingsService.previousLapTimeKey)
         let shouldSpeakAverage = Constants.storedSettings.bool(forKey: SettingsService.averageLapTimeKey)
+        let shouldSpeakMilePace = Constants.storedSettings.bool(forKey: SettingsService.milePaceKey)
+        
+        var sentanceToSpeak = ""
         
         if shouldSpeakLap {
             let timeTuple = timeToTextSrv.timeAsMultipleStrings(inputTime: lapTime)
+            let lapNumberOrdinalized = "\(lapNumber)\(Constants.ordinalSuffixForNumber(number: lapNumber))"
+            let previousLapTime = speechSrv.convertTimeTupleToString(timeTuple)
             
-            speechSrv.speakPreviousLapTime(timeTuple: timeTuple, lapNumber: lapNumber)
+            sentanceToSpeak += "\(lapNumberOrdinalized) lap \(previousLapTime)."
         }
         
-        if shouldSpeakAverage {
+        if shouldSpeakAverage && lapNumber > 1{
             let averageLapTime = StopWatchService.calculateAverageLapTime(laps: stopWatchSrv.completedLapTimes())
             let averageLapTimeTuple = timeToTextSrv.timeAsMultipleStrings(inputTime: averageLapTime)
+            let averageLapTimeString = speechSrv.convertTimeTupleToString(averageLapTimeTuple)
             
-            speechSrv.speakAverageLapTime(timeTuple: averageLapTimeTuple)
+            sentanceToSpeak += "Average \(averageLapTimeString)."
         }
+        
+        if shouldSpeakMilePace && stopWatchSrv.wasMileCompleted() {
+            let mileNumber = stopWatchSrv.completedMiles()
+            let milePace = stopWatchSrv.calculateMilePace()
+            let milePaceTuple = timeToTextSrv.timeAsMultipleStrings(inputTime: milePace)
+            let milePaceString = speechSrv.convertTimeTupleToString(milePaceTuple)
+         
+            sentanceToSpeak += "Mile \(mileNumber) \(milePaceString)"
+        }
+        
+        speechSrv.textToSpeech(text: sentanceToSpeak)
+        speechSrv.voiceQueue.append(SpeechTypes.SpeakAfterLap)
     }
     
     func notifyPaused() {

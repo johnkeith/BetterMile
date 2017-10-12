@@ -80,6 +80,25 @@ class StopWatchService: NSObject {
         return klass.calculateTotalLapsTime(laps: lapTimes)
     }
     
+    func wasMileCompleted() -> Bool {
+        let lapsPerMile = Constants.storedSettings.integer(forKey: SettingsService.milePaceAmountKey)
+        
+        return (completedLapTimes().count % lapsPerMile) == 0
+    }
+    
+    func calculateMilePace() -> Double {
+        let lapsPerMile = Constants.storedSettings.integer(forKey: SettingsService.milePaceAmountKey)
+        let lapTimes = completedLapTimes().reversed()[0..<lapsPerMile]
+        
+        return klass.calculateTotalLapsTime(laps: Array(lapTimes))
+    }
+    
+    func completedMiles() -> Int {
+        let lapsPerMile = Constants.storedSettings.integer(forKey: SettingsService.milePaceAmountKey)
+        
+        return completedLapTimes().count / lapsPerMile
+    }
+    
     func calculateLapDeviationPercentage(lapTime: Double) -> Double {
         let currentStandardDeviation = klass.calculateStandardDeviation(laps: self.lapTimes)
         let currentAverageLapTime = klass.calculateAverageLapTime(laps: self.lapTimes)
@@ -142,7 +161,6 @@ class StopWatchService: NSObject {
     }
     
     func pause() {
-        print("pausing")
         elapsedTimeBeforePause = calculateTimeBetweenPointAndNow(initialTime: startTime)
         
         timerRunning = false
