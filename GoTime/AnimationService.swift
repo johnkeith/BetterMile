@@ -133,7 +133,7 @@ class AnimationService {
     func enlargeBriefly(_ view: UIView, duration: Double = 0.3) {
         UIView.animateKeyframes(withDuration: duration, delay: 0, animations: {
             UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 0.5, animations: {
-                view.transform = CGAffineTransform(scaleX: 1.2, y: 1.2)
+                view.transform = CGAffineTransform(scaleX: 1.1, y: 1.1)
             })
             UIView.addKeyframe(withRelativeStartTime: 0.5, relativeDuration: 0.5, animations: {
                 view.transform = .identity

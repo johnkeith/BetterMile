@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AVFoundation
 
 enum LapQualities {
     case good
@@ -37,6 +38,7 @@ class StopWatchService: NSObject {
     var coreData: CoreDataService
     
     var timer: Timer!
+    var pingTimer: Timer!
     var timerRunning: Bool = false
     var startTime: TimeInterval!
     var elapsedTimeBeforePause: TimeInterval = 0.0
@@ -63,6 +65,26 @@ class StopWatchService: NSObject {
             lapTimes.append(0.0)
             delegate?.stopWatchStarted()
         }
+        
+        startPingInterval()
+    }
+    
+    func startPingInterval() {
+        if pingTimer == nil {
+            let shouldStartInterval = Constants.storedSettings.bool(forKey: SettingsService.intervalKey)
+            
+            if shouldStartInterval {
+                let intervalLength = Constants.storedSettings.integer(forKey: SettingsService.intervalAmountKey)
+                
+                pingTimer = Timer.scheduledTimer(
+                    timeInterval: TimeInterval(intervalLength),
+                    target: self,
+                    selector: #selector(pingIntervalElapsed),
+                    userInfo: nil,
+                    repeats: true
+                )
+            }
+        }
     }
     
     @objc func timeIntervalElapsed() {
@@ -70,6 +92,14 @@ class StopWatchService: NSObject {
         let totalTimeElapsed = klass.calculateTotalLapsTime(laps: lapTimes)
 
         delegate?.stopWatchIntervalElapsed(totalTimeElapsed: totalTimeElapsed)
+    }
+    
+    @objc func pingIntervalElapsed() {
+        DispatchQueue.main.async {
+            let systemSoundID: SystemSoundID = 1106
+
+            AudioServicesPlaySystemSound(systemSoundID)
+        }
     }
     
     func completedLapTimes() -> [Double] {
@@ -144,6 +174,10 @@ class StopWatchService: NSObject {
         if(timer != nil) {
             timer.invalidate()
         }
+        
+        if(pingTimer != nil) {
+            pingTimer.invalidate()
+        }
 
         RunPersistanceService(_lapTimes: self.lapTimes).save()
 
@@ -154,6 +188,7 @@ class StopWatchService: NSObject {
     
     func resetInitialState() {
         timer = nil
+        pingTimer = nil
         timerRunning = false
         startTime = nil
         elapsedTimeBeforePause = 0.0
@@ -166,6 +201,11 @@ class StopWatchService: NSObject {
         timerRunning = false
         
         timer.invalidate()
+        
+        if pingTimer != nil {
+            pingTimer.invalidate()
+            pingTimer = nil
+        }
         
         delegate?.stopWatchPaused()
     }

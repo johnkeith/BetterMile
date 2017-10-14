@@ -121,7 +121,19 @@ class SingleViewController: UIViewController {
         advancedBarBtn.tintColor = Constants.colorBlack
         let spacer = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         
-        self.toolbarItems = [spacer, advancedBarBtn, spacer]
+//        advancedBarBtn.setTitleTextAttributes([NSAttributedStringKey.font: UIFont.preferredFont(forTextStyle: .body)], for: .normal)
+        
+        let button = UIButton(type: .system)
+        button.setImage(UIImage(named: "ic_tune"), for: .normal)
+        button.setTitle(" \(advancedSettingsText)", for: .normal)
+        button.titleLabel?.font = UIFont.preferredFont(forTextStyle: .body)
+        button.setTitleColor(fgClr, for: UIControlState.normal)
+        button.tintColor = fgClr
+        button.sizeToFit()
+        button.addTarget(self, action: #selector(onAdvancedSettingsTap), for: .touchDown)
+        let barButton = UIBarButtonItem(customView: button)
+        
+        self.toolbarItems = [spacer, barButton, spacer]
     }
     
     func configNavBar() {
@@ -129,7 +141,7 @@ class SingleViewController: UIViewController {
         rightBarBtn.tintColor = Constants.colorBlack
         
         self.navigationController?.navigationBar.barStyle = .default
-        self.navigationController?.navigationBar.isTranslucent = false
+        self.navigationController?.navigationBar.isTranslucent = true
         self.navigationController?.navigationBar.backgroundColor = Constants.colorWhite
         self.navigationController?.isToolbarHidden = false
         self.navigationController?.view.backgroundColor = Constants.colorWhite
@@ -137,12 +149,16 @@ class SingleViewController: UIViewController {
         self.navigationController?.navigationBar.barTintColor = Constants.colorWhite
         
         self.navigationController?.toolbar!.barStyle = .default
-        self.navigationController?.toolbar!.isTranslucent = false
+        self.navigationController?.toolbar!.isTranslucent = true
         self.navigationController?.toolbar!.backgroundColor = Constants.colorWhite
         self.navigationController?.toolbar!.barTintColor = Constants.colorWhite
         
         self.navigationController?.view.addSubview(blurOverlay)
         self.navigationController?.view.addSubview(settingsView)
+        
+//        Remove navbar and toolbar borders
+        self.navigationController?.navigationBar.shadowImage = UIImage()
+        self.navigationController?.toolbar!.setShadowImage(UIImage(), forToolbarPosition: .bottom)
         
         settingsView.configConstraints()
         
@@ -216,7 +232,7 @@ class SingleViewController: UIViewController {
         lapLbl.textAlignment = .center
         lapLbl.textColor = fgClr
         lapLbl.baselineAdjustment = .alignCenters
-        
+
         lapLbl.snp.makeConstraints { make in
             make.width.equalTo(lapLbl.superview!).offset(-Constants.defaultMargin * 2)
             make.height.equalTo(self.view.frame.height / 3)
@@ -234,10 +250,10 @@ class SingleViewController: UIViewController {
     func configLapTableBtn() {
         lapTableBtn.hide()
         
-        lapTableBtn.setTitle("View lap times ›", for: UIControlState.normal)
+        lapTableBtn.setTitle("View lap times \u{203A}", for: UIControlState.normal)
         lapTableBtn.setTitleColor(fgClr, for: UIControlState.normal)
         
-        lapTableBtn.titleLabel?.font = UIFont.preferredFont(forTextStyle: .title1)
+        lapTableBtn.titleLabel?.font = UIFont.preferredFont(forTextStyle: .body)
         lapTableBtn.titleLabel?.textAlignment = .center
         
         lapTableBtn.addTarget(self, action: #selector(onLapTableTap), for: .touchDown)
@@ -250,8 +266,10 @@ class SingleViewController: UIViewController {
     
     func configHelpText() {
         helpText.snp.makeConstraints { make in
+//            make.width.equalTo(helpText.superview!)
+//            make.top.equalTo(helpText.superview!).offset(Constants.defaultMargin)
             make.width.equalTo(helpText.superview!)
-            make.top.equalTo(helpText.superview!).offset(Constants.defaultMargin)
+            make.center.equalTo(lapTableBtn)
         }
     }
     
@@ -508,6 +526,12 @@ extension SingleViewController: SettingsViewDelegate {
     func onSave() {
         animationSrv.animateFadeOutView(blurOverlay, duration: 0.1)
         animationSrv.animateMoveVerticallyToOffscreenBottom(settingsView, duration: settingsViewAnimationDuration)
+        
+        let pingSetting = Constants.storedSettings.bool(forKey: SettingsService.intervalKey)
+        
+        if !pingSetting && stopWatchSrv.pingTimer != nil {
+            stopWatchSrv.pingTimer.invalidate()
+        }
     }
 }
 
