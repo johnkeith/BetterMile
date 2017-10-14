@@ -25,12 +25,12 @@ class SingleViewController: UIViewController {
     let lapTimeLbl = LapTimeLabel()
     let lapLbl = UILabel()
     let blurOverlay = BlurOverlayView()
-    let lapTableBtn = UIButton()
     let settingsView = SettingsView()
     
     var clearBarBtn: UIBarButtonItem!
     var rightBarBtn: UIBarButtonItem!
     var advancedBarBtn: UIBarButtonItem!
+    var lapTimesBarBtn: UIBarButtonItem!
     
     var doubleTapRecognizer: UITapGestureRecognizer! // TODO: FIX
     
@@ -63,16 +63,17 @@ class SingleViewController: UIViewController {
         
         super.init(nibName: nil, bundle: nil)
         
-        advancedBarBtn = UIBarButtonItem(title: advancedSettingsText, style: .plain, target: self, action: #selector(onAdvancedSettingsTap))
+        advancedBarBtn = createAdvancedBarBtn()
         clearBarBtn = UIBarButtonItem(title: "Clear", style: .plain, target: self, action: #selector(onClearTap))
         rightBarBtn = UIBarButtonItem(title: "Start", style: .plain, target: self, action: #selector(onStartTap))
+        lapTimesBarBtn = createLapTimesBarBtn()
         
         stopWatchSrv.delegate = self
         settingsView.saveDelegate = self
 
         view.backgroundColor = Constants.colorWhite
         
-        addSubviews([container, lapTableBtn, helpText])
+        addSubviews([container, helpText])
         
         container.addSubview(lapLbl)
         container.addSubview(totalTimeLbl)
@@ -82,7 +83,6 @@ class SingleViewController: UIViewController {
         configLapLbl()
         configTotalTimeLbl()
         configLapTimeLbl()
-        configLapTableBtn()
         configHelpText()
         
         self.navigationItem.leftBarButtonItem = clearBarBtn
@@ -117,23 +117,38 @@ class SingleViewController: UIViewController {
         animationSrv.animateWithSpring(lapTimeLbl, duration: 0.8, fromAlphaZero: true)
     }
     
-    func configToolbar() {
-        advancedBarBtn.tintColor = Constants.colorBlack
-        let spacer = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        
-//        advancedBarBtn.setTitleTextAttributes([NSAttributedStringKey.font: UIFont.preferredFont(forTextStyle: .body)], for: .normal)
-        
+    func createAdvancedBarBtn() -> UIBarButtonItem {
         let button = UIButton(type: .system)
-        button.setImage(UIImage(named: "ic_tune"), for: .normal)
+        
+        button.setImage(UIImage(named: "ic_settings"), for: .normal)
         button.setTitle(" \(advancedSettingsText)", for: .normal)
         button.titleLabel?.font = UIFont.preferredFont(forTextStyle: .body)
         button.setTitleColor(fgClr, for: UIControlState.normal)
         button.tintColor = fgClr
         button.sizeToFit()
         button.addTarget(self, action: #selector(onAdvancedSettingsTap), for: .touchDown)
-        let barButton = UIBarButtonItem(customView: button)
         
-        self.toolbarItems = [spacer, barButton, spacer]
+        return UIBarButtonItem(customView: button)
+    }
+    
+    func createLapTimesBarBtn() -> UIBarButtonItem{
+        let button = UIButton(type: .system)
+        
+        button.setImage(UIImage(named: "ic_format_list_numbered"), for: .normal)
+        button.setTitle(" Lap Times", for: .normal)
+        button.titleLabel?.font = UIFont.preferredFont(forTextStyle: .body)
+        button.setTitleColor(fgClr, for: UIControlState.normal)
+        button.tintColor = fgClr
+        button.sizeToFit()
+        button.addTarget(self, action: #selector(onLapTableTap), for: .touchDown)
+        
+        return UIBarButtonItem(customView: button)
+    }
+    
+    func configToolbar() {
+        let spacer = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        
+        self.toolbarItems = [advancedBarBtn, spacer, lapTimesBarBtn]
     }
     
     func configNavBar() {
@@ -247,29 +262,12 @@ class SingleViewController: UIViewController {
         lapLbl.font = Constants.responsiveDigitFont
     }
     
-    func configLapTableBtn() {
-        lapTableBtn.hide()
-        
-        lapTableBtn.setTitle("View lap times \u{203A}", for: UIControlState.normal)
-        lapTableBtn.setTitleColor(fgClr, for: UIControlState.normal)
-        
-        lapTableBtn.titleLabel?.font = UIFont.preferredFont(forTextStyle: .body)
-        lapTableBtn.titleLabel?.textAlignment = .center
-        
-        lapTableBtn.addTarget(self, action: #selector(onLapTableTap), for: .touchDown)
-        
-        lapTableBtn.snp.makeConstraints { make in
-            make.width.equalTo(lapTableBtn.superview!)
-            make.top.equalTo(lapTimeLbl.snp.bottom).offset(Constants.defaultMargin)
-        }
-    }
-    
     func configHelpText() {
         helpText.snp.makeConstraints { make in
 //            make.width.equalTo(helpText.superview!)
 //            make.top.equalTo(helpText.superview!).offset(Constants.defaultMargin)
             make.width.equalTo(helpText.superview!)
-            make.center.equalTo(lapTableBtn)
+//            make.center.equalTo(lapTableBtn)
         }
     }
     
@@ -283,8 +281,6 @@ class SingleViewController: UIViewController {
     @objc func onPauseTap() {
         self.navigationItem.rightBarButtonItem?.title = "Resume"
         self.navigationItem.rightBarButtonItem?.action = #selector(onRestartTap)
-        
-        animationSrv.animateWithSpring(lapTableBtn, fromAlphaZero: true)
         
         stopWatchSrv.pause()
     }
@@ -323,8 +319,6 @@ class SingleViewController: UIViewController {
         self.navigationItem.rightBarButtonItem?.title = "Pause"
         self.navigationItem.rightBarButtonItem?.action = #selector(onPauseTap)
         
-        animationSrv.animateFadeOutView(lapTableBtn)
-        
         stopWatchSrv.restart()
     }
     
@@ -336,7 +330,6 @@ class SingleViewController: UIViewController {
     
     @objc func onClearTap() {
         let clearAlertConfirmAction = UIAlertAction(title: "Clear", style: .destructive, handler: { (action) in
-            self.animationSrv.animateFadeOutView(self.lapTableBtn)
             self.stopWatchSrv.stop()
             
             DispatchQueue.main.async {
