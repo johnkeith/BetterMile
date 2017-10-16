@@ -42,7 +42,7 @@ class LapTimeTable: UITableView {
     }
     
     func setLapData() {
-        self.lapData = stopWatchSrv.lapTimes.reversed()
+        self.lapData = stopWatchSrv.completedLapTimes().reversed()
     }
     
 //  TODO: UNTESTED - TODO: FIX - showing errors sometimes
@@ -112,11 +112,12 @@ extension LapTimeTable: UITableViewDelegate {
         let index = indexPath.row
         let _cell = cell as! LapTimeTableCell
 
-        if self.lapData.count > 1 && index != 0 {
+//        We can color all since we are showing only completed
+//        if self.lapData.count > 1 && index != 0 {
             setCellTextColor(_cell, at: index)
-        } else {
-            setDefaultRowColors(_cell)
-        }
+//        } else {
+//            setDefaultRowColors(_cell)
+//        }
     }
     
     func setCellTextColor(_ cell: LapTimeTableCell, at index: Int) {

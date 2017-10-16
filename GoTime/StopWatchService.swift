@@ -103,7 +103,11 @@ class StopWatchService: NSObject {
     }
     
     func completedLapTimes() -> [Double] {
-        return Array(self.lapTimes[0..<self.lapTimes.count - 1])
+        if self.lapTimes.count > 0 {
+            return Array(self.lapTimes[0..<self.lapTimes.count - 1])
+        } else {
+            return []
+        }
     }
     
     func calculateTotalLapsTime() -> Double {

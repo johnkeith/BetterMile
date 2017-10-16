@@ -31,6 +31,7 @@ class SingleViewController: UIViewController {
     var rightBarBtn: UIBarButtonItem!
     var advancedBarBtn: UIBarButtonItem!
     var lapTimesBarBtn: UIBarButtonItem!
+    var lapTimesBarBtnSubBtn: UIButton!
     
     var doubleTapRecognizer: UITapGestureRecognizer! // TODO: FIX
     
@@ -120,8 +121,7 @@ class SingleViewController: UIViewController {
     func createAdvancedBarBtn() -> UIBarButtonItem {
         let button = UIButton(type: .system)
         
-        button.setImage(UIImage(named: "ic_settings"), for: .normal)
-        button.setTitle(" \(advancedSettingsText)", for: .normal)
+        button.setTitle(advancedSettingsText, for: .normal)
         button.titleLabel?.font = UIFont.preferredFont(forTextStyle: .body)
         button.setTitleColor(fgClr, for: UIControlState.normal)
         button.tintColor = fgClr
@@ -134,13 +134,14 @@ class SingleViewController: UIViewController {
     func createLapTimesBarBtn() -> UIBarButtonItem{
         let button = UIButton(type: .system)
         
-        button.setImage(UIImage(named: "ic_format_list_numbered"), for: .normal)
-        button.setTitle(" Lap Times", for: .normal)
+        button.setTitle("Lap Times", for: .normal)
         button.titleLabel?.font = UIFont.preferredFont(forTextStyle: .body)
         button.setTitleColor(fgClr, for: UIControlState.normal)
         button.tintColor = fgClr
         button.sizeToFit()
         button.addTarget(self, action: #selector(onLapTableTap), for: .touchDown)
+        
+        self.lapTimesBarBtnSubBtn = button
         
         return UIBarButtonItem(customView: button)
     }

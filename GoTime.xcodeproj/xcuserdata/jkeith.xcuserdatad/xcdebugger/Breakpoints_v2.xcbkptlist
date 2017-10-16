@@ -72,11 +72,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GoTime/StopWatchService.swift"
-            timestampString = "529701298.468242"
+            timestampString = "529811325.518267"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "306"
-            endingLineNumber = "306">
+            startingLineNumber = "310"
+            endingLineNumber = "310">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -208,7 +208,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GoTime/TimerHelpTextLabel.swift"
-            timestampString = "529701298.468416"
+            timestampString = "529811325.519485"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "20"
@@ -458,11 +458,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GoTime/StopWatchService.swift"
-            timestampString = "529701298.468556"
+            timestampString = "529811325.520389"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "306"
-            endingLineNumber = "306">
+            startingLineNumber = "310"
+            endingLineNumber = "310">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -601,11 +601,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GoTime/SingleViewController.swift"
-            timestampString = "529701298.46871"
+            timestampString = "529811325.521639"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "531"
-            endingLineNumber = "531">
+            startingLineNumber = "532"
+            endingLineNumber = "532">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -663,11 +663,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GoTime/StopWatchService.swift"
-            timestampString = "529701298.469049"
+            timestampString = "529811325.523775"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "123"
-            endingLineNumber = "123"
+            startingLineNumber = "127"
+            endingLineNumber = "127"
             landmarkName = "calculateMilePace()"
             landmarkType = "7">
          </BreakpointContent>
