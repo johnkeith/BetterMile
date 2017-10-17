@@ -33,6 +33,8 @@ class SingleViewController: UIViewController {
     var lapTimesBarBtn: UIBarButtonItem!
     var lapTimesBarBtnSubBtn: UIButton!
     
+    var pingIntervalBeforeSettingsShown: Int!
+    
     var doubleTapRecognizer: UITapGestureRecognizer! // TODO: FIX
     
     var fgClr: UIColor
@@ -274,6 +276,7 @@ class SingleViewController: UIViewController {
     
     @objc func onAdvancedSettingsTap() {
         if settingsView.isHidden {
+            pingIntervalBeforeSettingsShown = Constants.storedSettings.integer(forKey: SettingsService.intervalAmountKey)
             animationSrv.animateFadeInView(blurOverlay, duration: 0.1)
             animationSrv.animateMoveVerticallyFromOffscreenBottom(settingsView, duration: settingsViewAnimationDuration)
         }
@@ -522,9 +525,20 @@ extension SingleViewController: SettingsViewDelegate {
         animationSrv.animateMoveVerticallyToOffscreenBottom(settingsView, duration: settingsViewAnimationDuration)
         
         let pingSetting = Constants.storedSettings.bool(forKey: SettingsService.intervalKey)
+        let pingSettingAmount = Constants.storedSettings.integer(forKey: SettingsService.intervalAmountKey)
         
         if !pingSetting && stopWatchSrv.pingTimer != nil {
             stopWatchSrv.pingTimer.invalidate()
+        } else if pingSetting && stopWatchSrv.pingTimer != nil &&
+            pingIntervalBeforeSettingsShown != pingSettingAmount &&
+            stopWatchSrv.timerRunning {
+            
+            stopWatchSrv.pingTimer.invalidate()
+            stopWatchSrv.pingTimer = nil
+            stopWatchSrv.startPingInterval()
+        } else if pingSetting && stopWatchSrv.pingTimer == nil &&
+            stopWatchSrv.timerRunning {
+            stopWatchSrv.startPingInterval()
         }
     }
 }
