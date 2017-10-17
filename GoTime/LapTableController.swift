@@ -45,5 +45,6 @@ class LapTableController: UIViewController {
             make.top.equalTo(lapTable.superview!)
             make.bottom.equalTo(lapTable.superview!)
         })
+        lapTable.showMessageIfNoData()
     }
 }

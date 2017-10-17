@@ -45,6 +45,21 @@ class LapTimeTable: UITableView {
         self.lapData = stopWatchSrv.completedLapTimes().reversed()
     }
     
+    func showMessageIfNoData() {
+        if lapData.count == 0 {
+            let messageLabel = UILabel(frame: CGRect(x: 0, y: 0, width: superview!.bounds.size.width, height: superview!.bounds.size.height))
+            messageLabel.text = "No completed lap times"
+            messageLabel.textColor = Constants.colorBlack
+            messageLabel.numberOfLines = 0;
+            messageLabel.textAlignment = .center;
+            messageLabel.font = UIFont.preferredFont(forTextStyle: .body)
+            messageLabel.sizeToFit()
+            
+            self.backgroundView = messageLabel;
+            self.separatorStyle = .none;
+        }
+    }
+    
 //  TODO: UNTESTED - TODO: FIX - showing errors sometimes
     func reloadCurrentLapRow() {
         let indexPath = IndexPath(row: 0, section: 0)
