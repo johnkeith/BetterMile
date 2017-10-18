@@ -72,9 +72,9 @@ class SettingsView: UIView {
         
         layoutIfNeeded()
         
-        configScrollViewConstraints()
         configTitleLabelConstraints()
         configSaveButtonConstraints()
+        configScrollViewConstraints()
         configSettingsRowConstraints()
         
         setScrollViewContentSize()
