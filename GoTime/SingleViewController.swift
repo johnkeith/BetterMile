@@ -121,35 +121,27 @@ class SingleViewController: UIViewController {
     }
     
     func createAdvancedBarBtn() -> UIBarButtonItem {
-        let button = UIButton(type: .system)
-        
-        button.setTitle(advancedSettingsText, for: .normal)
-        button.titleLabel?.font = UIFont.preferredFont(forTextStyle: .body)
-        button.setTitleColor(fgClr, for: UIControlState.normal)
-        button.tintColor = fgClr
-        button.sizeToFit()
-        button.addTarget(self, action: #selector(onAdvancedSettingsTap), for: .touchDown)
-        
-        return UIBarButtonItem(customView: button)
+//        let button = UIButton(type: .system)
+//
+//        button.setTitle(advancedSettingsText, for: .normal)
+//        button.titleLabel?.font = UIFont.preferredFont(forTextStyle: .body)
+//        button.setTitleColor(fgClr, for: UIControlState.normal)
+//        button.tintColor = fgClr
+//        button.sizeToFit()
+//        button.addTarget(self, action: #selector(onAdvancedSettingsTap), for: .touchDown)
+//
+//        return UIBarButtonItem(customView: button)
+        return UIBarButtonItem(title: advancedSettingsText, style: .plain, target: self, action: #selector(onAdvancedSettingsTap))
     }
     
     func createLapTimesBarBtn() -> UIBarButtonItem{
-        let button = UIButton(type: .system)
-        
-        button.setTitle("Lap Times", for: .normal)
-        button.titleLabel?.font = UIFont.preferredFont(forTextStyle: .body)
-        button.setTitleColor(fgClr, for: UIControlState.normal)
-        button.tintColor = fgClr
-        button.sizeToFit()
-        button.addTarget(self, action: #selector(onLapTableTap), for: .touchDown)
-        
-        self.lapTimesBarBtnSubBtn = button
-        
-        return UIBarButtonItem(customView: button)
+        return UIBarButtonItem(title: "Lap Times", style: .plain, target: self, action: #selector(onLapTableTap))
     }
     
     func configToolbar() {
         let spacer = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        advancedBarBtn.tintColor = Constants.colorBlack
+        lapTimesBarBtn.tintColor = Constants.colorBlack
         
         self.toolbarItems = [advancedBarBtn, spacer, lapTimesBarBtn]
     }
@@ -255,14 +247,14 @@ class SingleViewController: UIViewController {
             make.width.equalTo(lapLbl.superview!).offset(-Constants.defaultMargin * 2)
             make.height.equalTo(self.view.frame.height / 3)
             make.centerX.equalTo(lapLbl.superview!)
-            make.top.equalTo(container.snp.top).offset(-Constants.defaultMargin)
+            make.top.equalTo(container.snp.top)
         }
         
         lapLbl.layoutIfNeeded()
         
         lapLbl.adjustsFontSizeToFitWidth = true
         lapLbl.numberOfLines = 1
-        lapLbl.font = Constants.responsiveDigitFont
+        lapLbl.font = Constants.responsiveDigitFont        
     }
     
     func configHelpText() {
