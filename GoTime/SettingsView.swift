@@ -25,7 +25,7 @@ class SettingsView: UIView {
     var intervalSettingsRow: SettingsViewRow
     var previousLapSettingsRow: SettingsViewRow
     var startStopSettingsRow: SettingsViewRow
-    
+        
     weak var saveDelegate: SettingsViewDelegate?
     
     init(isHidden: Bool = true) {
@@ -126,7 +126,7 @@ class SettingsView: UIView {
     
     private func configSettingsRowConstraints() {
         for (index, row) in settingsRows.enumerated() {
-            row.snp.makeConstraints { make in
+            row.snp.remakeConstraints { make in
                 if index == 0 {
                     make.top.equalTo(row.superview!.snp.top)
                 } else {
@@ -231,7 +231,7 @@ extension SettingsView: SettingsViewToggleDelegate {
                 make.height.equalTo(self.frame.height / Constants.tableRowHeightDivisor)
             }
         }
-        
+    
         this.layoutIfNeeded()
         
         setScrollViewContentSize()
