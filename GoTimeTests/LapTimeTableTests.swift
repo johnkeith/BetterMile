@@ -43,7 +43,7 @@ class LapTimeTableTests: XCTestCase {
     
     func testSetLapData() {
 //        happens in init
-        XCTAssertEqual(table.lapData.count, lapData.count)
+        XCTAssertEqual(table.lapData.count, lapData.count - 1)
         
         let firstCell = table.tableView(table, cellForRowAt: IndexPath(row: 0, section: 1))
         
