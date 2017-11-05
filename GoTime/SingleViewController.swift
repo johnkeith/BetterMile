@@ -37,11 +37,6 @@ class SingleViewController: UIViewController {
     
     var doubleTapRecognizer: UITapGestureRecognizer! // TODO: FIX
     
-    var fgClr: UIColor
-    var bgClr: UIColor
-    var btnFgClr: UIColor
-    var btnBgClr: UIColor
-    
 //  DI
     var stopWatchSrv: StopWatchService
     var animationSrv: AnimationService
@@ -58,11 +53,6 @@ class SingleViewController: UIViewController {
         self.timeToTextSrv = timeToTextSrv
         self.speechSrv = speechSrv
         self.helpText = TimerHelpTextLabel(hidden: true, animationService: animationSrv)
-        
-        fgClr = Constants.colorBlack
-        bgClr = Constants.colorBackground
-        btnFgClr = fgClr
-        btnBgClr = UIColor.clear // Constants.colorPalette["BTNBG"]!
         
         super.init(nibName: nil, bundle: nil)
         
@@ -211,7 +201,7 @@ class SingleViewController: UIViewController {
         totalTimeLbl.numberOfLines = 1
         totalTimeLbl.baselineAdjustment = .alignCenters
         totalTimeLbl.textAlignment = .center
-        totalTimeLbl.textColor = fgClr
+        totalTimeLbl.textColor = Constants.colorBlack
         
         let offset = totalTimeLbl.superview!.frame.width / 10
         
@@ -240,7 +230,7 @@ class SingleViewController: UIViewController {
         lapLbl.isHidden = true
         lapLbl.text = "00"
         lapLbl.textAlignment = .center
-        lapLbl.textColor = fgClr
+        lapLbl.textColor = Constants.colorBlack
         lapLbl.baselineAdjustment = .alignCenters
 
         lapLbl.snp.makeConstraints { make in
@@ -259,10 +249,9 @@ class SingleViewController: UIViewController {
     
     func configHelpText() {
         helpText.snp.makeConstraints { make in
-//            make.width.equalTo(helpText.superview!)
-//            make.top.equalTo(helpText.superview!).offset(Constants.defaultMargin)
+            make.bottom.equalTo(lapLbl.snp.top).offset(-Constants.defaultMargin)
+            make.centerX.equalTo(helpText.superview!)
             make.width.equalTo(helpText.superview!)
-//            make.center.equalTo(lapTableBtn)
         }
     }
     

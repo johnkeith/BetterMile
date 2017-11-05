@@ -22,7 +22,7 @@ class TimerHelpTextLabel: UILabel {
         self.isHidden = hidden
         
         self.text = "Double-tap to lap!"
-        self.font = UIFont.preferredFont(forTextStyle: .body)
+        self.font = UIFont.preferredFont(forTextStyle: .title1)
         self.textAlignment = .center
     }
     
