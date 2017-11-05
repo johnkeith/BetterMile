@@ -56,10 +56,10 @@ class SingleViewController: UIViewController {
         
         super.init(nibName: nil, bundle: nil)
         
-        advancedBarBtn = createAdvancedBarBtn()
+        advancedBarBtn = UIBarButtonItem(title: advancedSettingsText, style: .plain, target: self, action: #selector(onAdvancedSettingsTap))
         clearBarBtn = UIBarButtonItem(title: "Clear", style: .plain, target: self, action: #selector(onClearTap))
         rightBarBtn = UIBarButtonItem(title: "Start", style: .plain, target: self, action: #selector(onStartTap))
-        lapTimesBarBtn = createLapTimesBarBtn()
+        lapTimesBarBtn = UIBarButtonItem(title: "Lap Times", style: .plain, target: self, action: #selector(onLapTableTap))
         
         stopWatchSrv.delegate = self
         settingsView.saveDelegate = self
@@ -110,151 +110,6 @@ class SingleViewController: UIViewController {
         animationSrv.animateWithSpring(lapTimeLbl, duration: 0.8, fromAlphaZero: true)
     }
     
-    func createAdvancedBarBtn() -> UIBarButtonItem {
-//        let button = UIButton(type: .system)
-//
-//        button.setTitle(advancedSettingsText, for: .normal)
-//        button.titleLabel?.font = UIFont.preferredFont(forTextStyle: .body)
-//        button.setTitleColor(fgClr, for: UIControlState.normal)
-//        button.tintColor = fgClr
-//        button.sizeToFit()
-//        button.addTarget(self, action: #selector(onAdvancedSettingsTap), for: .touchDown)
-//
-//        return UIBarButtonItem(customView: button)
-        return UIBarButtonItem(title: advancedSettingsText, style: .plain, target: self, action: #selector(onAdvancedSettingsTap))
-    }
-    
-    func createLapTimesBarBtn() -> UIBarButtonItem{
-        return UIBarButtonItem(title: "Lap Times", style: .plain, target: self, action: #selector(onLapTableTap))
-    }
-    
-    func configToolbar() {
-        let spacer = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        advancedBarBtn.tintColor = Constants.colorBlack
-        lapTimesBarBtn.tintColor = Constants.colorBlack
-        
-        self.toolbarItems = [advancedBarBtn, spacer, lapTimesBarBtn]
-    }
-    
-    func configNavBar() {
-        clearBarBtn.tintColor = Constants.colorBlack
-        rightBarBtn.tintColor = Constants.colorBlack
-        
-        self.navigationController?.navigationBar.barStyle = .default
-        self.navigationController?.navigationBar.isTranslucent = true
-        self.navigationController?.navigationBar.backgroundColor = Constants.colorWhite
-        self.navigationController?.isToolbarHidden = false
-        self.navigationController?.view.backgroundColor = Constants.colorWhite
-        self.navigationController?.navigationBar.tintColor = Constants.colorWhite
-        self.navigationController?.navigationBar.barTintColor = Constants.colorWhite
-        
-        self.navigationController?.toolbar!.barStyle = .default
-        self.navigationController?.toolbar!.isTranslucent = true
-        self.navigationController?.toolbar!.backgroundColor = Constants.colorWhite
-        self.navigationController?.toolbar!.barTintColor = Constants.colorWhite
-        
-        self.navigationController?.view.addSubview(blurOverlay)
-        self.navigationController?.view.addSubview(settingsView)
-        
-//        Remove navbar and toolbar borders
-        self.navigationController?.navigationBar.shadowImage = UIImage()
-        self.navigationController?.toolbar!.setShadowImage(UIImage(), forToolbarPosition: .bottom)
-        
-        settingsView.configConstraints()
-        
-        configBlurOverlay()
-    }
-    
-    func askForReview() {
-        if #available(iOS 10.3, *) {
-            let key = Constants.appRunTimes
-            let numberOfRuns = Constants.storedSettings.integer(forKey: key)
-            
-            if numberOfRuns > 5 {
-                SKStoreReviewController.requestReview()
-            }
-        }
-    }
-    
-    func configBlurOverlay() {
-        blurOverlay.addBlurEffect()
-    }
-    
-    func configContainer() {
-        let parentHeight = container.superview!.frame.height
-        let height = (parentHeight / 3) + (parentHeight / 5)
-        
-        container.snp.makeConstraints { make in
-            make.width.equalTo(container.superview!)
-            make.height.equalTo(height)
-            make.center.equalTo(container.superview!)
-        }
-        
-        container.layoutIfNeeded()
-    }
-    
-    func configTotalTimeLbl() {
-        totalTimeLbl.isHidden = true
-        totalTimeLbl.text = defaultTotalTimeLblText
-        totalTimeLbl.font = Constants.responsiveDigitFont
-        totalTimeLbl.adjustsFontSizeToFitWidth = true
-        totalTimeLbl.numberOfLines = 1
-        totalTimeLbl.baselineAdjustment = .alignCenters
-        totalTimeLbl.textAlignment = .center
-        totalTimeLbl.textColor = Constants.colorBlack
-        
-        let offset = totalTimeLbl.superview!.frame.width / 10
-        
-        totalTimeLbl.snp.makeConstraints { make in
-            make.width.equalTo(totalTimeLbl.superview!).offset(-offset)
-            make.height.equalTo(self.view.frame.height / 10)
-            make.centerX.equalTo(totalTimeLbl.superview!)
-            make.bottom.equalTo(lapTimeLbl.snp.top)
-        }
-    }
-    
-    func configLapTimeLbl() {
-        let offset = lapTimeLbl.superview!.frame.width / 10
-        
-        lapTimeLbl.snp.makeConstraints { make in
-            make.width.equalTo(lapTimeLbl.superview!).offset(-offset)
-            make.height.equalTo(self.view.frame.height / 10)
-            make.centerX.equalTo(lapTimeLbl.superview!)
-            make.bottom.equalTo(container.snp.bottom)
-        }
-        
-        lapTimeLbl.layoutIfNeeded()
-    }
-    
-    func configLapLbl() {
-        lapLbl.isHidden = true
-        lapLbl.text = "00"
-        lapLbl.textAlignment = .center
-        lapLbl.textColor = Constants.colorBlack
-        lapLbl.baselineAdjustment = .alignCenters
-
-        lapLbl.snp.makeConstraints { make in
-            make.width.equalTo(lapLbl.superview!).offset(-Constants.defaultMargin * 2)
-            make.height.equalTo(self.view.frame.height / 3)
-            make.centerX.equalTo(lapLbl.superview!)
-            make.top.equalTo(container.snp.top)
-        }
-        
-        lapLbl.layoutIfNeeded()
-        
-        lapLbl.adjustsFontSizeToFitWidth = true
-        lapLbl.numberOfLines = 1
-        lapLbl.font = Constants.responsiveDigitFont        
-    }
-    
-    func configHelpText() {
-        helpText.snp.makeConstraints { make in
-            make.bottom.equalTo(lapLbl.snp.top).offset(-Constants.defaultMargin)
-            make.centerX.equalTo(helpText.superview!)
-            make.width.equalTo(helpText.superview!)
-        }
-    }
-    
     @objc func onAdvancedSettingsTap() {
         if settingsView.isHidden {
             pingIntervalBeforeSettingsShown = Constants.storedSettings.integer(forKey: SettingsService.intervalAmountKey)
@@ -270,22 +125,6 @@ class SingleViewController: UIViewController {
         stopWatchSrv.pause()
     }
     
-    func setLapLblText(lapCount: Int) {
-        let shouldPad = lapCount < 10
-        let padding = shouldPad ? "0" : ""
-        lapLbl.text = "\(padding)\(lapCount)"
-    }
-    
-    func setTotalTimeLblText(totalTimeElapsed: TimeInterval) {
-        self.totalTimeLbl.text = "Total \(self.timeToTextSrv.timeAsSingleString(inputTime: totalTimeElapsed))"
-    }
-    
-    func setLapTimeLblText(lapTime: TimeInterval) {
-        let lapTimeAsString = self.timeToTextSrv.timeAsSingleString(inputTime: lapTime)
-        
-        self.lapTimeLbl.setTextForLabel(lapTimeAsString)
-    }
-
     @objc func onStartTap() {
         stopWatchSrv.start()
         
@@ -341,6 +180,22 @@ class SingleViewController: UIViewController {
         self.present(clearAlert, animated: true, completion: nil)
     }
     
+    func setLapLblText(lapCount: Int) {
+        let shouldPad = lapCount < 10
+        let padding = shouldPad ? "0" : ""
+        lapLbl.text = "\(padding)\(lapCount)"
+    }
+    
+    func setTotalTimeLblText(totalTimeElapsed: TimeInterval) {
+        self.totalTimeLbl.text = "Total \(self.timeToTextSrv.timeAsSingleString(inputTime: totalTimeElapsed))"
+    }
+    
+    func setLapTimeLblText(lapTime: TimeInterval) {
+        let lapTimeAsString = self.timeToTextSrv.timeAsSingleString(inputTime: lapTime)
+        
+        self.lapTimeLbl.setTextForLabel(lapTimeAsString)
+    }
+    
     func handleSettingsToggle(key: String) -> Bool {
         let currentValue = Constants.storedSettings.bool(forKey: key)
         let newValue = !currentValue
@@ -384,7 +239,7 @@ class SingleViewController: UIViewController {
             let milePace = stopWatchSrv.calculateMilePace()
             let milePaceTuple = timeToTextSrv.timeAsMultipleStrings(inputTime: milePace)
             let milePaceString = speechSrv.convertTimeTupleToString(milePaceTuple)
-         
+            
             sentanceToSpeak += "Mile \(mileNumber) \(milePaceString)"
         }
         
@@ -394,7 +249,7 @@ class SingleViewController: UIViewController {
     
     func notifyPaused() {
         let shouldSpeak = Constants.storedSettings.bool(forKey: SettingsService.speakStartStopKey)
-
+        
         if shouldSpeak {
             speechSrv.speakTimerPaused()
         }
@@ -402,7 +257,7 @@ class SingleViewController: UIViewController {
     
     func notifyResumed() {
         let shouldSpeak = Constants.storedSettings.bool(forKey: SettingsService.speakStartStopKey)
-
+        
         if shouldSpeak {
             speechSrv.speakTimerRestarted()
         }
@@ -410,7 +265,7 @@ class SingleViewController: UIViewController {
     
     func notifyStarted() {
         let shouldSpeak = Constants.storedSettings.bool(forKey: SettingsService.speakStartStopKey)
-
+        
         if shouldSpeak {
             speechSrv.speakTimerStarted()
         }
@@ -423,10 +278,135 @@ class SingleViewController: UIViewController {
             speechSrv.speakTimerCleared()
         }
     }
+
+    private func configToolbar() {
+        let spacer = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        advancedBarBtn.tintColor = Constants.colorBlack
+        lapTimesBarBtn.tintColor = Constants.colorBlack
+        
+        self.toolbarItems = [advancedBarBtn, spacer, lapTimesBarBtn]
+    }
+    
+    private func configNavBar() {
+        clearBarBtn.tintColor = Constants.colorBlack
+        rightBarBtn.tintColor = Constants.colorBlack
+        
+        self.navigationController?.navigationBar.barStyle = .default
+        self.navigationController?.navigationBar.isTranslucent = true
+        self.navigationController?.navigationBar.backgroundColor = Constants.colorWhite
+        self.navigationController?.isToolbarHidden = false
+        self.navigationController?.view.backgroundColor = Constants.colorWhite
+        self.navigationController?.navigationBar.tintColor = Constants.colorWhite
+        self.navigationController?.navigationBar.barTintColor = Constants.colorWhite
+        
+        self.navigationController?.toolbar!.barStyle = .default
+        self.navigationController?.toolbar!.isTranslucent = true
+        self.navigationController?.toolbar!.backgroundColor = Constants.colorWhite
+        self.navigationController?.toolbar!.barTintColor = Constants.colorWhite
+        
+        self.navigationController?.view.addSubview(blurOverlay)
+        self.navigationController?.view.addSubview(settingsView)
+        
+        self.navigationController?.navigationBar.shadowImage = UIImage()
+        self.navigationController?.toolbar!.setShadowImage(UIImage(), forToolbarPosition: .bottom)
+        
+        settingsView.configConstraints()
+        
+        configBlurOverlay()
+    }
+    
+    private func askForReview() {
+        if #available(iOS 10.3, *) {
+            let key = Constants.appRunTimes
+            let numberOfRuns = Constants.storedSettings.integer(forKey: key)
+            
+            if numberOfRuns > 5 {
+                SKStoreReviewController.requestReview()
+            }
+        }
+    }
+    
+    private func configBlurOverlay() {
+        blurOverlay.addBlurEffect()
+    }
+    
+    private func configContainer() {
+        let parentHeight = container.superview!.frame.height
+        let height = (parentHeight / 3) + (parentHeight / 5)
+        
+        container.snp.makeConstraints { make in
+            make.width.equalTo(container.superview!)
+            make.height.equalTo(height)
+            make.center.equalTo(container.superview!)
+        }
+        
+        container.layoutIfNeeded()
+    }
+    
+    private func configTotalTimeLbl() {
+        totalTimeLbl.isHidden = true
+        totalTimeLbl.text = defaultTotalTimeLblText
+        totalTimeLbl.font = Constants.responsiveDigitFont
+        totalTimeLbl.adjustsFontSizeToFitWidth = true
+        totalTimeLbl.numberOfLines = 1
+        totalTimeLbl.baselineAdjustment = .alignCenters
+        totalTimeLbl.textAlignment = .center
+        totalTimeLbl.textColor = Constants.colorBlack
+        
+        let offset = totalTimeLbl.superview!.frame.width / 10
+        
+        totalTimeLbl.snp.makeConstraints { make in
+            make.width.equalTo(totalTimeLbl.superview!).offset(-offset)
+            make.height.equalTo(self.view.frame.height / 10)
+            make.centerX.equalTo(totalTimeLbl.superview!)
+            make.bottom.equalTo(lapTimeLbl.snp.top)
+        }
+    }
+    
+    private func configLapTimeLbl() {
+        let offset = lapTimeLbl.superview!.frame.width / 10
+        
+        lapTimeLbl.snp.makeConstraints { make in
+            make.width.equalTo(lapTimeLbl.superview!).offset(-offset)
+            make.height.equalTo(self.view.frame.height / 10)
+            make.centerX.equalTo(lapTimeLbl.superview!)
+            make.bottom.equalTo(container.snp.bottom)
+        }
+        
+        lapTimeLbl.layoutIfNeeded()
+    }
+    
+    private func configLapLbl() {
+        lapLbl.isHidden = true
+        lapLbl.text = "00"
+        lapLbl.textAlignment = .center
+        lapLbl.textColor = Constants.colorBlack
+        lapLbl.baselineAdjustment = .alignCenters
+
+        lapLbl.snp.makeConstraints { make in
+            make.width.equalTo(lapLbl.superview!).offset(-Constants.defaultMargin * 2)
+            make.height.equalTo(self.view.frame.height / 3)
+            make.centerX.equalTo(lapLbl.superview!)
+            make.top.equalTo(container.snp.top)
+        }
+        
+        lapLbl.layoutIfNeeded()
+        
+        lapLbl.adjustsFontSizeToFitWidth = true
+        lapLbl.numberOfLines = 1
+        lapLbl.font = Constants.responsiveDigitFont        
+    }
+    
+    private func configHelpText() {
+        helpText.snp.makeConstraints { make in
+            make.bottom.equalTo(lapLbl.snp.top).offset(-Constants.defaultMargin)
+            make.centerX.equalTo(helpText.superview!)
+            make.width.equalTo(helpText.superview!)
+        }
+    }
 }
 
 
-// MARK StopWatchServiceDelegate
 extension SingleViewController: StopWatchServiceDelegate {
     func stopWatchStarted() {
         attachDoubleTapRecognizer()
@@ -483,7 +463,6 @@ extension SingleViewController: StopWatchServiceDelegate {
     }
 }
 
-// MARK Gestures
 extension SingleViewController {
     func attachDoubleTapRecognizer() {
         doubleTapRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.viewDoubleTapped))

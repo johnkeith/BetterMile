@@ -296,4 +296,12 @@ class StopWatchServiceTests: XCTestCase {
         
         XCTAssertEqual(result, 0.585)
     }
+    
+    func testStartPingInterval() {
+        Constants.storedSettings.set(true, forKey: SettingsService.intervalKey)
+        
+        service.startPingInterval()
+        
+        XCTAssertNotNil(service.pingTimer)
+    }
 }
