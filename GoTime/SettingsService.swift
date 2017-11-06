@@ -8,7 +8,6 @@
 
 import Foundation
 
-// TODO: UNTESTED
 class SettingsService {
     static let previousLapTimeKey = "previousLapTimeVoiceNotification"
     static let averageLapTimeKey = "averageLapTimeVoiceNotification"

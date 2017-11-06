@@ -12,6 +12,7 @@ protocol SettingsViewDelegate: class {
     func onSave()
 }
 
+// TODO: UNTESTED
 class SettingsView: UIView {
     let titleLabel = UILabel()
     let saveButton = UIView()

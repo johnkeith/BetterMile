@@ -153,12 +153,12 @@ class StopWatchService: NSObject {
     func colorOfLapTime(lapTime: Double) -> UIColor {
         let percent = CGFloat(calculateLapDeviationPercentage(lapTime: lapTime))
         let baseGreen = CIColor(color: Constants.colorGreen)
-        let baseRed = CIColor(color: Constants.colorPalette["_red"]!)
+        let baseRed = CIColor(color: Constants.colorRed)
         
         if (percent == 0.0) {
             return Constants.colorGreen;
         } else if (percent == 1.0) {
-            return Constants.colorPalette["_red"]!
+            return Constants.colorRed
         }
         
         let resultRed = baseGreen.red + percent * (baseRed.red - baseGreen.red);

@@ -8,7 +8,6 @@
 
 import UIKit
 
-// TODO: UNTESTED
 class TimerHelpTextLabel: UILabel {
     var animationService: AnimationService
     

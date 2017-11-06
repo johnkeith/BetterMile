@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		632271B51ED7B9C100244ED3 /* LapTableController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632271B41ED7B9C100244ED3 /* LapTableController.swift */; };
-		633C31571F5C0FB900BD2460 /* SettingsButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633C31561F5C0FB900BD2460 /* SettingsButton.swift */; };
 		633C31591F5C218600BD2460 /* UILabelExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633C31581F5C218600BD2460 /* UILabelExtension.swift */; };
 		6347A94F1F5C73B400B1CB8A /* BlurOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6347A94E1F5C73B400B1CB8A /* BlurOverlayView.swift */; };
 		6347A9531F5C76E000B1CB8A /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6347A9521F5C76E000B1CB8A /* SettingsView.swift */; };
@@ -25,6 +24,7 @@
 		6386BF311E44143100BD2875 /* CoreDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6386BF301E44143100BD2875 /* CoreDataService.swift */; };
 		6386BF331E45FE9700BD2875 /* RunPersistanceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6386BF321E45FE9700BD2875 /* RunPersistanceService.swift */; };
 		6386BF351E4602C600BD2875 /* RunPersistanceServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6386BF341E4602C600BD2875 /* RunPersistanceServiceTests.swift */; };
+		638896F01FAFE7FF007A831A /* SettingsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638896EF1FAFE7FF007A831A /* SettingsService.swift */; };
 		63A3F1EF1E34FE3800AA8A92 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A3F1EE1E34FE3800AA8A92 /* AppDelegate.swift */; };
 		63A3F1F71E34FE3800AA8A92 /* GoTime.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 63A3F1F51E34FE3800AA8A92 /* GoTime.xcdatamodeld */; };
 		63A3F1F91E34FE3800AA8A92 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 63A3F1F81E34FE3800AA8A92 /* Assets.xcassets */; };
@@ -74,7 +74,6 @@
 
 /* Begin PBXFileReference section */
 		632271B41ED7B9C100244ED3 /* LapTableController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LapTableController.swift; sourceTree = "<group>"; };
-		633C31561F5C0FB900BD2460 /* SettingsButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsButton.swift; sourceTree = "<group>"; };
 		633C31581F5C218600BD2460 /* UILabelExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UILabelExtension.swift; sourceTree = "<group>"; };
 		6347A94E1F5C73B400B1CB8A /* BlurOverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurOverlayView.swift; sourceTree = "<group>"; };
 		6347A9521F5C76E000B1CB8A /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
@@ -91,6 +90,7 @@
 		6386BF301E44143100BD2875 /* CoreDataService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataService.swift; sourceTree = "<group>"; };
 		6386BF321E45FE9700BD2875 /* RunPersistanceService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RunPersistanceService.swift; sourceTree = "<group>"; };
 		6386BF341E4602C600BD2875 /* RunPersistanceServiceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RunPersistanceServiceTests.swift; sourceTree = "<group>"; };
+		638896EF1FAFE7FF007A831A /* SettingsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsService.swift; sourceTree = "<group>"; };
 		63A3F1EB1E34FE3800AA8A92 /* GoTime.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GoTime.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		63A3F1EE1E34FE3800AA8A92 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		63A3F1F61E34FE3800AA8A92 /* GoTime.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = GoTime.xcdatamodel; sourceTree = "<group>"; };
@@ -263,7 +263,6 @@
 				63CB14051E67AD2900F7BC14 /* LapTimeTableCell.swift */,
 				63CB14091E6D0A6300F7BC14 /* TimerHelpTextLabel.swift */,
 				63684F881F47C1D40067DC36 /* LapTimeLabel.swift */,
-				633C31561F5C0FB900BD2460 /* SettingsButton.swift */,
 				6347A94E1F5C73B400B1CB8A /* BlurOverlayView.swift */,
 				6347A9521F5C76E000B1CB8A /* SettingsView.swift */,
 				6347A9541F6569A000B1CB8A /* SettingsViewRow.swift */,
@@ -329,6 +328,7 @@
 				6386BF301E44143100BD2875 /* CoreDataService.swift */,
 				6386BF341E4602C600BD2875 /* RunPersistanceServiceTests.swift */,
 				63C9A1811E7D55EB00AB9144 /* AnimationServiceTests.swift */,
+				638896EF1FAFE7FF007A831A /* SettingsService.swift */,
 			);
 			name = Services;
 			sourceTree = "<group>";
@@ -512,7 +512,6 @@
 				63E9BBE01EA07BFD0019FC35 /* SpeechService.swift in Sources */,
 				63A3F1F71E34FE3800AA8A92 /* GoTime.xcdatamodeld in Sources */,
 				6347A94F1F5C73B400B1CB8A /* BlurOverlayView.swift in Sources */,
-				633C31571F5C0FB900BD2460 /* SettingsButton.swift in Sources */,
 				6386BF211E3EC1FC00BD2875 /* TimeToTextService.swift in Sources */,
 				63A3F1EF1E34FE3800AA8A92 /* AppDelegate.swift in Sources */,
 				63A3F2291E35355500AA8A92 /* Constants.swift in Sources */,
@@ -538,6 +537,7 @@
 				6386BF2B1E421E5300BD2875 /* DataModelHelpers.swift in Sources */,
 				63A3F2351E37082100AA8A92 /* MainViewControllerTests.swift in Sources */,
 				63C9A1801E7D54FA00AB9144 /* TimerHelpTextLabelTests.swift in Sources */,
+				638896F01FAFE7FF007A831A /* SettingsService.swift in Sources */,
 				6386BF281E421A1300BD2875 /* DataModelTests.swift in Sources */,
 				6386BF231E3ED67E00BD2875 /* TImeToTextServiceTests.swift in Sources */,
 				63C9A17E1E7773CF00AB9144 /* LapTimeTableCellTests.swift in Sources */,

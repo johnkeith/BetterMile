@@ -67,21 +67,6 @@ class SpeechService: NSObject, AVSpeechSynthesizerDelegate {
         }
     }
     
-    // TODO: UNTESTED
-    func speakPreviousAndAverageLapTimes(previous: (minutes: String, seconds: String, fraction: String), average: (minutes: String, seconds: String, fraction: String), lapNumber: Int) {
-        let lapNumberOrdinalized = "\(lapNumber)\(Constants.ordinalSuffixForNumber(number: lapNumber))"
-        let previousLapTime = convertTimeTupleToString(previous)
-        let averageLapTime = convertTimeTupleToString(average)
-        var sentanceToSpeak = "\(lapNumberOrdinalized) lap \(previousLapTime)."
-        
-        if lapNumber > 1 {
-           sentanceToSpeak += "Average \(averageLapTime)."
-        }
-        
-        textToSpeech(text: sentanceToSpeak)
-        voiceQueue.append(SpeechTypes.PreviousAndAverageLapTimes)
-    }
-    
     func speakPreviousLapTime(timeTuple: (minutes: String, seconds: String, fraction: String), lapNumber: Int) {
         let lapNumberOrdinalized = "\(lapNumber)\(Constants.ordinalSuffixForNumber(number: lapNumber))"
         let sentancePrefix = "\(lapNumberOrdinalized) lap time"
@@ -100,7 +85,6 @@ class SpeechService: NSObject, AVSpeechSynthesizerDelegate {
         
         speakSentanceAboutTime(timeTuple: timeTuple, sentancePrefix: sentancePrefix)
     }
-//    end not in use
     
     private func speakSentanceAboutTime(timeTuple: (minutes: String, seconds: String, fraction: String), sentancePrefix: String) {
         var sentanceToSpeak = sentancePrefix

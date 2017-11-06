@@ -21,6 +21,7 @@ enum SettingsViewRowKind {
     case startStop
 }
 
+// TODO: UNTESTED
 class SettingsViewRow:UIView {
     let label = UILabel()
     let subLabel = UILabel()

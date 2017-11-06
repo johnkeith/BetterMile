@@ -46,7 +46,6 @@ class AnimationService {
         })
     }
     
-//    TODO: UNTESTED
     func animateWithSpring(_ view: UIView, duration: Double = 0.3, fromAlphaZero: Bool = false) {
         view.isHidden = false
         view.transform = CGAffineTransform(scaleX: 0.05, y: 0.05)

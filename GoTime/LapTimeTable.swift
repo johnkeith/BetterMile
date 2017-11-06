@@ -60,14 +60,6 @@ class LapTimeTable: UITableView {
         }
     }
     
-//  TODO: UNTESTED - TODO: FIX - showing errors sometimes
-    func reloadCurrentLapRow() {
-        let indexPath = IndexPath(row: 0, section: 0)
-        
-        self.reloadRows(at: [indexPath], with: .none)
-    }
-    
-//  TODO: UNTESTED
     func setRowHeightBySuperview(_superview: UIView) {
         self.rowHeight = _superview.frame.height / Constants.tableRowHeightDivisor
     }
@@ -147,9 +139,9 @@ extension LapTimeTable: UITableViewDelegate {
         } else if quality == LapQualities.bad {
             setDefaultRowColors(cell)
         } else {
-//            cell.backgroundColor = Constants.colorPalette["_red"]
+//            cell.backgroundColor = Constants.colorRed
 //            cell.label.textColor = Constants.colorWhite
-            cell.label.textColor = Constants.colorPalette["_red"]
+            cell.label.textColor = Constants.colorRed
         }
     }
     
@@ -160,7 +152,7 @@ extension LapTimeTable: UITableViewDelegate {
     
     func oldSetCellTextColor(_ cell: LapTimeTableCell, at index: Int, checkForSlowest: Bool = false) {
         if checkForSlowest && isSlowestLap(index){
-            cell.backgroundColor = Constants.colorPalette["_red"]
+            cell.backgroundColor = Constants.colorRed
             cell.label.textColor = Constants.colorWhite
         } else if isFastestLap(index) {
             cell.backgroundColor = Constants.colorGreen
