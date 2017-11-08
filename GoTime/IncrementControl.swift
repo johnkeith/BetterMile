@@ -12,6 +12,7 @@ protocol IncrementControlDelegate: class {
     func onIncrementChangeHandler(newValue: Int)
 }
 
+// TODO: UNTESTED
 class IncrementControl: UIView {
     let minusButton = UIButton()
     let plusButton = UIButton()

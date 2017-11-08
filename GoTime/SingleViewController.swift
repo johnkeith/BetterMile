@@ -112,7 +112,9 @@ class SingleViewController: UIViewController {
     
     @objc func onAdvancedSettingsTap() {
         if settingsView.isHidden {
-            pingIntervalBeforeSettingsShown = Constants.storedSettings.integer(forKey: SettingsService.intervalAmountKey)
+            if Constants.storedSettings.bool(forKey: SettingsService.intervalKey) {
+               pingIntervalBeforeSettingsShown = Constants.storedSettings.integer(forKey: SettingsService.intervalAmountKey)
+            }
             animationSrv.animateFadeInView(blurOverlay, duration: 0.1)
             animationSrv.animateMoveVerticallyFromOffscreenBottom(settingsView, duration: settingsViewAnimationDuration)
         }
@@ -500,6 +502,8 @@ extension SingleViewController: SettingsViewDelegate {
             stopWatchSrv.timerRunning {
             stopWatchSrv.startPingInterval()
         }
+        
+        pingIntervalBeforeSettingsShown = nil
     }
 }
 
