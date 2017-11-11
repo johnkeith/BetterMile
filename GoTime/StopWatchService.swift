@@ -247,6 +247,10 @@ class StopWatchService: NSObject {
         
         delegate?.stopWatchLapRemoved()
     }
+    
+    func isPaused() -> Bool {
+        return elapsedTimeBeforePause != 0.0 && !timerRunning
+    }
 }
 
 // MARK: CLASS FUNCTIONS

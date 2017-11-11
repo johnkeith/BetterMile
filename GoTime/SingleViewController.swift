@@ -148,12 +148,14 @@ class SingleViewController: UIViewController {
         stopWatchSrv.restart()
     }
     
+    //    TODO: UNTESTED
     @objc func onLapTableTap() {
         let lapTableController = LapTableController(stopWatchSrv: stopWatchSrv)
         
         self.navigationController?.pushViewController(lapTableController, animated: true)
     }
     
+    //    TODO: UNTESTED
     @objc func onClearTap() {
         let clearAlertConfirmAction = UIAlertAction(title: "Clear", style: .destructive, handler: { (action) in
             self.stopWatchSrv.stop()
@@ -197,16 +199,8 @@ class SingleViewController: UIViewController {
         
         self.lapTimeLbl.setTextForLabel(lapTimeAsString)
     }
-    
-    func handleSettingsToggle(key: String) -> Bool {
-        let currentValue = Constants.storedSettings.bool(forKey: key)
-        let newValue = !currentValue
-        
-        Constants.storedSettings.set(newValue, forKey: key)
-        
-        return newValue
-    }
-    
+
+    // TODO: UNTESTED
     func notifyWithVibrationIfEnabled() {
         if Constants.storedSettings.bool(forKey: SettingsService.vibrationNotificationsKey) {
             AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
@@ -249,6 +243,7 @@ class SingleViewController: UIViewController {
         speechSrv.voiceQueue.append(SpeechTypes.SpeakAfterLap)
     }
     
+    // TODO: UNTESTED
     func notifyPaused() {
         let shouldSpeak = Constants.storedSettings.bool(forKey: SettingsService.speakStartStopKey)
         
@@ -257,6 +252,7 @@ class SingleViewController: UIViewController {
         }
     }
     
+    // TODO: UNTESTED
     func notifyResumed() {
         let shouldSpeak = Constants.storedSettings.bool(forKey: SettingsService.speakStartStopKey)
         
@@ -265,6 +261,7 @@ class SingleViewController: UIViewController {
         }
     }
     
+    // TODO: UNTESTED
     func notifyStarted() {
         let shouldSpeak = Constants.storedSettings.bool(forKey: SettingsService.speakStartStopKey)
         
@@ -273,6 +270,7 @@ class SingleViewController: UIViewController {
         }
     }
     
+    // TODO: UNTESTED
     func notifyTimerCleared() {
         let shouldSpeak = Constants.storedSettings.bool(forKey: SettingsService.speakStartStopKey)
         
@@ -410,6 +408,7 @@ class SingleViewController: UIViewController {
 
 
 extension SingleViewController: StopWatchServiceDelegate {
+    // TODO: UNTESTED
     func stopWatchStarted() {
         attachDoubleTapRecognizer()
         
@@ -418,6 +417,7 @@ extension SingleViewController: StopWatchServiceDelegate {
         }
     }
     
+    // TODO: UNTESTED
     func stopWatchIntervalElapsed(totalTimeElapsed: TimeInterval) {
         DispatchQueue.main.async {
             if let lapTime = self.stopWatchSrv.lapTimes.last {
@@ -427,6 +427,7 @@ extension SingleViewController: StopWatchServiceDelegate {
         }
     }
     
+    // TODO: UNTESTED
     func stopWatchLapStored(lapTime: Double, lapNumber: Int, totalTime: Double) {
         self.setLapLblText(lapCount: self.stopWatchSrv.lapTimes.count)
         
@@ -434,6 +435,7 @@ extension SingleViewController: StopWatchServiceDelegate {
         notifyWithVoiceIfEnabled(lapTime: lapTime, lapNumber: lapNumber)
     }
     
+    // TODO: UNTESTED
     func stopWatchLapRemoved() {
         let lapCount = stopWatchSrv.lapTimes.count
         var totalLapTime: Double
@@ -452,20 +454,24 @@ extension SingleViewController: StopWatchServiceDelegate {
         self.setLapTimeLblText(lapTime: currentLap)
     }
     
+    // TODO: UNTESTED
     func stopWatchStopped() {
         notifyTimerCleared()
     }
     
+    // TODO: UNTESTED
     func stopWatchPaused() {
         notifyPaused()
     }
     
+    // TODO: UNTESTED
     func stopWatchRestarted() {
         notifyStarted()
     }
 }
 
 extension SingleViewController {
+    // TODO: UNTESTED
     func attachDoubleTapRecognizer() {
         doubleTapRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.viewDoubleTapped))
         doubleTapRecognizer.numberOfTapsRequired = 2
@@ -473,6 +479,7 @@ extension SingleViewController {
         view.addGestureRecognizer(doubleTapRecognizer)
     }
 
+    // TODO: UNTESTED
     @objc func viewDoubleTapped() {
         if stopWatchSrv.timerRunning {
             stopWatchSrv.lap()
