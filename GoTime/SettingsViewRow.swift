@@ -19,6 +19,7 @@ enum SettingsViewRowKind {
     case milePace
     case intervalPing
     case startStop
+    case viewMode
 }
 
 // TODO: UNTESTED
@@ -35,6 +36,29 @@ class SettingsViewRow:UIView {
     var incrementControl: IncrementControl?
     var settingsToggleDelegate: SettingsViewToggleDelegate?
     var incrementUserDefaultsKey: String?
+
+    var fgColor: UIColor? {
+        didSet {
+            label.textColor = fgColor
+            subLabel.textColor = fgColor
+        }
+    }
+    var lineColor: UIColor? {
+        didSet {
+            line.backgroundColor = lineColor
+        }
+    }
+    var switchColor: UIColor? {
+        didSet {
+            rowSwitch.onTintColor = switchColor
+        }
+    }
+    
+    var usesDarkMode: Bool = Constants.storedSettings.bool(forKey: SettingsService.darkModeKey) {
+        didSet {
+            self.setColorConstants()
+        }
+    }
     
     init(
         labelText: String,
@@ -44,7 +68,8 @@ class SettingsViewRow:UIView {
         incrementValue: Int? = nil,
         incrementLabel: String? = nil,
         incrementMin: Int? = nil,
-        incrementUserDefaultsKey: String? = nil) {
+        incrementUserDefaultsKey: String? = nil,
+        toggleCallback: (() -> Void)? = {}) {
         self.labelText = labelText
         self.userDefaultsKey = userDefaultsKey
         self.kind = kind
@@ -52,6 +77,8 @@ class SettingsViewRow:UIView {
         
         super.init(frame: Constants.defaultFrame)
 
+        setColorConstants()
+        
         addLabel()
         addLine()
         addRowSwitch()
@@ -136,6 +163,16 @@ class SettingsViewRow:UIView {
         }
     }
     
+    func refreshUsesDarkMode() {
+        usesDarkMode = Constants.storedSettings.bool(forKey: SettingsService.darkModeKey)
+    }
+    
+    private func setColorConstants() {
+        fgColor = usesDarkMode ? Constants.colorWhite : Constants.colorBlack
+        lineColor = usesDarkMode ? Constants.colorWhite : Constants.colorGray
+        switchColor = usesDarkMode ? Constants.colorWhite : Constants.colorGreen
+    }
+    
     private func setLabelConstraints() {
         label.snp.remakeConstraints { make in
             if(settingIsEnabled() && incrementControl != nil) {
@@ -186,8 +223,6 @@ class SettingsViewRow:UIView {
         
         label.text = labelText
         label.textAlignment = .left
-        
-        label.textColor = Constants.colorBlack
     }
     
     private func addSublabel() {
@@ -195,19 +230,14 @@ class SettingsViewRow:UIView {
         
         subLabel.text = sublabelText
         subLabel.textAlignment = .left
-        subLabel.textColor = Constants.colorBlack
     }
     
     private func addLine() {
         addSubview(line)
-        
-        line.backgroundColor = Constants.colorGray
     }
     
     private func addRowSwitch() {
         addSubview(rowSwitch)
-        
-        rowSwitch.onTintColor = Constants.colorGreen
         
         let currentStoredValue = Constants.storedSettings.bool(forKey: userDefaultsKey)
         rowSwitch.isOn = currentStoredValue

@@ -19,15 +19,20 @@ class SettingsView: UIView {
     let saveButtonLabel = UILabel()
     let scrollView = UIScrollView()
     
-    var settingsRows: [SettingsViewRow]
+    var settingsRows: [SettingsViewRow] = []
     var averageLapSettingsRow: SettingsViewRow
     var vibrationSettingsRow: SettingsViewRow
     var mileSettingsRow: SettingsViewRow
     var intervalSettingsRow: SettingsViewRow
     var previousLapSettingsRow: SettingsViewRow
     var startStopSettingsRow: SettingsViewRow
+    var darkModeRow: SettingsViewRow?
     
     weak var saveDelegate: SettingsViewDelegate?
+    
+//    Need a way to listen to when Setting is changed for dark mode
+//    dispatch to delegate to change controller color (how to do for lap controller too??
+//    need both controllers to be initalized with colors based on the settings key for dark mode
     
     init(isHidden: Bool = true) {
         let milePaceIncrementValue: Int = Constants.storedSettings.integer(forKey: SettingsService.milePaceAmountKey)
@@ -39,10 +44,12 @@ class SettingsView: UIView {
         averageLapSettingsRow = SettingsViewRow(labelText: "Speak average lap pace", userDefaultsKey: SettingsService.averageLapTimeKey, kind: SettingsViewRowKind.averageLap)
         mileSettingsRow = SettingsViewRow(labelText: "Speak mile pace", userDefaultsKey: SettingsService.milePaceKey, kind: SettingsViewRowKind.milePace, sublabelText: "Laps / mile", incrementValue: milePaceIncrementValue, incrementLabel: "", incrementMin: 1, incrementUserDefaultsKey: SettingsService.milePaceAmountKey)
         intervalSettingsRow = SettingsViewRow(labelText: "Notify at interval", userDefaultsKey: SettingsService.intervalKey, kind: SettingsViewRowKind.intervalPing, sublabelText: "Of every", incrementValue: intervalAmount, incrementLabel: "secs.", incrementMin: 1, incrementUserDefaultsKey: SettingsService.intervalAmountKey)
-        
-        settingsRows = [vibrationSettingsRow, startStopSettingsRow, previousLapSettingsRow, averageLapSettingsRow, mileSettingsRow, intervalSettingsRow]
 
         super.init(frame: Constants.defaultFrame)
+        
+        darkModeRow = SettingsViewRow(labelText: "Use dark mode", userDefaultsKey: SettingsService.darkModeKey, kind: SettingsViewRowKind.viewMode, toggleCallback: darkModeToggleCallback)
+        
+        settingsRows = [vibrationSettingsRow, startStopSettingsRow, previousLapSettingsRow, averageLapSettingsRow, mileSettingsRow, intervalSettingsRow, darkModeRow!]
         
         self.isHidden = isHidden
         
@@ -84,6 +91,10 @@ class SettingsView: UIView {
     
     @objc func onSave() {
         saveDelegate!.onSave()
+    }
+    
+    private func darkModeToggleCallback() {
+        print("I have called back")
     }
     
     private func configTitleLabelConstraints() {

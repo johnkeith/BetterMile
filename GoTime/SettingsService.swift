@@ -21,6 +21,8 @@ class SettingsService {
     
     static let speakStartStopKey = "startStopNotification"
     
+    static let darkModeKey = "darkMode"
+    
     static func incrementAppRunCount() {
         let key = Constants.appRunTimes
         let currentValue = Constants.storedSettings.integer(forKey: key)
