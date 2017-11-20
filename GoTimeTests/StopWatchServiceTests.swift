@@ -14,7 +14,7 @@ class StopWatchServiceTests: XCTestCase {
     
     class FakeDelegate: NSObject, StopWatchServiceDelegate {
         func stopWatchLapRemoved() {
-            <#code#>
+            print("just a fake")
         }
         
         var stopWatchService: StopWatchService
@@ -295,5 +295,13 @@ class StopWatchServiceTests: XCTestCase {
         let result = service.calculateLapDeviationPercentage(lapTime: 5.34)
         
         XCTAssertEqual(result, 0.585)
+    }
+    
+    func testStartPingInterval() {
+        Constants.storedSettings.set(true, forKey: SettingsService.intervalKey)
+        
+        service.startPingInterval()
+        
+        XCTAssertNotNil(service.pingTimer)
     }
 }

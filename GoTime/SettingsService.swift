@@ -8,26 +8,18 @@
 
 import Foundation
 
-// TODO: UNTESTED
 class SettingsService {
-    static let voiceNotificationsKey = "voiceNotifications"
     static let previousLapTimeKey = "previousLapTimeVoiceNotification"
     static let averageLapTimeKey = "averageLapTimeVoiceNotification"
-    static let totalTimeKey = "totalTimeVoiceNotification"
-    static let timerPausedKey = "timerPauseNotification"
-    static let timerClearedKey = "timerClearedNotification"
     
-    static let voiceNotificationOptionKeys = [previousLapTimeKey, averageLapTimeKey, totalTimeKey, timerPausedKey, timerClearedKey]
+    static let milePaceKey = "milePaceVoiceNotification"
+    static let intervalKey = "intervalVoiceNotification"
+    static let milePaceAmountKey = "milePaceAmount"
+    static let intervalAmountKey = "intervalAmount"
     
     static let vibrationNotificationsKey = "vibrationNotifications"
-    static let vibrateOnLapKey = "vibrateOnLapNotification"
-    static let vibrateOnPauseKey = "vibrateOnPauseNotification"
-    static let vibrateOnClearKey = "vibrateOnClearNotification"
-    static let vibrationNotificationOptionKeys = [vibrateOnLapKey, vibrateOnPauseKey, vibrateOnClearKey]
     
-    static let useDarkModeKey = "useDarkMode"
-    
-    var mapOfSettingsForTable: [(displayName: String, userDefaultsKey: String?, shouldIndent: Bool)] = []
+    static let speakStartStopKey = "startStopNotification"
     
     static func incrementAppRunCount() {
         let key = Constants.appRunTimes
@@ -37,21 +29,20 @@ class SettingsService {
         Constants.storedSettings.set(newValue, forKey: key)
     }
     
-    init() {
-        mapOfSettingsForTable = [
-            (displayName: "Notification Settings", userDefaultsKey: nil, shouldIndent: false),
-            (displayName: "Voice Notifications", userDefaultsKey: type(of: self).voiceNotificationsKey, shouldIndent: false),
-            (displayName: "Previous Lap Time", userDefaultsKey: type(of: self).previousLapTimeKey, shouldIndent: true),
-            (displayName: "Average Lap Time", userDefaultsKey: type(of: self).averageLapTimeKey, shouldIndent: true),
-            (displayName: "Total Time", userDefaultsKey: type(of: self).totalTimeKey, shouldIndent: true),
-            (displayName: "Timer Paused", userDefaultsKey: type(of: self).timerPausedKey, shouldIndent: true),
-            (displayName: "Timer Cleared", userDefaultsKey: type(of: self).timerClearedKey, shouldIndent: true),
-            (displayName: "Vibration Notifications", userDefaultsKey: type(of: self).vibrationNotificationsKey, shouldIndent: false),
-            (displayName: "Vibrate on Lap", userDefaultsKey: type(of: self).vibrateOnLapKey, shouldIndent: true),
-            (displayName: "Vibrate on Pause", userDefaultsKey: type(of: self).vibrateOnPauseKey, shouldIndent: true),
-            (displayName: "Vibrate on Clear", userDefaultsKey: type(of: self).vibrateOnClearKey, shouldIndent: true),
-            (displayName: "Color Settings", userDefaultsKey: nil, shouldIndent: false),
-            (displayName: "Dark Mode", userDefaultsKey: type(of: self).useDarkModeKey, shouldIndent: false)
-        ]
+    static func firstRunSetup() {
+        let key = Constants.appRunTimes
+        let currentValue = Constants.storedSettings.integer(forKey: key)
+
+        if currentValue == 0 {
+            resetToDefaultSettings()
+        }
+    }
+    
+    static func resetToDefaultSettings() {
+        Constants.storedSettings.set(true, forKey: previousLapTimeKey)
+        Constants.storedSettings.set(true, forKey: averageLapTimeKey)
+        Constants.storedSettings.set(true, forKey: vibrationNotificationsKey)
+        Constants.storedSettings.set(12, forKey: milePaceAmountKey)
+        Constants.storedSettings.set(15, forKey: intervalAmountKey)
     }
 }

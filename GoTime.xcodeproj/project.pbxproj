@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		632271B51ED7B9C100244ED3 /* LapTableController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632271B41ED7B9C100244ED3 /* LapTableController.swift */; };
-		633C31571F5C0FB900BD2460 /* SettingsButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633C31561F5C0FB900BD2460 /* SettingsButton.swift */; };
 		633C31591F5C218600BD2460 /* UILabelExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633C31581F5C218600BD2460 /* UILabelExtension.swift */; };
 		6347A94F1F5C73B400B1CB8A /* BlurOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6347A94E1F5C73B400B1CB8A /* BlurOverlayView.swift */; };
 		6347A9531F5C76E000B1CB8A /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6347A9521F5C76E000B1CB8A /* SettingsView.swift */; };
@@ -25,13 +24,14 @@
 		6386BF311E44143100BD2875 /* CoreDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6386BF301E44143100BD2875 /* CoreDataService.swift */; };
 		6386BF331E45FE9700BD2875 /* RunPersistanceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6386BF321E45FE9700BD2875 /* RunPersistanceService.swift */; };
 		6386BF351E4602C600BD2875 /* RunPersistanceServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6386BF341E4602C600BD2875 /* RunPersistanceServiceTests.swift */; };
+		638896F01FAFE7FF007A831A /* SettingsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638896EF1FAFE7FF007A831A /* SettingsService.swift */; };
 		63A3F1EF1E34FE3800AA8A92 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A3F1EE1E34FE3800AA8A92 /* AppDelegate.swift */; };
 		63A3F1F71E34FE3800AA8A92 /* GoTime.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 63A3F1F51E34FE3800AA8A92 /* GoTime.xcdatamodeld */; };
 		63A3F1F91E34FE3800AA8A92 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 63A3F1F81E34FE3800AA8A92 /* Assets.xcassets */; };
 		63A3F1FC1E34FE3800AA8A92 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 63A3F1FA1E34FE3800AA8A92 /* LaunchScreen.storyboard */; };
 		63A3F2121E34FE3900AA8A92 /* GoTimeUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A3F2111E34FE3900AA8A92 /* GoTimeUITests.swift */; };
 		63A3F2291E35355500AA8A92 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A3F2241E35355500AA8A92 /* Constants.swift */; };
-		63A3F2351E37082100AA8A92 /* MainViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A3F2341E37082100AA8A92 /* MainViewControllerTests.swift */; };
+		63A3F2351E37082100AA8A92 /* SingleViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A3F2341E37082100AA8A92 /* SingleViewControllerTests.swift */; };
 		63A3F23B1E3C195400AA8A92 /* StopWatchService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A3F23A1E3C195400AA8A92 /* StopWatchService.swift */; };
 		63A3F23E1E3D1FFA00AA8A92 /* StopWatchServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A3F23D1E3D1FFA00AA8A92 /* StopWatchServiceTests.swift */; };
 		63B3DFE81EDB314E007B6991 /* SettingsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63B3DFE71EDB314E007B6991 /* SettingsService.swift */; };
@@ -43,6 +43,7 @@
 		63CB140A1E6D0A6300F7BC14 /* TimerHelpTextLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63CB14091E6D0A6300F7BC14 /* TimerHelpTextLabel.swift */; };
 		63CB140C1E6E4E0A00F7BC14 /* AnimationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63CB140B1E6E4E0A00F7BC14 /* AnimationService.swift */; };
 		63CC94EE1EB7FA1C00D5DB0E /* SingleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63CC94ED1EB7FA1C00D5DB0E /* SingleViewController.swift */; };
+		63D0D9D91F86FEFA00877819 /* IncrementControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D0D9D81F86FEFA00877819 /* IncrementControl.swift */; };
 		63E9BBE01EA07BFD0019FC35 /* SpeechService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63E9BBDF1EA07BFD0019FC35 /* SpeechService.swift */; };
 		63F7EE5F1F4E66420008D65D /* FirebaseAnalytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63F7EE5D1F4E66110008D65D /* FirebaseAnalytics.framework */; };
 		63F7EE601F4E66420008D65D /* FirebaseCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63F7EE5E1F4E66110008D65D /* FirebaseCore.framework */; };
@@ -73,7 +74,6 @@
 
 /* Begin PBXFileReference section */
 		632271B41ED7B9C100244ED3 /* LapTableController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LapTableController.swift; sourceTree = "<group>"; };
-		633C31561F5C0FB900BD2460 /* SettingsButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsButton.swift; sourceTree = "<group>"; };
 		633C31581F5C218600BD2460 /* UILabelExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UILabelExtension.swift; sourceTree = "<group>"; };
 		6347A94E1F5C73B400B1CB8A /* BlurOverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurOverlayView.swift; sourceTree = "<group>"; };
 		6347A9521F5C76E000B1CB8A /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
@@ -90,6 +90,7 @@
 		6386BF301E44143100BD2875 /* CoreDataService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataService.swift; sourceTree = "<group>"; };
 		6386BF321E45FE9700BD2875 /* RunPersistanceService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RunPersistanceService.swift; sourceTree = "<group>"; };
 		6386BF341E4602C600BD2875 /* RunPersistanceServiceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RunPersistanceServiceTests.swift; sourceTree = "<group>"; };
+		638896EF1FAFE7FF007A831A /* SettingsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsService.swift; sourceTree = "<group>"; };
 		63A3F1EB1E34FE3800AA8A92 /* GoTime.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GoTime.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		63A3F1EE1E34FE3800AA8A92 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		63A3F1F61E34FE3800AA8A92 /* GoTime.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = GoTime.xcdatamodel; sourceTree = "<group>"; };
@@ -102,7 +103,7 @@
 		63A3F2111E34FE3900AA8A92 /* GoTimeUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoTimeUITests.swift; sourceTree = "<group>"; };
 		63A3F2131E34FE3900AA8A92 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		63A3F2241E35355500AA8A92 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
-		63A3F2341E37082100AA8A92 /* MainViewControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewControllerTests.swift; sourceTree = "<group>"; };
+		63A3F2341E37082100AA8A92 /* SingleViewControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SingleViewControllerTests.swift; sourceTree = "<group>"; };
 		63A3F23A1E3C195400AA8A92 /* StopWatchService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StopWatchService.swift; sourceTree = "<group>"; };
 		63A3F23D1E3D1FFA00AA8A92 /* StopWatchServiceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StopWatchServiceTests.swift; sourceTree = "<group>"; };
 		63B3DFE71EDB314E007B6991 /* SettingsService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsService.swift; sourceTree = "<group>"; };
@@ -114,6 +115,7 @@
 		63CB14091E6D0A6300F7BC14 /* TimerHelpTextLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimerHelpTextLabel.swift; sourceTree = "<group>"; };
 		63CB140B1E6E4E0A00F7BC14 /* AnimationService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimationService.swift; sourceTree = "<group>"; };
 		63CC94ED1EB7FA1C00D5DB0E /* SingleViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SingleViewController.swift; sourceTree = "<group>"; };
+		63D0D9D81F86FEFA00877819 /* IncrementControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncrementControl.swift; sourceTree = "<group>"; };
 		63E9BBDF1EA07BFD0019FC35 /* SpeechService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpeechService.swift; sourceTree = "<group>"; };
 		63F7EE581F4E64930008D65D /* Firebase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Firebase.h; sourceTree = "<group>"; };
 		63F7EE591F4E64930008D65D /* module.modulemap */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; path = module.modulemap; sourceTree = "<group>"; };
@@ -261,10 +263,10 @@
 				63CB14051E67AD2900F7BC14 /* LapTimeTableCell.swift */,
 				63CB14091E6D0A6300F7BC14 /* TimerHelpTextLabel.swift */,
 				63684F881F47C1D40067DC36 /* LapTimeLabel.swift */,
-				633C31561F5C0FB900BD2460 /* SettingsButton.swift */,
 				6347A94E1F5C73B400B1CB8A /* BlurOverlayView.swift */,
 				6347A9521F5C76E000B1CB8A /* SettingsView.swift */,
 				6347A9541F6569A000B1CB8A /* SettingsViewRow.swift */,
+				63D0D9D81F86FEFA00877819 /* IncrementControl.swift */,
 			);
 			name = Components;
 			sourceTree = "<group>";
@@ -289,7 +291,7 @@
 		63A3F2331E37080E00AA8A92 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				63A3F2341E37082100AA8A92 /* MainViewControllerTests.swift */,
+				63A3F2341E37082100AA8A92 /* SingleViewControllerTests.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -326,6 +328,7 @@
 				6386BF301E44143100BD2875 /* CoreDataService.swift */,
 				6386BF341E4602C600BD2875 /* RunPersistanceServiceTests.swift */,
 				63C9A1811E7D55EB00AB9144 /* AnimationServiceTests.swift */,
+				638896EF1FAFE7FF007A831A /* SettingsService.swift */,
 			);
 			name = Services;
 			sourceTree = "<group>";
@@ -509,10 +512,10 @@
 				63E9BBE01EA07BFD0019FC35 /* SpeechService.swift in Sources */,
 				63A3F1F71E34FE3800AA8A92 /* GoTime.xcdatamodeld in Sources */,
 				6347A94F1F5C73B400B1CB8A /* BlurOverlayView.swift in Sources */,
-				633C31571F5C0FB900BD2460 /* SettingsButton.swift in Sources */,
 				6386BF211E3EC1FC00BD2875 /* TimeToTextService.swift in Sources */,
 				63A3F1EF1E34FE3800AA8A92 /* AppDelegate.swift in Sources */,
 				63A3F2291E35355500AA8A92 /* Constants.swift in Sources */,
+				63D0D9D91F86FEFA00877819 /* IncrementControl.swift in Sources */,
 				6386BF2F1E440EE500BD2875 /* CoreDataService.swift in Sources */,
 				634CACDF1E4BD4AE0064FD5E /* LapTimeTable.swift in Sources */,
 				63CB140A1E6D0A6300F7BC14 /* TimerHelpTextLabel.swift in Sources */,
@@ -532,8 +535,9 @@
 				6386BF311E44143100BD2875 /* CoreDataService.swift in Sources */,
 				6386BF351E4602C600BD2875 /* RunPersistanceServiceTests.swift in Sources */,
 				6386BF2B1E421E5300BD2875 /* DataModelHelpers.swift in Sources */,
-				63A3F2351E37082100AA8A92 /* MainViewControllerTests.swift in Sources */,
+				63A3F2351E37082100AA8A92 /* SingleViewControllerTests.swift in Sources */,
 				63C9A1801E7D54FA00AB9144 /* TimerHelpTextLabelTests.swift in Sources */,
+				638896F01FAFE7FF007A831A /* SettingsService.swift in Sources */,
 				6386BF281E421A1300BD2875 /* DataModelTests.swift in Sources */,
 				6386BF231E3ED67E00BD2875 /* TImeToTextServiceTests.swift in Sources */,
 				63C9A17E1E7773CF00AB9144 /* LapTimeTableCellTests.swift in Sources */,
@@ -712,7 +716,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "GoTime/GoTime-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Off;
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -735,7 +739,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = us.johnkeith.GoTime;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "GoTime/GoTime-Bridging-Header.h";
-				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Off;
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -748,6 +752,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				DEVELOPMENT_TEAM = H8RKQ3P369;
 				INFOPLIST_FILE = GoTimeTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = us.johnkeith.GoTimeTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -764,6 +769,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				DEVELOPMENT_TEAM = H8RKQ3P369;
 				INFOPLIST_FILE = GoTimeTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = us.johnkeith.GoTimeTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";

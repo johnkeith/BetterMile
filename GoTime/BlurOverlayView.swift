@@ -9,6 +9,8 @@
 import UIKit
 
 class BlurOverlayView:UIView {
+    var blurAdded = false
+    
     init(isHidden: Bool = false) {
         super.init(frame: Constants.defaultFrame)
         
@@ -21,13 +23,17 @@ class BlurOverlayView:UIView {
     }
     
     func addBlurEffect() {
-        let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.dark)
-        let blurEffectView = UIVisualEffectView(effect: blurEffect)
-        
-        blurEffectView.frame = superview!.bounds
-        blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        
-        addSubview(blurEffectView)
+        if !blurAdded {
+            let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.dark)
+            let blurEffectView = UIVisualEffectView(effect: blurEffect)
+            
+            blurEffectView.frame = superview!.bounds
+            blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+            
+            addSubview(blurEffectView)
+            
+            self.blurAdded = true
+        }
     }
 }
 

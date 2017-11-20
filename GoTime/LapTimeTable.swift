@@ -42,17 +42,24 @@ class LapTimeTable: UITableView {
     }
     
     func setLapData() {
-        self.lapData = stopWatchSrv.lapTimes.reversed()
+        self.lapData = stopWatchSrv.completedLapTimes().reversed()
     }
     
-//  TODO: UNTESTED - TODO: FIX - showing errors sometimes
-    func reloadCurrentLapRow() {
-        let indexPath = IndexPath(row: 0, section: 0)
-        
-        self.reloadRows(at: [indexPath], with: .none)
+    func showMessageIfNoData() {
+        if lapData.count == 0 {
+            let messageLabel = UILabel(frame: CGRect(x: 0, y: 0, width: superview!.bounds.size.width, height: superview!.bounds.size.height))
+            messageLabel.text = "No completed lap times"
+            messageLabel.textColor = Constants.colorBlack
+            messageLabel.numberOfLines = 0;
+            messageLabel.textAlignment = .center;
+            messageLabel.font = UIFont.preferredFont(forTextStyle: .body)
+            messageLabel.sizeToFit()
+            
+            self.backgroundView = messageLabel;
+            self.separatorStyle = .none;
+        }
     }
     
-//  TODO: UNTESTED
     func setRowHeightBySuperview(_superview: UIView) {
         self.rowHeight = _superview.frame.height / Constants.tableRowHeightDivisor
     }
@@ -112,11 +119,12 @@ extension LapTimeTable: UITableViewDelegate {
         let index = indexPath.row
         let _cell = cell as! LapTimeTableCell
 
-        if self.lapData.count > 1 && index != 0 {
+//        We can color all since we are showing only completed
+//        if self.lapData.count > 1 && index != 0 {
             setCellTextColor(_cell, at: index)
-        } else {
-            setDefaultRowColors(_cell)
-        }
+//        } else {
+//            setDefaultRowColors(_cell)
+//        }
     }
     
     func setCellTextColor(_ cell: LapTimeTableCell, at index: Int) {
@@ -131,9 +139,9 @@ extension LapTimeTable: UITableViewDelegate {
         } else if quality == LapQualities.bad {
             setDefaultRowColors(cell)
         } else {
-//            cell.backgroundColor = Constants.colorPalette["_red"]
+//            cell.backgroundColor = Constants.colorRed
 //            cell.label.textColor = Constants.colorWhite
-            cell.label.textColor = Constants.colorPalette["_red"]
+            cell.label.textColor = Constants.colorRed
         }
     }
     
@@ -144,7 +152,7 @@ extension LapTimeTable: UITableViewDelegate {
     
     func oldSetCellTextColor(_ cell: LapTimeTableCell, at index: Int, checkForSlowest: Bool = false) {
         if checkForSlowest && isSlowestLap(index){
-            cell.backgroundColor = Constants.colorPalette["_red"]
+            cell.backgroundColor = Constants.colorRed
             cell.label.textColor = Constants.colorWhite
         } else if isFastestLap(index) {
             cell.backgroundColor = Constants.colorGreen

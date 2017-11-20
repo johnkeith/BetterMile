@@ -8,23 +8,68 @@
 
 import UIKit
 
+protocol SettingsViewToggleDelegate: class {
+    func onSettingsToggle(_ this: SettingsViewRow, kind: SettingsViewRowKind, newValue: Bool)
+}
+
+enum SettingsViewRowKind {
+    case vibration
+    case previousLap
+    case averageLap
+    case milePace
+    case intervalPing
+    case startStop
+}
+
+// TODO: UNTESTED
 class SettingsViewRow:UIView {
     let label = UILabel()
+    let subLabel = UILabel()
     let line = UILabel()
     let rowSwitch = UISwitch()
     
     var labelText: String
     var userDefaultsKey: String
+    var kind: SettingsViewRowKind
+    var sublabelText: String?
+    var incrementControl: IncrementControl?
+    var settingsToggleDelegate: SettingsViewToggleDelegate?
+    var incrementUserDefaultsKey: String?
     
-    init(labelText: String, userDefaultsKey: String) {
+    init(
+        labelText: String,
+        userDefaultsKey: String,
+        kind: SettingsViewRowKind,
+        sublabelText: String? = nil,
+        incrementValue: Int? = nil,
+        incrementLabel: String? = nil,
+        incrementMin: Int? = nil,
+        incrementUserDefaultsKey: String? = nil) {
         self.labelText = labelText
         self.userDefaultsKey = userDefaultsKey
+        self.kind = kind
+        self.incrementUserDefaultsKey = incrementUserDefaultsKey
         
         super.init(frame: Constants.defaultFrame)
-        
+
         addLabel()
         addLine()
         addRowSwitch()
+        
+        if sublabelText != nil {
+            self.sublabelText = sublabelText
+            addSublabel()
+        }
+        
+        if incrementValue != nil && incrementLabel != nil && incrementMin != nil {
+            self.incrementControl = IncrementControl(value: incrementValue!, labelText: incrementLabel!, minValue: incrementMin!)
+            
+            incrementControl!.delegate = self
+            
+            addIncrementControl()
+        }
+        
+        setVisibleBasedOnToggle()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -32,55 +77,131 @@ class SettingsViewRow:UIView {
     }
     
     func configConstraints() {
-        label.snp.makeConstraints { make in
-            make.centerY.equalTo(self)
-            make.height.equalTo(self)
-            make.left.equalTo(self).offset(Constants.defaultMargin / 2)
-            make.width.equalTo(self.frame.width * (2/5))
-        }
+        setLabelConstraints()
+        setRowSwitchConstraints()
+        setSublabelConstraints()
+        setIncrementControlConstraints()
         
         line.snp.makeConstraints { make in
             make.height.equalTo(1)
             make.right.equalTo(self)
-            make.top.equalTo(self.snp.bottom)
+            make.bottom.equalTo(self.snp.bottom)
             make.width.equalTo(self)
         }
-        
-        rowSwitch.snp.makeConstraints { make in
-            make.centerY.equalTo(self)
-            make.right.equalTo(self).offset(-Constants.defaultMargin)
-            make.width.equalTo(self.frame.width / 6)
-        }
-        
-        label.layoutIfNeeded()
-    }
-    
-    func matchFontSize(of: SettingsViewRow) {
-        let size = of.label.fontSize
-        label.adjustsFontSizeToFitWidth = false
-        label.font = UIFont.systemFont(ofSize: size, weight: Constants.responsiveDefaultFontWeight)
     }
     
     @objc func onRowToggle() {
         let currentValue = Constants.storedSettings.bool(forKey: userDefaultsKey)
+        let nextValue = !currentValue
         
-        Constants.storedSettings.set(!currentValue, forKey: userDefaultsKey)
+        Constants.storedSettings.set(nextValue, forKey: userDefaultsKey)
+
+        settingsToggleDelegate?.onSettingsToggle(self, kind: kind, newValue: nextValue)
+
+        resetConstraints(nextValue: nextValue)
+    }
+    
+    func resetConstraints(nextValue: Bool) {
+        setLabelConstraints()
+        setRowSwitchConstraints()
+        setSublabelConstraints()
+        setIncrementControlConstraints()
+        setVisibleBasedOnToggle()
+    }
+    
+    func settingIsEnabled() -> Bool {
+        return Constants.storedSettings.bool(forKey: userDefaultsKey)
+    }
+    
+    func setToDisabled() {
+        rowSwitch.setOn(false, animated: true)
+        
+        Constants.storedSettings.set(false, forKey: userDefaultsKey)
+        
+        resetConstraints(nextValue: false)
+    }
+    
+    func setToEnabled() {
+        rowSwitch.setOn(true, animated: true)
+        
+        Constants.storedSettings.set(true, forKey: userDefaultsKey)
+        
+        resetConstraints(nextValue: true)
+    }
+    
+    func setVisibleBasedOnToggle() {
+        if sublabelText != nil && incrementControl != nil {
+            subLabel.isHidden = !settingIsEnabled()
+            incrementControl!.isHidden = !settingIsEnabled()
+        }
+    }
+    
+    private func setLabelConstraints() {
+        label.snp.remakeConstraints { make in
+            if(settingIsEnabled() && incrementControl != nil) {
+                make.height.equalTo(self.frame.height / 2)
+            } else {
+                make.height.equalTo(self)
+            }
+            make.top.equalTo(self)
+            make.left.equalTo(self)
+            make.width.equalTo(self.frame.width * (2/3))
+        }
+    }
+    
+    private func setRowSwitchConstraints() {
+        rowSwitch.snp.remakeConstraints { make in
+            make.centerY.equalTo(label)
+            make.right.equalTo(self).offset(-Constants.defaultMargin / 2)
+            make.width.equalTo(self.frame.width / 6)
+        }
+    }
+    
+    private func setSublabelConstraints() {
+        if sublabelText != nil {
+            subLabel.snp.remakeConstraints { make in
+                make.bottom.equalTo(self).offset(-4)
+                make.height.equalTo(self.frame.height / 2)
+                make.left.equalTo(self)
+                make.width.equalTo(self.frame.width * (2/5))
+            }
+        }
+    }
+    
+    private func setIncrementControlConstraints() {
+        if incrementControl != nil {
+            incrementControl!.snp.remakeConstraints { make in
+                make.bottom.equalTo(self).offset(-4)
+                make.height.equalTo(label)
+                make.right.equalTo(self).offset(-Constants.defaultMargin / 2)
+                make.width.equalTo(self.frame.width * (3/5))
+            }
+            
+            incrementControl!.layoutIfNeeded()
+        }
     }
     
     private func addLabel() {
         addSubview(label)
         
-        label.font = Constants.defaultHeadlineFont
         label.text = labelText
         label.textAlignment = .left
         
         label.textColor = Constants.colorBlack
     }
     
+    private func addSublabel() {
+        addSubview(subLabel)
+        
+        subLabel.text = sublabelText
+        subLabel.textAlignment = .left
+        subLabel.textColor = Constants.colorBlack
+    }
+    
     private func addLine() {
         addSubview(line)
         
-        line.backgroundColor = Constants.colorBlack
+        line.backgroundColor = Constants.colorGray
     }
     
     private func addRowSwitch() {
@@ -92,5 +213,15 @@ class SettingsViewRow:UIView {
         rowSwitch.isOn = currentStoredValue
         
         rowSwitch.addTarget(self, action: #selector(onRowToggle), for: UIControlEvents.allEvents)
+    }
+    
+    private func addIncrementControl() {
+        addSubview(incrementControl!)
+    }
+}
+
+extension SettingsViewRow: IncrementControlDelegate {
+    func onIncrementChangeHandler(newValue: Int) {
+        Constants.storedSettings.set(newValue, forKey: incrementUserDefaultsKey!)
     }
 }

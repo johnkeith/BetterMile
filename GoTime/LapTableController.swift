@@ -33,6 +33,7 @@ class LapTableController: UIViewController {
         super.viewWillAppear(animated)
         
         self.navigationController?.navigationBar.tintColor = Constants.colorBlack
+        self.navigationController?.navigationBar.isTranslucent = true
         self.navigationItem.title = "Lap Times"
         self.navigationController?.isToolbarHidden = true
     }
@@ -44,5 +45,6 @@ class LapTableController: UIViewController {
             make.top.equalTo(lapTable.superview!)
             make.bottom.equalTo(lapTable.superview!)
         })
+        lapTable.showMessageIfNoData()
     }
 }

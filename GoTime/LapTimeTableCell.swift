@@ -48,7 +48,6 @@ class LapTimeTableCell: UITableViewCell {
         label.textAlignment = .center
     }
     
-    // TODO: UNTESTED
     func addLabelAndLineConstraints(rowHeight: CGFloat) {
         // TODO: FIX - there must be a better place for this
         self.label.snp.makeConstraints { (make) -> Void in

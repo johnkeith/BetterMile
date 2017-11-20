@@ -13,11 +13,9 @@ import StoreKit
 
 class SingleViewController: UIViewController {
 //  NON-DI
-    
-    let vibrationOnText = "Vibrate On"
-    let vibrationOffText = "Vibrate Off"
-    let voiceOnText = "Voice On"
-    let voiceOffText = "Voice Off"
+    let settingsViewAnimationDuration = 0.5
+
+    let advancedSettingsText = "Settings"
     let defaultTotalTimeLblText = "Total 00:00.00"
     let clearAlertMessage = "Are you sure you want to end your run?"
     
@@ -27,25 +25,23 @@ class SingleViewController: UIViewController {
     let lapTimeLbl = LapTimeLabel()
     let lapLbl = UILabel()
     let blurOverlay = BlurOverlayView()
-    let lapTableBtn = UIButton()
+    let settingsView = SettingsView()
     
-    var vibrationBarBtn: UIBarButtonItem!
-    var voiceBarBtn: UIBarButtonItem!
     var clearBarBtn: UIBarButtonItem!
     var rightBarBtn: UIBarButtonItem!
+    var advancedBarBtn: UIBarButtonItem!
+    var lapTimesBarBtn: UIBarButtonItem!
+    var lapTimesBarBtnSubBtn: UIButton!
+    
+    var pingIntervalBeforeSettingsShown: Int!
     
     var doubleTapRecognizer: UITapGestureRecognizer! // TODO: FIX
     
-    var fgClr: UIColor
-    var bgClr: UIColor
-    var btnFgClr: UIColor
-    var btnBgClr: UIColor
 //  DI
     var stopWatchSrv: StopWatchService
     var animationSrv: AnimationService
     var timeToTextSrv: TimeToTextService
     var speechSrv: SpeechService
-    var settingsBtn: SettingsButton
     var helpText: TimerHelpTextLabel
     
     init(stopWatchSrv: StopWatchService = StopWatchService(),
@@ -56,26 +52,21 @@ class SingleViewController: UIViewController {
         self.animationSrv = animationSrv
         self.timeToTextSrv = timeToTextSrv
         self.speechSrv = speechSrv
-        self.settingsBtn = SettingsButton(blurOverlay: blurOverlay, animationSrv: animationSrv)
         self.helpText = TimerHelpTextLabel(hidden: true, animationService: animationSrv)
-        
-        fgClr = Constants.colorBlack
-        bgClr = Constants.colorBackground
-        btnFgClr = fgClr
-        btnBgClr = UIColor.clear // Constants.colorPalette["BTNBG"]!
         
         super.init(nibName: nil, bundle: nil)
         
-        vibrationBarBtn = UIBarButtonItem(title: "", style: .plain, target: self, action: #selector(onVibrationNotificationsTap))
-        voiceBarBtn = UIBarButtonItem(title: "", style: .plain, target: self, action: #selector(onVoiceNotificationsTap))
+        advancedBarBtn = UIBarButtonItem(title: advancedSettingsText, style: .plain, target: self, action: #selector(onAdvancedSettingsTap))
         clearBarBtn = UIBarButtonItem(title: "Clear", style: .plain, target: self, action: #selector(onClearTap))
         rightBarBtn = UIBarButtonItem(title: "Start", style: .plain, target: self, action: #selector(onStartTap))
+        lapTimesBarBtn = UIBarButtonItem(title: "Lap Times", style: .plain, target: self, action: #selector(onLapTableTap))
         
         stopWatchSrv.delegate = self
-        
+        settingsView.saveDelegate = self
+
         view.backgroundColor = Constants.colorWhite
         
-        addSubviews([container, blurOverlay, lapTableBtn, helpText])
+        addSubviews([container, helpText])
         
         container.addSubview(lapLbl)
         container.addSubview(totalTimeLbl)
@@ -85,10 +76,10 @@ class SingleViewController: UIViewController {
         configLapLbl()
         configTotalTimeLbl()
         configLapTimeLbl()
-        configBlurOverlay()
-        configLapTableBtn()
         configHelpText()
         
+        self.navigationItem.leftBarButtonItem = clearBarBtn
+        self.navigationItem.leftBarButtonItem?.isEnabled = false
         self.navigationItem.rightBarButtonItem = rightBarBtn
 
         askForReview()
@@ -99,7 +90,7 @@ class SingleViewController: UIViewController {
     }
     
     override func viewDidLoad() {
-        super.viewDidLoad()
+        super.viewDidLoad()        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -119,144 +110,13 @@ class SingleViewController: UIViewController {
         animationSrv.animateWithSpring(lapTimeLbl, duration: 0.8, fromAlphaZero: true)
     }
     
-    func configToolbar() {
-        let vibrationState = Constants.storedSettings.bool(forKey: SettingsService.vibrationNotificationsKey)
-        let voiceState = Constants.storedSettings.bool(forKey: SettingsService.voiceNotificationsKey)
-        
-        let vibrationTitle = vibrationState ? vibrationOnText : vibrationOffText
-        let voiceTitle = voiceState ? voiceOnText : voiceOffText
-        
-        vibrationBarBtn.title = vibrationTitle
-        voiceBarBtn.title = voiceTitle
-        
-        vibrationBarBtn.tintColor = Constants.colorBlack
-        voiceBarBtn.tintColor = Constants.colorBlack
-        let spacer = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        
-        self.toolbarItems = [vibrationBarBtn, spacer, voiceBarBtn]
-    }
-    
-    func configNavBar() {
-        clearBarBtn.tintColor = Constants.colorBlack
-        rightBarBtn.tintColor = Constants.colorBlack
-        
-        self.navigationController?.navigationBar.barStyle = .default
-        self.navigationController?.navigationBar.isTranslucent = false
-        self.navigationController?.navigationBar.backgroundColor = Constants.colorWhite
-        self.navigationController?.isToolbarHidden = false
-        self.navigationController?.view.backgroundColor = Constants.colorWhite
-        self.navigationController?.navigationBar.tintColor = Constants.colorWhite
-        self.navigationController?.navigationBar.barTintColor = Constants.colorWhite
-        
-        self.navigationController?.toolbar!.barStyle = .default
-        self.navigationController?.toolbar!.isTranslucent = false
-        self.navigationController?.toolbar!.backgroundColor = Constants.colorWhite
-        self.navigationController?.toolbar!.barTintColor = Constants.colorWhite
-    }
-    
-    func askForReview() {
-        if #available(iOS 10.3, *) {
-            let key = Constants.appRunTimes
-            let numberOfRuns = Constants.storedSettings.integer(forKey: key)
-            
-            if numberOfRuns > 5 {
-                SKStoreReviewController.requestReview()
+    @objc func onAdvancedSettingsTap() {
+        if settingsView.isHidden {
+            if Constants.storedSettings.bool(forKey: SettingsService.intervalKey) {
+               pingIntervalBeforeSettingsShown = Constants.storedSettings.integer(forKey: SettingsService.intervalAmountKey)
             }
-        }
-    }
-    
-    func configBlurOverlay() {
-        blurOverlay.addBlurEffect()
-    }
-    
-    func configContainer() {
-        let parentHeight = container.superview!.frame.height
-        let height = (parentHeight / 3) + (parentHeight / 5)
-        
-        container.snp.makeConstraints { make in
-            make.width.equalTo(container.superview!)
-            make.height.equalTo(height)
-            make.center.equalTo(container.superview!)
-        }
-        
-        container.layoutIfNeeded()
-    }
-    
-    func configTotalTimeLbl() {
-        totalTimeLbl.isHidden = true
-        totalTimeLbl.text = defaultTotalTimeLblText
-        totalTimeLbl.font = Constants.responsiveDigitFont
-        totalTimeLbl.adjustsFontSizeToFitWidth = true
-        totalTimeLbl.numberOfLines = 1
-        totalTimeLbl.baselineAdjustment = .alignCenters
-        totalTimeLbl.textAlignment = .center
-        totalTimeLbl.textColor = fgClr
-        
-        let offset = totalTimeLbl.superview!.frame.width / 10
-        
-        totalTimeLbl.snp.makeConstraints { make in
-            make.width.equalTo(totalTimeLbl.superview!).offset(-offset)
-            make.height.equalTo(self.view.frame.height / 10)
-            make.centerX.equalTo(totalTimeLbl.superview!)
-            make.bottom.equalTo(lapTimeLbl.snp.top)
-        }
-    }
-    
-    func configLapTimeLbl() {
-        let offset = lapTimeLbl.superview!.frame.width / 10
-        
-        lapTimeLbl.snp.makeConstraints { make in
-            make.width.equalTo(lapTimeLbl.superview!).offset(-offset)
-            make.height.equalTo(self.view.frame.height / 10)
-            make.centerX.equalTo(lapTimeLbl.superview!)
-            make.bottom.equalTo(container.snp.bottom)
-        }
-        
-        lapTimeLbl.layoutIfNeeded()
-    }
-    
-    func configLapLbl() {
-        lapLbl.isHidden = true
-        lapLbl.text = "00"
-        lapLbl.textAlignment = .center
-        lapLbl.textColor = fgClr
-        lapLbl.baselineAdjustment = .alignCenters
-        
-        lapLbl.snp.makeConstraints { make in
-            make.width.equalTo(lapLbl.superview!).offset(-Constants.defaultMargin * 2)
-            make.height.equalTo(self.view.frame.height / 3)
-            make.centerX.equalTo(lapLbl.superview!)
-            make.top.equalTo(container.snp.top).offset(-Constants.defaultMargin)
-        }
-        
-        lapLbl.layoutIfNeeded()
-        
-        lapLbl.adjustsFontSizeToFitWidth = true
-        lapLbl.numberOfLines = 1
-        lapLbl.font = Constants.responsiveDigitFont
-    }
-    
-    func configLapTableBtn() {
-        lapTableBtn.hide()
-        
-        lapTableBtn.setTitle("View lap times ›", for: UIControlState.normal)
-        lapTableBtn.setTitleColor(fgClr, for: UIControlState.normal)
-        
-        lapTableBtn.titleLabel?.font = UIFont.preferredFont(forTextStyle: .title1)
-        lapTableBtn.titleLabel?.textAlignment = .center
-        
-        lapTableBtn.addTarget(self, action: #selector(onLapTableTap), for: .touchDown)
-        
-        lapTableBtn.snp.makeConstraints { make in
-            make.width.equalTo(lapTableBtn.superview!)
-            make.top.equalTo(lapTimeLbl.snp.bottom).offset(Constants.defaultMargin)
-        }
-    }
-    
-    func configHelpText() {
-        helpText.snp.makeConstraints { make in
-            make.width.equalTo(helpText.superview!)
-            make.top.equalTo(helpText.superview!).offset(Constants.defaultMargin)
+            animationSrv.animateFadeInView(blurOverlay, duration: 0.1)
+            animationSrv.animateMoveVerticallyFromOffscreenBottom(settingsView, duration: settingsViewAnimationDuration)
         }
     }
     
@@ -264,9 +124,64 @@ class SingleViewController: UIViewController {
         self.navigationItem.rightBarButtonItem?.title = "Resume"
         self.navigationItem.rightBarButtonItem?.action = #selector(onRestartTap)
         
-        animationSrv.animateWithSpring(lapTableBtn, fromAlphaZero: true)
-        
         stopWatchSrv.pause()
+    }
+    
+    @objc func onStartTap() {
+        stopWatchSrv.start()
+        
+        helpText.showBriefly()
+        
+        setLapLblText(lapCount: self.stopWatchSrv.lapTimes.count)
+        
+        self.navigationItem.leftBarButtonItem?.isEnabled = true
+        
+        self.navigationItem.leftBarButtonItem = clearBarBtn
+        self.navigationItem.rightBarButtonItem?.title = "Pause"
+        self.navigationItem.rightBarButtonItem?.action = #selector(onPauseTap)
+    }
+    
+    @objc func onRestartTap() {
+        self.navigationItem.rightBarButtonItem?.title = "Pause"
+        self.navigationItem.rightBarButtonItem?.action = #selector(onPauseTap)
+        
+        stopWatchSrv.restart()
+    }
+    
+    //    TODO: UNTESTED
+    @objc func onLapTableTap() {
+        let lapTableController = LapTableController(stopWatchSrv: stopWatchSrv)
+        
+        self.navigationController?.pushViewController(lapTableController, animated: true)
+    }
+    
+    //    TODO: UNTESTED
+    @objc func onClearTap() {
+        let clearAlertConfirmAction = UIAlertAction(title: "Clear", style: .destructive, handler: { (action) in
+            self.stopWatchSrv.stop()
+            
+            DispatchQueue.main.async {
+                self.animationSrv.animateTextChange(self.lapLbl, duration: 0.8)
+                self.animationSrv.animateTextChange(self.totalTimeLbl, duration: 0.8)
+                self.animationSrv.animateTextChange(self.lapTimeLbl, duration: 0.8)
+                
+                self.totalTimeLbl.text = self.defaultTotalTimeLblText
+                self.lapLbl.text = "00"
+                self.lapTimeLbl.text = self.lapTimeLbl.defaultText
+            }
+            
+            self.navigationItem.rightBarButtonItem?.title = "Start"
+            self.navigationItem.rightBarButtonItem?.action = #selector(self.onStartTap)
+            self.navigationItem.leftBarButtonItem?.isEnabled = false
+        })
+        
+        let clearAlertCancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: { (action) in })
+        
+        let clearAlert = UIAlertController(title: "Clear Run", message: clearAlertMessage, preferredStyle: .alert)
+        clearAlert.addAction(clearAlertCancelAction)
+        clearAlert.addAction(clearAlertConfirmAction)
+        
+        self.present(clearAlert, animated: true, completion: nil)
     }
     
     func setLapLblText(lapCount: Int) {
@@ -285,83 +200,7 @@ class SingleViewController: UIViewController {
         self.lapTimeLbl.setTextForLabel(lapTimeAsString)
     }
 
-    @objc func onStartTap() {
-        stopWatchSrv.start()
-        
-        helpText.showBriefly()
-        
-        setLapLblText(lapCount: self.stopWatchSrv.lapTimes.count)
-        
-        self.navigationItem.leftBarButtonItem = clearBarBtn
-        self.navigationItem.rightBarButtonItem?.title = "Pause"
-        self.navigationItem.rightBarButtonItem?.action = #selector(onPauseTap)
-    }
-    
-    @objc func onRestartTap() {
-        self.navigationItem.rightBarButtonItem?.title = "Pause"
-        self.navigationItem.rightBarButtonItem?.action = #selector(onPauseTap)
-        
-        animationSrv.animateFadeOutView(lapTableBtn)
-        
-        stopWatchSrv.restart()
-    }
-    
-    @objc func onLapTableTap() {
-        let lapTableController = LapTableController(stopWatchSrv: stopWatchSrv)
-        
-        self.navigationController?.pushViewController(lapTableController, animated: true)
-    }
-    
-    @objc func onClearTap() {
-        let clearAlertConfirmAction = UIAlertAction(title: "Clear", style: .destructive, handler: { (action) in
-            self.animationSrv.animateFadeOutView(self.lapTableBtn)
-            self.stopWatchSrv.stop()
-            
-            DispatchQueue.main.async {
-                self.animationSrv.animateTextChange(self.lapLbl, duration: 0.8)
-                self.animationSrv.animateTextChange(self.totalTimeLbl, duration: 0.8)
-                self.animationSrv.animateTextChange(self.lapTimeLbl, duration: 0.8)
-                
-                self.totalTimeLbl.text = self.defaultTotalTimeLblText
-                self.lapLbl.text = "00"
-                self.lapTimeLbl.text = self.lapTimeLbl.defaultText
-            }
-            
-            self.navigationItem.leftBarButtonItem = nil
-            self.navigationItem.rightBarButtonItem?.title = "Start"
-            self.navigationItem.rightBarButtonItem?.action = #selector(self.onStartTap)
-        })
-        
-        let clearAlertCancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: { (action) in })
-        
-        let clearAlert = UIAlertController(title: "Clear Run", message: clearAlertMessage, preferredStyle: .alert)
-        clearAlert.addAction(clearAlertCancelAction)
-        clearAlert.addAction(clearAlertConfirmAction)
-        
-        self.present(clearAlert, animated: true, completion: nil)
-    }
-    
-    @objc func onVoiceNotificationsTap() {
-        let newValue = handleSettingsToggle(key: SettingsService.voiceNotificationsKey)
-        
-        voiceBarBtn.title = newValue ? voiceOnText : voiceOffText
-    }
-    
-    @objc func onVibrationNotificationsTap() {
-        let newValue = handleSettingsToggle(key: SettingsService.vibrationNotificationsKey)
-        
-        vibrationBarBtn.title = newValue ? vibrationOnText : vibrationOffText
-    }
-    
-    func handleSettingsToggle(key: String) -> Bool {
-        let currentValue = Constants.storedSettings.bool(forKey: key)
-        let newValue = !currentValue
-        
-        Constants.storedSettings.set(newValue, forKey: key)
-        
-        return newValue
-    }
-    
+    // TODO: UNTESTED
     func notifyWithVibrationIfEnabled() {
         if Constants.storedSettings.bool(forKey: SettingsService.vibrationNotificationsKey) {
             AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
@@ -369,53 +208,207 @@ class SingleViewController: UIViewController {
     }
     
     func notifyWithVoiceIfEnabled(lapTime: Double, lapNumber: Int) {
-        let shouldSpeak = Constants.storedSettings.bool(forKey: SettingsService.voiceNotificationsKey)
+        let shouldSpeakLap = Constants.storedSettings.bool(forKey: SettingsService.previousLapTimeKey)
+        let shouldSpeakAverage = Constants.storedSettings.bool(forKey: SettingsService.averageLapTimeKey)
+        let shouldSpeakMilePace = Constants.storedSettings.bool(forKey: SettingsService.milePaceKey)
         
-        if shouldSpeak {
+        var sentanceToSpeak = ""
+        
+        if shouldSpeakLap {
             let timeTuple = timeToTextSrv.timeAsMultipleStrings(inputTime: lapTime)
+            let lapNumberOrdinalized = "\(lapNumber)\(Constants.ordinalSuffixForNumber(number: lapNumber))"
+            let previousLapTime = speechSrv.convertTimeTupleToString(timeTuple)
+            
+            sentanceToSpeak += "\(lapNumberOrdinalized) lap \(previousLapTime)."
+        }
+        
+        if shouldSpeakAverage && lapNumber > 1{
             let averageLapTime = StopWatchService.calculateAverageLapTime(laps: stopWatchSrv.completedLapTimes())
             let averageLapTimeTuple = timeToTextSrv.timeAsMultipleStrings(inputTime: averageLapTime)
+            let averageLapTimeString = speechSrv.convertTimeTupleToString(averageLapTimeTuple)
             
-            speechSrv.speakPreviousAndAverageLapTimes(previous: timeTuple, average: averageLapTimeTuple, lapNumber: lapNumber)
+            sentanceToSpeak += "Average \(averageLapTimeString)."
         }
+        
+        if shouldSpeakMilePace && stopWatchSrv.wasMileCompleted() {
+            let mileNumber = stopWatchSrv.completedMiles()
+            let milePace = stopWatchSrv.calculateMilePace()
+            let milePaceTuple = timeToTextSrv.timeAsMultipleStrings(inputTime: milePace)
+            let milePaceString = speechSrv.convertTimeTupleToString(milePaceTuple)
+            
+            sentanceToSpeak += "Mile \(mileNumber) \(milePaceString)"
+        }
+        
+        speechSrv.textToSpeech(text: sentanceToSpeak)
+        speechSrv.voiceQueue.append(SpeechTypes.SpeakAfterLap)
     }
     
+    // TODO: UNTESTED
     func notifyPaused() {
-        let shouldSpeak = Constants.storedSettings.bool(forKey: SettingsService.voiceNotificationsKey)
+        let shouldSpeak = Constants.storedSettings.bool(forKey: SettingsService.speakStartStopKey)
         
         if shouldSpeak {
             speechSrv.speakTimerPaused()
         }
     }
     
+    // TODO: UNTESTED
     func notifyResumed() {
-        let shouldSpeak = Constants.storedSettings.bool(forKey: SettingsService.voiceNotificationsKey)
+        let shouldSpeak = Constants.storedSettings.bool(forKey: SettingsService.speakStartStopKey)
         
         if shouldSpeak {
             speechSrv.speakTimerRestarted()
         }
     }
     
+    // TODO: UNTESTED
     func notifyStarted() {
-        let shouldSpeak = Constants.storedSettings.bool(forKey: SettingsService.voiceNotificationsKey)
+        let shouldSpeak = Constants.storedSettings.bool(forKey: SettingsService.speakStartStopKey)
         
         if shouldSpeak {
             speechSrv.speakTimerStarted()
         }
     }
     
+    // TODO: UNTESTED
     func notifyTimerCleared() {
-        let shouldSpeak = Constants.storedSettings.bool(forKey: SettingsService.voiceNotificationsKey)
+        let shouldSpeak = Constants.storedSettings.bool(forKey: SettingsService.speakStartStopKey)
         
         if shouldSpeak {
             speechSrv.speakTimerCleared()
         }
     }
+
+    private func configToolbar() {
+        let spacer = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        advancedBarBtn.tintColor = Constants.colorBlack
+        lapTimesBarBtn.tintColor = Constants.colorBlack
+        
+        self.toolbarItems = [advancedBarBtn, spacer, lapTimesBarBtn]
+    }
+    
+    private func configNavBar() {
+        clearBarBtn.tintColor = Constants.colorBlack
+        rightBarBtn.tintColor = Constants.colorBlack
+        
+        self.navigationController?.navigationBar.barStyle = .default
+        self.navigationController?.navigationBar.isTranslucent = true
+        self.navigationController?.navigationBar.backgroundColor = Constants.colorWhite
+        self.navigationController?.isToolbarHidden = false
+        self.navigationController?.view.backgroundColor = Constants.colorWhite
+        self.navigationController?.navigationBar.tintColor = Constants.colorWhite
+        self.navigationController?.navigationBar.barTintColor = Constants.colorWhite
+        
+        self.navigationController?.toolbar!.barStyle = .default
+        self.navigationController?.toolbar!.isTranslucent = true
+        self.navigationController?.toolbar!.backgroundColor = Constants.colorWhite
+        self.navigationController?.toolbar!.barTintColor = Constants.colorWhite
+        
+        self.navigationController?.view.addSubview(blurOverlay)
+        self.navigationController?.view.addSubview(settingsView)
+        
+        self.navigationController?.navigationBar.shadowImage = UIImage()
+        self.navigationController?.toolbar!.setShadowImage(UIImage(), forToolbarPosition: .bottom)
+        
+        settingsView.configConstraints()
+        
+        configBlurOverlay()
+    }
+    
+    private func askForReview() {
+        if #available(iOS 10.3, *) {
+            let key = Constants.appRunTimes
+            let numberOfRuns = Constants.storedSettings.integer(forKey: key)
+            
+            if numberOfRuns > 5 {
+                SKStoreReviewController.requestReview()
+            }
+        }
+    }
+    
+    private func configBlurOverlay() {
+        blurOverlay.addBlurEffect()
+    }
+    
+    private func configContainer() {
+        let parentHeight = container.superview!.frame.height
+        let height = (parentHeight / 3) + (parentHeight / 5)
+        
+        container.snp.makeConstraints { make in
+            make.width.equalTo(container.superview!)
+            make.height.equalTo(height)
+            make.center.equalTo(container.superview!)
+        }
+        
+        container.layoutIfNeeded()
+    }
+    
+    private func configTotalTimeLbl() {
+        totalTimeLbl.isHidden = true
+        totalTimeLbl.text = defaultTotalTimeLblText
+        totalTimeLbl.font = Constants.responsiveDigitFont
+        totalTimeLbl.adjustsFontSizeToFitWidth = true
+        totalTimeLbl.numberOfLines = 1
+        totalTimeLbl.baselineAdjustment = .alignCenters
+        totalTimeLbl.textAlignment = .center
+        totalTimeLbl.textColor = Constants.colorBlack
+        
+        let offset = totalTimeLbl.superview!.frame.width / 10
+        
+        totalTimeLbl.snp.makeConstraints { make in
+            make.width.equalTo(totalTimeLbl.superview!).offset(-offset)
+            make.height.equalTo(self.view.frame.height / 10)
+            make.centerX.equalTo(totalTimeLbl.superview!)
+            make.bottom.equalTo(lapTimeLbl.snp.top)
+        }
+    }
+    
+    private func configLapTimeLbl() {
+        let offset = lapTimeLbl.superview!.frame.width / 10
+        
+        lapTimeLbl.snp.makeConstraints { make in
+            make.width.equalTo(lapTimeLbl.superview!).offset(-offset)
+            make.height.equalTo(self.view.frame.height / 10)
+            make.centerX.equalTo(lapTimeLbl.superview!)
+            make.bottom.equalTo(container.snp.bottom)
+        }
+        
+        lapTimeLbl.layoutIfNeeded()
+    }
+    
+    private func configLapLbl() {
+        lapLbl.isHidden = true
+        lapLbl.text = "00"
+        lapLbl.textAlignment = .center
+        lapLbl.textColor = Constants.colorBlack
+        lapLbl.baselineAdjustment = .alignCenters
+
+        lapLbl.snp.makeConstraints { make in
+            make.width.equalTo(lapLbl.superview!).offset(-Constants.defaultMargin * 2)
+            make.height.equalTo(self.view.frame.height / 3)
+            make.centerX.equalTo(lapLbl.superview!)
+            make.top.equalTo(container.snp.top)
+        }
+        
+        lapLbl.layoutIfNeeded()
+        
+        lapLbl.adjustsFontSizeToFitWidth = true
+        lapLbl.numberOfLines = 1
+        lapLbl.font = Constants.responsiveDigitFont        
+    }
+    
+    private func configHelpText() {
+        helpText.snp.makeConstraints { make in
+            make.bottom.equalTo(lapLbl.snp.top).offset(-Constants.defaultMargin)
+            make.centerX.equalTo(helpText.superview!)
+            make.width.equalTo(helpText.superview!)
+        }
+    }
 }
 
 
-// MARK StopWatchServiceDelegate
 extension SingleViewController: StopWatchServiceDelegate {
+    // TODO: UNTESTED
     func stopWatchStarted() {
         attachDoubleTapRecognizer()
         
@@ -424,6 +417,7 @@ extension SingleViewController: StopWatchServiceDelegate {
         }
     }
     
+    // TODO: UNTESTED
     func stopWatchIntervalElapsed(totalTimeElapsed: TimeInterval) {
         DispatchQueue.main.async {
             if let lapTime = self.stopWatchSrv.lapTimes.last {
@@ -433,15 +427,15 @@ extension SingleViewController: StopWatchServiceDelegate {
         }
     }
     
+    // TODO: UNTESTED
     func stopWatchLapStored(lapTime: Double, lapNumber: Int, totalTime: Double) {
         self.setLapLblText(lapCount: self.stopWatchSrv.lapTimes.count)
-        
-        self.animationSrv.animateTextChange(self.lapTimeLbl, duration: 0.8)
         
         notifyWithVibrationIfEnabled()
         notifyWithVoiceIfEnabled(lapTime: lapTime, lapNumber: lapNumber)
     }
     
+    // TODO: UNTESTED
     func stopWatchLapRemoved() {
         let lapCount = stopWatchSrv.lapTimes.count
         var totalLapTime: Double
@@ -460,21 +454,24 @@ extension SingleViewController: StopWatchServiceDelegate {
         self.setLapTimeLblText(lapTime: currentLap)
     }
     
+    // TODO: UNTESTED
     func stopWatchStopped() {
         notifyTimerCleared()
     }
     
+    // TODO: UNTESTED
     func stopWatchPaused() {
         notifyPaused()
     }
     
+    // TODO: UNTESTED
     func stopWatchRestarted() {
         notifyStarted()
     }
 }
 
-// MARK Gestures
 extension SingleViewController {
+    // TODO: UNTESTED
     func attachDoubleTapRecognizer() {
         doubleTapRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.viewDoubleTapped))
         doubleTapRecognizer.numberOfTapsRequired = 2
@@ -482,11 +479,38 @@ extension SingleViewController {
         view.addGestureRecognizer(doubleTapRecognizer)
     }
 
+    // TODO: UNTESTED
     @objc func viewDoubleTapped() {
         if stopWatchSrv.timerRunning {
             stopWatchSrv.lap()
             animationSrv.enlargeBriefly(lapLbl)
         }
+    }
+}
+
+extension SingleViewController: SettingsViewDelegate {
+    func onSave() {
+        animationSrv.animateFadeOutView(blurOverlay, duration: 0.1)
+        animationSrv.animateMoveVerticallyToOffscreenBottom(settingsView, duration: settingsViewAnimationDuration)
+        
+        let pingSetting = Constants.storedSettings.bool(forKey: SettingsService.intervalKey)
+        let pingSettingAmount = Constants.storedSettings.integer(forKey: SettingsService.intervalAmountKey)
+        
+        if !pingSetting && stopWatchSrv.pingTimer != nil {
+            stopWatchSrv.pingTimer.invalidate()
+        } else if pingSetting && stopWatchSrv.pingTimer != nil &&
+            pingIntervalBeforeSettingsShown != pingSettingAmount &&
+            stopWatchSrv.timerRunning {
+            
+            stopWatchSrv.pingTimer.invalidate()
+            stopWatchSrv.pingTimer = nil
+            stopWatchSrv.startPingInterval()
+        } else if pingSetting && stopWatchSrv.pingTimer == nil &&
+            stopWatchSrv.timerRunning {
+            stopWatchSrv.startPingInterval()
+        }
+        
+        pingIntervalBeforeSettingsShown = nil
     }
 }
 

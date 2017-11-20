@@ -8,6 +8,7 @@
 
 import UIKit
 
+// TODO - MOVE ALL FUNCTIONS TO NAMESPACED UIVIEW EXTENSION
 class AnimationService {
     let screenBounds = UIScreen.main.bounds
     var screenHeight: CGFloat
@@ -45,7 +46,6 @@ class AnimationService {
         })
     }
     
-//    TODO: UNTESTED
     func animateWithSpring(_ view: UIView, duration: Double = 0.3, fromAlphaZero: Bool = false) {
         view.isHidden = false
         view.transform = CGAffineTransform(scaleX: 0.05, y: 0.05)
@@ -90,7 +90,10 @@ class AnimationService {
                        options: .allowUserInteraction,
                        animations: {
                         view.transform = position
-        }, completion: completion)
+        }, completion: { success in
+            view.isHidden = true
+            completion(success)
+        })
     }
     
     func animateMoveHorizontallyFromOffscreen(_ view: UIView, direction: AnimationDirection, duration: Double = 0.5) {
@@ -129,7 +132,7 @@ class AnimationService {
     func enlargeBriefly(_ view: UIView, duration: Double = 0.3) {
         UIView.animateKeyframes(withDuration: duration, delay: 0, animations: {
             UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 0.5, animations: {
-                view.transform = CGAffineTransform(scaleX: 1.2, y: 1.2)
+                view.transform = CGAffineTransform(scaleX: 1.1, y: 1.1)
             })
             UIView.addKeyframe(withRelativeStartTime: 0.5, relativeDuration: 0.5, animations: {
                 view.transform = .identity

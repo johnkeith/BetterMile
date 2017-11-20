@@ -22,6 +22,11 @@ extension UIView: GTComponent {
     func show() {
         self.isHidden = false
     }
+    
+    func addDebuggingBorders() {
+        self.layer.borderColor = UIColor.purple.cgColor
+        self.layer.borderWidth = 1
+    }
 }
 
 protocol GTController: class {
@@ -33,6 +38,23 @@ extension UIViewController: GTController {
         for _view in viewsToAdd {
             self.view.addSubview(_view)
         }
+    }
+}
+
+protocol GTAnimation: class {
+    func enlargeBriefly(duration: Double, scale: CGFloat)
+}
+
+extension UIView: GTAnimation {
+    func enlargeBriefly(duration: Double = 0.3, scale: CGFloat = 1.2) {
+        UIView.animateKeyframes(withDuration: duration, delay: 0, animations: {
+            UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 0.5, animations: {
+                self.transform = CGAffineTransform(scaleX: scale, y: scale)
+            })
+            UIView.addKeyframe(withRelativeStartTime: 0.5, relativeDuration: 0.5, animations: {
+                self.transform = .identity
+            })
+        }, completion: nil)
     }
 }
 

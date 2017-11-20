@@ -15,6 +15,7 @@ enum SpeechTypes {
     case TimerCleared
     case TimerRestarted
     case PreviousAndAverageLapTimes
+    case SpeakAfterLap
 }
 
 // TODO: UNTESTED
@@ -66,30 +67,14 @@ class SpeechService: NSObject, AVSpeechSynthesizerDelegate {
         }
     }
     
-    // TODO: UNTESTED
-    func speakPreviousAndAverageLapTimes(previous: (minutes: String, seconds: String, fraction: String), average: (minutes: String, seconds: String, fraction: String), lapNumber: Int) {
-        let lapNumberOrdinalized = "\(lapNumber)\(Constants.ordinalSuffixForNumber(number: lapNumber))"
-        let previousLapTime = convertTimeTupleToString(previous)
-        let averageLapTime = convertTimeTupleToString(average)
-        var sentanceToSpeak = "\(lapNumberOrdinalized) lap \(previousLapTime)."
-        
-        if lapNumber > 1 {
-           sentanceToSpeak += "Average \(averageLapTime)."
-        }
-        
-        textToSpeech(text: sentanceToSpeak)
-        voiceQueue.append(SpeechTypes.PreviousAndAverageLapTimes)
-    }
-    
-//    not in use
-    private func speakPreviousLapTime(timeTuple: (minutes: String, seconds: String, fraction: String), lapNumber: Int) {
+    func speakPreviousLapTime(timeTuple: (minutes: String, seconds: String, fraction: String), lapNumber: Int) {
         let lapNumberOrdinalized = "\(lapNumber)\(Constants.ordinalSuffixForNumber(number: lapNumber))"
         let sentancePrefix = "\(lapNumberOrdinalized) lap time"
         
         speakSentanceAboutTime(timeTuple: timeTuple, sentancePrefix: sentancePrefix)
     }
     
-    private func speakAverageLapTime(timeTuple: (minutes: String, seconds: String, fraction: String)) {
+    func speakAverageLapTime(timeTuple: (minutes: String, seconds: String, fraction: String)) {
         let sentancePrefix = "Average lap time"
         
         speakSentanceAboutTime(timeTuple: timeTuple, sentancePrefix: sentancePrefix)
@@ -100,7 +85,6 @@ class SpeechService: NSObject, AVSpeechSynthesizerDelegate {
         
         speakSentanceAboutTime(timeTuple: timeTuple, sentancePrefix: sentancePrefix)
     }
-//    end not in use
     
     private func speakSentanceAboutTime(timeTuple: (minutes: String, seconds: String, fraction: String), sentancePrefix: String) {
         var sentanceToSpeak = sentancePrefix
@@ -109,7 +93,7 @@ class SpeechService: NSObject, AVSpeechSynthesizerDelegate {
         textToSpeech(text: sentanceToSpeak)
     }
     
-    private func convertTimeTupleToString(_ timeTuple: (minutes: String, seconds: String, fraction: String)) -> String {
+    func convertTimeTupleToString(_ timeTuple: (minutes: String, seconds: String, fraction: String)) -> String {
         
         let milliseconds = timeTuple.fraction
         let minutesInt = Int(timeTuple.minutes)
@@ -117,7 +101,6 @@ class SpeechService: NSObject, AVSpeechSynthesizerDelegate {
         
         var result: String = ""
         
-        //        TODO - NOT WORKING
         if minutesInt! > 0 {
             result += " \(minutesInt!) minute"
         }
@@ -137,7 +120,7 @@ class SpeechService: NSObject, AVSpeechSynthesizerDelegate {
         return result
     }
     
-    private func textToSpeech(text: String) {
+    func textToSpeech(text: String) {
         let myUtterance = AVSpeechUtterance(string: text)
         myUtterance.rate = 0.5
         

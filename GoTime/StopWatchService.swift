@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AVFoundation
 
 enum LapQualities {
     case good
@@ -37,6 +38,7 @@ class StopWatchService: NSObject {
     var coreData: CoreDataService
     
     var timer: Timer!
+    var pingTimer: Timer!
     var timerRunning: Bool = false
     var startTime: TimeInterval!
     var elapsedTimeBeforePause: TimeInterval = 0.0
@@ -63,6 +65,26 @@ class StopWatchService: NSObject {
             lapTimes.append(0.0)
             delegate?.stopWatchStarted()
         }
+        
+        startPingInterval()
+    }
+    
+    func startPingInterval() {
+        if pingTimer == nil {
+            let shouldStartInterval = Constants.storedSettings.bool(forKey: SettingsService.intervalKey)
+            
+            if shouldStartInterval {
+                let intervalLength = Constants.storedSettings.integer(forKey: SettingsService.intervalAmountKey)
+                
+                pingTimer = Timer.scheduledTimer(
+                    timeInterval: TimeInterval(intervalLength),
+                    target: self,
+                    selector: #selector(pingIntervalElapsed),
+                    userInfo: nil,
+                    repeats: true
+                )
+            }
+        }
     }
     
     @objc func timeIntervalElapsed() {
@@ -72,12 +94,43 @@ class StopWatchService: NSObject {
         delegate?.stopWatchIntervalElapsed(totalTimeElapsed: totalTimeElapsed)
     }
     
+    @objc func pingIntervalElapsed() {
+        DispatchQueue.main.async {
+            let systemSoundID: SystemSoundID = 1106
+
+            AudioServicesPlaySystemSound(systemSoundID)
+        }
+    }
+    
     func completedLapTimes() -> [Double] {
-        return Array(self.lapTimes[0..<self.lapTimes.count - 1])
+        if self.lapTimes.count > 0 {
+            return Array(self.lapTimes[0..<self.lapTimes.count - 1])
+        } else {
+            return []
+        }
     }
     
     func calculateTotalLapsTime() -> Double {
         return klass.calculateTotalLapsTime(laps: lapTimes)
+    }
+    
+    func wasMileCompleted() -> Bool {
+        let lapsPerMile = Constants.storedSettings.integer(forKey: SettingsService.milePaceAmountKey)
+        
+        return (completedLapTimes().count % lapsPerMile) == 0
+    }
+    
+    func calculateMilePace() -> Double {
+        let lapsPerMile = Constants.storedSettings.integer(forKey: SettingsService.milePaceAmountKey)
+        let lapTimes = completedLapTimes().reversed()[0..<lapsPerMile]
+        
+        return klass.calculateTotalLapsTime(laps: Array(lapTimes))
+    }
+    
+    func completedMiles() -> Int {
+        let lapsPerMile = Constants.storedSettings.integer(forKey: SettingsService.milePaceAmountKey)
+        
+        return completedLapTimes().count / lapsPerMile
     }
     
     func calculateLapDeviationPercentage(lapTime: Double) -> Double {
@@ -100,12 +153,12 @@ class StopWatchService: NSObject {
     func colorOfLapTime(lapTime: Double) -> UIColor {
         let percent = CGFloat(calculateLapDeviationPercentage(lapTime: lapTime))
         let baseGreen = CIColor(color: Constants.colorGreen)
-        let baseRed = CIColor(color: Constants.colorPalette["_red"]!)
+        let baseRed = CIColor(color: Constants.colorRed)
         
         if (percent == 0.0) {
             return Constants.colorGreen;
         } else if (percent == 1.0) {
-            return Constants.colorPalette["_red"]!
+            return Constants.colorRed
         }
         
         let resultRed = baseGreen.red + percent * (baseRed.red - baseGreen.red);
@@ -125,6 +178,10 @@ class StopWatchService: NSObject {
         if(timer != nil) {
             timer.invalidate()
         }
+        
+        if(pingTimer != nil) {
+            pingTimer.invalidate()
+        }
 
         RunPersistanceService(_lapTimes: self.lapTimes).save()
 
@@ -135,6 +192,7 @@ class StopWatchService: NSObject {
     
     func resetInitialState() {
         timer = nil
+        pingTimer = nil
         timerRunning = false
         startTime = nil
         elapsedTimeBeforePause = 0.0
@@ -142,12 +200,16 @@ class StopWatchService: NSObject {
     }
     
     func pause() {
-        print("pausing")
         elapsedTimeBeforePause = calculateTimeBetweenPointAndNow(initialTime: startTime)
         
         timerRunning = false
         
         timer.invalidate()
+        
+        if pingTimer != nil {
+            pingTimer.invalidate()
+            pingTimer = nil
+        }
         
         delegate?.stopWatchPaused()
     }
@@ -184,6 +246,10 @@ class StopWatchService: NSObject {
         elapsedTimeBeforePause = lapTimes.last!
         
         delegate?.stopWatchLapRemoved()
+    }
+    
+    func isPaused() -> Bool {
+        return elapsedTimeBeforePause != 0.0 && !timerRunning
     }
 }
 
