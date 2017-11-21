@@ -36,6 +36,7 @@ class SettingsViewRow:UIView {
     var incrementControl: IncrementControl?
     var settingsToggleDelegate: SettingsViewToggleDelegate?
     var incrementUserDefaultsKey: String?
+    var toggleCallback: (() -> Void)?
 
     var fgColor: UIColor? {
         didSet {
@@ -57,6 +58,10 @@ class SettingsViewRow:UIView {
     var usesDarkMode: Bool = Constants.storedSettings.bool(forKey: SettingsService.darkModeKey) {
         didSet {
             self.setColorConstants()
+            
+            if incrementControl != nil {
+                incrementControl!.refreshUsesDarkMode()
+            }
         }
     }
     
@@ -74,6 +79,7 @@ class SettingsViewRow:UIView {
         self.userDefaultsKey = userDefaultsKey
         self.kind = kind
         self.incrementUserDefaultsKey = incrementUserDefaultsKey
+        self.toggleCallback = toggleCallback
         
         super.init(frame: Constants.defaultFrame)
 
@@ -97,6 +103,8 @@ class SettingsViewRow:UIView {
         }
         
         setVisibleBasedOnToggle()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.refreshUsesDarkMode), name: Notification.Name(rawValue: Constants.notificationOfDarkModeToggle), object: nil)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -126,6 +134,10 @@ class SettingsViewRow:UIView {
         settingsToggleDelegate?.onSettingsToggle(self, kind: kind, newValue: nextValue)
 
         resetConstraints(nextValue: nextValue)
+        
+        if toggleCallback != nil {
+            toggleCallback?()
+        }
     }
     
     func resetConstraints(nextValue: Bool) {
@@ -163,7 +175,7 @@ class SettingsViewRow:UIView {
         }
     }
     
-    func refreshUsesDarkMode() {
+    @objc func refreshUsesDarkMode() {
         usesDarkMode = Constants.storedSettings.bool(forKey: SettingsService.darkModeKey)
     }
     

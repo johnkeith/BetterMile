@@ -435,7 +435,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "131"
             endingLineNumber = "131"
-            landmarkName = "broadcastSubToggleFlipped()"
+            landmarkName = "handleNotificationOfSubToggleFlipped(notification:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -451,7 +451,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "127"
             endingLineNumber = "127"
-            landmarkName = "handleNotificationOfSave(notification:)"
+            landmarkName = "broadcastSubToggleFlipped()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -532,7 +532,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "190"
             endingLineNumber = "190"
-            landmarkName = "toggleVoiceNotificationsKeyIfAllSubsToggled()"
+            landmarkName = "toggleVibrationNotificationsKeyIfAllSubsToggled()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

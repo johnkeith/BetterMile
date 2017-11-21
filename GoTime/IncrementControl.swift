@@ -40,12 +40,35 @@ class IncrementControl: UIView {
     var minValue: Int
     var delegate: IncrementControlDelegate?
     
+    var btnColor: UIColor? {
+        didSet {
+            minusButton.setTitleColor(btnColor, for: .normal)
+            minusButton.layer.borderColor = btnColor!.cgColor
+            plusButton.setTitleColor(btnColor, for: .normal)
+            plusButton.layer.borderColor = btnColor!.cgColor
+        }
+    }
+    
+    var textColor: UIColor? {
+        didSet {
+            label.textColor = textColor
+        }
+    }
+    
+    var usesDarkMode: Bool = Constants.storedSettings.bool(forKey: SettingsService.darkModeKey) {
+        didSet {
+            self.setColorConstants()
+        }
+    }
+    
     init(value: Int, labelText: String, minValue: Int) {
         self._value = value
         self.labelText = labelText
         self.minValue = minValue
         
         super.init(frame: Constants.defaultFrame)
+        
+        setColorConstants()
         
         configMinusButton()
         configPlusButton()
@@ -98,14 +121,22 @@ class IncrementControl: UIView {
         }
     }
     
+    func refreshUsesDarkMode() {
+        usesDarkMode = Constants.storedSettings.bool(forKey: SettingsService.darkModeKey)
+    }
+    
+    private func setColorConstants() {
+        btnColor = usesDarkMode ? Constants.colorWhite : Constants.colorGreen
+        textColor = usesDarkMode ? Constants.colorWhite : Constants.colorBlack
+    }
+    
     private func configMinusButton() {
         addSubview(minusButton)
         
         minusButton.setTitle("-", for: .normal)
-        minusButton.setTitleColor(Constants.colorGreen, for: .normal)
         
         minusButton.layer.borderWidth = 1
-        minusButton.layer.borderColor = Constants.colorGreen.cgColor
+        
         minusButton.addTarget(self, action: #selector(onMinusTap), for: .touchDown)
     }
     
@@ -113,10 +144,9 @@ class IncrementControl: UIView {
         addSubview(plusButton)
         
         plusButton.setTitle("+", for: .normal)
-        plusButton.setTitleColor(Constants.colorGreen, for: .normal)
         
         plusButton.layer.borderWidth = 1
-        plusButton.layer.borderColor = Constants.colorGreen.cgColor
+        
         plusButton.addTarget(self, action: #selector(onPlusTap), for: .touchDown)
     }
     
@@ -124,7 +154,7 @@ class IncrementControl: UIView {
         addSubview(label)
     
         label.textAlignment = .center
-        label.textColor = Constants.colorBlack
+        
         updateLabel()
     }
     

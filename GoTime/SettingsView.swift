@@ -28,11 +28,36 @@ class SettingsView: UIView {
     var startStopSettingsRow: SettingsViewRow
     var darkModeRow: SettingsViewRow?
     
+    var fgColor: UIColor? {
+        didSet {
+            titleLabel.textColor = fgColor
+        }
+    }
+    
+    var bgColor: UIColor? {
+        didSet {
+            self.backgroundColor = bgColor
+            saveButtonLabel.textColor = bgColor
+        }
+    }
+    
+    var btnColor: UIColor? {
+        didSet {
+            saveButton.backgroundColor = btnColor
+        }
+    }
+    
     weak var saveDelegate: SettingsViewDelegate?
     
 //    Need a way to listen to when Setting is changed for dark mode
 //    dispatch to delegate to change controller color (how to do for lap controller too??
 //    need both controllers to be initalized with colors based on the settings key for dark mode
+    
+    var usesDarkMode: Bool = Constants.storedSettings.bool(forKey: SettingsService.darkModeKey) {
+        didSet {
+            self.setColorConstants()
+        }
+    }
     
     init(isHidden: Bool = true) {
         let milePaceIncrementValue: Int = Constants.storedSettings.integer(forKey: SettingsService.milePaceAmountKey)
@@ -55,6 +80,8 @@ class SettingsView: UIView {
         
         backgroundColor = Constants.colorWhite
         clipsToBounds = true
+        
+        setColorConstants()
         
         layer.cornerRadius = 16.0
         
@@ -93,8 +120,20 @@ class SettingsView: UIView {
         saveDelegate!.onSave()
     }
     
+    private func setColorConstants() {
+        fgColor = usesDarkMode ? Constants.colorWhite : Constants.colorBlack
+        bgColor = usesDarkMode ? Constants.colorBlack : Constants.colorWhite
+        btnColor = usesDarkMode ? Constants.colorWhite : Constants.colorGreen
+    }
+    
     private func darkModeToggleCallback() {
-        print("I have called back")
+        refreshUsesDarkMode()
+        
+        NotificationCenter.default.post(name: Notification.Name(rawValue: Constants.notificationOfDarkModeToggle), object: nil)
+    }
+    
+    private func refreshUsesDarkMode() {
+        usesDarkMode = Constants.storedSettings.bool(forKey: SettingsService.darkModeKey)
     }
     
     private func configTitleLabelConstraints() {
@@ -178,19 +217,16 @@ class SettingsView: UIView {
         titleLabel.font = Constants.defaultHeaderFont
         titleLabel.text = "Settings"
         titleLabel.textAlignment = .center
-        titleLabel.textColor = Constants.colorBlack
     }
     
     private func addSaveButton() {
         addSubview(saveButton)
         
         saveButton.addSubview(saveButtonLabel)
-        saveButton.backgroundColor = Constants.colorGreen
         
         saveButtonLabel.text = "Done"
         saveButtonLabel.font = Constants.defaultHeaderFont
         saveButtonLabel.textAlignment = .center
-        saveButtonLabel.textColor = Constants.colorWhite
         
         addSaveButtonTapRecognizer()
     }
