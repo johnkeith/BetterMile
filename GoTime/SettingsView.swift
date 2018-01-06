@@ -53,6 +53,7 @@ class SettingsView: UIView {
 //    dispatch to delegate to change controller color (how to do for lap controller too??
 //    need both controllers to be initalized with colors based on the settings key for dark mode
     
+//  sadly, no good way to turn this into a protocol, due to not being able to set default values
     var usesDarkMode: Bool = Constants.storedSettings.bool(forKey: SettingsService.darkModeKey) {
         didSet {
             self.setColorConstants()

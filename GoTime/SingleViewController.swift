@@ -31,7 +31,6 @@ class SingleViewController: UIViewController {
     var rightBarBtn: UIBarButtonItem!
     var advancedBarBtn: UIBarButtonItem!
     var lapTimesBarBtn: UIBarButtonItem!
-    var lapTimesBarBtnSubBtn: UIButton!
     
     var pingIntervalBeforeSettingsShown: Int!
     
@@ -43,6 +42,28 @@ class SingleViewController: UIViewController {
     var timeToTextSrv: TimeToTextService
     var speechSrv: SpeechService
     var helpText: TimerHelpTextLabel
+    
+    var fgColor: UIColor? {
+        didSet {
+            totalTimeLbl.textColor = fgColor
+            lapTimeLbl.textColor = fgColor
+            lapLbl.textColor = fgColor
+            clearBarBtn.tintColor = fgColor
+            rightBarBtn.tintColor = fgColor
+            advancedBarBtn.tintColor = fgColor
+            lapTimesBarBtn.tintColor = fgColor
+        }
+    }
+    var bgColor: UIColor? {
+        didSet {
+            self.view.backgroundColor = bgColor
+        }
+    }
+    var usesDarkMode: Bool = Constants.storedSettings.bool(forKey: SettingsService.darkModeKey) {
+        didSet {
+            self.setColorConstants()
+        }
+    }
     
     init(stopWatchSrv: StopWatchService = StopWatchService(),
          animationSrv: AnimationService = AnimationService(),
@@ -82,6 +103,10 @@ class SingleViewController: UIViewController {
         self.navigationItem.leftBarButtonItem?.isEnabled = false
         self.navigationItem.rightBarButtonItem = rightBarBtn
 
+        setColorConstants()
+
+        NotificationCenter.default.addObserver(self, selector: #selector(self.onNotificationOfDarkModeToggle), name: Notification.Name(rawValue: Constants.notificationOfDarkModeToggle), object: nil)
+        
         askForReview()
     }
     
@@ -95,8 +120,8 @@ class SingleViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        UIApplication.shared.statusBarStyle = .default
+    
+        setStatusBarStyle()
         
         if let lapTime = self.stopWatchSrv.lapTimes.last {
             self.setLapTimeLblText(lapTime: lapTime)
@@ -108,6 +133,12 @@ class SingleViewController: UIViewController {
         animationSrv.animateWithSpring(lapLbl, fromAlphaZero: true)
         animationSrv.animateWithSpring(totalTimeLbl, duration: 0.8, fromAlphaZero: true)
         animationSrv.animateWithSpring(lapTimeLbl, duration: 0.8, fromAlphaZero: true)
+    }
+    
+    @objc func onNotificationOfDarkModeToggle() {
+        print("DARK MODE TOGGLED")
+        usesDarkMode = Constants.storedSettings.bool(forKey: SettingsService.darkModeKey)
+        setStatusBarStyle()
     }
     
     @objc func onAdvancedSettingsTap() {
@@ -277,6 +308,15 @@ class SingleViewController: UIViewController {
         if shouldSpeak {
             speechSrv.speakTimerCleared()
         }
+    }
+    
+    private func setColorConstants() {
+        fgColor = usesDarkMode ? Constants.colorWhite : Constants.colorBlack
+        bgColor = usesDarkMode ? Constants.colorBlack : Constants.colorWhite
+    }
+    
+    private func setStatusBarStyle() {
+        UIApplication.shared.statusBarStyle = usesDarkMode ? .lightContent : .default
     }
 
     private func configToolbar() {
