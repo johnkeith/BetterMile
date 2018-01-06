@@ -32,6 +32,7 @@ class SettingsViewRow:UIView {
     var labelText: String
     var userDefaultsKey: String
     var kind: SettingsViewRowKind
+    var hideLine: Bool
     var sublabelText: String?
     var incrementControl: IncrementControl?
     var settingsToggleDelegate: SettingsViewToggleDelegate?
@@ -74,19 +75,25 @@ class SettingsViewRow:UIView {
         incrementLabel: String? = nil,
         incrementMin: Int? = nil,
         incrementUserDefaultsKey: String? = nil,
-        toggleCallback: (() -> Void)? = {}) {
+        toggleCallback: (() -> Void)? = {},
+        hideLine: Bool = false) {
         self.labelText = labelText
         self.userDefaultsKey = userDefaultsKey
         self.kind = kind
         self.incrementUserDefaultsKey = incrementUserDefaultsKey
         self.toggleCallback = toggleCallback
+        self.hideLine = hideLine
         
         super.init(frame: Constants.defaultFrame)
 
         setColorConstants()
         
         addLabel()
-        addLine()
+        
+        if(!hideLine) {
+            addLine()
+        }
+        
         addRowSwitch()
         
         if sublabelText != nil {
@@ -116,13 +123,7 @@ class SettingsViewRow:UIView {
         setRowSwitchConstraints()
         setSublabelConstraints()
         setIncrementControlConstraints()
-        
-        line.snp.makeConstraints { make in
-            make.height.equalTo(1)
-            make.right.equalTo(self)
-            make.bottom.equalTo(self.snp.bottom)
-            make.width.equalTo(self)
-        }
+        setLineConstraints()
     }
     
     @objc func onRowToggle() {
@@ -227,6 +228,17 @@ class SettingsViewRow:UIView {
             }
             
             incrementControl!.layoutIfNeeded()
+        }
+    }
+    
+    private func setLineConstraints() {
+        if(!hideLine) {
+            line.snp.makeConstraints { make in
+                make.height.equalTo(1)
+                make.right.equalTo(self)
+                make.bottom.equalTo(self.snp.bottom)
+                make.width.equalTo(self)
+            }
         }
     }
     

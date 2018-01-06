@@ -72,7 +72,7 @@ class SettingsView: UIView {
 
         super.init(frame: Constants.defaultFrame)
         
-        darkModeRow = SettingsViewRow(labelText: "Use dark mode", userDefaultsKey: SettingsService.darkModeKey, kind: SettingsViewRowKind.viewMode, toggleCallback: darkModeToggleCallback)
+        darkModeRow = SettingsViewRow(labelText: "Use dark mode", userDefaultsKey: SettingsService.darkModeKey, kind: SettingsViewRowKind.viewMode, toggleCallback: darkModeToggleCallback, hideLine: true)
         
         settingsRows = [vibrationSettingsRow, startStopSettingsRow, previousLapSettingsRow, averageLapSettingsRow, mileSettingsRow, intervalSettingsRow, darkModeRow!]
         
