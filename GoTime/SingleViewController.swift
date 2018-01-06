@@ -127,8 +127,9 @@ class SingleViewController: UIViewController {
             self.setLapTimeLblText(lapTime: lapTime)
         }
         
-        configNavBar()
-        configToolbar()
+        self.navigationController?.isNavigationBarHidden = true
+//        configNavBar()
+//        configToolbar()
         
         animationSrv.animateWithSpring(lapLbl, fromAlphaZero: true)
         animationSrv.animateWithSpring(totalTimeLbl, duration: 0.8, fromAlphaZero: true)
@@ -136,7 +137,6 @@ class SingleViewController: UIViewController {
     }
     
     @objc func onNotificationOfDarkModeToggle() {
-        print("DARK MODE TOGGLED")
         usesDarkMode = Constants.storedSettings.bool(forKey: SettingsService.darkModeKey)
         setStatusBarStyle()
     }
@@ -319,41 +319,41 @@ class SingleViewController: UIViewController {
         UIApplication.shared.statusBarStyle = usesDarkMode ? .lightContent : .default
     }
 
-    private func configToolbar() {
-        let spacer = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        advancedBarBtn.tintColor = Constants.colorBlack
-        lapTimesBarBtn.tintColor = Constants.colorBlack
-        
-        self.toolbarItems = [advancedBarBtn, spacer, lapTimesBarBtn]
-    }
-    
-    private func configNavBar() {
-        clearBarBtn.tintColor = Constants.colorBlack
-        rightBarBtn.tintColor = Constants.colorBlack
-        
-        self.navigationController?.navigationBar.barStyle = .default
-        self.navigationController?.navigationBar.isTranslucent = true
-        self.navigationController?.navigationBar.backgroundColor = Constants.colorWhite
-        self.navigationController?.isToolbarHidden = false
-        self.navigationController?.view.backgroundColor = Constants.colorWhite
-        self.navigationController?.navigationBar.tintColor = Constants.colorWhite
-        self.navigationController?.navigationBar.barTintColor = Constants.colorWhite
-        
-        self.navigationController?.toolbar!.barStyle = .default
-        self.navigationController?.toolbar!.isTranslucent = true
-        self.navigationController?.toolbar!.backgroundColor = Constants.colorWhite
-        self.navigationController?.toolbar!.barTintColor = Constants.colorWhite
-        
-        self.navigationController?.view.addSubview(blurOverlay)
-        self.navigationController?.view.addSubview(settingsView)
-        
-        self.navigationController?.navigationBar.shadowImage = UIImage()
-        self.navigationController?.toolbar!.setShadowImage(UIImage(), forToolbarPosition: .bottom)
-        
-        settingsView.configConstraints()
-        
-        configBlurOverlay()
-    }
+//    private func configToolbar() {
+//        let spacer = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+//        advancedBarBtn.tintColor = Constants.colorBlack
+//        lapTimesBarBtn.tintColor = Constants.colorBlack
+//
+//        self.toolbarItems = [advancedBarBtn, spacer, lapTimesBarBtn]
+//    }
+//
+//    private func configNavBar() {
+//        clearBarBtn.tintColor = Constants.colorBlack
+//        rightBarBtn.tintColor = Constants.colorBlack
+//
+//        self.navigationController?.navigationBar.barStyle = .default
+//        self.navigationController?.navigationBar.isTranslucent = true
+//        self.navigationController?.navigationBar.backgroundColor = Constants.colorWhite
+//        self.navigationController?.isToolbarHidden = false
+//        self.navigationController?.view.backgroundColor = Constants.colorWhite
+//        self.navigationController?.navigationBar.tintColor = Constants.colorWhite
+//        self.navigationController?.navigationBar.barTintColor = Constants.colorWhite
+//
+//        self.navigationController?.toolbar!.barStyle = .default
+//        self.navigationController?.toolbar!.isTranslucent = true
+//        self.navigationController?.toolbar!.backgroundColor = Constants.colorWhite
+//        self.navigationController?.toolbar!.barTintColor = Constants.colorWhite
+//
+//        self.navigationController?.view.addSubview(blurOverlay)
+//        self.navigationController?.view.addSubview(settingsView)
+//
+//        self.navigationController?.navigationBar.shadowImage = UIImage()
+//        self.navigationController?.toolbar!.setShadowImage(UIImage(), forToolbarPosition: .bottom)
+//
+//        settingsView.configConstraints()
+//
+//        configBlurOverlay()
+//    }
     
     private func askForReview() {
         if #available(iOS 10.3, *) {
