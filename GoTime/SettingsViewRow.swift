@@ -183,7 +183,7 @@ class SettingsViewRow:UIView {
     private func setColorConstants() {
         fgColor = usesDarkMode ? Constants.colorWhite : Constants.colorBlack
         lineColor = usesDarkMode ? Constants.colorWhite : Constants.colorGray
-        switchColor = usesDarkMode ? Constants.colorWhite : Constants.colorGreen
+        switchColor = Constants.colorGreen
     }
     
     private func setLabelConstraints() {

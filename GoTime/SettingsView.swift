@@ -37,7 +37,6 @@ class SettingsView: UIView {
     var bgColor: UIColor? {
         didSet {
             self.backgroundColor = bgColor
-            saveButtonLabel.textColor = bgColor
         }
     }
     
@@ -124,7 +123,7 @@ class SettingsView: UIView {
     private func setColorConstants() {
         fgColor = usesDarkMode ? Constants.colorWhite : Constants.colorBlack
         bgColor = usesDarkMode ? Constants.colorBlack : Constants.colorWhite
-        btnColor = usesDarkMode ? Constants.colorWhite : Constants.colorGreen
+        btnColor = Constants.colorGreen
     }
     
     private func darkModeToggleCallback() {
@@ -228,6 +227,7 @@ class SettingsView: UIView {
         saveButtonLabel.text = "Done"
         saveButtonLabel.font = Constants.defaultHeaderFont
         saveButtonLabel.textAlignment = .center
+        saveButtonLabel.textColor = Constants.colorWhite
         
         addSaveButtonTapRecognizer()
     }
