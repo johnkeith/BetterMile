@@ -63,6 +63,7 @@ class SingleViewController: UIViewController {
         didSet {
             self.setColorConstants()
             self.configNavBar()
+            self.configToolbar()
         }
     }
     
@@ -129,6 +130,7 @@ class SingleViewController: UIViewController {
         }
         
         configNavBar()
+        configToolbar()
         
         animationSrv.animateWithSpring(lapLbl, fromAlphaZero: true)
         animationSrv.animateWithSpring(totalTimeLbl, duration: 0.8, fromAlphaZero: true)
@@ -350,7 +352,6 @@ class SingleViewController: UIViewController {
         self.navigationController?.view.addSubview(settingsView)
         settingsView.configConstraints()
         configBlurOverlay()
-        configToolbar()
     }
     
     private func askForReview() {
