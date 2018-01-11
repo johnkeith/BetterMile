@@ -129,11 +129,6 @@ class SingleViewController: UIViewController {
         }
         
         configNavBar()
-        self.navigationController?.view.addSubview(blurOverlay)
-        self.navigationController?.view.addSubview(settingsView)
-        settingsView.configConstraints()
-        configBlurOverlay()
-        configToolbar()
         
         animationSrv.animateWithSpring(lapLbl, fromAlphaZero: true)
         animationSrv.animateWithSpring(totalTimeLbl, duration: 0.8, fromAlphaZero: true)
@@ -351,6 +346,11 @@ class SingleViewController: UIViewController {
         
 //        self.navigationController?.navigationBar.shadowImage = UIImage()
 //        self.navigationController?.toolbar!.setShadowImage(UIImage(), forToolbarPosition: .bottom)
+        self.navigationController?.view.addSubview(blurOverlay)
+        self.navigationController?.view.addSubview(settingsView)
+        settingsView.configConstraints()
+        configBlurOverlay()
+        configToolbar()
     }
     
     private func askForReview() {
