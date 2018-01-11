@@ -182,7 +182,7 @@ class SettingsViewRow:UIView {
     
     private func setColorConstants() {
         fgColor = usesDarkMode ? Constants.colorWhite : Constants.colorBlack
-        lineColor = usesDarkMode ? Constants.colorWhite : Constants.colorGray
+        lineColor = usesDarkMode ? Constants.colorDarkModeBorderGray : Constants.colorGray
         switchColor = Constants.colorGreen
     }
     
