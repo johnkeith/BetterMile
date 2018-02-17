@@ -13,6 +13,19 @@ class LapTimeTable: UITableView {
     var lapData = [Double]()
     var timeToTextService: TimeToTextService
     
+    var fgColor: UIColor?
+    var bgColor: UIColor? {
+        didSet {
+            self.backgroundColor = bgColor
+        }
+    }
+    
+    var usesDarkMode: Bool = Constants.storedSettings.bool(forKey: SettingsService.darkModeKey) {
+        didSet {
+            self.setColorConstants()
+        }
+    }
+    
     init(stopWatchSrv: StopWatchService = StopWatchService(), hidden: Bool = true, timeToTextService: TimeToTextService = TimeToTextService()) {
         self.timeToTextService = timeToTextService
         self.stopWatchSrv = stopWatchSrv
@@ -30,7 +43,8 @@ class LapTimeTable: UITableView {
         self.showsVerticalScrollIndicator = false
         self.alwaysBounceVertical = false
         
-        self.backgroundColor = Constants.colorWhite
+        self.setColorConstants()
+        self.backgroundColor = bgColor
         
         self.register(LapTimeTableCell.self, forCellReuseIdentifier: "lapTimeTableCell")
         
@@ -49,7 +63,7 @@ class LapTimeTable: UITableView {
         if lapData.count == 0 {
             let messageLabel = UILabel(frame: CGRect(x: 0, y: 0, width: superview!.bounds.size.width, height: superview!.bounds.size.height))
             messageLabel.text = "No completed lap times"
-            messageLabel.textColor = Constants.colorBlack
+            messageLabel.textColor = fgColor
             messageLabel.numberOfLines = 0;
             messageLabel.textAlignment = .center;
             messageLabel.font = UIFont.preferredFont(forTextStyle: .body)
@@ -62,6 +76,11 @@ class LapTimeTable: UITableView {
     
     func setRowHeightBySuperview(_superview: UIView) {
         self.rowHeight = _superview.frame.height / Constants.tableRowHeightDivisor
+    }
+    
+    private func setColorConstants() {
+        fgColor = usesDarkMode ? Constants.colorWhite : Constants.colorBlack
+        bgColor = usesDarkMode ? Constants.colorBlack : Constants.colorWhite
     }
 }
 
@@ -82,7 +101,7 @@ extension LapTimeTable: UITableViewDataSource {
         
         let cell = self.dequeueReusableCell(withIdentifier: "lapTimeTableCell") as! LapTimeTableCell
         
-        cell.backgroundColor = Constants.colorWhite
+        cell.backgroundColor = bgColor
         cell.setContent(labelText: content)
         cell.setLineVisibility(index: index)
         cell.addLabelAndLineConstraints(rowHeight: self.rowHeight)
@@ -119,12 +138,7 @@ extension LapTimeTable: UITableViewDelegate {
         let index = indexPath.row
         let _cell = cell as! LapTimeTableCell
 
-//        We can color all since we are showing only completed
-//        if self.lapData.count > 1 && index != 0 {
-            setCellTextColor(_cell, at: index)
-//        } else {
-//            setDefaultRowColors(_cell)
-//        }
+        setCellTextColor(_cell, at: index)
     }
     
     func setCellTextColor(_ cell: LapTimeTableCell, at index: Int) {
@@ -133,21 +147,17 @@ extension LapTimeTable: UITableViewDelegate {
         let quality = StopWatchService.determineLapQuality(lap: lap, laps: lapDataWithoutCurrentLap)
         
         if quality == LapQualities.good {
-//            cell.backgroundColor = Constants.colorGreen
-//            cell.label.textColor = Constants.colorWhite
             cell.label.textColor = Constants.colorGreen
         } else if quality == LapQualities.bad {
             setDefaultRowColors(cell)
         } else {
-//            cell.backgroundColor = Constants.colorRed
-//            cell.label.textColor = Constants.colorWhite
             cell.label.textColor = Constants.colorRed
         }
     }
     
     func setDefaultRowColors(_ cell: LapTimeTableCell) {
-        cell.backgroundColor = Constants.colorWhite
-        cell.label.textColor = Constants.colorBlack
+        cell.backgroundColor = bgColor
+        cell.label.textColor = fgColor
     }
     
     func oldSetCellTextColor(_ cell: LapTimeTableCell, at index: Int, checkForSlowest: Bool = false) {
